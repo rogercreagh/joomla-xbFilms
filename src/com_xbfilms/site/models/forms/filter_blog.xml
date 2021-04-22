@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- xbFilms site/models/forms/filter_blog.xml v0.4.6 2nd March 2021 -->
+<form>
+    <fields name="filter" addfieldpath="administrator/components/com_xbfilms/models/fields">
+        <field name="search"
+            type="text"
+            label="COM_CONTENT_FILTER_SEARCH_DESC"
+			description=""
+            hint="JSEARCH_FILTER"
+        /> 
+		<field name="ratfilt" type="rating" 
+			label="COM_XBFILMS_RATFILT_LBL" description="COM_XBFILMS_RATFILT_DESC" 
+			default=""
+			onchange="this.form.submit();"
+		>
+			<option value="">COM_XBFILMS_RATFILT_HINT</option>
+		</field>
+		<field
+			name="category_id"
+			type="category"
+			label="COM_XBFILMS_FILTER_CATEGORY_LBL"
+			extension="com_xbfilms"
+			description="COM_XBFILMS_FILTER_CATEGORY_DESC"
+			onchange="this.form.submit();"
+			>
+			<option value="">JOPTION_SELECT_CATEGORY</option>
+		</field>
+		<field name="subcats" type="radio"
+			default=""
+			label="COM_XBFILMS_SUBCATS_LBL"
+			description="COM_XBFILMS_SUBCATS_DESC"
+  			class="btn-group btn-small radiotop"
+  			showon="category_id!:"
+		>
+			<option value="" onchange="this.form.submit();">XBCULTURE_CAPEXCLUDE</option>
+			<option value="1" onchange="this.form.submit();">XBCULTURE_CAPINCLUDE</option>
+		</field>	
+       
+		<field
+			name="tagfilt" type="tag"
+			label="COM_XBFILMS_CAPTAGS"
+			description="COM_XBFILMS_TAGFILT_DESC"
+			multiple="true"
+			class="multipleTags"
+			mode="ajax"
+			onchange="this.form.submit();"
+		/>
+		<field name="taglogic" type="radio"
+			default="0"
+			label="COM_XBFILMS_MULTITAG_LBL"
+			description="COM_XBFILMS_MULTITAG_DESC"
+  			class="btn-group btn-small radiotop"
+  			showon="tagfilt!:"
+		>
+			<option value="1" onchange="this.form.submit();">XBCULTURE_CAPALL</option>
+			<option value="0" onchange="this.form.submit();">XBCULTURE_CAPANY</option>
+		</field>	
+		
+				
+    </fields>
+
+</form>

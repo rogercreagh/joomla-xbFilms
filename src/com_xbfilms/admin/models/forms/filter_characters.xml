@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- xbFilms admin/models/forms/filter_persons.xml v0.5.4 20th March 2021 -->
+<form>
+	<fields name="filter"  addfieldpath="administrator/components/com_xbfilms/models/fields">
+		<field
+			name="search"
+			type="text"
+			label="COM_XBFILMS_SEARCH_IN_NAME"
+			description="COM_XBFILMS_SEARCH_PERSON"
+			hint="JSEARCH_FILTER"
+			class="js-stools-search-string"
+		/>
+ 		<field name="infilms"
+			type="radio"
+			label="XBCULTURE_SHOWSEARCH_LBL"
+			description="XBCULTURE_SHOWSEARCH_DESC"
+			class="btn-group btn-group-yesno btn-small"
+			default="1"
+			>
+			<option value="all" onchange="this.form.submit();">All Chars</option>
+			<option value="film" onchange="this.form.submit();">Film Chars</option>
+			<option value="notfilm">COM_XBFILMS_NOTINFILMS</option>
+			<option value="orphans">XBCULTURE_CAPORPHANS</option>
+		</field>	
+		<field
+			name="published"
+			type="status"
+			label="JOPTION_SELECT_PUBLISHED"
+			description="JOPTION_SELECT_PUBLISHED_DESC"
+			onchange="this.form.submit();"
+			>
+			<option value="">JOPTION_SELECT_PUBLISHED</option>
+		</field>
+		<field
+			name="category_id"
+			type="category"
+			label="JOPTION_FILTER_CATEGORY"
+			extension="com_xbpeople"
+			description="JOPTION_FILTER_CATEGORY_DESC"
+			onchange="this.form.submit();"
+			>
+			<option value="">JOPTION_SELECT_CATEGORY</option>
+		</field>
+		<field
+			name="tagfilt"
+			type="tag"
+			label="JOPTION_FILTER_TAG"
+			description="JOPTION_FILTER_TAG_DESC"
+			multiple="true"
+			class="multipleTags"
+			mode="nested"
+			onchange="this.form.submit();"
+			showon="tagged:1"
+		/>
+		<field name="taglogic"
+			type="radio"
+			default="0"
+			label="COM_XBFILMS_MULTITAG_LBL"
+			description="COM_XBFILMS_MULTITAG_DESC"
+  			class="btn-group btn-small radiotop"
+			showon="tagged:1"
+		>
+			<option value="1" onchange="this.form.submit();">XBCULTURE_CAPALL</option>
+			<option value="0" onchange="this.form.submit();">XBCULTURE_CAPANY</option>
+			<option value="2" onchange="this.form.submit();">XBCULTURE_CAPEXCLUDE</option>
+		</field>	
+	</fields>
+	<fields name="list">
+  		<field name="fullordering" type="hidden" default="" />
+  		
+		<field
+			name="limit"
+			type="limitbox"
+			class="input-mini"
+			default="25"
+			label="COM_CONTENT_LIST_LIMIT"
+			description="COM_CONTENT_LIST_LIMIT_DESC"
+			onchange="this.form.submit();"
+		/>
+	</fields>
+</form>

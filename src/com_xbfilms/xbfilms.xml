@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="3.1" method="upgrade">
+	<name>xbfilms</name>
+	<creationDate>17th April 2021</creationDate>
+	<version>0.9.4</version>
+	<author>Roger C-O</author>
+	<authorEmail>roger@crosborne.uk</authorEmail>
+	<authorUrl>www.crosborne.uk</authorUrl>
+	<copyright>(c) Roger Creagh-Osborne, 2021. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
+	<description>COM_XBFILMS_XML_DESCRIPTION</description>
+
+	<scriptfile>script.xbfilms.php</scriptfile>
+
+	<files folder="site">
+	    <filename>index.html</filename>
+	    <filename>xbfilms.php</filename>
+	    <filename>controller.php</filename>
+	    <filename>router.php</filename>
+	    <folder>helpers</folder>
+	    <folder>controllers</folder>
+	    <folder>models</folder>
+	    <folder>views</folder>
+	    <folder>layouts</folder>
+	</files>
+
+	<languages folder="site/language">
+		<language tag="en-GB">en-GB/en-GB.com_xbfilms.ini</language>
+	</languages>
+
+	<media destination="com_xbfilms" folder="media">
+		<filename>index.html</filename>
+		<folder>images</folder>
+		<folder>samples</folder>
+	</media>
+
+	<install>
+		<sql>
+			<file charset="utf8" driver="mysql">sql/install.mysql.utf8.sql</file>
+		</sql>
+	</install>
+	<uninstall>
+		<sql>
+			<file charset="utf8" driver="mysql">sql/uninstall.mysql.utf8.sql</file>
+		</sql>
+	</uninstall>
+	<update>
+		<schemas>
+			<schemapath type="mysql">sql/updates/mysql</schemapath>
+		</schemas>
+	</update>
+
+	<administration>
+		<files folder="admin">
+			<filename>index.html</filename>
+			<filename>xbfilms.php</filename>
+			<filename>access.xml</filename>
+			<filename>config.xml</filename>
+			<filename>controller.php</filename>
+			<folder>controllers</folder>
+			<folder>helpers</folder>
+			<folder>models</folder>
+			<folder>sql</folder>
+			<folder>tables</folder>
+			<folder>uploads</folder>
+			<folder>views</folder>
+		</files>
+
+		<languages folder="admin/language">
+			<language tag="en-GB">en-GB/en-GB.com_xbfilms.ini</language>
+			<language tag="en-GB">en-GB/en-GB.com_xbfilms.sys.ini</language>
+		</languages>
+
+		<menu img="class:xbfilms"
+			link="option=com_xbfilms"
+			view="cpanel">xbFilms</menu>
+		<submenu>
+			<menu link="option=com_xbfilms"
+				view="cpanel" img="class:xbfilms-cpanel"
+				alt="Xbfilms/Cpanel">
+					com_xbfilms_control_panel
+			</menu>
+			<menu link="option=com_xbfilms&amp;view=films"
+				view="films" img="class:xbfilms-films"
+				alt="Xbfilms/Films">
+					com_xbfilms_films
+			</menu>
+			<menu link="option=com_xbfilms&amp;view=reviews"
+				view="reviews" img="class:xbfilms-reviews"
+				alt="Xbfilms/Reviews">
+					com_xbfilms_reviews
+			</menu>
+			<menu link="option=com_xbfilms&amp;view=persons"
+				view="persons" img="class:xbfilms-persons"
+				alt="Xbfilms/Persons">
+					com_xbfilms_people
+			</menu>
+			<menu link="option=com_xbfilms&amp;view=characters" 
+				view="characters" img="class:xbfilms-persons" 
+				alt="Xbfilms/Characters">
+					com_xbfilms_characters
+			</menu>
+			<menu link="option=com_xbfilms&amp;view=fcategories"
+				view="fcategories" img="class:categories"
+				alt="Xbfilms/Fcategories">
+					com_xbfilms_categories
+			</menu>
+			<menu link="option=com_xbfilms&amp;view=tags"
+				view="tags" img="class:xbfilms-tags"
+				alt="Xbfilms/Tags">
+					com_xbfilms_tags
+			</menu>
+			<menu link="option=com_xbfilms&amp;view=importexport"
+			view="importexport" img="class:xbfilms-importexport"
+			alt="Xbfilms/Importexport">
+				com_xbfilms_importexport
+			</menu>
+		</submenu>
+	</administration>
+
+	<updateservers>
+		<server type="extension" priority="1" name="xbFilms Updates">
+			http://www.crosborne.co.uk/jupdates/update_xbfilms.xml
+		</server>
+	 </updateservers>
+</extension>

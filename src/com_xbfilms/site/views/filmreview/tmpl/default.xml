@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- xbFilms site/views/filmreviewdefault.xml v0.5.1 11th March 2021 -->
+<metadata>
+	<layout title="Review View">
+		<message>Display a single review of a film</message>
+	</layout>
+	<fields name="request">
+		<fieldset name="request">
+			addfieldpath="/administrator/components/com_xbfilms/models/fields">	
+			<field 
+				name="id" 
+				type="reviews"
+				label="Select review"
+				description="Choose film review to display."
+				required="true"
+	  		>
+	  			<option value="">Select film review</option>
+			</field>
+		</fieldset>
+	</fields>
+	<fields name="params">
+		<!-- Basic options. -->
+		<fieldset name="basic" label="Setting Label">
+	 		<field name="hide_empty"
+				type="list"
+				label="Hide empty fields"
+				description="Hide empty fields or show labels for them. Showing empty fields will make the display consistent, for summary and synopsis a 'not available' text will be shown."
+	 			class="btn-group btn-group-yesno"
+				useglobal="true"
+				>
+					<option value="0" >JSHOW</option>
+					<option value="1">JHIDE</option>
+			</field>					
+			<field name="show_rimage" type="list"
+		        label="Show Film Poster"
+		        description="Show poster of film with the review title"
+				useglobal="true"
+		    	>
+		        	<option value="0">JHIDE</option>
+					<option value="1">Show to left of title</option>
+					<option value="2">Show to right of title</option>
+			</field>       
+			<field name="show_rcat" type="list"
+		        class="btn-group btn-group-yesno"
+		        label="Show Category"
+		        description="Category will remain hidden if the global Show Category option is No (on General Tab)"
+				useglobal="true"
+		        >
+					<option value="0" >JNO</option>
+					<option value="1">Show without link</option>
+					<option value="2">Show with link</option>
+			</field>
+			<field name="show_rtags"
+		        type="radio"
+		        class="btn-group btn-group-yesno"
+		        label="Show Tags"
+		        description=""
+				useglobal="true"
+		        >
+					<option value="0" >JNO</option>
+					<option value="1">JYES</option>
+			</field>
+		</fieldset>
+	</fields>
+
+</metadata>
