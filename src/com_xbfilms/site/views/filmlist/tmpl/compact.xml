@@ -8,12 +8,12 @@
 		<!-- Basic options. -->
 		<fieldset name="basic" label="Options">
 	 		<field name="search_bar" type="radio"
-				label="XBCULTURE_SHOWSEARCH_LBL"
-				description="XBCULTURE_SHOWSEARCH_DESC"
+				label="COM_XBFILMS_LIST_SHOW_SEARCH_LBL"
+				description="COM_XBFILMS_LIST_SHOW_SEARCH_DESC"
 				class="btn-group btn-group-yesno btn-small"
 			>
-				<option value="0" >COM_XBBOOKS_CAPNO</option>
-				<option value="1">COM_XBBOOKS_CAPYES</option>
+				<option value="0" >JNO</option>
+				<option value="1">JYES</option>
 			</field>	
 			<field
 				name="menu_perfilt" type="filmpeople"
@@ -31,7 +31,7 @@
 				<option value="1">XBCULTURE_CAPDIRECTOR</option>
 			</field>	
 			<field
-				name="menu_charfilt" type="characters" label="COM_XBBOOKS_CAPCHARACTERS"
+				name="menu_charfilt" type="characters" label="XBCULTURE_CAPCHARACTER"
 				description="COM_XBBOOKS_CHARFILT_DESC"
 				>
 				<option value="">COM_XBBOOKS_PERFILT_HINT</option>

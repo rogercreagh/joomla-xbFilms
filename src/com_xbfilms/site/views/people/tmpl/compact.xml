@@ -59,8 +59,8 @@
 			    
 	 		<field name="search_bar"
 				type="radio"
-				label="XBCULTURE_SHOWSEARCH_LBL"
-				description="XBCULTURE_SHOWSEARCH_DESC"
+				label="COM_XBFILMS_LIST_SHOW_SEARCH_LBL"
+				description="COM_XBFILMS_LIST_SHOW_SEARCH_DESC"
 				class="btn-group btn-group-yesno btn-small"
 				>
 				<option value="0" >JNO</option>
