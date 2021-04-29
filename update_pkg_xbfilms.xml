@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
 	<update>
-		<name>xbFilms</name>
-		<description>Catalogue of films, directors, actors, characters and reviews</description>
-		<element>com_xbfilms</element>
-		<type>component</type>
-		<client>administrator</client>
+		<name>xbFilms Package</name>
+		<description>Update package containing xbFilms and xbPeople</description>
+		<element>pkg_xbfilms</element>
+		<type>package</type>
+		<client>0</client>
 		<version>0.9.4.1</version>
-		<infourl>
-			https://www.crosborne.co.uk/xbfilms/changelog
+		<infourl title="xbFilms changelog">
+			https://www.crosborne.co.uk/xbfilms#changelog
 		</infourl>
 		<downloads>
 			<downloadurl type="full" format="zip">http://www.crosborne.co.uk/downloads?download=10</downloadurl>
@@ -16,5 +16,6 @@
 		<maintainer>Roger C-O</maintainer>
 		<maintainerurl>http://crosborne.co.uk/xbfilms</maintainerurl>
 		<targetplatform name="joomla" version="3.(9|10)"/>	
+		<php_minimum>7.2.0</php_minimum>
 	</update>
 </updates>		

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms site/views/blog/tmpl/default.xml v0.5.4 15th March 2021 -->
+<!-- xbFilms site/views/blog/tmpl/default.xml v0.9.4.1 29th April 2021 -->
 <metadata>
 	<layout title="Reviews Blog">
 		<message>Displays a blog of reviews. Options to restrict to single category and filter by tag(s).</message>
@@ -8,15 +8,15 @@
 <!-- Basic options. -->
 		<fieldset name="basic" label="Options">
 	 			    
-			<field name="show_fcat" type="radio"
+			<field name="show_fcat" type="list"
 				label="Show Film Category"
-				description="If both Show Category and Show Tag are hidden the column will be hidden."
+				description="If both Show Category and Show Tag are hidden the column will be hidden. Links will be to the relevant category list of items view."
 				class="btn-group btn-group-yesno"
 				useglobal="true"
 				>
 				<option value="0" >JHIDE</option>
-				<option value="1">Yes - not linked</option>
-				<option value="2">Yes - linked</option>
+				<option value="1">Show - not linked</option>
+				<option value="2">Show - linked</option>
 			</field>	
 	 		<field name="show_ftags" type="radio"
 				label="Show Film Tags"
@@ -69,6 +69,7 @@
 				>
 					<option value="0">COM_XBFILMS_ALL_CATEGORIES</option>
 			</field>
+			<!-- 
 			<field name="menu_subcats"
 				type="radio"
 				default=""
@@ -77,9 +78,10 @@
 	  			class="btn-group btn-small radiotop"
 	  			showon="menu_category_id!:0"
 				>
-					<option value="" >XBCULTURE_CAPEXCLUDE</option>
-					<option value="1">XBCULTURE_CAPINCLUDE</option>
+					<option value="" >Exclude</option>
+					<option value="1">Include</option>
 			</field>	
+			 -->
 			<field
 				name="menu_tag"
 				type="tag"
@@ -94,9 +96,10 @@
 				label="COM_XBFILMS_MULTITAG_LBL"
 				description="COM_XBFILMS_MULTITAG_DESC"
 	  			class="btn-group btn-small radiotop"
+	  			showon="menu_tag!:"
 			>
-				<option value="1" onchange="this.form.submit();">XBCULTURE_CAPALL</option>
-				<option value="0" onchange="this.form.submit();">XBCULTURE_CAPANY</option>
+				<option value="1" onchange="this.form.submit();">All</option>
+				<option value="0" onchange="this.form.submit();">Any</option>
 				<option value="2" onchange="this.form.submit();">None</option>
 			</field>	
 		</fieldset>

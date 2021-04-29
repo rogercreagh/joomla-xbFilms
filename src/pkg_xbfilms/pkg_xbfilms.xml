@@ -2,15 +2,15 @@
 <extension type="package" version="3.9" method="upgrade">
 	<name>xbFilms Package</name>
 	<packagename>xbfilms</packagename>
-	<version>0.9.4</version>
-	<creationDate>17th April 2021</creationDate>
+	<version>0.9.4.1</version>
+	<creationDate>29th April 2021</creationDate>
 	<author>Roger C-O</author>
 	<copyright>Copyright (c) Roger Creagh-Osborne, 2021. All rights reserved.</copyright>
 	<license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
 	<authorEmail>roger@crosborne.co.uk</authorEmail>
 	<authorUrl>www.crosborne.co.uk</authorUrl>
-	<xbfilms_version>0.9.4</xbfilms_version>
-	<xbpeople_version>0.9.4</xbpeople_version>
+	<xbfilms_version>0.9.4.1</xbfilms_version>
+	<xbpeople_version>0.9.4.1</xbpeople_version>
 	<url>https://www.crosborne.co.uk/xbfilms</url>
 	<packager>Roger C-O</packager>
 	<packagerurl>https://www.crosborne.co.uk/xbfilms</packagerurl>
@@ -22,7 +22,7 @@
 	</updateservers>
 	<scriptfile>pkg_xbfilms_script.php</scriptfile>
 	<files folder="packages">
-		<file type="component" id="com_xbpeople" >com_xbpeople_v0.9.4.zip</file>
-		<file type="component" id="com_xbfilms" >com_xbfilms_v0.9.4.zip</file>
+		<file type="component" id="com_xbpeople" >com_xbpeople_v0.9.4.1.zip</file>
+		<file type="component" id="com_xbfilms" >com_xbfilms_v0.9.4.1.zip</file>
 	</files>
 </extension>
