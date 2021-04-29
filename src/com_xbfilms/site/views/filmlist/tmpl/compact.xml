@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks site/views/booklist/default.xml v0.4.3 27th February 2021 -->
+<!-- xbBooks site/views/booklist/default.xml v0.9.4.1 29th April 2021 -->
 <metadata>
 	<layout title="Film Compact List">
 		<message>Displays a compact list of film with only title, director, rel_year, rating and dateseen columns. Options enable user search &amp; filtering or to restrict to single category and filter person and tags.</message>
@@ -34,7 +34,7 @@
 				name="menu_charfilt" type="characters" label="XBCULTURE_CAPCHARACTER"
 				description="COM_XBBOOKS_CHARFILT_DESC"
 				>
-				<option value="">COM_XBBOOKS_PERFILT_HINT</option>
+				<option value="">COM_XBFILMS_CHARFILT_HINT</option>
 			</field>
 			<field
 				name="menu_category_id" type="category"

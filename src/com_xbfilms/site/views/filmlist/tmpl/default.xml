@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms site/views/filmlist/default.xml v0.5.1 11th March 2021 -->
+<!-- xbFilms site/views/filmlist/default.xml v0.9.4.1 29th April 2021 -->
 <metadata>
 	<layout title="Film List">
 		<message>Displays a list (table) of films. Options enable user search &amp; filtering or to restrict to single category and filter person and tags.</message>
@@ -88,10 +88,10 @@
 			</field>	
 			<field
 				name="menu_charfilt" type="characters"
-				label="XBCULTURE_CAPCHARACTERS"
+				label="XBCULTURE_CAPCHARACTER"
 				description="COM_XBFILMS_CHARFILT_DESC"
 				>
-				<option value="">COM_XBFILMS_PERFILT_HINT</option>
+				<option value="">COM_XBFILMS_CHARFILT_HINT</option>
 			</field>
 			<field
 				name="menu_category_id" type="category"

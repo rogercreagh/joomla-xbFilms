@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/film.php
- * @version 0.9.3 10th April 2021
+ * @version 0.9.4.1 29th April 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -291,7 +291,7 @@ class XbfilmsModelFilm extends JModelAdmin {
                 $db->setQuery($query);
                 $db->execute();        
              } else {
-             	Factory::getApplication()->enqueueMessage('<pre>'.print_r($pers,true).'</pre>');
+             	// Factory::getApplication()->enqueueMessage('<pre>'.print_r($pers,true).'</pre>');
                  //create person
                  //add filmperson with new id
              }
