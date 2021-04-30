@@ -51,11 +51,12 @@ version: 0.9.xyz
 
 **admin films view -** 
 
-- ​		
+- admin films: default sort order not correct, should be seem desc	
 
 **admin film edit -** 
 
-- ​		
+- film edit: adjust quick review to make review alias `rating-film-title`
+- film edit: change quick review default category to `uncategorised`	
 
 **admin reviews view -** 
 
@@ -63,7 +64,9 @@ version: 0.9.xyz
 
 **admin review edit -** 
 
-- ​		
+- review edit: make default alias format `review-film-title`
+- review new: allow quick rating with just rating and date set
+- review new: do not default seen date to today but make it required
 
 **admin persons view -** 
 
@@ -117,7 +120,7 @@ version: 0.9.xyz
 
 **Site Film List **
 
-- ​		
+- site films: "No summary..." message should be italic and smaller font
 
 **Site Compact List **
 
