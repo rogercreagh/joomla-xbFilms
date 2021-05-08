@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms admin/models/forms/review.xml v0.4.1 19th February 2021 -->
+<!-- xbFilms admin/models/forms/review.xml v0.9.5 8th May 2021 -->
 <form>
 	<fieldset>
 		<field
@@ -41,7 +41,7 @@
     	
 		<field name="rating" type="rating" 
 			label="COM_XBFILMS_RATING_LABEL" description="COM_XBFILMS_RATING_DESC" 
-			default="3" >
+			default="" required="true">
 			<option value="">Please Select</option>
 		</field>
 		

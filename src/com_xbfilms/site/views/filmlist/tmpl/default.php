@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmlist/tmpl/default.php
- * @version 0.9.0 7th April 2021
+ * @version 0.9.5 8th May 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -174,7 +174,9 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
         								<span class="xbnit"><?php echo Text::_('COM_XBFILMS_SYNOPSIS_EXTRACT'); ?>: </span>
         								<?php echo XbcultureHelper::makeSummaryText($item->synopsis,0); ?>
         							<?php else : ?>
-        								<?php echo Text::_('COM_XBFILMS_NO_SUMMARY_SYNOPSIS'); ?></span>
+        							<span class="xbnote">
+        								<?php echo Text::_('COM_XBFILMS_NO_SUMMARY_SYNOPSIS'); ?>
+        							</span></span>
         							<?php endif; ?>
         						<?php endif; ?>
                             </p>

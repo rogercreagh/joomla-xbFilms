@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/blog/tmpl/default.php
- * @version 0.9.0 7th April 2021
+ * @version 0.9.5 8th May 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -85,7 +85,8 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 			$rowcol = ($evenrow) ? 'xbboxcyan' : 'xbboxmag';
 			$evenrow = !$evenrow;
 		?>
-        <div class="xbbox xbboxwht">  
+        <div class="xbbox xbboxwht">
+        <h4><?php echo HtmlHelper::date($item->rev_date , Text::_('l jS F Y')); ?></h4>
 		<div class="row-fluid">
 			<div class="xbbox <?php echo $rowcol; ?>">
 				<div class="row-fluid">
@@ -199,7 +200,8 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 				<?php else: ?>
 				<?php  endif;?>
 			</div>
-		</div>															
+		</div>	
+		<?php if (trim($item->review != '')) : ?>
 		<div class="xbbox <?php echo $rowcol; ?>">
 			<div class="row-fluid">
 				<div class="span2">
@@ -250,6 +252,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 			<?php  endif; ?>
 			</div>
 		</div>
+		<?php endif; ?>														
 		</div>
 		<br /><hr /><br />
 	<?php endforeach; ?>

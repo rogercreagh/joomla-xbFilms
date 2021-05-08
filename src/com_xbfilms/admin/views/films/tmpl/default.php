@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/films/tmpl/default.php
- * @version 0.9.2 10th April 2021
+ * @version 0.9.5 8th May 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -128,7 +128,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 						<?php echo Text::_('XBCULTURE_CAPREVIEWS'); ?>
 					</th>
 					<th class="hidden-tablet hidden-phone" style="width:15%;">
-						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CAPSEEN','cat_date',$listDirn,$listOrder ).' ';						    
+						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CAPDATE','cat_date',$listDirn,$listOrder ).' ';						    
 						echo HTMLHelper::_('searchtools.sort','XBCULTURE_CAPCATS','category_title',$listDirn,$listOrder ).' &amp; ';						
 						echo Text::_( 'Tags' ); ?>
 					</th>

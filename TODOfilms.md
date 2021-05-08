@@ -35,7 +35,7 @@ version: 0.9.xyz
 
 **admin general**
 
-- 
+- on admin side distinguish between rev_date and cat_date
 
 **admin menu entries and options**
 
@@ -51,12 +51,14 @@ version: 0.9.xyz
 
 **admin films view -** 
 
-- admin films: default sort order not correct, should be seem desc	
+- ~~admin films: default sort order not correct, should be cat_date desc~~
+- ~~admin films: relabel column head seen as date~~
 
 **admin film edit -** 
 
-- film edit: adjust quick review to make review alias `rating-film-title`
-- film edit: change quick review default category to `uncategorised`	
+- ~~film edit: adjust quick review to make review alias `rating-film-title`~~
+- ~~film edit: change quick review default category to `uncategorised`~~
+- ~~film edit: make cat_date required field~~
 
 **admin reviews view -** 
 
@@ -64,9 +66,10 @@ version: 0.9.xyz
 
 **admin review edit -** 
 
-- review edit: make default alias format `review-film-title`
-- review new: allow quick rating with just rating and date set
-- review new: do not default seen date to today but make it required
+- ~~review edit: make default alias format `review-film-title`~~
+- ~~review new: allow quick rating with just rating set~~
+- ~~review new: do not default seen date to today but make it required~~
+- ~~review edit: add config option for default quick rating category~~
 
 **admin persons view -** 
 
@@ -100,7 +103,7 @@ version: 0.9.xyz
 
 **admin importexport -**
 
-- ​		
+- import: do not import cat_date, import as created instead and set cat_date to null
 
 **language file -** 
 
@@ -120,11 +123,19 @@ version: 0.9.xyz
 
 **Site Film List **
 
-- site films: "No summary..." message should be italic and smaller font
+- ~~site films: "No summary..." message should be italic and smaller font~~
 
 **Site Compact List **
 
 - ​		
+
+**Site Film Blog**
+
+- ~~blog: director name is wrong (using wrong id?)~~
+- ~~blog: add ratings only~~
+- ~~blog: add date seen as divider between each item~~ 
+- ~~blog: filter/index by year/month by month~~
+- blog: if other reviews add average and others with date and link (poss to modal)
 
 **Site Film Details ** 
 

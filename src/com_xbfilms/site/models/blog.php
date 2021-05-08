@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/blog.php
- * @version 0.5.0 28th February 2021
+ * @version 0.9.5 8th May 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -40,7 +40,7 @@ class XbfilmsModelBlog extends JModelList {
 		parent::populateState($ordering, $direction);
 		
 		//pagination limit
-		$limit = $this->getUserStateFromRequest($this->context.'.limit', 'limit', 25 );
+		$limit = $this->getUserStateFromRequest($this->context.'.limit', 'limit', 5 );
 		$this->setState('limit', $limit);
 		$this->setState('list.limit', $limit);
 		$limitstart = $app->getUserStateFromRequest('limitstart', 'limitstart', $app->get('start'));
@@ -67,8 +67,7 @@ class XbfilmsModelBlog extends JModelList {
 		$query->join('LEFT', '#__categories AS fc ON fc.id = f.catid');
 		$query->select('fc.title AS fcat_title');
 		
-		//ignore ones without review
-		$query->where("a.review !=''");
+		
 		// Filter by published state 
 		// 	`category and film must both be published state=1 as well 
 		$query->where('a.state = 1');
@@ -182,10 +181,14 @@ class XbfilmsModelBlog extends JModelList {
 			$query->where('a.rating = '.$db->quote($ratfilt));
 		}
 		
-		//filter by reviewer
-		$reviewer = $this->getState('filter.reviewer');
-		if (!empty($reviewer)) {
-			$query->where('a.reviewer = '.$db->quote($reviewer));
+		//filter by review date
+		$yearfilt = $this->getState('filter.rev_year');
+		if ($yearfilt != '') {
+			$query->where('YEAR(rev_date) = '.$db->quote($yearfilt));
+			$monfilt = $this->getState('filter.rev_month');
+			if ($monfilt != '') {
+				$query->where('MONTH(rev_date) = '.$db->quote($monthfilt));
+			}			
 		}
 		
 		// Add the list ordering clause.
@@ -222,7 +225,7 @@ class XbfilmsModelBlog extends JModelList {
 		$app->setUserState('filmreviews.sortorder', $bks);
 
 		foreach ($items as $i=>$item) {			
-			$dirs = XbfilmsGeneral::getFilmRoleArray($item->id,'director');
+			$dirs = XbfilmsGeneral::getFilmRoleArray($item->film_id,'director');
 			$item->dircnt = count($dirs);
 			if ($item->dircnt==0){
 				$item->dlist = ''; 

@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/films.php
- * @version 0.9.2 10th April 2021
+ * @version 0.9.5 8th Mayl 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -32,7 +32,7 @@ class XbfilmsModelFilms extends JModelList
         parent::__construct($config);
     }
 
-    protected function populateState($ordering = 'a.ordering', $direction = 'asc') {
+    protected function populateState($ordering = 'a.cat_date', $direction = 'desc') {
         $app = Factory::getApplication();
         
         // Adjust the context to support modal layouts.
