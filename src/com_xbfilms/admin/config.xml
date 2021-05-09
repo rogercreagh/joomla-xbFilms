@@ -82,6 +82,23 @@
 			<option value="1">Yes - not linked</option>
 			<option value="2">Yes - linked</option>
 		</field>	
+		<field name="rootcat_film" type="category"
+			extension="com_xbfilms"
+			label="Films Root Category"
+			description="This will restrict filtering by category on the front-end to only children of this category"
+			default=""
+		>
+			<option value="">JOPTION_SELECT_CATEGORY</option>
+		</field>
+		<field name="incroot_film" type="radio"
+			label="Include Root"
+			description="include the root category in the options, or just the subcategories"
+			class="btn-group btn-group-yesno"
+			showon="rootcat_film!:"
+		>
+			<option value="0" >JNO</option>
+			<option value="1">JYES</option>
+		</field>
  		<field name="show_ftags" type="radio"
 			label="Show Film Tags"
 			description="Show tags in Category &amp; Tags column. If both Show Category and Show Tag are no the the column will be hidden"

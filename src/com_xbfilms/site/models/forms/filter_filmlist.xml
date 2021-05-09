@@ -40,9 +40,11 @@
 		</field>
 		<field
 			name="category_id"
-			type="category"
+			type="catsubtree"
 			label="COM_XBFILMS_FILTER_CATEGORY_LBL"
 			extension="com_xbfilms"
+			itemtype="film"
+			published="1"
 			description="COM_XBFILMS_FILTER_CATEGORY_DESC"
 			onchange="this.form.submit();"
 			>

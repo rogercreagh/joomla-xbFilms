@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/filmlist.php
- * @version 0.5.4 17th March 2021
+ * @version 0.9.5 9th May 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -18,8 +18,11 @@ class XbfilmsModelFilmlist extends JModelList {
 	
 	public function __construct($config = array()) {
 		if (empty($config['filter_fields'])) {
-			$config['filter_fields'] = array ('title', 'rel_year',
-					'category_title', 'averat', 'lastseen' );
+			$config['filter_fields'] = array ('title', 'a.title',
+					'rel_year','a.rel_year',
+					'averat', 'lastseen',					
+					'catid', 'a.catid', 'category_id',
+					'category_title' );
 		}
 		parent::__construct($config);
 	}
@@ -103,6 +106,7 @@ class XbfilmsModelFilmlist extends JModelList {
             }
             if ($categoryId > 0) {
             	if ($dosubcats) {
+            		//TODO improve this by getting details for categoryId and using lft and rgt
             		$catlist = $categoryId;
             		$subcatlist = XbfilmsHelper::getChildCats($categoryId);
             		if ($subcatlist) { $catlist .= ','.implode(',',$subcatlist);}

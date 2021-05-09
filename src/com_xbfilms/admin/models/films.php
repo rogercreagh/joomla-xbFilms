@@ -32,7 +32,7 @@ class XbfilmsModelFilms extends JModelList
         parent::__construct($config);
     }
 
-    protected function populateState($ordering = 'a.cat_date', $direction = 'desc') {
+    protected function populateState($ordering = 'cat_date', $direction = 'desc') {
         $app = Factory::getApplication();
         
         // Adjust the context to support modal layouts.

@@ -119,11 +119,13 @@ version: 0.9.xyz
 #### Front Side (Site)
 
 **Site General**
-- 
+- add ability to only list subcategories of a given parent when selecting a category 
 
 **Site Film List **
 
 - ~~site films: "No summary..." message should be italic and smaller font~~
+- ~~site films: search tools not staying open when filter applied~~
+- site films: use catsubtree to select in filter
 
 **Site Compact List **
 
@@ -136,6 +138,10 @@ version: 0.9.xyz
 - ~~blog: add date seen as divider between each item~~ 
 - ~~blog: filter/index by year/month by month~~
 - blog: if other reviews add average and others with date and link (poss to modal)
+- blog: add filter for film category and relabel cat filter as revie category
+- blog: remove subcats filter
+- blog: search tools not staying open when filter applied
+
 
 **Site Film Details ** 
 
@@ -151,7 +157,7 @@ version: 0.9.xyz
 
 **Site People List**
 
-- ​		
+- ​site people: search tools not staying open when filter applied	
 
 **Site Compact People List**
 
@@ -167,7 +173,7 @@ version: 0.9.xyz
 
 **Site Character**
 
-- ​		
+- ​site chars: search tools not staying open when filter applied
 
 **Site Tags List**
 

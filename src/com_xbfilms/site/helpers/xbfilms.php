@@ -33,22 +33,34 @@ class XbfilmsHelper extends JHelperContent {
 		return $list;
 	}
 	
-	public static function getChildCats($pid) {
-		$childarr = array();
+	public static function getChildCats($pid, $incroot = false) {
+// 		$childarr = array();
+// 		$db    = Factory::getDbo();
+// 		$query = $db->getQuery(true);
+// 		$query->select('id')->from('#__categories')->where('parent_id = '.$db->quote($pid));
+// 		$db->setQuery($query);
+// 		$children = $db->loadColumn();
+// 		if ($children) {
+// 			$childarr = array_merge($childarr,$children);
+// 			foreach ($children as $child){
+// 				$gch = self::getChildCats($child);
+// 				if ($gch) { $childarr = array_merge($childarr, $gch);}
+// 			}
+// 			return $childarr;
+// 		}
 		$db    = Factory::getDbo();
 		$query = $db->getQuery(true);
-		$query->select('id')->from('#__categories')->where('parent_id = '.$db->quote($pid));
+		$query->select('*')->from('#__categories')->where('id='.$pid);
 		$db->setQuery($query);
-		$children = $db->loadColumn();
-		if ($children) {
-			$childarr = array_merge($childarr,$children);
-			foreach ($children as $child){
-				$gch = self::getChildCats($child);
-				if ($gch) { $childarr = array_merge($childarr, $gch);}
-			}
-			return $childarr;
-		}
+		$pcat=$db->loadObject();
+		$start = $incroot ? '>=' : '>';
+		$query->clear();
+		$query->select('id')->from('#__categories')->where('extension = com_xbfilms AND lft'.$start.$pcat->lft.' AND rgt <='.$pcat->rgt);
+		$db->setQuery($query);
+		return $db->loadColumn();
 	}
+	
+	
 	
 	public static function sitePageHeader($displayData) {
 		$header ='';

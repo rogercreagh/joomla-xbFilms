@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/blog/tmpl/default.php
- * @version 0.9.5 8th May 2021
+ * @version 0.9.5 9th May 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -183,7 +183,8 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 		<?php endif; ?>	
 		<div class="row-fluid"><div class="span1"></div>
 			<div class="span5">
-				<p><span class="xbnit"> <?php echo Text::_('Review by'); ?> </span>
+				<p><span class="xbnit"> 
+					<?php echo Text::_(trim($item->review != '') ? 'Rated' : 'Review').' by '; ?> </span>
 					<b><?php echo $item->reviewer; ?></b>,  
 					<?php echo $item->where_seen; ?>
 					<?php echo Text::_('COM_XBFILMS_ON').'&nbsp;'.HtmlHelper::date($item->rev_date , Text::_('d M Y')) ; ?> 
