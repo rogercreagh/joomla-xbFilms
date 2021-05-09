@@ -16,11 +16,23 @@
 			<option value="">COM_XBFILMS_RATFILT_HINT</option>
 		</field>
 		<field
-			name="category_id"
-			type="category"
-			label="COM_XBFILMS_FILTER_CATEGORY_LBL"
-			extension="com_xbfilms"
+			name="category_id" type="catsubtree"
+			label="Review Category"
 			description="COM_XBFILMS_FILTER_CATEGORY_DESC"
+			extension="com_xbfilms"
+			itemtype="review"
+			published="1"
+			onchange="this.form.submit();"
+			>
+			<option value="">JOPTION_SELECT_CATEGORY</option>
+		</field>
+		<field
+			name="fcategory_id" type="catsubtree"
+			label="Film Category"
+			description="COM_XBFILMS_FILTER_CATEGORY_DESC"
+			extension="com_xbfilms"
+			itemtype="film"
+			published="1"
 			onchange="this.form.submit();"
 			>
 			<option value="">JOPTION_SELECT_CATEGORY</option>
@@ -30,7 +42,7 @@
 			label="COM_XBFILMS_SUBCATS_LBL"
 			description="COM_XBFILMS_SUBCATS_DESC"
   			class="btn-group btn-small radiotop"
-  			showon="category_id!:"
+  			showon="category_id!:[OR]fcategory_id!:"
 		>
 			<option value="" onchange="this.form.submit();">XBCULTURE_CAPEXCLUDE</option>
 			<option value="1" onchange="this.form.submit();">XBCULTURE_CAPINCLUDE</option>

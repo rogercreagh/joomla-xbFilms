@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms config.xml v0.9.5 8th May 2021 -->
+<!-- xbFilms config.xml v0.9.5 9th May 2021 -->
 <config>
 <!-- GENERAL TAB -->				
 	<fieldset name="general"
@@ -87,6 +87,7 @@
 			label="Films Root Category"
 			description="This will restrict filtering by category on the front-end to only children of this category"
 			default=""
+			showon="show_fcat!:0"
 		>
 			<option value="">JOPTION_SELECT_CATEGORY</option>
 		</field>
@@ -123,6 +124,24 @@
 			<option value="1">Yes - not linked</option>
 			<option value="2">Yes - linked</option>
 		</field>	
+ 		<field name="rootcat_review" type="category"
+			extension="com_xbfilms"
+			label="Reviews Root Category"
+			description="This will restrict filtering by category on the front-end to only children of this category"
+			default=""
+			showon="show_rcat!:0"
+		>
+			<option value="">JOPTION_SELECT_CATEGORY</option>
+		</field>
+		<field name="incroot_review" type="radio"
+			label="Include Root"
+			description="include the root category in the options, or just the subcategories"
+			class="btn-group btn-group-yesno"
+			showon="rootcat_review!:"
+		>
+			<option value="0" >JNO</option>
+			<option value="1">JYES</option>
+		</field>
  		<field name="show_rtags" type="radio"
 			label="Show Review Tags"
 			description="Show tags in Category &amp; Tags column. If both Show Category and Show Tag are no the the column will be hidden"
@@ -147,6 +166,24 @@
 			<option value="1">Yes - not linked</option>
 			<option value="2">Yes - linked</option>
 		</field>	
+		<field name="rootcat_person" type="category"
+			extension="com_xbpeople"
+			label="People Root Category"
+			description="This will restrict filtering by category on the front-end to only children of this category"
+			default=""
+			showon="show_pcat!:0"
+		>
+			<option value="">JOPTION_SELECT_CATEGORY</option>
+		</field>
+		<field name="incroot_person" type="radio"
+			label="Include Root"
+			description="include the root category in the options, or just the subcategories"
+			class="btn-group btn-group-yesno"
+			showon="rootcat_person!:"
+		>
+			<option value="0" >JNO</option>
+			<option value="1">JYES</option>
+		</field>
  		<field name="show_ptags" type="radio"
 			label="Show Person Tags"
 			description="Show tags in Category &amp; Tags column. If both Show Category and Show Tag are no the the column will be hidden"
@@ -171,6 +208,24 @@
 			<option value="1">Yes - not linked</option>
 			<option value="2">Yes - linked</option>
 		</field>	
+		<field name="rootcat_char" type="category"
+			extension="com_xbpeople"
+			label="Characters Root Category"
+			description="This will restrict filtering by category on the front-end to only children of this category"
+			default=""
+			showon="show_ccat!:0"
+		>
+			<option value="">JOPTION_SELECT_CATEGORY</option>
+		</field>
+		<field name="incroot_char" type="radio"
+			label="Include Root"
+			description="include the root category in the options, or just the subcategories"
+			class="btn-group btn-group-yesno"
+			showon="rootcat_char!:"
+		>
+			<option value="0" >JNO</option>
+			<option value="1">JYES</option>
+		</field>
  		<field name="show_ctags" type="radio"
 			label="Show Character Tags"
 			description="Show tags in Category &amp; Tags column. If both Show Category and Show Tag are no the the column will be hidden"

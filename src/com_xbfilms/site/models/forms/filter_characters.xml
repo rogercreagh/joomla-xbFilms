@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms site/models/forms/filter_characters.xml v0.2.3e 4th January 2021 -->
+<!-- xbFilms site/models/forms/filter_characters.xml v0.9.5 9th May 2021 -->
 <form>
     <fields name="filter" addfieldpath="administrator/components/com_xbfilms/models/fields">
-        <field name="search"
-            type="text"
+        <field name="search" type="text"
             label="COM_CONTENT_FILTER_SEARCH_DESC"
 			description=""
             hint="JSEARCH_FILTER"
         /> 
 		<field
-			name="category_id"
-			type="category"
+			name="category_id" type="catsubtree"
 			label="COM_XBFILMS_FILTER_CATEGORY_LBL"
 			extension="com_xbpeople"
+			itemtype="char"
 			description="COM_XBFILMS_FILTER_CATEGORY_DESC"
 			onchange="this.form.submit();"
 			>
 			<option value="">JOPTION_SELECT_CATEGORY</option>
 		</field>
-		<field name="subcats"
-			type="radio"
+		<field name="subcats" type="radio"
 			default=""
 			label="COM_XBFILMS_SUBCATS_LBL"
 			description="COM_XBFILMS_SUBCATS_DESC"
@@ -31,8 +29,7 @@
 		</field>	
        
 		<field
-			name="filmfilt"
-			type="films"
+			name="filmfilt" type="films"
 			label="XBCULTURE_CAPFILM"
 			description="COM_XBFILMS_FILMFILT_DESC"
 			onchange="this.form.submit();"
@@ -40,8 +37,7 @@
 			<option value="">COM_XBFILMS_FILMFILT_HINT</option>
 		</field>
 		<field
-			name="tagfilt"
-			type="tag"
+			name="tagfilt" type="tag"
 			label="COM_XBFILMS_CAPTAGS"
 			description="COM_XBFILMS_TAGFILT_DESC"
 			multiple="true"
@@ -49,8 +45,7 @@
 			mode="ajax"
 			onchange="this.form.submit();"
 		/>
-		<field name="taglogic"
-			type="radio"
+		<field name="taglogic" type="radio"
 			default=""
 			label="COM_XBFILMS_MULTITAG_LBL"
 			description="COM_XBFILMS_MULTITAG_DESC"

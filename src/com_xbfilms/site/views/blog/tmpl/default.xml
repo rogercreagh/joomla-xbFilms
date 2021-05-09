@@ -61,27 +61,34 @@
 			</field>	
 
 			<field
-				name="menu_category_id"
+				name="menu_fcategory_id"
 				type="category"
-				label="XBCULTURE_CAPCATEGORY"
+				label="Film Category"
 				extension="com_xbfilms"
 				description="COM_XBFILMS_CATEGORY_DESC"
 				>
 					<option value="0">COM_XBFILMS_ALL_CATEGORIES</option>
 			</field>
-			<!-- 
+			<field
+				name="menu_category_id"
+				type="category"
+				label="Review Category"
+				extension="com_xbfilms"
+				description="COM_XBFILMS_CATEGORY_DESC"
+				>
+					<option value="0">COM_XBFILMS_ALL_CATEGORIES</option>
+			</field>
 			<field name="menu_subcats"
 				type="radio"
 				default=""
 				label="COM_XBFILMS_SUBCATS_LBL"
 				description="COM_XBFILMS_SUBCATS_DESC"
 	  			class="btn-group btn-small radiotop"
-	  			showon="menu_category_id!:0"
+	  			showon="menu_category_id!:0[OR]menu_fcategory!:0"
 				>
 					<option value="" >Exclude</option>
 					<option value="1">Include</option>
 			</field>	
-			 -->
 			<field
 				name="menu_tag"
 				type="tag"

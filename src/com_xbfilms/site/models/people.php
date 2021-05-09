@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/people.php
- * @version 0.9.0 7th April 2021
+ * @version 0.9.5 9th May 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -22,7 +22,9 @@ class XbfilmsModelPeople extends JModelList {
 	public function __construct($config = array()) {
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array ( 'firstname', 'lastname',
-					'category_title', 'sortdate','fcnt' );
+					'catid', 'a.catid', 'category_id',
+					'category_title', 'c.title',
+					'sortdate','fcnt' );
 		}
 		//$this->xbbooksStatus = XbcultureHelper::checkComponent('com_xbbooks');
 		$this->xbbooksStatus = Factory::getSession()->get('com_xbbooks',false);
@@ -121,7 +123,7 @@ class XbfilmsModelPeople extends JModelList {
             if ($categoryId > 0) {
             	if ($dosubcats) {
             		$catlist = $categoryId;
-            		$subcatlist = XbfilmsHelper::getChildCats($categoryId);
+            		$subcatlist = XbfilmsHelper::getChildCats($categoryId,'com_xbpeople');
             		if ($subcatlist) { $catlist .= ','.implode(',',$subcatlist);}
             		$query->where('a.catid IN ('.$catlist.')');
             	} else {

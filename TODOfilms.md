@@ -35,7 +35,6 @@ version: 0.9.xyz
 
 **admin general**
 
-- on admin side distinguish between rev_date and cat_date
 
 **admin menu entries and options**
 
@@ -51,14 +50,9 @@ version: 0.9.xyz
 
 **admin films view -** 
 
-- ~~admin films: default sort order not correct, should be cat_date desc~~
-- ~~admin films: relabel column head seen as date~~
 
 **admin film edit -** 
 
-- ~~film edit: adjust quick review to make review alias `rating-film-title`~~
-- ~~film edit: change quick review default category to `uncategorised`~~
-- ~~film edit: make cat_date required field~~
 
 **admin reviews view -** 
 
@@ -66,10 +60,6 @@ version: 0.9.xyz
 
 **admin review edit -** 
 
-- ~~review edit: make default alias format `review-film-title`~~
-- ~~review new: allow quick rating with just rating set~~
-- ~~review new: do not default seen date to today but make it required~~
-- ~~review edit: add config option for default quick rating category~~
 
 **admin persons view -** 
 
@@ -119,13 +109,9 @@ version: 0.9.xyz
 #### Front Side (Site)
 
 **Site General**
-- add ability to only list subcategories of a given parent when selecting a category 
 
 **Site Film List **
 
-- ~~site films: "No summary..." message should be italic and smaller font~~
-- ~~site films: search tools not staying open when filter applied~~
-- site films: use catsubtree to select in filter
 
 **Site Compact List **
 
@@ -133,19 +119,11 @@ version: 0.9.xyz
 
 **Site Film Blog**
 
-- ~~blog: director name is wrong (using wrong id?)~~
-- ~~blog: add ratings only~~
-- ~~blog: add date seen as divider between each item~~ 
-- ~~blog: filter/index by year/month by month~~
-- blog: if other reviews add average and others with date and link (poss to modal)
-- blog: add filter for film category and relabel cat filter as revie category
-- blog: remove subcats filter
-- blog: search tools not staying open when filter applied
 
 
 **Site Film Details ** 
 
-- ​		
+- ​
 
 **Site Review list**
 
@@ -157,7 +135,6 @@ version: 0.9.xyz
 
 **Site People List**
 
-- ​site people: search tools not staying open when filter applied	
 
 **Site Compact People List**
 
@@ -169,11 +146,11 @@ version: 0.9.xyz
 
 **Site Chars List**
 
-- ​		
+		
 
 **Site Character**
 
-- ​site chars: search tools not staying open when filter applied
+-
 
 **Site Tags List**
 
@@ -199,4 +176,29 @@ version: 0.9.xyz
 ### Done
 
 
-v0.9.5 April 2021
+v0.9.5 9th May 2021
+
+- ~~on admin side distinguish between rev_date and cat_date~~
+- ~~admin films: default sort order not correct, should be cat_date desc~~
+- ~~admin films: relabel column head seen as date~~
+- ~~film edit: adjust quick review to make review alias `rating-film-title`~~
+- ~~film edit: change quick review default category to `uncategorised`~~
+- ~~film edit: make cat_date required field~~
+- ~~review edit: make default alias format `review-film-title`~~
+- ~~review new: allow quick rating with just rating set~~
+- ~~review new: do not default seen date to today but make it required~~
+- ~~review edit: add config option for default quick rating category~~
+- ~~add ability to only list subcategories of a given parent when selecting a category~~ 
+- ~~site films: "No summary..." message should be italic and smaller font~~
+- ~~site films: search tools not staying open when filter applied~~
+- ~~site films: use catsubtree to select in filter~~
+- ~~blog: director name is wrong (using wrong id?)~~
+- ~~blog: add ratings only~~
+- ~~blog: add date seen as divider between each item~~ 
+- ~~blog: filter/index by year/month by month~~
+- ~~blog: if other reviews then show average for film~~
+- ~~blog: add filter for film category and relabel cat filter as review category~~
+- ~~blog: search tools not staying open when filter applied~~
+- ​~~site people: search tools not staying open when filter applied~~
+- ~~site chars: search tools not staying open when filter applied~~
+​

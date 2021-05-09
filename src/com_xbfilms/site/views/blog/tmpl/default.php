@@ -48,7 +48,9 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 		<?php  // Search tools bar
 			if ($this->search_bar) {
 				$hide = '';
-				if ((!$this->show_rcat) || ($this->hide_cat)) { $hide .= 'filter_category_id, filter_subcats,';}
+				if ((!$this->show_fcat) || ($this->hide_cat)) { $hide .= 'filter_fcategory_id,';}
+				if ((!$this->show_rcat) || ($this->hide_cat)) { $hide .= 'filter_category_id,';}
+				if (((!$this->show_rcat) && (!$this->show_fcat)) || ($this->hide_cat)) { $hide .= 'filter_subcats,';}
 				if ($this->hide_tag) { $hide .= 'filter_tagfilt,filter_taglogic,';}
 				echo '<div class="row-fluid"><div class="span12">';
 				echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this,'hide'=>$hide));
@@ -102,10 +104,14 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 						<div class="pull-right xbmr10" style="text-align:right;">
 	                    	<div class="xbstar">
 	                    		<p></p>
-								<?php if (($this->zero_rating) && ($item->rating==0)) : ?>
+								<?php if($item->ratcnt > 1) { 
+									echo 'Average rating from '.$item->ratcnt.' reviews';} 
+									$thisrat = $item->averat;
+								?>
+								<?php if (($this->zero_rating) && ($thisrat==0)) : ?>
 								    <span class="<?php echo $this->zero_class; ?>" style="color:red;font-size=1.5em;"></span>
 								<?php else : ?>
-	                                <?php echo str_repeat('<i class="'.$this->star_class.' xb12"></i>',$item->rating); ?>
+	                                <?php echo str_repeat('<i class="'.$this->star_class.' xb12"></i>',$thisrat); ?>
 								<?php endif; ?>                        
 	                        </div>
 							<h4 ><?php echo $item->country; ?> <?php echo $item->rel_year; ?></h4>
@@ -122,12 +128,12 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 							<div class="span9">
 		                        <?php if ($item->dircnt>0) : ?>
 									<h4><span class="xbnit xbmr10">
-										<?php echo JText::_(($item->dircnt==1) ? 'XBCULTURE_CAPDIRECTOR' : 'XBCULTURE_CAPDIRECTORS'); ?>
+										<?php echo Text::_(($item->dircnt==1) ? 'XBCULTURE_CAPDIRECTOR' : 'XBCULTURE_CAPDIRECTORS'); ?>
 									: </span>
 									<?php echo $item->dlist; ?>                          
 									</h4>
 								<?php else: ?>
-									<p class="xbnit"><?php echo JText::_('no director listed'); ?></p>
+									<p class="xbnit"><?php echo Text::_('no director listed'); ?></p>
 		                        <?php endif; ?>
 							</div>
 						</div>   						
@@ -146,7 +152,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 				}
 				if ( $sumtext != '') : ?>
 					<div class="xbbox xbboxwht">
-						<div class="pull-left"><span class="xbnit"><?php echo JText::_($sumlabel); ?> 
+						<div class="pull-left"><span class="xbnit"><?php echo Text::_($sumlabel); ?> 
 						: </span></div>
 					 	<div><?php echo $sumtext; ?></div> 
 					</div>
@@ -154,7 +160,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 			</div>
 			<div class="span6">
 				<?php if ($this->show_fcat) : ?>
-					<div class="pull-left xbnit xbmr10"><?php echo JText::_('Film category'); ?></div>
+					<div class="pull-left xbnit xbmr10"><?php echo Text::_('Film category'); ?></div>
 					<div class="pull-left">
 					<?php if ($this->show_fcat == 2) : ?>
     					<a class="label label-success" href="<?php echo JRoute::_($clink.$item->fcatid); ?>">
@@ -169,7 +175,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 				<?php endif; ?>
 				<?php if ($this->show_ftags) : ?>
 					<?php if (!empty($item->ftags)) : ?>
-						<div class="pull-left xbnit xbmr10"><?php echo JText::_('Film Tags'); ?>
+						<div class="pull-left xbnit xbmr10"><?php echo Text::_('Film Tags'); ?>
 						</div>
 						<div class="pull-left">
 							<?php  $tagLayout = new JLayoutFile('joomla.content.tags');
@@ -184,7 +190,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 		<div class="row-fluid"><div class="span1"></div>
 			<div class="span5">
 				<p><span class="xbnit"> 
-					<?php echo Text::_(trim($item->review != '') ? 'Rated' : 'Review').' by '; ?> </span>
+					<?php echo Text::_(trim($item->review != '') ? 'Reviewed' : 'Rated').' by '; ?> </span>
 					<b><?php echo $item->reviewer; ?></b>,  
 					<?php echo $item->where_seen; ?>
 					<?php echo Text::_('COM_XBFILMS_ON').'&nbsp;'.HtmlHelper::date($item->rev_date , Text::_('d M Y')) ; ?> 
@@ -194,7 +200,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 				<?php $sumtext =  trim($item->summary);
 				if ( $sumtext != '') : ?>
 					<div class="xbbox xbboxwht">
-						<div class="pull-left"><span class="xbnit"><?php echo JText::_('Review Summary'); ?> 
+						<div class="pull-left"><span class="xbnit"><?php echo Text::_('Review Summary'); ?> 
 						: </span></div>
 					 	<div><?php echo $sumtext; ?></div> 
 					</div>
@@ -224,7 +230,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 			<div class="row-fluid">
 			<?php if($this->show_rcat) : ?>
 				<div class="span4">
-					<div class="pull-left xbnit xbmr10"><?php echo JText::_('Review category'); ?></div>
+					<div class="pull-left xbnit xbmr10"><?php echo Text::_('Review category'); ?></div>
 					<div class="pull-left">
 						<?php if($this->show_rcat ==2) : ?>
 	    					<a class="label label-success" href="<?php echo JRoute::_($clink.$item->catid); ?>">
@@ -241,7 +247,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 			<?php if ($this->show_rtags) : ?>
 		       	<div class="span<?php echo ($this->show_fcat) ? '8' : '12'; ?>">
 				<?php if (!empty($item->tags)) : ?>
-					<div class="pull-left xbnit xbmr10"><?php echo JText::_('Review Tags'); ?>
+					<div class="pull-left xbnit xbmr10"><?php echo Text::_('Review Tags'); ?>
 					</div>
 					<div class="pull-left">
 						<?php  $tagLayout = new JLayoutFile('joomla.content.tags');

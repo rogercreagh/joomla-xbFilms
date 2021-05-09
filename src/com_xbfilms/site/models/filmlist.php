@@ -108,7 +108,7 @@ class XbfilmsModelFilmlist extends JModelList {
             	if ($dosubcats) {
             		//TODO improve this by getting details for categoryId and using lft and rgt
             		$catlist = $categoryId;
-            		$subcatlist = XbfilmsHelper::getChildCats($categoryId);
+            		$subcatlist = XbfilmsHelper::getChildCats($categoryId,'com_xbfilms');
             		if ($subcatlist) { $catlist .= ','.implode(',',$subcatlist);}
             		$query->where('a.catid IN ('.$catlist.')');
             	} else {

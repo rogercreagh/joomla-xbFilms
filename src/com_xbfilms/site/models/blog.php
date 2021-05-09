@@ -26,6 +26,7 @@ class XbfilmsModelBlog extends JModelList {
 					'ordering','a.ordering',
 					'category_title', 'c.title',
 					'catid', 'a.catid', 'category_id',
+					'fcatid', 'f.catid', 'fcategory_id',
 					'cat_date', 'a.cat_date',
 					'published','a.state',
 					'rel_year','a.rel_year');
@@ -68,6 +69,9 @@ class XbfilmsModelBlog extends JModelList {
             a.rev_date AS rev_date, a.where_seen AS where_seen, a.reviewer AS reviewer,
             a.ordering AS ordering, a.params AS params');
 		$query->from('#__xbfilmreviews AS a');
+		$query->select('(SELECT AVG(br.rating) FROM #__xbfilmreviews AS br WHERE br.film_id=a.film_id) AS averat');
+		$query->select('(SELECT COUNT(fr.rating) FROM #__xbfilmreviews AS fr WHERE fr.film_id=a.film_id) AS ratcnt');
+		
 		$query->join('LEFT', '#__categories AS c ON c.id = a.catid');
 		$query->select('c.title AS category_title');
 		$query->join('LEFT', '#__xbfilms AS f ON f.id = a.film_id');
@@ -98,28 +102,51 @@ class XbfilmsModelBlog extends JModelList {
 		$searchbar = (int)$this->getState('params',0)['search_bar'];
 		//if a menu filter is set this takes priority and serch filter field is hidden
  
-		// Filter by category.
-        $categoryId = $this->getState('categoryId');
-        $this->setState('categoryId','');
-        $dosubcats = 0;
-        if (empty($categoryId)) {
-            $categoryId = $this->getState('params',0,'int')['menu_category_id'];
-            $dosubcats=$this->getState('params',0)['menu_subcats'];
-        }
-        if (($searchbar==1) && ($categoryId==0)){
+		// Filter by review category.
+		$categoryId = $this->getState('categoryId');
+		$this->setState('categoryId','');
+		$dosubcats = 0;
+		if (empty($categoryId)) {
+			$categoryId = $this->getState('params',0,'int')['menu_category_id'];
+			$dosubcats=$this->getState('params',0)['menu_subcats'];
+		}
+		if (($searchbar==1) && ($categoryId==0)){
 			$categoryId = $this->getState('filter.category_id');
 			$dosubcats=$this->getState('filter.subcats');
 		}
 		if ($categoryId > 0) {
 			if ($dosubcats) {
 				$catlist = $categoryId;
-				$subcatlist = XbfilmsHelper::getChildCats($categoryId);
+				$subcatlist = XbfilmsHelper::getChildCats($categoryId,'com_xbfilms');
 				if ($subcatlist) { $catlist .= ','.implode(',',$subcatlist);}
 				$query->where('a.catid IN ('.$catlist.')');
 			} else {
 				$query->where($db->quoteName('a.catid') . ' = ' . (int) $categoryId);
 			}
-		}		
+		}
+		
+		// Filter by film category.
+		$fcategoryId = $this->getState('fcategoryId');
+		$this->setState('fcategoryId','');
+		$dosubcats = 0;
+		if (empty($fcategoryId)) {
+			$fcategoryId = $this->getState('params',0,'int')['menu_fcategory_id'];
+			$dosubcats=$this->getState('params',0)['menu_subcats'];
+		}
+		if (($searchbar==1) && ($fcategoryId==0)){
+			$fcategoryId = $this->getState('filter.fcategory_id');
+			$dosubcats=$this->getState('filter.subcats');
+		}
+		if ($fcategoryId > 0) {
+			if ($dosubcats) {
+				$catlist = $fcategoryId;
+				$subcatlist = XbfilmsHelper::getChildCats($fcategoryId,'com_xbfilms');
+				if ($subcatlist) { $catlist .= ','.implode(',',$subcatlist);}
+				$query->where('f.catid IN ('.$catlist.')');
+			} else {
+				$query->where($db->quoteName('f.catid') . ' = ' . (int) $fcategoryId);
+			}
+		}
 		
 		//filter by tag
 		$tagfilt = $this->getState('tagId');

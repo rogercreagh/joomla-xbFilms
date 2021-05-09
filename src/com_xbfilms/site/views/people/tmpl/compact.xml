@@ -86,7 +86,6 @@
 				>
 					<option value="0">COM_XBFILMS_ALL_CATEGORIES</option>
 			</field>
-			<!-- 
 			<field name="menu_subcats"
 				type="radio"
 				default=""
@@ -98,7 +97,6 @@
 					<option value="" >XBCULTURE_CAPEXCLUDE</option>
 					<option value="1">XBCULTURE_CAPINCLUDE</option>
 			</field>	
-			 -->
 			<field
 				name="menu_tag" type="tag"
 				label="COM_XBFILMS_MENUTAG_LBL"
