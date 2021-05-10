@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/fields/revyear.php
- * @version 0.9.5 8th May 2021
+ * @version 0.9.5.1 10th May 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -16,7 +16,7 @@ JFormHelper::loadFieldClass('list');
 
 class JFormFieldFilmyear extends JFormFieldList {
 	
-	protected $type = 'Revyear';
+	protected $type = 'Filmyear';
 
 	public function getOptions() {
 		
