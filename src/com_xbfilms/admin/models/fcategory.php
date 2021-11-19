@@ -26,7 +26,7 @@ class XbfilmsModelFcategory extends JModelItem {
 	
 	public function getItem($id = null) {
 		if (!isset($this->item) || !is_null($id)) {
-			$params = ComponentHelper::getParams('com_xbbooks');
+			$params = ComponentHelper::getParams('com_xbmaps');
 			$people_sort = $params->get('people_sort');
 			
 			$id    = is_null($id) ? $this->getState('cat.id') : $id;
