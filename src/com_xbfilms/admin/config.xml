@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms config.xml v0.9.5 9th May 2021 -->
+<!-- xbFilms config.xml v1.0.0.a 20th November 2021 -->
 <config>
 <!-- GENERAL TAB -->				
 	<fieldset name="general"
@@ -242,12 +242,12 @@
 <!-- ADMIN TAB -->				
 	<fieldset name="admin" 
 		label="Admin (Back-end) Options" 
-		description="Options for front-end list views. Most of these global options can be overridden by specific menu settings."
+		description="Admin defaults and options for new items."
 		>	
    		<field name="beernote" type="note"
 			label="Hide the credit footer - Roger's Beer"
-			description="If you make a small donation (£4 - enough for a beer) then you will get a phrase to enter on the &lt;b&gt;xbPeople|Options|Beer&lt;/b&gt; tab that will hide the credit at the bottom of pages on site and admin for all xbCulture components.
-			&lt;br /&gt;Use the PayPal button at the foot of any admin page, or visit &lt;a href='https://crosborne.uk/xbculture/beer' target='_blank'&gt;crosborne.uk/xbculture/beer&lt;/a&gt;.
+			description="To remove the CrOsborne credit at the bottom of all xbCulture component pages click on the PayPal button at the foot of any admin page or visit &lt;a href='https://crosborne.uk/xbculture/beer' target='_blank'&gt;crosborne.uk/xbculture/beer&lt;/a&gt;.
+			For £4 (the cost of a pint of beer or a couple of coffees) you will get a passphrase to enter on the &lt;a href='/administrator/index.php?option=com_config&view=component&component=com_xbpeople'&gt;&lt;b&gt;xbPeople|Options|Beer&lt;/b&gt;&lt;/a&gt; tab that will remove the credits.
 			Of course you could simply hack the code to remove it but that would probably waste more that £4 of your time, and make you a bit of a nasty person."
 			class="info"
 		/>	
