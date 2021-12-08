@@ -62,7 +62,7 @@
 			default=""/>
 
 		<field name="country" type="country"
-			label="XBCULTURE_CAPCOUNTRY" description="COM_XBFILMS_COUNTRY_DESC"
+			label="XBCULTURE_COUNTRY" description="COM_XBFILMS_COUNTRY_DESC"
 			class="inputbox" maxlength="99" 
 			default=""/>
 

@@ -44,7 +44,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 		<div class="row-fluid">
 			<div class="span6">
 				<?php if ((!$item->nationality == '') || (!$this->hide_empty)) : ?>
-					<p><span class="xbnit"><?php echo JText::_('XBCULTURE_CAPNATIONALITY').': '; ?> </span> 
+					<p><span class="xbnit"><?php echo JText::_('XBCULTURE_NATIONALITY').': '; ?> </span> 
 						<?php echo $item->nationality; ?></p>
 				<?php endif; ?>
 				<?php if (($item->year_born == 0) && ($item->year_died == 0)) : ?>
@@ -118,7 +118,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 				<?php if ((empty($item->biography)) && (trim($item->summary) == '')) : ?>
 					<p class="xbnit"><?php echo JText::_('COM_XBFILMS_NO_BIOG'); ?></p>
 				<?php else : ?>
-					<div class="xbnit xbmb8"><?php echo JText::_('XBCULTURE_CAPBIOGRAPHY');?></div>
+					<div class="xbnit xbmb8"><?php echo JText::_('XBCULTURE_BIOGRAPHY');?></div>
 					<div class="xbbox xbboxgrn">
 						<?php if (!empty($item->biography)) {
 					    	echo $item->biography;

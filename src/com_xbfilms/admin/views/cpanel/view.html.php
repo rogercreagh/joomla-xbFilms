@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/cpanel/view.html.php
- * @version 0.9.1 9th April 2021
+ * @version 0.9.6 27th November 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -26,6 +26,7 @@ class XbfilmsViewCpanel extends JViewLegacy
 	public function display($tpl = null) {
 		$this->xbpeople_ok = Factory::getSession()->get('xbpeople_ok');
 		$this->xbbooks_ok = Factory::getSession()->get('xbbooks_ok');
+		$this->xblive_ok = Factory::getSession()->get('xblive_ok');
 		
 		if ($this->xbpeople_ok) {
 			
@@ -133,7 +134,7 @@ class XbfilmsViewCpanel extends JViewLegacy
 	        ToolbarHelper::custom('cpanel.people', 'info-2', '', 'xbPeople', false) ;
 	        
 	        ToolbarHelper::custom('cpanel.books', 'book', '', 'xbBooks', false) ;
-	        ToolbarHelper::custom('cpanel.gigs', 'music', '', 'xbGigs', false) ;
+	        ToolbarHelper::custom('cpanel.live', 'music', '', 'xbLive', false) ;
 	        if ($canDo->get('core.admin')) {
 	            ToolbarHelper::preferences('com_xbfilms');
 	        }

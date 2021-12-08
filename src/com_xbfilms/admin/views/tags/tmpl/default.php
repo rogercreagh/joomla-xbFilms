@@ -74,7 +74,7 @@ $chvlink = 'index.php?option=com_xbfilms&view=characters&tagid=';
 				<?php echo JHTML::_('grid.sort', 'XBCULTURE_CAPTAG', 'path', $listDirn, $listOrder );?>
 			</th>
 			<th>
-				<?php echo JText::_('XBCULTURE_CAPDESCRIPTION') ;?>
+				<?php echo JText::_('XBCULTURE_DESCRIPTION') ;?>
 			</th>
 			<th>
 				<?php echo JHTML::_('grid.sort', 'XBCULTURE_CAPFILMS', 'bcnt', $listDirn, $listOrder );?>

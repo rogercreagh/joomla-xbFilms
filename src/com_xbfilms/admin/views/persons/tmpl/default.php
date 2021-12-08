@@ -25,8 +25,8 @@ if (!$listOrder) {
 	$listOrder='lastname';
 	$listDirn = 'ascending';
 }
-$orderNames = array('firstname'=>Text::_('XBCULTURE_CAPFIRSTNAME'),'lastname'=>Text::_('XBCULTURE_CAPLASTNAME'),
-		'id'=>'id','sortdate'=>Text::_('XBCULTURE_CAPDATES'),'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'),
+$orderNames = array('firstname'=>Text::_('XBCULTURE_FIRSTNAME'),'lastname'=>Text::_('XBCULTURE_LASTNAME'),
+		'id'=>'id','sortdate'=>Text::_('XBCULTURE_DATES'),'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'),
 		'published'=>Text::_('XBCULTURE_CAPPUBSTATE'),'a.ordering'=>Text::_('XBCULTURE_CAPORDERING'));
 
 $saveOrder      = $listOrder == 'ordering';
@@ -116,17 +116,17 @@ $bplink = 'index.php?option=com_xbbooks&view=person&layout=edit&id=';
     			<th >
 					<?php echo HTMLHelper::_('searchtools.sort', 'COM_XBFILMS_FIRSTNAME', 'firstname', $listDirn, $listOrder); ?>
 					<?php echo HTMLHelper::_('searchtools.sort', 'COM_XBFILMS_LASTNAME', 'lastname', $listDirn, $listOrder); ?>					
-					<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_CAPDATES', 'sortdate', $listDirn, $listOrder); ?>
+					<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_DATES', 'sortdate', $listDirn, $listOrder); ?>
     			</th>
     			<th>
-    				<?php echo JText::_('XBCULTURE_CAPBIOGRAPHY'); ?>
+    				<?php echo JText::_('XBCULTURE_BIOGRAPHY'); ?>
     			</th>
     			<th >
     				<?php echo JText::_('XBCULTURE_CAPFILMS') ;?>
     			</th>
     			<th class="hidden-tablet hidden-phone" style="width:15%;">
 						<?php if ($this->xbpeople_ok!==false) {
-							echo HTMLHelper::_('searchtools.sort','XBCULTURE_CAPCATS','category_title',$listDirn,$listOrder ).' &amp; ';
+							echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; ';
 						}
 						echo JText::_( 'Tags' ); ?>
 					</th>
@@ -218,7 +218,7 @@ $bplink = 'index.php?option=com_xbbooks&view=person&layout=edit&id=';
 								echo '&nbsp;&nbsp;<i>'.JText::_('COM_XBFILMS_DIED').' </i>: '.$item->year_died;
 							}
 							if($item->nationality) { 
-                        		echo '<br /><i>'.JText::_('XBCULTURE_CAPNATIONALITY').' </i>: '.$item->nationality;
+                        		echo '<br /><i>'.JText::_('XBCULTURE_NATIONALITY').' </i>: '.$item->nationality;
                         	} ?>						
 						</p>							
 					</td>
@@ -239,7 +239,7 @@ $bplink = 'index.php?option=com_xbbooks&view=person&layout=edit&id=';
                         <?php if ((!empty($item->biography)) && (strlen(strip_tags($item->biography))>200)) : ?>
                         	<p class="xbnit xb09">   
                              <?php 
-                             echo Text::_('XBCULTURE_CAPBIOGRAPHY').' '.str_word_count(strip_tags($item->biography)).' '.Text::_('XBCULTURE_WORDS'); 
+                             echo Text::_('XBCULTURE_BIOGRAPHY').' '.str_word_count(strip_tags($item->biography)).' '.Text::_('XBCULTURE_WORDS'); 
                              ?>
 							</p>
 						<?php endif; ?>

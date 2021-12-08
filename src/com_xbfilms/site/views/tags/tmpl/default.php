@@ -64,7 +64,7 @@ $chllink = $xblink.'characters'.$itemid.'&tagid=';
 				<tr>
 					<th><?php echo HTMLHelper::_('grid.sort', 'Tag Title', 'title', $listDirn, $listOrder );?></th>
 				<?php  if ($this->show_desc != 0) : ?>      
-					<th class="hidden-phone"><?php echo JText::_('XBCULTURE_CAPDESCRIPTION');?></th>
+					<th class="hidden-phone"><?php echo JText::_('XBCULTURE_DESCRIPTION');?></th>
 				<?php endif; ?>
 					<th class="center" style="width:50px;"><?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_CAPFILMS', 'bcnt', $listDirn, $listOrder );?></th>
 					<th class="center" style="width:50px;"><?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_CAPREVIEWS', 'rcnt', $listDirn, $listOrder );?></th>

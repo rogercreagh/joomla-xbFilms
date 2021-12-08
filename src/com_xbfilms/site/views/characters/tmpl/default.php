@@ -24,7 +24,7 @@ if (!$listOrder) {
     $listOrder='name';
     $orderDrn = 'asscending';
 }
-$orderNames = array('name'=>Text::_('XBCULTURE_CAPNAME'),'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'));
+$orderNames = array('name'=>Text::_('XBCULTURE_NAME'),'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'));
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 

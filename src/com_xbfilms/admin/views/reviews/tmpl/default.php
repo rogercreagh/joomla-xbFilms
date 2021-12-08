@@ -26,7 +26,7 @@ if (!$listOrder) {
 	$listDirn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_CAPTITLE'),'filmtitle'=>Text::_('COM_XBFILMS_FILMTITLE'),
-		'id'=>'id','rev_date'=>Text::_('XBCULTURE_CAPDATES'),'rating'=>Text::_('XBCULTURE_CAPRATING'),
+		'id'=>'id','rev_date'=>Text::_('XBCULTURE_DATES'),'rating'=>Text::_('XBCULTURE_CAPRATING'),
 		'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'),
 		'published'=>Text::_('XBCULTURE_CAPPUBSTATE'),'a.ordering'=>Text::_('XBCULTURE_CAPORDERING'));
 
@@ -120,7 +120,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
         			<?php echo JText::_('COM_XBFILMS_REVIEW_SUMMARY_LABEL');?>
         		</th>
  					<th class="hidden-tablet hidden-phone" style="width:15%;">
-						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CAPCATS','category_title',$listDirn,$listOrder ).' &amp; '.JText::_( 'Tags' ); ?>
+						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; '.JText::_( 'Tags' ); ?>
 					</th>
         		
         		<th class="nowrap hidden-phone" style="width:45px;">
