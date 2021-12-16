@@ -2,7 +2,7 @@
 <!-- */*****
  * @package xbFilms
  * @filesource admin/models/forms/importexport.xml
- * @version 0.2.4.2 21st January 2021
+ * @version 0.9.6 15th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -118,7 +118,7 @@
 			
 		<field name="expcat" type="category" extension="com_xbfilms" class="chzn-custom-value"
 			label="COM_XBFILMS_EXP_CATEGORY_LABEL" description="COM_XBFILMS_EXP_CATEGORY_DESC" 
-			showon="exptables:xbfilms[AND]exptype!:1[OR]exptables:xbfilmreviews[AND]exptype!:1" default="0"
+			showon="exptables:xbfilms[AND]exptype!:1[OR]exptables:xbfilmreviews[AND]exptype:2[OR]exptype:1" default="0"
   		>
 				<option value="0">COM_XBFILMS_EXP_CATEGORY_ALL</option>
 		</field>

@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/importexport.php
- * @version 0.9.4 16th April 2021
+ * @version 0.9.6 15th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -98,7 +98,7 @@ class XbfilmsModelImportexport extends JModelAdmin {
 			    //order of table export is important here
 				$tables= array('#__categories', '#__xbfilms', '#__xbpersons', '#__xbfilmreviews', '#__xbfilmperson'); 
 				foreach ($tables as $table){
-					$file=$this->datadumpSql($table);
+					$file=$this->datadumpSql($table, $export['expcat']);
 				}
 			    break;
 			case 2: //single sql table export
@@ -129,7 +129,11 @@ class XbfilmsModelImportexport extends JModelAdmin {
 		    //only get our own categories
             $query->select('a.alias, a.extension, a.title, a.note, a.description,a.language,a.published,a.params,
                 a.metadata,a.metakey,a.metadesc');
-            $query->where('a.extension IN ('.$db->quote('com_xbfilms').','.$db->quote('com_xbpeople').')');
+            if ($expcat>0) { 
+            	$query->where('a.id = '. $db->quote($expcat));
+            } else {
+	            $query->where('a.extension IN ('.$db->quote('com_xbfilms').','.$db->quote('com_xbpeople').')');
+            }
 		} else {
             $query->select('DISTINCT a.*'); 
 		}
@@ -140,30 +144,34 @@ class XbfilmsModelImportexport extends JModelAdmin {
 		    // films are simple - just need to match the catid if supplied
 			if ($expcat>0) { $query->where('a.catid = '. $db->quote($expcat));}		    
 		} elseif ($table === '#__xbfilmreviews') {
-		    // export all reviews in the selected category ????and all reviews of films in the selected category
-			//TODO make using the films category an option
 			if ($expcat>0) { 
+				// only export reviews of films in the selected category
 				$query->join('LEFT','#__xbfilms AS b ON b.id = a.film_id');
-				$query->where('a.catid = '. $db->quote($expcat).' OR b.catid = '. $db->quote($expcat));					
+				$query->where('b.catid = '. $db->quote($expcat));					
 			}		    
-		} elseif (($table === '#__xbpersons') || ($table ==='#__xbcharacters')) {
-			//for people/chars get all people in the category 
-			if ($exppcat>0) { $query->where('a.catid = '. $db->quote($exppcat));}
+		} elseif ($table === '#__xbpersons') {
 			//only get film people
 			$query->join('RIGHT', '#__xbfilmperson AS fp ON fp.person_id = a.id');
-		} elseif ($table === '#__xbfilmperson') {
-			//we'll filter on film has catid OR person has catid
 			if ($expcat>0) {
-				$query->join('LEFT','#__xbfilms AS b ON b.id = a.film_id');
-				$query->join('LEFT','#__xbpersons AS p ON p.id = a.person_id');
-				$query->where('b.catid = '. $db->quote($expcat).' OR p.catid = '. $db->quote($exppcat));
+				$query->join('LEFT', '#__xbfilms AS f ON f.id = fp.film_id');
+				$query->where('f.catid = '. $db->quote($expcat));
+			}
+		} elseif ($table === '#__xbcharacters') {
+			//only get film charcaters
+			$query->join('RIGHT', '#__xbfilmcharacter AS fc ON fc.char_id = a.id');
+			if ($expcat>0) {
+				$query->join('LEFT', '#__xbfilms AS f ON f.id = fc.film_id');
+				$query->where('f.catid = '. $db->quote($expcat));
+			}
+		} elseif ($table === '#__xbfilmperson') {
+			if ($expcat>0) {
+				$query->join('LEFT','#__xbfilms AS f ON f.id = a.film_id');
+				$query->where('f.catid = '. $db->quote($expcat));
 			}
 		} elseif ($table === '#__xbfilmcharacter') {
-			//we'll filter on film has catid OR person has catid
 			if ($expcat>0) {
-				$query->join('LEFT','#__xbfilms AS b ON b.id = a.film_id');
-				$query->join('LEFT','#__xbcharacters AS p ON p.id = a.char_id');
-				$query->where('b.catid = '. $db->quote($expcat).' OR p.catid = '. $db->quote($expcat));
+				$query->join('LEFT','#__xbfilms AS f ON f.id = a.film_id');
+				$query->where('f.catid = '. $db->quote($expcat));
 			}
 		}
 	

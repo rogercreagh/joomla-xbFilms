@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource script.xbfilms.php
- * @version 0.9.4 17th April 2021
+ * @version 0.9.6.a 16th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html 
@@ -10,26 +10,44 @@
 // No direct access to this file
 defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Version;
+use Joomla\CMS\Installer\Installer;
+use Joomla\CMS\Filesystem\Path;
+use Joomla\CMS\Table\Table;
 
 class com_xbfilmsInstallerScript 
 {	
-    protected $jminver = '3.9';
+    protected $jminver = '3.10';
     protected $jmaxver = '4.0';
+    protected $extension = 'com_xbfilms';
+    protected $ver = 'v0';
+    protected $date = '';
     
     function preflight($type, $parent) {
-        $jversion = new JVersion();
+        $jversion = new Version();
         $jverthis = $jversion->getShortVersion();
         if ((version_compare($jverthis, $this->jminver,'lt')) || (version_compare($jverthis, $this->jmaxver, 'ge'))) {
             throw new RuntimeException('xbFilms requires Joomla version greater than '.$this->jminver. ' and less than '.$this->jmaxver.'. You have '.$jverthis);
         }
+        $message='';
+        if ($type=='update') {
+        	$componentXML = Installer::parseXMLInstallFile(Path::clean(JPATH_ADMINISTRATOR . '/components/com_xbfilms/xbfilms.xml'));
+        	$this->ver = $componentXML['version'];
+        	$this->date = $componentXML['creationDate'];
+        	$message = 'Updating xbFilms component from '.$componentXML['version'].' '.$componentXML['creationDate'];
+        	$message .= ' to '.$parent->get('manifest')->version.' '.$parent->get('manifest')->creationDate;
+        }
+        if ($message!='') { Factory::getApplication()->enqueueMessage($message,'');}
     }
     
     function install($parent) {        
     }
     
     function uninstall($parent) {
-    	$message = 'Uninstalling xbFilms component v.'.$parent->get('manifest')->version.' '.$parent->get('manifest')->creationDate;
+    	$componentXML = Installer::parseXMLInstallFile(Path::clean(JPATH_ADMINISTRATOR . '/components/com_xbfilms/xbfilms.xml'));
+    	$message = 'Uninstalling xbFilms component v.'.$componentXML['version'].' '.$componentXML['creationDate'];
     	Factory::getApplication()->enqueueMessage($message,'Info');
+    	
     	$dest='/images/xbfilms';
     	if (JFolder::exists(JPATH_ROOT.$dest)) {
     		if (JFolder::delete(JPATH_ROOT.$dest)){
@@ -45,18 +63,19 @@ class com_xbfilmsInstallerScript
     }
     
     function update($parent) {
-    	$message = 'Updating xbFilms component to v.'.$parent->get('manifest')->version.' '.$parent->get('manifest')->creationDate;
-    	$message .= '<br />Visit the <a href="index.php?option=com_xbfilms&view=cpanel" class="btn btn-small btn-info">';
+    	$message = '<br />Visit the <a href="index.php?option=com_xbfilms&view=cpanel" class="btn btn-small btn-info">';
     	$message .= 'xbFilms Control Panel</a> page for overview of status.</p>';
-    	$message .= '<br />For ChangeLog see <a href="http://crosborne.co.uk/xbfilms#changelog" target="_blank">
+    	$message .= '<br />For ChangeLog see <a href="http://crosborne.co.uk/xbfilms/changelog" target="_blank">
             www.crosborne.co.uk/xbfilms/changelog</a></p>';
-     	Factory::getApplication()->enqueueMessage($message,'Info');
+    	Factory::getApplication()->enqueueMessage($message,'Message');
     }
     
     function postflight($type, $parent) {
+    	$componentXML = Installer::parseXMLInstallFile(Path::clean(JPATH_ADMINISTRATOR . '/components/com_xbfilms/xbfilms.xml'));
     	if ($type=='install') {
-    		$message = $parent->get('manifest')->name.' ('.$type.') : <br />';
-         	//create xbfilms image folder
+    		$message = 'xbFilms '.$componentXML['version'].' '.$componentXML['creationDate'].'<br />';
+    		
+    		//create xbfilms image folder
         	if (!file_exists(JPATH_ROOT.'/images/xbfilms')) {
          		mkdir(JPATH_ROOT.'/images/xbfilms',0775);
          		$message .= 'Film images folder created (/images/xbfilms/).<br />';
@@ -64,59 +83,12 @@ class com_xbfilmsInstallerScript
          		$message .= '"/images/xbfilms/" already exists.<br />';
          	}
          	
-       	//create default categories using method in the categories model
-            $message .= 'Creating xbFilms categories : ';
-            $category_data['id'] = 0;
-            $category_data['parent_id'] = 0;
-            $category_data['extension'] = 'com_xbfilms';
-            $category_data['published'] = 1;
-            $category_data['language'] = '*';
-            $category_data['params'] = array('category_layout' => '','image' => '');
-            $category_data['metadata'] = array('author' => '','robots' => '');
-            
-            $basePath = JPATH_ADMINISTRATOR.'/components/com_categories';
-            require_once $basePath.'/models/category.php';
-            $config  = array('table_path' => $basePath.'/tables');
-            $category_model = new CategoriesModelCategory($config);
-            
-            $db = Factory::getDBO();
-            $query = $db->getQuery(true);
-            $query->select('id')->from($db->quoteName('#__categories'))
-            	->where($db->quoteName('alias')." = ".$db->quote('uncategorised'))
-            	->where($db->quoteName('extension')." = ".$db->quote('com_xbfilms'));
-            $db->setQuery($query);
-            if ($db->loadResult()>0) {
-            	$message .= '"Uncategorised" already exists... ';
-            } else {
-	            $category_data['title'] = 'Uncategorised';
-	            $category_data['alias'] = 'uncategorised';
-	            $category_data['description'] = 'Default category for xbFilms items not otherwise assigned';
-	            
-	            if(!$category_model->save($category_data)){
-	                $message .= '<br />[Error creating Uncategorised: '.$category_model->getError().']<br /> ';
-	            }else{
-	                $message .= '"Uncategorised" (id='. $category_model->getItem()->id.') created... ';
-	            }
-            }
-            $query->clear();
-            $query->select('id')->from($db->quoteName('#__categories'))
-            	->where($db->quoteName('alias')." = ".$db->quote('imported'))
-            	->where($db->quoteName('extension')." = ".$db->quote('com_xbfilms'));
-		    $db->setQuery($query);
-		    if ($db->loadResult()>0) {
-		    	$message .= '"Imported" already exists... ';
-		    } else {            
-	            $category_data['title'] = 'Imported';
-	            $category_data['alias'] = 'imported';
-	            $category_data['description'] = 'Default category for imported xbFilms items (can be over-ridden on import)';
-	            
-	            if(!$category_model->save($category_data)){
-	                $message .= '<br />[Error creating Imported: '.$category_model->getError().']<br />';
-	            }else{
-	            	//$data = $category_model->getItem();
-	                $message .= '"Imported" (id='. $category_model->getItem()->id.') created ';
-	            }
-		    }
+         	// create default categories using category table
+         	$cats = array(
+         			array("title"=>"Uncategorised","desc"=>"default fallback category for all xbFilms items"),
+         			array("title"=>"Imported","desc"=>"default category for xbFilms imported data"));
+         	$message .= $this->createCategory($cats);
+         	
          	//check if people available
     		$xbpeople = true;
     		$db->setQuery('SELECT enabled FROM #__extensions WHERE element = '.$db->quote('com_xbpeople'));
@@ -164,5 +136,48 @@ class com_xbfilmsInstallerScript
     	}
 	}
      
+	public function createCategory($cats) {
+		$message = 'Creating '.$this->extension.' categories. ';
+		foreach ($cats as $cat) {
+			$db = Factory::getDBO();
+			$query = $db->getQuery(true);
+			$query->select('id')->from($db->quoteName('#__categories'))
+			->where($db->quoteName('title')." = ".$db->quote($cat['title']))
+			->where($db->quoteName('extension')." = ".$db->quote('com_xbfilms'));
+			$db->setQuery($query);
+			if ($db->loadResult()>0) {
+				$message .= '"'.$cat['title'].' already exists<br /> ';
+			} else {
+				$category = Table::getInstance('Category');
+				$category->extension = $this->extension;
+				$category->title = $cat['title'];
+				if (array_key_exists('alias', $cat)) { $category->alias = $cat['alias']; }
+				$category->description = $cat['desc'];
+				$category->published = 1;
+				$category->access = 1;
+				$category->params = '{"category_layout":"","image":"","image_alt":""}';
+				$category->metadata = '{"page_title":"","author":"","robots":""}';
+				$category->language = '*';
+				// Set the location in the tree
+				$category->setLocation(1, 'last-child');
+				// Check to make sure our data is valid
+				if ($category->check()) {
+					if ($category->store(true)) {
+						// Build the path for our category
+						$category->rebuildPath($category->id);
+						$message .= $cat['title'].' id:'.$category->id.' created ok. ';
+					} else {
+						throw new Exception(500, $category->getError());
+						//return '';
+					}
+				} else {
+					throw new Exception(500, $category->getError());
+					//return '';
+				}
+			}
+		}
+		return $message;
+	}
+	
 }
 
