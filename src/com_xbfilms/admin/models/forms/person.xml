@@ -25,7 +25,7 @@
 			class="inputbox" size="45" />
 		
 		<field name="summary" type="textarea" rows="3" cols="50"
-			label="XBCULTURE_CAPSUMMARY" description="COM_XBFILMS_PERSUMMARY_DESC" />
+			label="XBCULTURE_SUMMARY" description="COM_XBFILMS_PERSUMMARY_DESC" />
 			
 		<field name="year_born" type="number"
 			label="COM_XBFILMS_YEAR_BORN_LABEL" description="COM_XBFILMS_YEAR_BORN_DESC"
@@ -79,7 +79,7 @@
 		</field>
 
 		<field name="note" type="textarea" rows="3" cols="50"
-			label="XBCULTURE_CAPNOTE" description="XBCULTURE_NOTE_DESC" />
+			label="XBCULTURE_NOTE" description="XBCULTURE_NOTE_DESC" />
 
 		<field name= "filmdirectorlist"
 			type= "subform"

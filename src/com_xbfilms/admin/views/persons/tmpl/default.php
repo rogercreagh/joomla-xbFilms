@@ -27,7 +27,7 @@ if (!$listOrder) {
 }
 $orderNames = array('firstname'=>Text::_('XBCULTURE_FIRSTNAME'),'lastname'=>Text::_('XBCULTURE_LASTNAME'),
 		'id'=>'id','sortdate'=>Text::_('XBCULTURE_DATES'),'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'),
-		'published'=>Text::_('XBCULTURE_CAPPUBSTATE'),'a.ordering'=>Text::_('XBCULTURE_CAPORDERING'));
+		'published'=>Text::_('XBCULTURE_CAPPUBSTATE'),'a.ordering'=>Text::_('XBCULTURE_ORDERING'));
 
 $saveOrder      = $listOrder == 'ordering';
 $canOrder       = $user->authorise('core.edit.state', 'com_xbfilms.film');
@@ -111,7 +111,7 @@ $bplink = 'index.php?option=com_xbbooks&view=person&layout=edit&id=';
 					<?php echo HTMLHelper::_('searchtools.sort', 'JSTATUS', 'published', $listDirn, $listOrder); ?>
     			</th>
     			<th class="center" style="width:80px">
-    				<?php echo JText::_('XBCULTURE_CAPPORTRAIT') ;?>
+    				<?php echo JText::_('XBCULTURE_PORTRAIT') ;?>
     			</th>
     			<th >
 					<?php echo HTMLHelper::_('searchtools.sort', 'COM_XBFILMS_FIRSTNAME', 'firstname', $listDirn, $listOrder); ?>
@@ -122,7 +122,7 @@ $bplink = 'index.php?option=com_xbbooks&view=person&layout=edit&id=';
     				<?php echo JText::_('XBCULTURE_BIOGRAPHY'); ?>
     			</th>
     			<th >
-    				<?php echo JText::_('XBCULTURE_CAPFILMS') ;?>
+    				<?php echo JText::_('XBCULTURE_FILMS_U') ;?>
     			</th>
     			<th class="hidden-tablet hidden-phone" style="width:15%;">
 						<?php if ($this->xbpeople_ok!==false) {
@@ -175,7 +175,7 @@ $bplink = 'index.php?option=com_xbbooks&view=person&layout=edit&id=';
 							<?php echo HTMLHelper::_('jgrid.published', $item->published, $i, 'person.', true, 'cb'); ?>
 							<?php if ($item->note!=''){ ?>
 								<span class="btn btn-micro active hasTooltip" title="" 
-									data-original-title="<?php echo '<b>'.JText::_( 'XBCULTURE_CAPNOTE' ) .'</b>: '. htmlentities($item->note); ?>">
+									data-original-title="<?php echo '<b>'.JText::_( 'XBCULTURE_NOTE' ) .'</b>: '. htmlentities($item->note); ?>">
 									<i class="icon- xbinfo"></i>
 								</span>
 							<?php } else {?>

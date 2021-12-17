@@ -63,7 +63,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 							<?php echo $item->year_died; ?></p>
 					<?php endif; ?>
 				<?php endif; ?>	
-     		<div class="pull-left"><b><?php echo JText::_('XBCULTURE_CAPFILMS'); ?></b></div>
+     		<div class="pull-left"><b><?php echo JText::_('XBCULTURE_FILMS_U'); ?></b></div>
     		<div class="clearfix"></div>
             	<?php if ($item->bcnt>0) : ?>
         			<div class="pull-left xbml15">
@@ -109,7 +109,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 			</div>
 			<div class="span6">
 				<?php if ((trim($item->summary) != '') && (!empty($item->biography))) : ?>
-					<div class="xbnit xbmb8"><?php echo JText::_('XBCULTURE_CAPSUMMARY'); ?></div>
+					<div class="xbnit xbmb8"><?php echo JText::_('XBCULTURE_SUMMARY'); ?></div>
 					<div class="xbbox xbboxwht">
 					 	<div><?php echo $item->summary; ?></div> 
 					</div>

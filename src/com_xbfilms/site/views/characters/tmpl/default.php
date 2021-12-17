@@ -86,11 +86,11 @@ $plink = 'index.php?option=com_xbfilms&view=character'.$itemid.'&id=';
 				</th>					
 				<?php if($this->show_sum) : ?>
     				<th>
-    					<?php echo Text::_('XBCULTURE_CAPSUMMARY');?>
+    					<?php echo Text::_('XBCULTURE_SUMMARY');?>
     				</th>
                 <?php endif; ?>
 				<th class="hidden-phone">
-					<?php echo Text::_('XBCULTURE_CAPFILMS'); ?>
+					<?php echo Text::_('XBCULTURE_FILMS_U'); ?>
 				</th>
 				<?php if($this->show_cat || $this->show_tags) : ?>
     				<th class="hidden-tablet hidden-phone">

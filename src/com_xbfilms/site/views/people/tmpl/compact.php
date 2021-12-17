@@ -89,7 +89,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
                 <?php endif; ?>
 				<?php if($this->show_cfilms == '4') : ?>
 				<th>
-					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CAPFILMS','fcnt',$listDirn,$listOrder); ?>
+					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_FILMS_U','fcnt',$listDirn,$listOrder); ?>
 				</th>
 				<?php endif; ?>
 				<?php if($this->show_cat || $this->show_tags) : ?>

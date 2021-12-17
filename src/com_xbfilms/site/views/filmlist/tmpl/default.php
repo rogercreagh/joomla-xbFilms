@@ -24,7 +24,7 @@ if (!$listOrder) {
     $listOrder='cat_date';
     $listDirn = 'descending';
 }
-$orderNames = array('title'=>Text::_('XBCULTURE_CAPTITLE'),'rel_year'=>Text::_('COM_XBFILMS_YEAR_RELEASED'), 
+$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'rel_year'=>Text::_('COM_XBFILMS_YEAR_RELEASED'), 
 		'averat'=>Text::_('COM_XBFILMS_AVERAGE_RATING'), 'cat_date'=>Text::_('COM_XBFILMS_LAST_SEEN'),'lastseen'=>'last seen',
     'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'));
 
@@ -90,14 +90,14 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 					</th>	
                 <?php endif; ?>
 				<th>
-					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CAPTITLE','title',$listDirn,$listOrder).				
+					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_TITLE','title',$listDirn,$listOrder).				
     						', '.JText::_('XBCULTURE_CAPDIRECTOR').', '.
     						HTMLHelper::_('searchtools.sort','COM_XBFILMS_RELYEARCOL','rel_year',$listDirn,$listOrder );
 					?>
 				</th>					
 				<?php if($this->show_sum) : ?>
     				<th class="hidden-phone">
-    					<?php echo JText::_('XBCULTURE_CAPSUMMARY');?>
+    					<?php echo JText::_('XBCULTURE_SUMMARY');?>
     				</th>
                 <?php endif; ?>
                 <?php if ($this->show_rev != 0 ) : ?>

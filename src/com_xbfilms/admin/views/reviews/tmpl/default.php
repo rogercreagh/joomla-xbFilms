@@ -25,10 +25,10 @@ if (!$listOrder) {
 	$listOrder='rev_date';
 	$listDirn = 'descending';
 }
-$orderNames = array('title'=>Text::_('XBCULTURE_CAPTITLE'),'filmtitle'=>Text::_('COM_XBFILMS_FILMTITLE'),
-		'id'=>'id','rev_date'=>Text::_('XBCULTURE_DATES'),'rating'=>Text::_('XBCULTURE_CAPRATING'),
+$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'filmtitle'=>Text::_('COM_XBFILMS_FILMTITLE'),
+		'id'=>'id','rev_date'=>Text::_('XBCULTURE_DATES'),'rating'=>Text::_('XBCULTURE_RATING'),
 		'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'),
-		'published'=>Text::_('XBCULTURE_CAPPUBSTATE'),'a.ordering'=>Text::_('XBCULTURE_CAPORDERING'));
+		'published'=>Text::_('XBCULTURE_CAPPUBSTATE'),'a.ordering'=>Text::_('XBCULTURE_ORDERING'));
 
 $saveOrder      = $listOrder == 'ordering';
 $canOrder       = $user->authorise('core.edit.state', 'com_xbfilms.film');
@@ -106,7 +106,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
         			<?php echo HTMLHelper::_('searchtools.sort', 'JSTATUS', 'published', $listDirn, $listOrder); ?>
         		</th>
         		<th>
-        			<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_CAPTITLE', 'title', $listDirn, $listOrder); ?>
+        			<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_TITLE', 'title', $listDirn, $listOrder); ?>
         		</th>
         		<th>
         			<?php echo HTMLHelper::_('searchtools.sort', 'COM_XBFILMS_REVIEW_CAPFILM', 'filmtitle', $listDirn, $listOrder); ?>
@@ -114,7 +114,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
         			<?php echo HTMLHelper::_('searchtools.sort', 'date seen', 'rev_date', $listDirn, $listOrder); ?>
         		</th>
         		<th>
-        			<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_CAPRATING', 'rating', $listDirn, $listOrder); ?>
+        			<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_RATING', 'rating', $listDirn, $listOrder); ?>
         		</th>
         		<th class="hidden-phone">
         			<?php echo JText::_('COM_XBFILMS_REVIEW_SUMMARY_LABEL');?>
@@ -171,7 +171,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 								<?php echo HTMLHelper::_('jgrid.published', $item->published, $i, 'review.', true, 'cb'); ?>
 								<?php if ($item->note!=''){ ?>
 									<span class="btn btn-micro active hasTooltip" title="" 
-										data-original-title="<?php echo '<b>'.JText::_( 'XBCULTURE_CAPNOTE' ) .'</b>: '. htmlentities($item->note); ?>">
+										data-original-title="<?php echo '<b>'.JText::_( 'XBCULTURE_NOTE' ) .'</b>: '. htmlentities($item->note); ?>">
 										<i class="icon- xbinfo"></i>
 									</span>
 								<?php } else {?>

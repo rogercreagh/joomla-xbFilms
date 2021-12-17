@@ -37,7 +37,7 @@
 		</field>
 		
 		<field name="summary" type="textarea" rows="6" cols="50"  
-			label="XBCULTURE_CAPSUMMARY"  description="COM_XBFILMS_FILM_SUMMARY_DESC" />
+			label="XBCULTURE_SUMMARY"  description="COM_XBFILMS_FILM_SUMMARY_DESC" />
 
 		<field name="synopsis" type="editor"
 			class="inputbox" label="COM_XBFILMS_FIELD_SYNOPSIS_LABEL" description="COM_XBFILMS_FIELD_SYNOPSIS_DESC" 
@@ -67,7 +67,7 @@
 			default=""/>
 
 		<field name="setting" type="text"
-			label="XBCULTURE_CAPSETTING" description="COM_XBFILMS_SETTING_DESC"
+			label="XBCULTURE_SETTING" description="COM_XBFILMS_SETTING_DESC"
 			class="inputbox" maxlength="99" 
 			default="" />
 
@@ -137,7 +137,7 @@
 		</field>
 		
 		<field name="note" type="textarea" rows="3" cols="50"
-			label="XBCULTURE_CAPNOTE" description="XBCULTURE_NOTE_DESC"
+			label="XBCULTURE_NOTE" description="XBCULTURE_NOTE_DESC"
 		/>
 
 		<field name="tags" type="tag"

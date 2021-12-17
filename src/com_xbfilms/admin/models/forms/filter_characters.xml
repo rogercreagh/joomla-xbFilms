@@ -20,7 +20,7 @@
 			<option value="all" onchange="this.form.submit();">All Chars</option>
 			<option value="film" onchange="this.form.submit();">Film Chars</option>
 			<option value="notfilm">COM_XBFILMS_NOTINFILMS</option>
-			<option value="orphans">XBCULTURE_CAPORPHANS</option>
+			<option value="orphans">XBCULTURE_ORPHANS</option>
 		</field>	
 		<field
 			name="published"

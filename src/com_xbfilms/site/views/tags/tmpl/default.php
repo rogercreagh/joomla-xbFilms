@@ -66,9 +66,9 @@ $chllink = $xblink.'characters'.$itemid.'&tagid=';
 				<?php  if ($this->show_desc != 0) : ?>      
 					<th class="hidden-phone"><?php echo JText::_('XBCULTURE_DESCRIPTION');?></th>
 				<?php endif; ?>
-					<th class="center" style="width:50px;"><?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_CAPFILMS', 'bcnt', $listDirn, $listOrder );?></th>
-					<th class="center" style="width:50px;"><?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_CAPREVIEWS', 'rcnt', $listDirn, $listOrder );?></th>
-					<th class="center" style="width:50px;"><?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_CAPPEOPLE', 'pcnt', $listDirn, $listOrder );?></th>
+					<th class="center" style="width:50px;"><?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_FILMS_U', 'bcnt', $listDirn, $listOrder );?></th>
+					<th class="center" style="width:50px;"><?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_REVIEWS_U', 'rcnt', $listDirn, $listOrder );?></th>
+					<th class="center" style="width:50px;"><?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_PEOPLE_U', 'pcnt', $listDirn, $listOrder );?></th>
 					<th class="center" style="width:70px;"><?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_CAPCHARACTERS', 'chcnt', $listDirn, $listOrder );?></th>
 				</tr>
 			</thead>

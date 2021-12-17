@@ -17,7 +17,7 @@
 			</field>	
 			<field
 				name="menu_perfilt" type="filmpeople"
-				label="XBCULTURE_CAPPERSON"
+				label="XBCULTURE_PEOPLE_U"
 				description="COM_XBFILMS_PERFILT_DESC"
 				>
 				<option value="">COM_XBFILMS_PERFILT_HINT</option>

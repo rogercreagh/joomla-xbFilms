@@ -92,7 +92,7 @@ if ($imgok) {
 			<div class= "span6">
 				<?php if (trim($item->summary) != '') : ?>
 					<div class="xbbox xbboxwht">
-						<div class="pull-left"><span class="xbnit"><?php echo JText::_('XBCULTURE_CAPSUMMARY'); ?> 
+						<div class="pull-left"><span class="xbnit"><?php echo JText::_('XBCULTURE_SUMMARY'); ?> 
 						: </span></div>
 					 	<div><?php echo $item->summary; ?></div> 
 					</div>
@@ -243,7 +243,7 @@ if ($imgok) {
 </div>
 <div class="row-fluid">
 	<div class="span<?php echo ($this->show_frevs ==0)? 12 : 6; ?>">
-		<h4><?php echo JText::_('XBCULTURE_CAPSYNOPSIS'); ?></h4>
+		<h4><?php echo JText::_('XBCULTURE_SYNOPSIS'); ?></h4>
 		<div class="xbbox xbboxcyan">
 			<?php if (empty($item->synopsis)) : ?>
 				<p class="xbnit"><?php echo JText::_('COM_XBFILMS_NO_SYNOPSIS');?></p>
@@ -280,7 +280,7 @@ if ($imgok) {
 	</div>
 	<?php if ($this->show_frevs>0) : ?>
 	<div class="span6 xbmb12">
-		<h4><?php echo JText::_('XBCULTURE_CAPREVIEWS'); ?></h4>
+		<h4><?php echo JText::_('XBCULTURE_REVIEWS_U'); ?></h4>
 		<?php if(empty($item->reviews)) : ?>
 			<p><i><?php echo JText::_( 'COM_XBFILMS_NOREVIEW' ); ?></i></p>
 		<?php else : ?>

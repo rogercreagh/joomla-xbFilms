@@ -23,8 +23,8 @@ if (!$listOrder) {
     $listOrder='rev_date';
     $orderDrn = 'descending';
 }
-$orderNames = array('title'=>Text::_('XBCULTURE_CAPTITLE'),'film_title'=>Text::_('COM_XBFILMS_FILM_TITLE'),
-    'rating'=>Text::_('XBCULTURE_CAPRATING'), 'rev_date'=>Text::_('COM_XBFILMS_DATE_SEEN'),
+$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'film_title'=>Text::_('COM_XBFILMS_FILM_TITLE'),
+    'rating'=>Text::_('XBCULTURE_RATING'), 'rev_date'=>Text::_('COM_XBFILMS_DATE_SEEN'),
     'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'));
 
 require_once JPATH_COMPONENT.'/helpers/route.php';

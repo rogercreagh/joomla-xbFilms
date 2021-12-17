@@ -63,13 +63,13 @@ if (!$this->xbpeople_ok) : ?>
 	</div>
 </div>
 <div class="<?php echo ($this->client['mobile']? 'span9' : 'span10'); ?>">
-<h4><?php echo Text::_( 'XBCULTURE_CAPSUMMARY' ); ?></h4>
+<h4><?php echo Text::_( 'XBCULTURE_SUMMARY' ); ?></h4>
 	<div class="row-fluid">
 		<div class="span6">
 			<div class="xbbox xbboxcyan">
 				<h2 class="xbtitle">
 					<span class="badge badge-info pull-right"><?php echo $this->filmStates['total']; ?></span> 
-					<?php echo Text::_('XBCULTURE_CAPFILMS'); ?>
+					<?php echo Text::_('XBCULTURE_FILMS_U'); ?>
 				</h2>
 				<div class="row-striped">
 					<div class="row-fluid">
@@ -89,7 +89,7 @@ if (!$this->xbpeople_ok) : ?>
 						</div>
 						<div class="span6">
 							<span class="badge <?php echo $this->filmStates['trashed']>0 ?'badge-important' : ''; ?> xbmr10"><?php echo $this->filmStates['trashed']; ?></span>
-							<?php echo Text::_('XBCULTURE_CAPTRASHED'); ?>
+							<?php echo Text::_('XBCULTURE_TRASHED'); ?>
 						</div>
 					</div>
 					<div class="row-fluid">
@@ -110,7 +110,7 @@ if (!$this->xbpeople_ok) : ?>
 					<span class="badge badge-info pull-right">
 						<?php echo $this->revStates['total']; ?>
 					</span> 
-					<?php echo Text::_('XBCULTURE_CAPREVIEWS'); ?>
+					<?php echo Text::_('XBCULTURE_REVIEWS_U'); ?>
 				</h2>
 				<div class="row-striped">
 					<div class="row-fluid">
@@ -130,7 +130,7 @@ if (!$this->xbpeople_ok) : ?>
 						</div>
 						<div class="span6">
 							<span class="badge <?php echo $this->revStates['archived']>0 ?'badge-important' : ''; ?> xbmr10"><?php echo $this->revStates['trashed']; ?></span>
-							<?php echo Text::_('XBCULTURE_CAPTRASHED'); ?>
+							<?php echo Text::_('XBCULTURE_TRASHED'); ?>
 						</div>
 					</div>
 				</div>
@@ -164,7 +164,7 @@ if (!$this->xbpeople_ok) : ?>
 				</div>
 			</div>			
 			<div class="xbbox xbboxgrn">
-				<h2 class="xbtitle"><?php echo Text::_('XBCULTURE_CAPPEOPLE'); ?>
+				<h2 class="xbtitle"><?php echo Text::_('XBCULTURE_PEOPLE_U'); ?>
 					 <span class="pull-right"><span class="xbnit xbmr10 xb09">Total: </span><span class="badge percnt xbmr20"><?php echo $this->totPeople;?></span>
 					 <span class="xbnit xbmr10 xb09">In Films: </span><span class="badge badge-info "><?php echo $this->perStates['total'];?></span></span>	
 				</h2>
@@ -186,7 +186,7 @@ if (!$this->xbpeople_ok) : ?>
 						</div>
 						<div class="span6">
 							<span class="badge <?php echo $this->perStates['archived']>0 ?'badge-important' : ''; ?> xbmr10"><?php echo $this->perStates['trashed']; ?></span>
-							<?php echo Text::_('XBCULTURE_CAPTRASHED'); ?>
+							<?php echo Text::_('XBCULTURE_TRASHED'); ?>
 						</div>
 					</div>
 					<div class="row-fluid">
@@ -252,7 +252,7 @@ if (!$this->xbpeople_ok) : ?>
 					<div class="row-fluid">
 						<div class="span1"></div><div class="span11">
 							<span class="badge badge-info xbmr10"><?php echo $this->people['otherpub']+$this->people['otherunpub'];?></span>
-							<?php echo Text::_('XBCULTURE_CAPOTHERS'); ?>
+							<?php echo Text::_('XBCULTURE_OTHERS'); ?>
 							<span class="pull-right" style="text-transform:none;font-weight:normal;font-size:10px;">
 							 	<?php echo Text::_('XBCULTURE_PUBCOLON'); ?> 				
 							 	<span class="badge badge-success xbmr10"><?php echo $this->people['otherpub'];?></span>
@@ -291,7 +291,7 @@ if (!$this->xbpeople_ok) : ?>
 						</div>
 						<div class="span6">
 							<span class="badge <?php echo $this->charStates['trashed']>0 ?'badge-important' : ''; ?> xbmr10"><?php echo $this->charStates['trashed']; ?></span>
-							<?php echo Text::_('XBCULTURE_CAPTRASHED'); ?>
+							<?php echo Text::_('XBCULTURE_TRASHED'); ?>
 						</div>
 					</div>
 				</div>
@@ -299,12 +299,12 @@ if (!$this->xbpeople_ok) : ?>
 			<?php if((!empty($this->orphanrevs)) || (!empty($this->orphanpeep)) || (!empty($this->orphanchar))) : ?>
 			<div class="xbbox xbboxred">
 				<h2 class="xbtitle">
-					<?php echo Text::_('XBCULTURE_CAPORPHANS'); ?>
+					<?php echo Text::_('XBCULTURE_ORPHANS'); ?>
 				</h2>
                <?php if(!empty($this->orphanrevs)) : ?>
 				<div class="row-striped">
 					<span class="badge badge-important pull-right"><?php echo count($this->orphanrevs); ?></span>
-					<?php echo Text::_('XBCULTURE_CAPREVIEWS'); ?>
+					<?php echo Text::_('XBCULTURE_REVIEWS_U'); ?>
 					<?php foreach($this->orphanrevs as $rev) {
 					        echo '<br /><a class="xbml10" href="'.$relink.$rev['id'].'">'.$rev['title'].' ('.$rev['id'].')</a> ';
 					}?>
@@ -313,7 +313,7 @@ if (!$this->xbpeople_ok) : ?>
                 <?php if(!empty($this->orphanpeep)) : ?>
 				<div class="row-striped">
 					<span class="badge badge-important pull-right"><?php echo count($this->orphanpeep); ?></span>
-					<?php echo Text::_('XBCULTURE_CAPPEOPLE'); ?>
+					<?php echo Text::_('XBCULTURE_PEOPLE_U'); ?>
 					<?php foreach($this->orphanpeep as $rev) {
 						echo '<br /><a class="xbml10" href="'.$pelink.$rev['id'].'">'.$rev['name'].' ('.$rev['id'].')</a> ';
 					}?>
@@ -356,7 +356,7 @@ if (!$this->xbpeople_ok) : ?>
 						</div>
 						<div class="span6">
 							<span class="badge <?php echo $this->catStates['trashed']>0 ?'badge-important' : ''; ?> xbmr10"><?php echo $this->catStates['trashed']; ?></span>
-							<?php echo Text::_('XBCULTURE_CAPTRASHED'); ?>
+							<?php echo Text::_('XBCULTURE_TRASHED'); ?>
 						</div>
 					</div>
                  </div>
@@ -391,7 +391,7 @@ if (!$this->xbpeople_ok) : ?>
 						</div>
 						<div class="span6">
 							<span class="badge <?php echo $this->pcatStates['trashed']>0 ?'badge-important' : ''; ?> xbmr10"><?php echo $this->pcatStates['trashed']; ?></span>
-							<?php echo Text::_('XBCULTURE_CAPTRASHED'); ?>
+							<?php echo Text::_('XBCULTURE_TRASHED'); ?>
 						</div>
 					</div>
                  </div>

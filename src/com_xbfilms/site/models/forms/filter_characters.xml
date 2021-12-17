@@ -30,7 +30,7 @@
        
 		<field
 			name="filmfilt" type="films"
-			label="XBCULTURE_CAPFILM"
+			label="XBCULTURE_FILM_U"
 			description="COM_XBFILMS_FILMFILT_DESC"
 			onchange="this.form.submit();"
 			>

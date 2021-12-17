@@ -33,7 +33,7 @@
 			<option value="actor">XBCULTURE_CAPCAST</option>
 			<option value="appearsin">XBCULTURE_CAPAPPEARANCES</option>
 			<option value="notfilm">COM_XBFILMS_NOTINFILMS</option>
-			<option value="orphans">XBCULTURE_CAPORPHANS</option>
+			<option value="orphans">XBCULTURE_ORPHANS</option>
 		</field>
 		<field
 			name="category_id"

@@ -80,7 +80,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 			<tr>
 				<?php if($this->show_pic) : ?>
 					<th class="center" style="width:80px">
-						<?php echo JText::_( 'XBCULTURE_CAPPORTRAIT' ); ?>
+						<?php echo JText::_( 'XBCULTURE_PORTRAIT' ); ?>
 					</th>	
                 <?php endif; ?>
 				<th>
@@ -94,12 +94,12 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
                 <?php endif; ?>
 				<?php if($this->show_sum) : ?>
 					<th>
-						<?php echo JText::_('XBCULTURE_CAPSUMMARY');?>
+						<?php echo JText::_('XBCULTURE_SUMMARY');?>
 					</th>
                 <?php endif; ?>
 				<?php if($this->show_films != 0) : ?>
 					<th class="hidden-phone">
-						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CAPFILMS','fcnt',$listDirn,$listOrder); ?>
+						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_FILMS_U','fcnt',$listDirn,$listOrder); ?>
 					</th>
                 <?php endif; ?>
 				<?php if($this->show_cat || $this->show_tags) : ?>

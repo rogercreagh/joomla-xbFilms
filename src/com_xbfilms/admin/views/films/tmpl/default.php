@@ -28,7 +28,7 @@ if (!$listOrder) {
 $orderNames = array('title'=>Text::_('COM_XBFILMS_FILMTITLE'), 'rel_year'=>Text::_('COM_XBFILMS_RELYEAR'),
 		'id'=>'id','cat_date'=>Text::_('XBCULTURE_DATES'),
 		'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'),
-		'published'=>Text::_('XBCULTURE_CAPPUBSTATE'),'a.ordering'=>Text::_('XBCULTURE_CAPORDERING'));
+		'published'=>Text::_('XBCULTURE_CAPPUBSTATE'),'a.ordering'=>Text::_('XBCULTURE_ORDERING'));
 
 $saveOrder      = $listOrder == 'a.ordering';
 $canOrder       = $user->authorise('core.edit.state', 'com_xbfilms.film');
@@ -114,7 +114,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 						<?php echo Text::_( 'COM_XBFILMS_POSTER' ); ?>
 					</th>			
 					<th>
-						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CAPTITLE','title',$listDirn,$listOrder).
+						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_TITLE','title',$listDirn,$listOrder).
     						' <span class="xb095">'.
      						Text::_('Director').', '.
      						HTMLHelper::_('searchtools.sort','COM_XBFILMS_RELYEARCOL','rel_year',$listDirn,$listOrder ).', '.
@@ -122,10 +122,10 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 						?>
 					</th>					
 					<th>
-						<?php echo Text::_('XBCULTURE_CAPSUMMARY');?>
+						<?php echo Text::_('XBCULTURE_SUMMARY');?>
 					</th>
 					<th class="hidden-phone" style="width:15%;">
-						<?php echo Text::_('XBCULTURE_CAPREVIEWS'); ?>
+						<?php echo Text::_('XBCULTURE_REVIEWS_U'); ?>
 					</th>
 					<th class="hidden-tablet hidden-phone" style="width:15%;">
 						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_DATE','cat_date',$listDirn,$listOrder ).' ';						    
@@ -180,7 +180,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 						<div class="btn-group">
 							<?php echo HTMLHelper::_('jgrid.published', $item->published, $i, 'film.', $canChange, 'cb'); ?>
 							<?php if ($item->note!=""){ ?>
-								<span class="btn btn-micro active hasTooltip" title="" data-original-title="<?php echo '<b>'.JText::_( 'XBCULTURE_CAPNOTE' ) .'</b>: '. htmlentities($item->note); ?>">
+								<span class="btn btn-micro active hasTooltip" title="" data-original-title="<?php echo '<b>'.JText::_( 'XBCULTURE_NOTE' ) .'</b>: '. htmlentities($item->note); ?>">
 									<i class="icon- xbinfo"></i>
 								</span>
 							<?php } else {?>
@@ -255,7 +255,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
                         <?php if ((!empty($item->synopsis)) && (strlen(strip_tags($item->synopsis))>200)) : ?>
                         	<p class="xbnit xb09">   
                              <?php 
-                             echo Text::_('XBCULTURE_CAPSYNOPSIS').' '.str_word_count(strip_tags($item->synopsis)).' '.Text::_('XBCULTURE_WORDS'); 
+                             echo Text::_('XBCULTURE_SYNOPSIS').' '.str_word_count(strip_tags($item->synopsis)).' '.Text::_('XBCULTURE_WORDS'); 
                              ?>
 							</p>
 						<?php endif; ?>

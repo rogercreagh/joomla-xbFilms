@@ -24,7 +24,7 @@ if (!$listOrder) {
     $listOrder='cat_date';
     $orderDrn = 'descending';
 }
-$orderNames = array('title'=>Text::_('XBCULTURE_CAPTITLE'), 'averat'=>'Average Rating', 'cat_date'=>'Last Seen');
+$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'), 'averat'=>'Average Rating', 'cat_date'=>'Last Seen');
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
@@ -75,14 +75,14 @@ $blink = 'index.php?option=com_xbfilms&view=film'.$itemid.'&id=';
 		<thead>
 			<tr>
 				<th>
-					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CAPTITLE','title',$listDirn,$listOrder);				
+					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_TITLE','title',$listDirn,$listOrder);				
 					?>
 				</th>					
 				<th>
 					<?php echo Text::_('Director');?>
 				</th>
 				<th class="hidden-phone xbtc">
-					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CAPRATING','averat',$listDirn,$listOrder); ?>
+					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_RATING','averat',$listDirn,$listOrder); ?>
 				</th>
 				<th class="hidden-phone">
 					<?php echo HTMLHelper::_('searchtools.sort','COM_XBFILMS_DATE_SEEN','cat_date',$listDirn,$listOrder ); ?>
