@@ -2,13 +2,14 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/film/tmpl/edit.php
- * @version 0.9.3 12th April 2021
+ * @version 0.9.6.d 7th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
@@ -18,7 +19,7 @@ HTMLHelper::_('formbehavior.chosen', '#jform_catid', null, array('disable_search
 HTMLHelper::_('formbehavior.chosen', '#jform_tags', null, array('placeholder_text_multiple' => Text::_('JGLOBAL_TYPE_OR_SELECT_SOME_TAGS')));
 HTMLHelper::_('formbehavior.chosen', 'select');
 
-$document = JFactory::getDocument();
+$document = Factory::getDocument();
 $style = '.controls .btn-group > .btn  {'
 		. 'min-width: unset;'
 		.'padding:3px 12px 4px;'
@@ -115,7 +116,8 @@ $document->addStyleDeclaration($style);
 		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'people', Text::_('People')); ?>
 			<div class="row-fluid form-vertical">				
 	    		<div class="span9">
-					<h4><?php echo Text::_('People and Characters associated with the film');?></h4>
+				<h4><?php echo Text::_('XBCULTURE_FILM_U').' '.Text::_('XBCULTURE_PEOPLE_AND_CHARS');?></h4>
+				<p class="xbnote"><?php echo Text::_('XBCULTURE_ADD_PANDC_NOTE');?> </p>
 					<?php echo $this->form->renderField('producerlist'); ?>
 					<?php echo $this->form->renderField('crewlist'); ?>
 	    			<?php echo $this->form->renderField('subjectlist'); ?>
@@ -123,15 +125,12 @@ $document->addStyleDeclaration($style);
 	    			<?php echo $this->form->renderField('charlist'); ?>
  				</div>
     			<div class="span3">
-    				<h4>Quick Person Add</h4>
-    				<p class="xbnote">NB Save this page before using quick-person or changes will be lost hen the page reloads. 
-    				<br />The new person will appear at the top of the drop down list. Always check the list first 
-    				to see if the person already exists. You cannot use this to create a second person with the same name -
-    				for that you need to use the full New Person form.</p> 
+     			<h4><?php echo Text::_('XBCULTURE_QUICK_P_ADD');?></h4>
+    			<p class="xbnote"><?php echo Text::_('XBCULTURE_QUICK_P_NOTE');?></p> 
 							<a class="btn btn-small" data-toggle="modal" 
 								href="index.php?option=com_xbfilms&view=film&layout=modal&tmpl=component" 
 								data-target="#ajax-modal"><i class="icon-new">
-							</i>Quick New Person</a>
+							</i><?php echo Text::_('XBCULTURE_ADD_NEW_P');?></a>
 				</div>
 			</div>
 		<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
@@ -163,7 +162,7 @@ jQuery(document).ready(function(){
     })
 });
 </script>
-<div class="modal fade" id="ajax-modal">
+<div class="modal fade" id="ajax-modal" style="max-width:1000px;">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Ajax content will be loaded here -->
