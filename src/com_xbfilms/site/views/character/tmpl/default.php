@@ -87,7 +87,7 @@ if ($imgok) {
 <div class="row-fluid">
 	<?php if ($this->show_cat) : ?>
 		<div class="span5">
-			<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBCULTURE_CAPCATEGORY'); ?></div>
+			<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBCULTURE_CATEGORY'); ?></div>
 			<div class="pull-left label label-success">
 				<?php if ($this->show_cat==2) : ?>
 					<a href="<?php echo $clink.$item->catid; ?>"><?php echo $item->category_title; ?></a>
@@ -137,5 +137,5 @@ if ($imgok) {
       </div>
 </div>
 <div class="clearfix"></div>
-<p><?php echo XbfilmsGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbFilms');?></p>
 </div>

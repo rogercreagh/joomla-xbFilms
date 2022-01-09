@@ -86,7 +86,7 @@ $chvlink = 'index.php?option=com_xbfilms&view=characters&tagid=';
 				<?php echo JHTML::_('grid.sort', 'XBCULTURE_PEOPLE_U', 'pcnt', $listDirn, $listOrder );?>
 			</th>
 			<th>
-				<?php echo JHTML::_('grid.sort', 'XBCULTURE_CAPCHARACTERS', 'chcnt', $listDirn, $listOrder );?>
+				<?php echo JHTML::_('grid.sort', 'XBCULTURE_CHARACTER_US', 'chcnt', $listDirn, $listOrder );?>
 			</th>
 			<th>
 				<?php echo JText::_('XBCULTURE_OTHERS') ;?>
@@ -192,5 +192,5 @@ $chvlink = 'index.php?option=com_xbfilms&view=characters&tagid=';
 	<?php echo HTMLHelper::_('form.token'); ?>
 </form>
 <div class="clearfix"></div>
-<p><?php echo XbfilmsGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbFilms');?></p>
 

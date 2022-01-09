@@ -69,7 +69,7 @@ $chllink = $xblink.'characters'.$itemid.'&tagid=';
 					<th class="center" style="width:50px;"><?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_FILMS_U', 'bcnt', $listDirn, $listOrder );?></th>
 					<th class="center" style="width:50px;"><?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_REVIEWS_U', 'rcnt', $listDirn, $listOrder );?></th>
 					<th class="center" style="width:50px;"><?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_PEOPLE_U', 'pcnt', $listDirn, $listOrder );?></th>
-					<th class="center" style="width:70px;"><?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_CAPCHARACTERS', 'chcnt', $listDirn, $listOrder );?></th>
+					<th class="center" style="width:70px;"><?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_CHARACTER_US', 'chcnt', $listDirn, $listOrder );?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -125,6 +125,6 @@ $chllink = $xblink.'characters'.$itemid.'&tagid=';
 		<?php echo HTMLHelper::_('form.token'); ?>
 	</form>
 <div class="clearfix"></div>
-<p><?php echo XbfilmsGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbFilms');?></p>
 </div>
 

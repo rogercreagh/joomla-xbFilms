@@ -26,7 +26,7 @@ if (!$listOrder) {
 	$listDirn = 'ascending';
 }
 $orderNames = array('firstname'=>Text::_('XBCULTURE_FIRSTNAME'),'lastname'=>Text::_('XBCULTURE_LASTNAME'),
-		'id'=>'id','sortdate'=>Text::_('XBCULTURE_DATES'),'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'),
+		'id'=>'id','sortdate'=>Text::_('XBCULTURE_DATES'),'category_title'=>Text::_('XBCULTURE_CATEGORY'),
 		'published'=>Text::_('XBCULTURE_CAPPUBSTATE'),'a.ordering'=>Text::_('XBCULTURE_ORDERING'));
 
 $saveOrder      = $listOrder == 'ordering';
@@ -338,4 +338,4 @@ $bplink = 'index.php?option=com_xbbooks&view=person&layout=edit&id=';
 	<?php echo HTMLHelper::_('form.token'); ?>
 </form>
 <div class="clearfix"></div>
-<p><?php echo XbfilmsGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbFilms');?></p>

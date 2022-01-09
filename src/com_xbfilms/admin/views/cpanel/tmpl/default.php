@@ -2,15 +2,17 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/cpanel/tmpl/default.php
- * @version 0.9.0 8th April 2021
+ * @version 0.9.6.a 6th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Uri\Uri;
+//use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Router\Route;
 
 jimport('joomla.html.html.bootstrap');
 
@@ -28,44 +30,15 @@ if (!$this->xbpeople_ok) : ?>
     </div>
 <?php else: ?>
 
-<form action="<?php echo JRoute::_('index.php?option=com_xbfilms&view=cpanel'); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo Route::_('index.php?option=com_xbfilms&view=cpanel'); ?>" method="post" name="adminForm" id="adminForm">
 <div class="row-fluid">
-	<div class="<?php echo ($this->client['mobile']? 'span3' : 'span2'); ?>">
+	<div id="j-sidebar-container">
 		<?php echo $this->sidebar; ?>
-		<p> </p>
-		<div class="row-fluid hidden-phone">
-        	<?php echo JHtml::_('bootstrap.startAccordion', 'slide-cpanel', array('active' => 'sysinfo')); ?>
-        		<?php echo JHtml::_('bootstrap.addSlide', 'slide-cpanel', Text::_('COM_XBFILMS_SYSINFO'), 'sysinfo'); ?>
-        			<p><b><?php echo Text::_( 'COM_XBFILMS_COMPONENT' ); ?></b>
-						<br /><?php echo Text::_('XBCULTURE_VERSION').': '.$this->xmldata['version'].'<br/>'.
-							$this->xmldata['creationDate'];?>
-						<br /><?php if ($this->xbpeople_ok) {
-						          echo Text::_('COM_XBFILMS_PEOPLEOK') ;
-						      }?>
-						<br /><?php if ($this->xbbooks_ok) {
-						          echo Text::_('COM_XBFILMS_BOOKSOK') ;
-						      }?>
-						      
-					</p>
-					<p><b><?php echo Text::_( 'XBCULTURE_CLIENT' ); ?></b>
-						<br/><?php echo $this->client['platform'].'<br/>'.$this->client['browser']; ?>
-					</p>
-        		<?php echo JHtml::_('bootstrap.endSlide'); ?>
-        		<?php echo JHtml::_('bootstrap.addSlide', 'slide-cpanel', Text::_('COM_XBFILMS_ABOUT'), 'about'); ?>
-        			<p><?php echo Text::_( 'COM_XBFILMS_ABOUT_INFO' ); ?></p>
-        		<?php echo JHtml::_('bootstrap.endSlide'); ?>
-        		<?php echo JHtml::_('bootstrap.addSlide', 'slide-cpanel', Text::_('COM_XBFILMS_LICENSE'), 'license'); ?>
-        			<p><?php echo Text::_( 'COM_XBFILMS_LICENSE_INFO' ); ?>
-        				<br /><?php echo $this->xmldata['copyright']; ?>
-        			</p>
-				<?php echo JHtml::_('bootstrap.endSlide'); ?>
-		</div>
 	</div>
-</div>
-<div class="<?php echo ($this->client['mobile']? 'span9' : 'span10'); ?>">
+	<div id="j-main-container" >
 <h4><?php echo Text::_( 'XBCULTURE_SUMMARY' ); ?></h4>
 	<div class="row-fluid">
-		<div class="span6">
+		<div class="span5">
 			<div class="xbbox xbboxcyan">
 				<h2 class="xbtitle">
 					<span class="badge badge-info pull-right"><?php echo $this->filmStates['total']; ?></span> 
@@ -134,7 +107,7 @@ if (!$this->xbpeople_ok) : ?>
 						</div>
 					</div>
 				</div>
-				<h2 class="xbsubtitle"><?php echo Text::_('COM_XBFILMS_PUBRATINGS');?></h2>
+				<h2 class="xbsubtitle"><?php echo Text::_('XBCULTURE_PUBRATINGS');?></h2>
 				<div class="xbratingrow">
 					<div class="row-fluid clearfix">
                     	<table style="width:100%;">
@@ -271,7 +244,7 @@ if (!$this->xbpeople_ok) : ?>
 				<h2 class="xbtitle">
 					 <span class="pull-right"><span class="xbnit xbmr10 xb09">Total: </span><span class="badge chcnt xbmr20"><?php echo $this->totChars;?></span>
 					 <span class="xbnit xbmr10 xb09">In Films: </span><span class="badge badge-info "><?php echo $this->charStates['total'];?></span></span>	
-					<?php echo Text::_('XBCULTURE_CAPCHARACTERS'); ?>
+					<?php echo Text::_('XBCULTURE_CHARACTER_US'); ?>
 				</h2>
 				<div class="row-striped">
 					<div class="row-fluid">
@@ -322,7 +295,7 @@ if (!$this->xbpeople_ok) : ?>
                 <?php if(!empty($this->orphanchars)) : ?>
 				<div class="row-striped">
 					<span class="badge badge-important pull-right"><?php echo count($this->orphanchars); ?></span>
-					<?php echo Text::_('XBCULTURE_CAPCHARACTERS'); ?>
+					<?php echo Text::_('XBCULTURE_CHARACTER_US'); ?>
 					<?php foreach($this->orphanchars as $rev) {
 						echo '<br /><a class="xbml10" href="'.$chelink.$rev['id'].'">'.$rev['name'].' ('.$rev['id'].')</a> ';
 					}?>
@@ -331,7 +304,7 @@ if (!$this->xbpeople_ok) : ?>
 			</div>
 			<?php  endif; ?>
 		</div>
-		<div class="span6">
+		<div class="span4">
 			<div class="xbbox xbboxyell">
 				<h2 class="xbtitle">
 					<span class="badge badge-info pull-right">
@@ -432,19 +405,154 @@ if (!$this->xbpeople_ok) : ?>
 			</div>
 		</div>
 	</div>
-	<div class="row-fluid">
-		<div class="span6">
-		</div>
-		<div class="span6">
+		<div class="span3">
+    		<div class="row-fluid hidden-phone">
+            	<?php echo HtmlHelper::_('bootstrap.startAccordion', 'slide-cpanel', array('active' => 'sysinfo')); ?>
+            		<?php echo HtmlHelper::_('bootstrap.addSlide', 'slide-cpanel', Text::_('COM_XBFILMS_SYSINFO'), 'sysinfo'); ?>
+            			<p><b><?php echo Text::_( 'COM_XBFILMS_COMPONENT' ); ?></b>
+    						<br /><?php echo Text::_('XBCULTURE_VERSION').': '.$this->xmldata['version'].' '.
+    							$this->xmldata['creationDate'];?>
+                                  <br /><i></i>
+                                  <?php  if (XbcultureHelper::penPont()) {
+                                      echo Text::_('XBCULTURE_BEER_THANKS'); 
+                                  } else {
+                                      echo Text::_('XBCULTURE_BEER_LINK');
+                                  }?>
+                                  </i></p>
+                                  <?php echo Text::_('XBCULTURE_OTHER_COMPS'); ?>
+                                  <ul>
+                              	<?php $coms = array('com_xbfilms','com_xblive','com_xbpeople');
+                              	foreach ($coms as $element) {
+                              	    echo '<li>';
+                                  	$ext = XbcultureHelper::getExtensionInfo($element);
+                                  	if ($ext) {
+                                  	    //todo add mouseover description
+                                  	    echo $ext['name'].' v'.$ext['version'].' '.Text::_('XBCULTURE_INSTALLED');
+                                  	    if (!$ext['enabled']) echo '<b><i>'.Text::_('XBCULTURE_NOT_ENABLED').'</i></b>';
+                                  	} else {
+                                  	    echo '<i>'.$element.' '.Text::_('XBCULTURE_NOT_INSTALLED').'</i>';
+                                  	}
+                                    echo '</li>';
+                              	}
+                              	
+                              	?>
+                              	</ul>
+                                  <?php echo Text::_('XBCULTURE_MODULES'); ?>
+                              	<ul>
+                              	<?php $mods = array('mod_xbculture_list','mod_xbculture_randimg','mod_xbculture_recent');
+                              	foreach ($mods as $element) {
+                              	    echo '<li>';
+                                  	$mod = XbcultureHelper::getExtensionInfo($element);
+                                  	if ($mod) {
+                                  	    echo $mod['name'].' v'.$mod['version'].' '.Text::_('XBCULTURE_INSTALLED');
+                                  	    if (!$mod['enabled']) echo '<b><i>'.Text::_('XBCULTURE_NOT_ENABLED').'</i></b>';
+                                  	} else {
+                                  	    echo '<i>'.$element.' '.Text::_('XBCULTURE_NOT_INSTALLED').'</i>';
+                                  	}
+                                    echo '</li>';
+                              	}                             	
+                              	?>
+                              	</ul>
+                          	</p>
+                          	<p><b><?php echo Text::_( 'XBCULTURE_CLIENT'); ?></b>
+                              <br/><?php echo Text::_( 'XBCULTURE_PLATFORM' ).' '.$this->client['platform'].'<br/>'.Text::_( 'XBCULTURE_BROWSER').' '.$this->client['browser']; ?>
+                         	</p>
+    				<?php echo HtmlHelper::_('bootstrap.endSlide'); ?>
+						<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-cpanel', Text::_('XBCULTURE_CONFIG_OPTIONS'), 'keyconfig','xbaccordion'); ?>
+		        			<p>
+    		        		<?php echo '<b>'.Text::_('XBCULTURE_CATEGORIES_U').'</b><br />';
+    		        		if (($this->show_cat==0) || 
+    		        		    (($this->show_filmcat==0) && ($this->show_revcat==0) && ($this->show_percat==0))) {
+    		        		    echo '<i>'.Text::_('XBCULTURE_CATS_HIDDEN_ALL').'</i>';
+    		        		} else {
+    		        		    echo Text::_('XBCULTURE_SHOW_FOR').' ';
+    		        		    echo ($this->show_filmcat) ? Text::_('XBCULTURE_FILMS').' ' : '';
+    		        		    echo ($this->show_revcat) ? Text::_('XBCULTURE_REVIEWS').' ' : '';
+    		        		    echo ($this->show_percat) ? Text::_('XBCULTURE_PEOPLE').' ' : '';
+    		        		}
+    		        		?>
+    		        		</p>
+    		        		<p>
+    		        		<?php echo '<b>'.Text::_('XBCULTURE_TAGS_U').'</b><br />';
+    		        		if (($this->show_tags==0) || 
+    		        		    (($this->show_filmtags==0) && ($this->show_revtags==0) && ($this->show_pertags==0))) {
+    		        		    echo '<i>'.Text::_('XBCULTURE_TAGS_HIDDEN_ALL').'</i>';
+    		        		} else {
+    		        		    echo Text::_('XBCULTURE_SHOW_FOR').' ';
+    		        		    echo ($this->show_filmtags) ? Text::_('XBCULTURE_FILMS').' ' : '';
+    		        		    echo ($this->show_revtags) ? Text::_('XBCULTURE_REVIEWS').' ' : '';
+    		        		    echo ($this->show_pertags) ? Text::_('XBCULTURE_PEOPLE').' ' : '';
+    		        		}
+    		        		?>
+    		        		</p>
+    		        		<p>
+    		        		<?php echo '<b>'.Text::_('XBCULTURE_ALLOW_SEARCH').': </b>';
+    		        		    echo ($this->show_search==0)? Text::_('JNO') : Text::_('JYES'); ?>
+    		        		</p>
+    		        		<p>
+    		        		<?php echo '<b>'.Text::_('XBCULTURE_HIDE_EMPTY_FIELDS').': </b>';
+    		        		    echo ($this->hide_empty==0)? Text::_('JNO') : Text::_('JYES'); ?>
+    		        		</p>    		        		
+    		        		<p>
+    		        		<?php echo '<b>'.Text::_('XBCULTURE_IMAGE_FOLDERS').'</b><br />';
+        		        		echo Text::_('XBCULTURE_FILM_POSTERS').': <code>'.$this->posters.'</code><br />';
+        		        		echo Text::_('XBCULTURE_PORTRAITS').': <code>'.$this->portraits.'</code> ';
+    		        		?>	
+    		        		</p>
+    		        		<p>
+    		        		<?php echo '<b>'.Text::_('XBCULTURE_SHOW_COVERS').'</b><br />'; 
+        		        		echo Text::_('XBCULTURE_IN_LISTS').': ';
+        		        		echo ($this->show_filmlist_posters==0)? Text::_('JNO') : Text::_('JYES');
+        		        		echo '<br />';
+        		        		echo Text::_('XBCULTURE_IN_FILMS').': ';
+        		        		echo ($this->show_film_poster==0)? Text::_('JNO') : Text::_('JYES');
+        		        		echo '<br />';
+        		        		echo Text::_('XBCULTURE_IN_REVIEWS').': ';
+        		        		echo ($this->show_review_poster==0)? Text::_('JNO') : Text::_('JYES');
+    		        		?>	        		
+    		        		</p>
+    		        		<p>
+    		        		<?php echo '<b>'.Text::_('XBCULTURE_SHOW_PORTRAITS').'</b><br />'; 
+        		        		echo Text::_('XBCULTURE_IN_LISTS').': ';
+        		        		echo ($this->show_people_portraits==0)? Text::_('JNO') : Text::_('JYES');
+        		        		echo '<br />';
+        		        		echo Text::_('XBCULTURE_IN_PEOPLE').': ';
+        		        		echo ($this->show_person_portrait==0)? Text::_('JNO') : Text::_('JYES');
+    		        		?>	        		
+    		        		</p>
+    		        		<p>
+    		        		<?php echo '<b>'.Text::_('XBCULTURE_RATINGS_REVIEWS').'</b><br />'; 
+        		        		echo Text::_('XBCULTURE_ALLOW_ZERO').': ';
+        		        		echo ($this->zero_rating==0)? Text::_('JNO') : Text::_('JYES').', <i>icon: </i> <i class="'.$this->zero_class.'"></i>';
+        		        		echo '<br />';
+        		        		echo Text::_('XBCULTURE_SHOW_FILMLIST_RATINGS').': ';
+        		        		echo ($this->show_filmlist_rating==0)? Text::_('JNO') : Text::_('JYES');
+        		        		echo '<br />';
+        		        		echo Text::_('XBCULTURE_SHOW_BOOK_REVIEWS').' ';
+        		        		echo ($this->show_film_review==0)? Text::_('JNO') : Text::_('JYES'); ?>
+    		        		</p>
+    	        		<?php echo HTMLHelper::_('bootstrap.endSlide'); ?>
+                      <?php echo HtmlHelper::_('bootstrap.addSlide', 'slide-cpanel', Text::_('XBCULTURE_ABOUT'), 'about'); ?>
+                          <p><?php echo Text::_( 'COM_XBFILMS_ABOUT_INFO' ); ?></p>
+                      <?php echo HtmlHelper::_('bootstrap.endSlide'); ?>
+                      <?php echo HtmlHelper::_('bootstrap.addSlide', 'slide-cpanel', Text::_('XBCULTURE_LICENSE'), 'license'); ?>
+                          <p><?php echo Text::_( 'XBCULTURE_LICENSE_GPL' ); ?>
+                          	<br><?php echo Text::sprintf('XBCULTURE_LICENSE_INFO','xbFilms');?>
+                              <br /><?php echo $this->xmldata['copyright']; ?>
+                          </p>
+                      <?php echo HtmlHelper::_('bootstrap.endSlide'); ?>
+    		</div>
+		
 		</div>
 	</div>
+
 </div>
 	<input type="hidden" name="task" value="" />
-	<?php echo JHtml::_('form.token'); ?>
+	<?php echo HtmlHelper::_('form.token'); ?>
 	</div>
 </form>
 
 <div class="clearfix"></div>
-<p><?php echo XbfilmsGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbFilms');?></p>
 <?php endif; ?>
 

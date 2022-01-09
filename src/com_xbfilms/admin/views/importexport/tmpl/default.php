@@ -192,4 +192,4 @@ JHtml::_('formbehavior.chosen', 'select');
 	<input type="hidden" name="controller" value="importexport" />
 </form>
 <div class="clearfix"></div>
-<p><?php echo XbfilmsGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbFilms');?></p>

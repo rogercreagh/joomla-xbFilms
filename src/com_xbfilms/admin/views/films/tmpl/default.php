@@ -27,7 +27,7 @@ if (!$listOrder) {
 }
 $orderNames = array('title'=>Text::_('COM_XBFILMS_FILMTITLE'), 'rel_year'=>Text::_('COM_XBFILMS_RELYEAR'),
 		'id'=>'id','cat_date'=>Text::_('XBCULTURE_DATES'),
-		'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'),
+		'category_title'=>Text::_('XBCULTURE_CATEGORY'),
 		'published'=>Text::_('XBCULTURE_CAPPUBSTATE'),'a.ordering'=>Text::_('XBCULTURE_ORDERING'));
 
 $saveOrder      = $listOrder == 'a.ordering';
@@ -373,4 +373,4 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 	</div>
 </form>
 <div class="clearfix"></div>
-<p><?php echo XbfilmsGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbFilms');?></p>

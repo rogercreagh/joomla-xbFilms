@@ -55,7 +55,7 @@ $prevext='';
 					<th class="center" style="width:50px;"><?php echo JHTML::_('grid.sort', 'XBCULTURE_FILMS_U', 'bcnt', $listDirn, $listOrder );?></th>
 					<th class="center" style="width:50px;"><?php echo JHTML::_('grid.sort', 'XBCULTURE_REVIEWS_U', 'rcnt', $listDirn, $listOrder );?></th>
 					<th class="center" style="width:50px;"><?php echo JHTML::_('grid.sort', 'XBCULTURE_PEOPLE_U', 'bpcnt', $listDirn, $listOrder );?></th>
-					<th class="center" style="width:50px;"><?php echo JHTML::_('grid.sort', 'XBCULTURE_CAPCHARACTERS', 'bchcnt', $listDirn, $listOrder );?></th>
+					<th class="center" style="width:50px;"><?php echo JHTML::_('grid.sort', 'XBCULTURE_CHARACTER_US', 'bchcnt', $listDirn, $listOrder );?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -128,5 +128,5 @@ $prevext='';
 		<?php echo JHtml::_('form.token'); ?>
 	</form>
 <div class="clearfix"></div>
-<p><?php echo XbfilmsGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbFilms');?></p>
 </div>

@@ -141,7 +141,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 <div class="row-fluid xbmt16">
 	<?php if ($this->show_cat) : ?>
 		<div class="span5">
-			<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBCULTURE_CAPCATEGORY'); ?></div>
+			<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBCULTURE_CATEGORY'); ?></div>
 			<div class="pull-left label label-success">
 				<?php if ($this->show_cat==2) : ?>
 					<a href="<?php echo $clink.$item->catid; ?>"><?php echo $item->category_title; ?></a>
@@ -191,6 +191,6 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
       </div>
 </div>
 <div class="clearfix"></div>
-<p><?php echo XbfilmsGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbFilms');?></p>
 </div>
 

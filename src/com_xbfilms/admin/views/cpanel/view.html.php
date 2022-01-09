@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/cpanel/view.html.php
- * @version 0.9.6 27th November 2021
+ * @version 0.9.6.a 6th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -11,6 +11,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Installer\Installer;
 use Joomla\CMS\Language\Text;
@@ -59,6 +60,32 @@ class XbfilmsViewCpanel extends JViewLegacy
 			$this->show_sample = $params->get('show_sample');
 			$this->zero_rating = $params->get('zero_rating');
 			$this->zero_class = $params->get('zero_class');
+			
+			$this->show_cat = $params->get('show_cats');
+			$this->show_filmcat = $params->get('show_fcat');
+			$this->show_revcat = $params->get('show_rcat');
+			$this->show_percat = $params->get('show_pcat');
+			
+			$this->show_tags = $params->get('show_tags');
+			$this->show_filmtags = $params->get('show_ftags');
+			$this->show_revtags = $params->get('show_rtags');
+			$this->show_pertags = $params->get('show_ptags');
+			
+			$this->show_search = $params->get('search_bar');
+			
+			$this->hide_empty = $params->get('hide_empty');
+			
+			$this->posters = $params->get('poster_path');
+			$this->portraits = $params->get('portrait_path');
+			$this->show_filmlist_posters = $params->get('show_fpiccol');
+			$this->show_film_poster = $params->get('show_fimage');
+			$this->show_review_poster = $params->get('show_rimage');
+			
+			$this->show_people_portraits = $params->get('show_ppiccol');
+			$this->show_person_portrait = $params->get('show_pimage');
+			
+			$this->show_filmlist_rating = $params->get('show_frevcol');
+			$this->show_film_review = $params->get('show_frevs');
 			
 			XbfilmsHelper::addSubmenu('cpanel');
 			
@@ -119,15 +146,15 @@ class XbfilmsViewCpanel extends JViewLegacy
     protected function addToolbar() {
         $canDo = XbfilmsHelper::getActions();
         
-        ToolbarHelper::title(Text::_( 'XBFILMS' ).': '.Text::_('COM_XBFILMS_TITLE_CPANEL'),'info-2');
+        ToolbarHelper::title(Text::_( 'XBCULTURE_XBFILMS' ).': '.Text::_('XBCULTURE_DASHBOARD'),'info-2');
         
         if ($this->xbpeople_ok) {
         	$samplesexist = XbfilmsHelper::getIdFromAlias('#__categories', 'sample-films');
 	        if ($this->show_sample==1) {
 	        	if ($samplesexist > 0) {
-	        		ToolbarHelper::custom('cpanel.unsample', 'file-minus', '', 'COM_XBFILMS_REMOVE_SAMPLE', false) ;
+	        		ToolbarHelper::custom('cpanel.unsample', 'file-minus', '', 'XBCULTURE_REMOVE_SAMPLE', false) ;
 	        	} else {
-	        		ToolbarHelper::custom('cpanel.sample', 'file-plus', '', 'COM_XBFILMS_INSTALL_SAMPLE', false) ;
+	        		ToolbarHelper::custom('cpanel.sample', 'file-plus', '', 'XBCULTURE_INSTALL_SAMPLE', false) ;
 	        	}
 		        ToolbarHelper::custom(); //spacer
 	        }

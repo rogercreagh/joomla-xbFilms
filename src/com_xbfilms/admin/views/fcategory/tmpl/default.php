@@ -41,7 +41,7 @@ $xblink = 'index.php?option=com_xbfilms';
 		<div class="row-fluid xbmb8">
 			<div class= "span6">
 					<p class="xb11">
-						<i><?php JText::_('XBCULTURE_CAPCATEGORY').' '.JText::_('XBCULTURE_HEIRARCHY'); ?></i> 
+						<i><?php JText::_('XBCULTURE_CATEGORY').' '.JText::_('XBCULTURE_HEIRARCHY'); ?></i> 
 						<?php $path = str_replace('/', ' - ', $item->path);
 						echo 'root - '.$path; ?>
 					</p>
@@ -121,5 +121,5 @@ $xblink = 'index.php?option=com_xbfilms';
 			<?php echo JText::_('COM_XBFILMS_CAT_LIST'); ?></a>
 		</center>
 <div class="clearfix"></div>
-<p><?php echo XbfilmsGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbFilms');?></p>
 

@@ -24,7 +24,7 @@ if (!$listOrder) {
     $listOrder='name';
     $orderDrn = 'asscending';
 }
-$orderNames = array('name'=>Text::_('XBCULTURE_NAME'),'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'));
+$orderNames = array('name'=>Text::_('XBCULTURE_NAME'),'category_title'=>Text::_('XBCULTURE_CATEGORY'));
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
@@ -95,7 +95,7 @@ $plink = 'index.php?option=com_xbfilms&view=character'.$itemid.'&id=';
 				<?php if($this->show_cat || $this->show_tags) : ?>
     				<th class="hidden-tablet hidden-phone">
     					<?php if ($this->show_cat) {
-    						echo JHTML::_('searchtools.sort','XBCULTURE_CAPCATEGORY','category_title',$listDirn,$listOrder ).' &amp; ';
+    						echo JHTML::_('searchtools.sort','XBCULTURE_CATEGORY','category_title',$listDirn,$listOrder ).' &amp; ';
     					}
     					if (($this->show_cat) && ($this->show_tags)) {
     					    echo ' &amp; ';
@@ -188,6 +188,6 @@ $plink = 'index.php?option=com_xbfilms&view=character'.$itemid.'&id=';
 	</div>
 </form>
 <div class="clearfix"></div>
-<p><?php echo XbfilmsGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbFilms');?></p>
 </div>
 

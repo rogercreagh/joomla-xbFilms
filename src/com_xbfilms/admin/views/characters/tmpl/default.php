@@ -26,7 +26,7 @@ if (!$listOrder) {
 	$listDirn = 'ascending';
 }
 $orderNames = array('name'=>Text::_('XBCULTURE_NAME'),
-		'id'=>'id','category_title'=>Text::_('XBCULTURE_CAPCATEGORY'),
+		'id'=>'id','category_title'=>Text::_('XBCULTURE_CATEGORY'),
 		'published'=>Text::_('XBCULTURE_CAPPUBSTATE'),'a.ordering'=>Text::_('XBCULTURE_ORDERING'));
 
 $saveOrder      = $listOrder == 'ordering';
@@ -273,4 +273,4 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 	<?php echo HTMLHelper::_('form.token'); ?>
 </form>
 <div class="clearfix"></div>
-<p><?php echo XbfilmsGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbFilms');?></p>

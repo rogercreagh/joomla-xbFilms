@@ -32,7 +32,7 @@
 		<field
 			name="charfilt"
 			type="characters"
-			label="XBCULTURE_CAPCHARACTERS"
+			label="XBCULTURE_CHARACTER_US"
 			description="COM_XBFILMS_CHARFILT_DESC"
 			onchange="this.form.submit();"
 			>

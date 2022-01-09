@@ -134,4 +134,4 @@ $xblink = 'index.php?option=com_xbfilms';
 	<a href="<?php echo $xblink; ?>&view=tags" class="btn btn-small">
 		<?php echo JText::_('COM_XBFILMS_TAG_LIST'); ?></a>
 </div>
-<p><?php echo XbfilmsGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbFilms');?></p>

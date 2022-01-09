@@ -31,14 +31,14 @@
 				<option value="1">XBCULTURE_CAPDIRECTOR</option>
 			</field>	
 			<field
-				name="menu_charfilt" type="characters" label="XBCULTURE_CAPCHARACTER"
+				name="menu_charfilt" type="characters" label="XBCULTURE_CHARACTER_U"
 				description="Only show films featuring a particular character"
 				>
 				<option value="">COM_XBFILMS_CHARFILT_HINT</option>
 			</field>
 			<field
 				name="menu_category_id" type="category"
-				label="XBCULTURE_CAPCATEGORY"
+				label="XBCULTURE_CATEGORY"
 				extension="com_xbfilms"
 				description="COM_XBFILMS_CATEGORY_DESC"
 				>

@@ -136,6 +136,6 @@ $show_catdesc = $this->params->get('show_catdesc',1);
 	</a>
 </p>
 <div class="clearfix"></div>
-<p><?php echo XbfilmsGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbFilms');?></p>
 
 

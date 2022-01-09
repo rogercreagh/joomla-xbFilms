@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/film/tmpl/edit.php
- * @version 0.9.6.d 7th January 2022
+ * @version 0.9.6.f 9th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -13,6 +13,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
+HtmlHelper::_('behavior.tabState');
 HTMLHelper::_('behavior.formvalidator');
 HTMLHelper::_('behavior.keepalive');
 HTMLHelper::_('formbehavior.chosen', '#jform_catid', null, array('disable_search_threshold' => 0 ));
@@ -63,7 +64,18 @@ $document->addStyleDeclaration($style);
         			<?php echo $this->form->renderField('summary'); ?>
         		</div>
         	</div> 
-			<?php echo $this->form->renderField('directorlist'); ?>
+        	<div class="row-fluid">
+        		<div class="span9">
+					<?php echo $this->form->renderField('directorlist'); ?>
+        		</div>
+        		<div class="span3 xbbox xbboxwht">
+         			<h4><?php echo Text::_('XBCULTURE_QUICK_P_ADD');?></h4>
+        			<p class="xbnote"><?php echo Text::_('XBCULTURE_QUICK_P_NOTE');?></p> 
+					<a class="btn btn-small" data-toggle="modal" 
+						href="index.php?option=com_xbfilms&view=film&layout=modal&tmpl=component" 
+						data-target="#ajax-modal"><i class="icon-new">
+						</i><?php echo Text::_('XBCULTURE_ADD_NEW_P');?></a>
+         		</div>
         </div>    
         <div class="span2">
     		<?php if($this->form->getValue('poster_img')){?>
@@ -91,6 +103,7 @@ $document->addStyleDeclaration($style);
     		</div>
     		<div class="span3 form-vertical">
           		<h4>Production Info</h4>
+         		<?php echo $this->form->renderField('cat_date'); ?>
         		<?php echo $this->form->renderField('rel_year'); ?>
          		<?php echo $this->form->renderField('runtime'); ?>
          		<?php echo $this->form->renderField('country'); ?>
@@ -100,7 +113,6 @@ $document->addStyleDeclaration($style);
          		<?php echo $this->form->renderField('aspect_ratio'); ?>
          		<?php echo $this->form->renderField('cam_format'); ?>
          		<?php echo $this->form->renderField('filmsound'); ?>
-         		<?php echo $this->form->renderField('cat_date'); ?>
    			</div>
 			<div class="span3">
  				<fieldset class="form-vertical">
@@ -114,23 +126,18 @@ $document->addStyleDeclaration($style);
 		<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
 		
 		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'people', Text::_('People')); ?>
-			<div class="row-fluid form-vertical">				
-	    		<div class="span9">
+			<div class="row-fluid">				
+	    		<div class="span6 form-vertical">
 				<h4><?php echo Text::_('XBCULTURE_FILM_U').' '.Text::_('XBCULTURE_PEOPLE_AND_CHARS');?></h4>
-				<p class="xbnote"><?php echo Text::_('XBCULTURE_ADD_PANDC_NOTE');?> </p>
+				<p class="xbnote"><?php echo Text::_('XBCULTURE_ADD_PEEP_NOTE');?> </p>
 					<?php echo $this->form->renderField('producerlist'); ?>
 					<?php echo $this->form->renderField('crewlist'); ?>
 	    			<?php echo $this->form->renderField('subjectlist'); ?>
 	    			<?php echo $this->form->renderField('castlist'); ?>
-	    			<?php echo $this->form->renderField('charlist'); ?>
  				</div>
-    			<div class="span3">
-     			<h4><?php echo Text::_('XBCULTURE_QUICK_P_ADD');?></h4>
-    			<p class="xbnote"><?php echo Text::_('XBCULTURE_QUICK_P_NOTE');?></p> 
-							<a class="btn btn-small" data-toggle="modal" 
-								href="index.php?option=com_xbfilms&view=film&layout=modal&tmpl=component" 
-								data-target="#ajax-modal"><i class="icon-new">
-							</i><?php echo Text::_('XBCULTURE_ADD_NEW_P');?></a>
+    			<div class="span6 form-vertical">
+				<p class="xbnote"><?php echo Text::_('XBCULTURE_ADD_CHAR_NOTE');?> </p>
+				<?php echo $this->form->renderField('charlist'); ?>
 				</div>
 			</div>
 		<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
@@ -150,7 +157,7 @@ $document->addStyleDeclaration($style);
     <?php echo HTMLHelper::_('form.token'); ?>
 </form>
 <div class="clearfix"></div>
-<p><?php echo XbfilmsGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbFilms');?></p>
 <script>
 jQuery(document).ready(function(){
     jQuery('#ajax-modal').on('show', function () {

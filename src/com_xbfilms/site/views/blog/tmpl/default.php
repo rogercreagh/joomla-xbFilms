@@ -25,7 +25,7 @@ if (!$listOrder) {
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'film_title'=>Text::_('COM_XBFILMS_FILM_TITLE'),
     'rating'=>Text::_('XBCULTURE_RATING'), 'rev_date'=>Text::_('COM_XBFILMS_DATE_SEEN'),
-    'category_title'=>Text::_('XBCULTURE_CAPCATEGORY'));
+    'category_title'=>Text::_('XBCULTURE_CATEGORY'));
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
@@ -270,6 +270,6 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 	</div>
 </form>
 <div class="clearfix"></div>
-<p><?php echo XbfilmsGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbFilms');?></p>
 </div>
 

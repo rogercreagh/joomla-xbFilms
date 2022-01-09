@@ -85,4 +85,4 @@ JHtml::_('formbehavior.chosen', 'select');
     <?php echo JHtml::_('form.token'); ?>
 </form>
 <div class="clearfix"></div>
-<p><?php echo XbfilmsGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbFilms');?></p>

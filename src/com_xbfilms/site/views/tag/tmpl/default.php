@@ -168,6 +168,6 @@ $tclink = $xblink.'tags' . $itemid;
 	</a>
 </p>
 <div class="clearfix"></div>
-<p><?php echo XbfilmsGeneral::credit();?></p>
+<p><?php echo XbcultureHelper::credit('xbFilms');?></p>
 </div>
 
