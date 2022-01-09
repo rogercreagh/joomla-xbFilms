@@ -17,7 +17,7 @@ use Joomla\CMS\Router\Route;
 
 class XbfilmsControllerFilm extends FormController {
 		
-	public function __construct($config = array(), MVCFactoryInterface $factory = null) {
+	public function __construct($config = array()) {
 		parent::__construct($config, $factory);
 		$this->registerTask('save2NewPer', 'save');
 		$this->registerTask('save2NewChar', 'save');
