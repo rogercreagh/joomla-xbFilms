@@ -2,16 +2,18 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/person/tmpl/qnew.php
- * @version 0.5.3.2 16th March 2021
+ * @version 0.9.6.f 10th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 defined('_JEXEC') or die;
 
-JHtml::_('behavior.formvalidator');
-JHtml::_('behavior.keepalive');
-JHtml::_('formbehavior.chosen', 'select');
+use Joomla\CMS\HTML\HTMLHelper;
+
+HTMLHelper::_('behavior.formvalidator');
+HTMLHelper::_('behavior.keepalive');
+HTMLHelper::_('formbehavior.chosen', 'select');
 
 ?>
 <div class="xbml20 xbmr20">
@@ -42,5 +44,5 @@ JHtml::_('formbehavior.chosen', 'select');
     </div>
     
     <input type="hidden" name="task" value="person.edit" />
-    <?php echo JHtml::_('form.token'); ?>
+    <?php echo HTMLHelper::_('form.token'); ?>
 </form>

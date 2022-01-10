@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms admin/models/forms/review.xml v0.9.5 8th May 2021 -->
+<!-- xbFilms admin/models/forms/review.xml v0.9.6.f 10th January 2022 -->
 <form>
 	<fieldset>
 		<field
@@ -97,11 +97,11 @@
 			class="inputbox" size="20" />
 
 		<field name="modified" type="calendar"
-			label="XBCULTURE_MODIFIED_LBL" description="XBCULTURE_MODIFIED_DESC"
+			label="XBCULTURE_FIELD_MODIFIED_LBL" description="XBCULTURE_FIELD_MODIFIED_DESC"
 			class="inputbox" size="20" format="%Y-%m-%d %H:%M:%S" filter="user_utc" />
 
 		<field name="modified_by" type="user"
-			label="XBCULTURE_MODIFIED_BY_LBL" description="XBCULTURE_MODIFIED_BY_DESC" />
+			label="XBCULTURE_FIELD_MODIFIED_BY_LBL" description="XBCULTURE_FIELD_MODIFIED_BY_DESC" />
 
 		<field name="where_seen" type="text"
 			label="Where Seen" description="Note where seen and format viewed"

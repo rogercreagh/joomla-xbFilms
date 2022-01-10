@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/tables/review.php
- * @version 0.9.5 8th May 2021
+ * @version 0.9.6.f 10th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -10,7 +10,7 @@
 defined('_JEXEC') or die;
 
 //use Joomla\CMS\Language\Text;
-//use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Filter\OutputFilter;
@@ -114,7 +114,7 @@ class XbfilmsTableReview extends JTable
         //meta.description can be set to first 150 chars of summary if not otherwise set and option is set
         $summary_metadesc = $params->get('summary_metadesc');
         if (($summary_metadesc) && (trim($metadata['metadesc']) == '')) {
-        	$metadata['metadesc'] = JHtml::_('string.truncate', $this->summary,150,true,false);
+        	$metadata['metadesc'] = HTMLHelper::_('string.truncate', $this->summary,150,true,false);
         }
         //meta.rights will be set to default if not otherwise set
         $def_rights = $params->get('def_rights');

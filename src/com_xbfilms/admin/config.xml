@@ -245,10 +245,16 @@
 		description="Admin defaults and options for new items."
 		>	
    		<field name="beernote" type="note"
-			label="Hide the credit footer - Roger's Beer"
-			description="To remove the CrOsborne credit at the bottom of all xbCulture component pages click on the PayPal button at the foot of any admin page or visit &lt;a href='https://crosborne.uk/xbculture/beer' target='_blank'&gt;crosborne.uk/xbculture/beer&lt;/a&gt;.
-			For £4 (the cost of a pint of beer or a couple of coffees) you will get a passphrase to enter on the &lt;a href='/administrator/index.php?option=com_config&view=component&component=com_xbpeople'&gt;&lt;b&gt;xbPeople|Options|Beer&lt;/b&gt;&lt;/a&gt; tab that will remove the credits.
-			Of course you could simply hack the code to remove it but that would probably waste more that £4 of your time, and make you a bit of a nasty person."
+			label="Hide the credit footer - Buy Roger a Beer"
+			description="If you make a small donation (£4 - enough for a beer) then you will get a code to hide the credit at the foot of all xbCulture components Site pages and remove the PayPal button on the Admin pages.
+			&lt;br /&gt;Use the PayPal button at the foot of any admin page, or visit &lt;a href='https://crosborne.uk/xbculture/beer' target='_blank'&gt;crosborne.uk/xbculture/beer&lt;/a&gt;.
+			Then enter your code on the xbPeople Options Credits tab.
+			&lt;br /&gt;&lt;i&gt;Of course you could simply hack the code to remove, it but that would probably waste more that £4 of your time, and make you a bit of a nasty person.&lt;/i&gt;"
+			class="info"
+		/>	
+  		<field name="xbpeoplenote" type="note"
+			label="Sample Data Reminder"
+			description="Setting this to 'No' will simply hide the reminder on the Dashboard."
 			class="info"
 		/>	
 		<field name="show_sample" type="radio"

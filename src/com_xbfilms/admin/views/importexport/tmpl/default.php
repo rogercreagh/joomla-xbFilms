@@ -2,15 +2,17 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/importexport/tmpl/default.php
- * @version 0.9.4 16th April 2021
+ * @version 0.9.6.f 10th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 defined('_JEXEC') or die;
 
-JHtml::_('behavior.tabState');
-JHtml::_('formbehavior.chosen', 'select');
+use Joomla\CMS\HTML\HTMLHelper;
+
+HTMLHelper::_('behavior.tabState');
+HTMLHelper::_('formbehavior.chosen', 'select');
 //$jinput = JFactory::getApplication()->input;
 
 ?>
@@ -55,9 +57,9 @@ JHtml::_('formbehavior.chosen', 'select');
 	<?php endif;?>
     <div class="row-fluid form-horizontal">
       <div class="span12">
-		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'exp')); ?>
+		<?php echo HTMLHelper::_('bootstrap.startTabSet', 'myTab', array('active' => 'exp')); ?>
 
-		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'imp', JText::_('COM_XBFILMS_IMPORT_TAB')); ?>	
+		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'imp', JText::_('COM_XBFILMS_IMPORT_TAB')); ?>	
 	<div class="row-fluid">
 		<fieldset class="form-horizontal">
 			<legend><?php echo JText::_('COM_XBFILMS_IMPORT_LEGEND'); ?></legend>
@@ -100,9 +102,9 @@ JHtml::_('formbehavior.chosen', 'select');
 			</div>
 		</fieldset>
 	</div>
-		<?php echo JHtml::_('bootstrap.endTab'); ?>
+		<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
 
-		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'exp', JText::_('COM_XBFILMS_EXPORT_TAB')); ?>
+		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'exp', JText::_('COM_XBFILMS_EXPORT_TAB')); ?>
 		<div class="row-fluid">
 		<fieldset class="form-horizontal">
 			<legend><?php echo JText::_('COM_XBFILMS_EXPORT_LEGEND'); ?></legend>
@@ -134,9 +136,9 @@ JHtml::_('formbehavior.chosen', 'select');
 			</div>
 		</fieldset>
 		</div>
-		<?php echo JHtml::_('bootstrap.endTab'); ?>
+		<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
 
-		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'del', JText::_('COM_XBFILMS_DELETE_TAB')); ?>
+		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'del', JText::_('COM_XBFILMS_DELETE_TAB')); ?>
 	<div class="row-fluid">
 		<fieldset class="form-horizontal">
 			<legend><?php echo JText::_( 'COM_XBFILMS_DELETE_LEGEND' ); ?></legend>
@@ -182,11 +184,11 @@ JHtml::_('formbehavior.chosen', 'select');
 			</div>
 		</fieldset>
 	</div>
-		<?php echo JHtml::_('bootstrap.endTab'); ?>
+		<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
 	</div>
 	</div>
 	</div>
-	<?php echo JHTML::_( 'form.token' ); ?>
+	<?php echo HTMLHelper::_( 'form.token' ); ?>
 	<input type="hidden" name="option" value="com_xbfilms" />
 	<input type="hidden" name="task" id="task" value="xxx" />
 	<input type="hidden" name="controller" value="importexport" />

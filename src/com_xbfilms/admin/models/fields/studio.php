@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/fields/studio.php
- * @version 0.1.0 22nd November 2020
+ * @version 0.9.6.f 10th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -11,8 +11,9 @@ defined('JPATH_BASE') or die;
 
 use Joomla\CMS\Form\FormField;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Form\FormHelper;
 
-JFormHelper::loadFieldClass('combo');
+FormHelper::loadFieldClass('combo');
 
 class JFormFieldStudio extends JFormFieldCombo {
 	

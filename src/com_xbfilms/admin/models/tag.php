@@ -1,4 +1,4 @@
-	<?php
+<?php
 /*******
  * @package xbFilms
  * @filesource admin/models/tag.php

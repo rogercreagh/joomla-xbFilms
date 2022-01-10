@@ -2,13 +2,15 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/films/tmpl/default_batch_body.php
- * @version 0.1.0 22nd November 2020
+ * @version 0.9.6.f 10th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 
 defined('_JEXEC') or die;
+
+use Joomla\CMS\Layout\LayoutHelper;
 
 $published = $this->state->get('filter.published');
 ?>
@@ -26,14 +28,14 @@ $published = $this->state->get('filter.published');
 		<div class="control-group span6">
 		<!-- 
 			<div class="controls">
-				<?php // echo JLayoutHelper::render('joomla.html.batch.language', array()); ?>
+				<?php // echo LayoutHelper::render('joomla.html.batch.language', array()); ?>
 			</div>
 		 -->
 			<div class="controls">
-				<?php echo JLayoutHelper::render('joomla.html.batch.access', array()); ?>
+				<?php echo LayoutHelper::render('joomla.html.batch.access', array()); ?>
 			</div>
 			<div class="controls">
-				<?php echo JLayoutHelper::render('joomla.html.batch.tag', array()); ?>
+				<?php echo LayoutHelper::render('joomla.html.batch.tag', array()); ?>
 			</div>
 		</div>
 

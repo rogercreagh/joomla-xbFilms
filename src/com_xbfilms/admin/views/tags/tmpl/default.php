@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/tags/tmpl/default.php
- * @version 0.5.4 20th March 2021
+ * @version 0.9.6.f 10th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -11,6 +11,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Layout\LayoutHelper;
 
 HTMLHelper::_('formbehavior.chosen', 'select');
 
@@ -51,7 +52,7 @@ $chvlink = 'index.php?option=com_xbfilms&view=characters&tagid=';
 
 	<?php
         // Search tools bar
-        echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this));
+        echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this));
     ?>
 	<div class="clearfix"></div>
 
@@ -65,34 +66,34 @@ $chvlink = 'index.php?option=com_xbfilms&view=characters&tagid=';
 <thead>
 <tr>
 					<th class="hidden-phone center" style="width:25px;">
-						<?php echo JHtml::_('grid.checkall'); ?>
+						<?php echo HTMLHelper::_('grid.checkall'); ?>
 					</th>
 			<th width="5%">
-				<?php echo JHtml::_('grid.sort', 'JSTATUS', 'published', $listDirn, $listOrder); ?>
+				<?php echo HTMLHelper::_('grid.sort', 'JSTATUS', 'published', $listDirn, $listOrder); ?>
 			</th>
 			<th>
-				<?php echo JHTML::_('grid.sort', 'XBCULTURE_TAG_U', 'path', $listDirn, $listOrder );?>
+				<?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_TAG_U', 'path', $listDirn, $listOrder );?>
 			</th>
 			<th>
 				<?php echo JText::_('XBCULTURE_DESCRIPTION') ;?>
 			</th>
 			<th>
-				<?php echo JHTML::_('grid.sort', 'XBCULTURE_FILMS_U', 'bcnt', $listDirn, $listOrder );?>
+				<?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_FILMS_U', 'bcnt', $listDirn, $listOrder );?>
 			</th>
 			<th>
-				<?php echo JHTML::_('grid.sort', 'XBCULTURE_REVIEWS_U', 'rcnt', $listDirn, $listOrder );?>
+				<?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_REVIEWS_U', 'rcnt', $listDirn, $listOrder );?>
 			</th>
 			<th>
-				<?php echo JHTML::_('grid.sort', 'XBCULTURE_PEOPLE_U', 'pcnt', $listDirn, $listOrder );?>
+				<?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_PEOPLE_U', 'pcnt', $listDirn, $listOrder );?>
 			</th>
 			<th>
-				<?php echo JHTML::_('grid.sort', 'XBCULTURE_CHARACTER_US', 'chcnt', $listDirn, $listOrder );?>
+				<?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_CHARACTERS_U', 'chcnt', $listDirn, $listOrder );?>
 			</th>
 			<th>
 				<?php echo JText::_('XBCULTURE_OTHERS') ;?>
 			</th>
 			<th class="nowrap hidden-tablet hidden-phone" style="width:45px;">
-				<?php echo JHTML::_('grid.sort', 'JGRID_HEADING_ID', 'id', $listDirn, $listOrder );?>
+				<?php echo HTMLHelper::_('grid.sort', 'JGRID_HEADING_ID', 'id', $listDirn, $listOrder );?>
 			</th>
 		</tr>
 		</thead>
@@ -109,11 +110,11 @@ $chvlink = 'index.php?option=com_xbfilms&view=characters&tagid=';
 			?>
 			<tr class="row<?php echo $i % 2; ?>" >	
 					<td class="center hidden-phone">
-						<?php echo JHtml::_('grid.id', $i, $item->id); ?>
+						<?php echo HTMLHelper::_('grid.id', $i, $item->id); ?>
 					</td>
 				<td class="center">
 					<div class="btn-group">
-						<?php echo JHtml::_('jgrid.published', $item->published, $i, 'tag.', false, 'cb'); ?>
+						<?php echo HTMLHelper::_('jgrid.published', $item->published, $i, 'tag.', false, 'cb'); ?>
 							<?php if ($item->note!=''){ ?>
 								<span class="btn btn-micro active hasTooltip" title="" 
 									data-original-title="<?php echo '<b>'.JText::_( 'XBCULTURE_NOTE' ) .'</b>: '. htmlentities($item->note); ?>">
@@ -127,7 +128,7 @@ $chvlink = 'index.php?option=com_xbfilms&view=characters&tagid=';
  				<td>
 					<?php if ($item->checked_out) {
     					$couname = Factory::getUser($item->checked_out)->username;
-    					echo JHtml::_('jgrid.checkedout', $i, JText::_('XBCULTURE_OPENED_BY').': '.$couname, $item->checked_out_time, 'tags.', false);
+    					echo HTMLHelper::_('jgrid.checkedout', $i, JText::_('XBCULTURE_OPENED_BY').': '.$couname, $item->checked_out_time, 'tags.', false);
     				} ?>
 					<span class="xbnote"> 
  					<?php 	$path = substr($item->path, 0, strrpos($item->path, '/'));

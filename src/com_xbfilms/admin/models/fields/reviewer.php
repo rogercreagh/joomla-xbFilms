@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/fields/reviewer.php
- * @version 0.1.0 22nd November 2020
+ * @version 0.9.6.f 10th January 2022
  * @since v0.6.1
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -11,8 +11,10 @@
 defined('JPATH_BASE') or die;
 
 use Joomla\CMS\Form\FormField;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Form\FormHelper;
 
-JFormHelper::loadFieldClass('combo');
+FormHelper::loadFieldClass('combo');
 
 class JFormFieldReviewer extends JFormFieldCombo {
 	
@@ -22,7 +24,7 @@ class JFormFieldReviewer extends JFormFieldCombo {
 		
 		$options = array();
 		
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 		$query  = $db->getQuery(true);
 		
 		$query->select('DISTINCT reviewer AS text, reviewer AS value')

@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/tags/tmpl/default.php
- * @version 0.5.4 18th March 2021
+ * @version 0.9.6.f 10th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -69,7 +69,7 @@ $chllink = $xblink.'characters'.$itemid.'&tagid=';
 					<th class="center" style="width:50px;"><?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_FILMS_U', 'bcnt', $listDirn, $listOrder );?></th>
 					<th class="center" style="width:50px;"><?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_REVIEWS_U', 'rcnt', $listDirn, $listOrder );?></th>
 					<th class="center" style="width:50px;"><?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_PEOPLE_U', 'pcnt', $listDirn, $listOrder );?></th>
-					<th class="center" style="width:70px;"><?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_CHARACTER_US', 'chcnt', $listDirn, $listOrder );?></th>
+					<th class="center" style="width:70px;"><?php echo HTMLHelper::_('grid.sort', 'XBCULTURE_CHARACTERS_U', 'chcnt', $listDirn, $listOrder );?></th>
 				</tr>
 			</thead>
 			<tbody>

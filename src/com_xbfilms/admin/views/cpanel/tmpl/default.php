@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/cpanel/tmpl/default.php
- * @version 0.9.6.a 6th January 2022
+ * @version 0.9.6.f 10th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -244,7 +244,7 @@ if (!$this->xbpeople_ok) : ?>
 				<h2 class="xbtitle">
 					 <span class="pull-right"><span class="xbnit xbmr10 xb09">Total: </span><span class="badge chcnt xbmr20"><?php echo $this->totChars;?></span>
 					 <span class="xbnit xbmr10 xb09">In Films: </span><span class="badge badge-info "><?php echo $this->charStates['total'];?></span></span>	
-					<?php echo Text::_('XBCULTURE_CHARACTER_US'); ?>
+					<?php echo Text::_('XBCULTURE_CHARACTER_U'); ?>
 				</h2>
 				<div class="row-striped">
 					<div class="row-fluid">
@@ -295,7 +295,7 @@ if (!$this->xbpeople_ok) : ?>
                 <?php if(!empty($this->orphanchars)) : ?>
 				<div class="row-striped">
 					<span class="badge badge-important pull-right"><?php echo count($this->orphanchars); ?></span>
-					<?php echo Text::_('XBCULTURE_CHARACTER_US'); ?>
+					<?php echo Text::_('XBCULTURE_CHARACTERS_U'); ?>
 					<?php foreach($this->orphanchars as $rev) {
 						echo '<br /><a class="xbml10" href="'.$chelink.$rev['id'].'">'.$rev['name'].' ('.$rev['id'].')</a> ';
 					}?>

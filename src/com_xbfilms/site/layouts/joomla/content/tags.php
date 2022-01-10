@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/layouts/joomla/content/tags.php
- * @version 0.1.0 22nd November 2020
+ * @version 0.9.6.f 10th January 2022
  * @desc changes link to the com_xbfilms tag view
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -12,10 +12,11 @@
 defined('_JEXEC') or die;
 
 use Joomla\Registry\Registry;
+use Joomla\CMS\Factory;
 
 JLoader::register('TagsHelperRoute', JPATH_BASE . '/components/com_tags/helpers/route.php');
 
-$authorised = JFactory::getUser()->getAuthorisedViewLevels();
+$authorised = Factory::getUser()->getAuthorisedViewLevels();
 
 ?>
 <?php if (!empty($displayData)) : ?>

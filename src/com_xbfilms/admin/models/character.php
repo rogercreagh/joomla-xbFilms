@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/character.php
- * @version 0.5.6.1 5th April 2021
+ * @version 0.9.6.f 10th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -12,6 +12,7 @@ defined('_JEXEC') or die;
 use Joomla\Registry\Registry;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Helper\TagsHelper;
 
 
 class XbfilmsModelCharacter extends JModelAdmin {
@@ -26,7 +27,7 @@ class XbfilmsModelCharacter extends JModelAdmin {
 			$item->metadata = $registry->toArray();
 			if (!empty($item->id))
 			{
-				$tagsHelper = new JHelperTags;
+				$tagsHelper = new TagsHelper;
 				$item->tags = $tagsHelper->getTagIds($item->id, 'com_xbpeople.character');
 			}
 		}

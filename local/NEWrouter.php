@@ -2,12 +2,14 @@
 /*******
  * @package xbFilms
  * @filesource site/router.php
- * @version 0.5.0 28th February 2021
+ * @version 0.9.6.f 10th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 defined( '_JEXEC' ) or die( 'Restricted access' );
+
+use Joomla\CMS\Factory;
 
 class XbfilmsRouter extends JComponentRouterView {
 
@@ -51,7 +53,7 @@ class XbfilmsRouter extends JComponentRouterView {
 	
 	public function build(&$query)
 	{
-		//      JFactory::getApplication()->enqueueMessage('<pre>'.print_r($query,true).'</pre>','build');
+		//      Factory::getApplication()->enqueueMessage('<pre>'.print_r($query,true).'</pre>','build');
 		$segments = array();
 		if (isset($query['view']))
 		{
@@ -60,7 +62,7 @@ class XbfilmsRouter extends JComponentRouterView {
 		}
 		if (isset($query['id']))
 		{
-			$db = JFactory::getDbo();
+			$db = Factory::getDbo();
 			$qry = $db->getQuery(true);
 			$qry->select('alias');
 			switch($segments[0])
@@ -95,10 +97,10 @@ class XbfilmsRouter extends JComponentRouterView {
 	
 	public function parse(&$segments)
 	{
-		//      JFactory::getApplication()->enqueueMessage('<pre>'.print_r($segments,true).'</pre>','parse');
+		//      Factory::getApplication()->enqueueMessage('<pre>'.print_r($segments,true).'</pre>','parse');
 		$vars = array();
 		
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 		$qry = $db->getQuery(true);
 		$qry->select('id');
 		switch($segments[0])

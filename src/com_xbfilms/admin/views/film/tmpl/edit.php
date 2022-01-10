@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/film/tmpl/edit.php
- * @version 0.9.6.f 9th January 2022
+ * @version 0.9.6.f 10th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -12,6 +12,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\LayoutHelper;
 
 HtmlHelper::_('behavior.tabState');
 HTMLHelper::_('behavior.formvalidator');
@@ -33,7 +34,7 @@ $document->addStyleDeclaration($style);
 		<div class="span10">
          	<div class="row-fluid">
         		<div class="span11">
-        			<?php echo JLayoutHelper::render('joomla.edit.title_alias', $this); ?>
+        			<?php echo LayoutHelper::render('joomla.edit.title_alias', $this); ?>
         		</div>
         		<div class="span1"><?php echo $this->form->renderField('id'); ?></div>
         	</div>
@@ -76,6 +77,7 @@ $document->addStyleDeclaration($style);
 						data-target="#ajax-modal"><i class="icon-new">
 						</i><?php echo Text::_('XBCULTURE_ADD_NEW_P');?></a>
          		</div>
+         	</div>
         </div>    
         <div class="span2">
     		<?php if($this->form->getValue('poster_img')){?>
@@ -86,7 +88,6 @@ $document->addStyleDeclaration($style);
     		<?php } ?>
         </div>
     </div>
-	<div class="pull-right xbnote" >The <b>Quick Add Person</b> button appears below here on the people tab</div>   
     <div class="row-fluid form-horizontal">
       <div class="span12">
 		<?php echo HTMLHelper::_('bootstrap.startTabSet', 'myTab', array('active' => 'details')); ?>
@@ -118,17 +119,17 @@ $document->addStyleDeclaration($style);
  				<fieldset class="form-vertical">
            			<?php echo $this->form->renderField('poster_img'); ?>
  				</fieldset>
-				<?php echo JLayoutHelper::render('joomla.edit.global', $this); ?>
+				<?php echo LayoutHelper::render('joomla.edit.global', $this); ?>
 			</div>					
+		</div>	
 			<hr />
 			<?php echo $this->form->renderField('ext_links'); ?>
-		</div>	
 		<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
 		
-		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'people', Text::_('People')); ?>
+		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'people', Text::_('XBCULTURE_PEOPLE_U')); ?>
 			<div class="row-fluid">				
 	    		<div class="span6 form-vertical">
-				<h4><?php echo Text::_('XBCULTURE_FILM_U').' '.Text::_('XBCULTURE_PEOPLE_AND_CHARS');?></h4>
+				<h4><?php echo Text::_('XBCULTURE_FILM_U').' '.Text::_('XBCULTURE_PEOPLE_U');?></h4>
 				<p class="xbnote"><?php echo Text::_('XBCULTURE_ADD_PEEP_NOTE');?> </p>
 					<?php echo $this->form->renderField('producerlist'); ?>
 					<?php echo $this->form->renderField('crewlist'); ?>
@@ -136,6 +137,7 @@ $document->addStyleDeclaration($style);
 	    			<?php echo $this->form->renderField('castlist'); ?>
  				</div>
     			<div class="span6 form-vertical">
+				<h4><?php echo Text::_('XBCULTURE_FILM_U').' '.Text::_('XBCULTURE_CHARACTERS_U');?></h4>
 				<p class="xbnote"><?php echo Text::_('XBCULTURE_ADD_CHAR_NOTE');?> </p>
 				<?php echo $this->form->renderField('charlist'); ?>
 				</div>
@@ -144,10 +146,10 @@ $document->addStyleDeclaration($style);
 		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'publishing', Text::_('COM_XBFILMS_FIELDSET_PUBLISHING')); ?>
 		<div class="row-fluid form-horizontal-desktop">
 			<div class="span6">
-				<?php echo JLayoutHelper::render('joomla.edit.publishingdata', $this); ?>
+				<?php echo LayoutHelper::render('joomla.edit.publishingdata', $this); ?>
 			</div>
 			<div class="span6">
-				<?php echo JLayoutHelper::render('joomla.edit.metadata', $this); ?>
+				<?php echo LayoutHelper::render('joomla.edit.metadata', $this); ?>
 			</div>
 		</div>
 		<?php echo HTMLHelper::_('bootstrap.endTab'); ?>

@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/importexport/view.html.php
- * @version 0.3.2 15th February 2021
+ * @version 0.9.6.f 10th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -13,9 +13,10 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Toolbar\ToolbarHelper;
+use Joomla\CMS\HTML\HTMLHelper;
 
 //jimport( 'joomla.application.component.view' );
-JHTML::addIncludePath(JPATH_COMPONENT.DIRECTORY_SEPARATOR.'helpers');
+HTMLHelper::addIncludePath(JPATH_COMPONENT.DIRECTORY_SEPARATOR.'helpers');
 
 class XbfilmsViewImportexport extends JViewLegacy {
 //	protected $state;
@@ -48,9 +49,9 @@ class XbfilmsViewImportexport extends JViewLegacy {
 	    + XbfilmsHelper::getIdFromAlias('#__categories', 'sample-filmpeople');
 	    if ($this->show_sample==1) {
 	    	if ($samplesexist > 0) {
-	    		ToolbarHelper::custom('cpanel.unsample', 'file-minus', '', 'COM_XBFILMS_REMOVE_SAMPLE', false) ;
+	    		ToolbarHelper::custom('cpanel.unsample', 'file-minus', '', 'XBCULTURE_REMOVE_SAMPLE', false) ;
 	    	} else {
-	    		ToolbarHelper::custom('cpanel.sample', 'file-plus', '', 'COM_XBFILMS_INSTALL_SAMPLE', false) ;
+	    		ToolbarHelper::custom('cpanel.sample', 'file-plus', '', 'XBCULTURE_INSTALL_SAMPLE', false) ;
 	    	}
 	    }
 	    

@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/people/tmpl/default.php
- * @version 0.9.0 7th April 2021
+ * @version 0.9.6.f 10th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -105,7 +105,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 				<?php if($this->show_cat || $this->show_tags) : ?>
     				<th class="hidden-tablet hidden-phone">
     					<?php if ($this->show_cat) {
-    						echo JHTML::_('searchtools.sort','XBCULTURE_CATEGORY','category_title',$listDirn,$listOrder );
+    						echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATEGORY','category_title',$listDirn,$listOrder );
     					}
     					if (($this->show_cat) && ($this->show_tags)) {
     					    echo ' &amp; ';

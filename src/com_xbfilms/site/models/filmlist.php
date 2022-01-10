@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/filmlist.php
- * @version 0.9.5 9th May 2021
+ * @version 0.9.6.f 10th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -52,7 +52,7 @@ class XbfilmsModelFilmlist extends JModelList {
 	}
 	
 	protected function getListQuery() {
-		$db    = JFactory::getDbo();
+		$db    = Factory::getDbo();
 		$query = $db->getQuery(true);
 		
 		$query->select('a.id AS id, a.title AS title, a.subtitle AS subtitle, a.alias AS alias,
