@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/controllers/cpanel.php
- * @version 0.9.0 7th April 2021
+ * @version 0.9.6.f 11th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -83,7 +83,7 @@ class XbfilmsControllerCpanel extends JControllerAdmin {
         	$dest = '/images/xbfilms/samples';
         	if (JFolder::exists(JPATH_ROOT.$dest))
         	{
-        		$mess .= '<br />'.JText::sprintf('Sample images not copied, folder %s already exists', $dest) ;
+        		$mess .= '<br />'.JText::sprintf('XBCULTURE_SAMPLE_IMAGES_EXIST', $dest) ;
         		$msgtype = 'info';
         	} else {
         		if (JFolder::copy(JPATH_ROOT.$src,JPATH_ROOT.$dest)){

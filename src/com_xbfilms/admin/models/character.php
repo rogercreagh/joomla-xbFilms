@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/character.php
- * @version 0.9.6.f 10th January 2022
+ * @version 0.9.6.f 11th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -13,7 +13,7 @@ use Joomla\Registry\Registry;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Helper\TagsHelper;
-
+use Joomla\CMS\Application\ApplicationHelper;
 
 class XbfilmsModelCharacter extends JModelAdmin {
  
@@ -84,10 +84,10 @@ class XbfilmsModelCharacter extends JModelAdmin {
 		$user = Factory::getUser();
 
 		$table->name = htmlspecialchars_decode($table->name, ENT_QUOTES);
-		$table->alias = JApplicationHelper::stringURLSafe($table->alias);
+		$table->alias = ApplicationHelper::stringURLSafe($table->alias);
 
 		if (empty($table->alias)) {
-			$table->alias = JApplicationHelper::stringURLSafe($table->name);
+			$table->alias = ApplicationHelper::stringURLSafe($table->name);
 		}
 
 		// Set the values

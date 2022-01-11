@@ -21,7 +21,7 @@ $published = $this->state->get('filter.published');
 
 		<div class="control-group span6">
 			<div class="controls">
-				<?php echo JLayoutHelper::render('joomla.html.batch.item', array('extension' => 'com_xbfilms')); ?>
+				<?php echo LayoutHelper::render('joomla.html.batch.item', array('extension' => 'com_xbfilms')); ?>
 			</div>
 		</div>
 

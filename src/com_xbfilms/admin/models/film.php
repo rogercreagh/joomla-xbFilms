@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/film.php
- * @version 0.9.5 8th May 2021
+ * @version 0.9.6.f 11th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -14,6 +14,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Filter\OutputFilter;
+use Joomla\CMS\Application\ApplicationHelper;
 
 class XbfilmsModelFilm extends JModelAdmin {
     
@@ -101,10 +102,10 @@ class XbfilmsModelFilm extends JModelAdmin {
         
         $table->title = htmlspecialchars_decode($table->title, ENT_QUOTES);
         $table->subtitle = htmlspecialchars_decode($table->subtitle, ENT_QUOTES);
-        $table->alias = JApplicationHelper::stringURLSafe($table->alias);
+        $table->alias = ApplicationHelper::stringURLSafe($table->alias);
         
         if (empty($table->alias)) {
-            $table->alias = JApplicationHelper::stringURLSafe($table->title);
+            $table->alias = ApplicationHelper::stringURLSafe($table->title);
         }
         // Set the values
         if (empty($table->cat_date)) {

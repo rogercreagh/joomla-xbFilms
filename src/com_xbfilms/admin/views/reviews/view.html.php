@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/reviews/view.html.php
- * @version 0.4.1 24th February 2021
+ * @version 0.9.6.f 11th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -14,6 +14,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\FileLayout;
 
 class XbfilmsViewReviews extends JViewLegacy {
     
@@ -81,7 +82,7 @@ class XbfilmsViewReviews extends JViewLegacy {
         {
         	$bar = Toolbar::getInstance('toolbar');
         	// we use a standard Joomla layout to get the html for the batch button
-        	$layout = new JLayoutFile('joomla.toolbar.batch');
+        	$layout = new FileLayout('joomla.toolbar.batch');
         	$batchButtonHtml = $layout->render(array('title' => Text::_('JTOOLBAR_BATCH')));
         	$bar->appendButton('Custom', $batchButtonHtml, 'batch');
         }
