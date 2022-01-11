@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Router\Route;
 
 HTMLHelper::_('behavior.formvalidator');
 HTMLHelper::_('behavior.keepalive');
@@ -17,7 +18,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 
 ?>
 <div class="xbml20 xbmr20">
-<form action="<?php echo JRoute::_('index.php?option=com_xbfilms&layout=qnew&id=' . (int) $this->item->id); ?>"
+<form action="<?php echo Route::_('index.php?option=com_xbfilms&layout=qnew&id=' . (int) $this->item->id); ?>"
     method="post" name="adminForm" id="adminForm">
     <div class="row-fluid">
     	<div class="span12">

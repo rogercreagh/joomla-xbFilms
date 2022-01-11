@@ -11,6 +11,8 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
 
 HTMLHelper::_('behavior.formvalidator');
 HTMLHelper::_('behavior.keepalive');
@@ -19,7 +21,7 @@ HTMLHelper::_('formbehavior.chosen', '#jform_tags', null, array('placeholder_tex
 HTMLHelper::_('formbehavior.chosen', 'select');
 
 ?>
-<form action="<?php echo JRoute::_('index.php?option=com_xbfilms&layout=edit&id=' . (int) $this->item->id); ?>"
+<form action="<?php echo Route::_('index.php?option=com_xbfilms&layout=edit&id=' . (int) $this->item->id); ?>"
     method="post" name="adminForm" id="adminForm">
     <div class="row-fluid">
     	<div class="span9">
@@ -43,7 +45,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
         		<?php if($this->form->getValue('image')){?>
         			<div class="control-group">
         				<img class="img-polaroid hidden-phone" style="max-height:200px;min-width:24px;" 
-            				src="<?php echo JUri::root() . $this->form->getValue('image');?>" />
+            				src="<?php echo Uri::root() . $this->form->getValue('image');?>" />
         			</div>
         		<?php } ?>
             </div>  

@@ -2,7 +2,7 @@
 /**
  * @package xbFilms-Package
  * @filesource pkg_xbfilms_script.php
- * @version 0.9.3 12th April 2021
+ * @version 0.9.7 12th April 2021
  * @desc install, upgrade and uninstall actions
  * @author Roger C-O
  * @copyright (C) Roger Creagh-Osborne, 2019
@@ -10,16 +10,18 @@
  **/
 // No direct access to this file
 defined('_JEXEC') or die;
+
 use Joomla\CMS\Factory;
+use Joomla\CMS\Version;
 
 class pkg_xbfilmsInstallerScript
 {
-    protected $jminver = '3.9';
+    protected $jminver = '3.10';
     protected $jmaxver = '4.0';
     
     function preflight($type, $parent)
     {
-        $jversion = new JVersion();
+        $jversion = new Version();
         $jverthis = $jversion->getShortVersion();
         if ((version_compare($jverthis, $this->jminver,'lt')) || (version_compare($jverthis, $this->jmaxver, 'ge'))) {
             throw new RuntimeException('xbFilms requires Joomla version greater than or equal to '.$this->jminver. ' and less than '.$this->jmaxver.'. You have '.$jverthis);
@@ -32,19 +34,7 @@ class pkg_xbfilmsInstallerScript
     
     function uninstall($parent)
     {
-    	$message = 'Uninstalling xbFilms Package';
-//     	$db = Factory::getDBO();
-//     	$db->setQuery('SELECT enabled FROM #__extensions WHERE element = '.$db->quote('com_xbbooks'));
-//     	$res = $db->loadResult();
-//     	if ($res) {
-//     		$message = '<b>xbFilms package uninstall says:</b> xbBooks is still installed but xbPeople has been removed with this package. No data has been deleted, but if you wish to continue using xbBooks it is recommended you reinstall xbPeople.';
-//     		$message .= '<br />To install it now copy this url <b> https://www.crosborne.uk/downloads?download=11 </b>, and paste the link into the box on the ';
-//     		$message .= '<a href="index.php?option=com_installer&view=install#url">Install from URL page</a>, ';
-//     		$message .= 'or <a href="https://www.crosborne.uk/downloads?download=11">download here</a> and drag and drop onto the install box on this page.';
-//      		Factory::getApplication()->enqueueMessage($message,'Error');
-     		
-//     	}
-    	echo '<div style="padding: 7px; margin: 0 0 8px; list-style: none; -webkit-border-radius: 4px; -moz-border-radius: 4px;
+     	echo '<div style="padding: 7px; margin: 0 0 8px; list-style: none; -webkit-border-radius: 4px; -moz-border-radius: 4px;
 	border-radius: 4px; background-image: linear-gradient(#ffffff,#efefef); border: solid 1px #ccc;">';
     	echo '<h4>Uninstalling xbFilms Package</h4>';
         echo '<p>This is removing the xbFilms and xbPeople components, but will leave the xbPeople data tables and images.';

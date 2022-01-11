@@ -13,6 +13,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
 
 HTMLHelper::_('formbehavior.chosen', 'select');
 
@@ -40,7 +41,7 @@ $prevext='';
 		echo XbfilmsHelper::sitePageheader($this->header);
 	} ?>
 	
-	<form action="<?php echo JRoute::_('index.php?option=com_xbfilms&view=categories'); ?>" method="post" name="adminForm" id="adminForm">
+	<form action="<?php echo Route::_('index.php?option=com_xbfilms&view=categories'); ?>" method="post" name="adminForm" id="adminForm">
 
 	<?php if (empty($this->items)) : ?>
 		<div class="alert alert-no-items">
@@ -88,7 +89,7 @@ $prevext='';
 						
 					 </span>
  						<?php endif; //show_parent?>
-    					<a href="<?php echo JRoute::_($clink . $item->id.'&ext='.$item->extension); ?>" title="Details" 
+    					<a href="<?php echo Route::_($clink . $item->id.'&ext='.$item->extension); ?>" title="Details" 
     						class="label label-success" style="padding:2px 8px;">
     						<span class="xb11"><?php echo $item->title; ?></span>
     					</a>
@@ -97,12 +98,12 @@ $prevext='';
 					<td class="hidden-phone"><?php echo $item->description; ?></td>
 	    			<td class="center">
 	   					<?php if ($item->bcnt >0) : ?> 
-	   						<a href="<?php echo JRoute::_($bvlink.$item->id); ?>" class="badge bkcnt"><?php echo $item->bcnt; ?></a></span>
+	   						<a href="<?php echo Route::_($bvlink.$item->id); ?>" class="badge bkcnt"><?php echo $item->bcnt; ?></a></span>
 	   					<?php endif; ?>
 	   				</td>
 	    			<td class="center">
 	   					<?php if ($item->rcnt >0) : ?> 
-	   						<a href="<?php echo JRoute::_($rvlink.$item->id); ?>" class="badge revcnt"><?php echo $item->rcnt; ?></a></span>
+	   						<a href="<?php echo Route::_($rvlink.$item->id); ?>" class="badge revcnt"><?php echo $item->rcnt; ?></a></span>
 	   					<?php endif; ?>
 	   				</td>
 	    			<td class="center">

@@ -10,6 +10,7 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
 use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Router\Route;
 
 $item = $this->item;
 $xblink = 'index.php?option=com_xbfilms&view=';
@@ -72,7 +73,7 @@ $tclink = $xblink.'tags' . $itemid;
 			<?php if ($item->bcnt > 0 ) : ?>
 				<ul>
 				<?php foreach ($item->bks as $i=>$bk) { 
-					echo '<li><a href="'.JRoute::_($blink.$bk->bid).'">'.$bk->title.'</a></li> ';
+					echo '<li><a href="'.Route::_($blink.$bk->bid).'">'.$bk->title.'</a></li> ';
 				} ?>				
 				</ul>
 			<?php endif; ?>
@@ -84,7 +85,7 @@ $tclink = $xblink.'tags' . $itemid;
 			<?php if ($item->rcnt > 0 ) : ?>
 				<ul>
 				<?php foreach ($item->revs as $i=>$rev) { 
-					echo '<li><a href="'.JRoute::_($rlink.$rev->rid).'">'.$rev->title.'</a></li> ';
+					echo '<li><a href="'.Route::_($rlink.$rev->rid).'">'.$rev->title.'</a></li> ';
 				} ?>				
 				</ul>
 			<?php endif; ?>
@@ -98,7 +99,7 @@ $tclink = $xblink.'tags' . $itemid;
 			<?php if ($item->pcnt > 0 ) : ?>
 				<ul>
 				<?php foreach ($item->people as $i=>$per) { 
-					echo '<li><a href="'.JRoute::_($plink.$per->pid).'">'.$per->title.'</a></li> ';
+					echo '<li><a href="'.Route::_($plink.$per->pid).'">'.$per->title.'</a></li> ';
 				} ?>				
 				</ul>
 			<?php endif; ?>
@@ -110,7 +111,7 @@ $tclink = $xblink.'tags' . $itemid;
 			<?php if ($item->chcnt > 0 ) : ?>
 				<ul>
 				<?php foreach ($item->characters as $i=>$per) { 
-					echo '<li><a href="'.JRoute::_($chlink.$per->pid).'">'.$per->title.'</a></li> ';
+					echo '<li><a href="'.Route::_($chlink.$per->pid).'">'.$per->title.'</a></li> ';
 				} ?>				
 				</ul>
 			<?php endif; ?>
@@ -163,7 +164,7 @@ $tclink = $xblink.'tags' . $itemid;
 </div>
 <div class="clearfix"></div>
 <p class="xbtc xbmt16">
-	<a href="<?php echo JRoute::_($tclink); ?>" class="btn btn-small">
+	<a href="<?php echo Route::_($tclink); ?>" class="btn btn-small">
 		<?php echo JText::_('COM_XBFILMS_TAG_COUNTS'); ?>
 	</a>
 </p>

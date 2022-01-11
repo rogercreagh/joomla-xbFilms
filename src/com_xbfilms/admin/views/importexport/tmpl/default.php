@@ -13,7 +13,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 
 HTMLHelper::_('behavior.tabState');
 HTMLHelper::_('formbehavior.chosen', 'select');
-//$jinput = JFactory::getApplication()->input;
+use Joomla\CMS\Router\Route;
 
 ?>
 <script language="JavaScript" type="text/javascript">
@@ -44,7 +44,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 </script>
 
 
-<form action="<?php echo JRoute::_('index.php?option=com_xbfilms&view=importexport'); ?>" 
+<form action="<?php echo Route::_('index.php?option=com_xbfilms&view=importexport'); ?>" 
 	method="post" name="adminForm" id="adminForm" class="form-validate" enctype="multipart/form-data">
 
 	<?php if (!empty( $this->sidebar)) : ?>

@@ -16,7 +16,7 @@ use Joomla\CMS\Router\Route;
 
 class XbfilmsControllerPerson extends JControllerForm {
     
-    public function __construct($config = array(), MVCFactoryInterface $factory = null) {
+    public function __construct($config = array()) {
         parent::__construct($config, $factory);
     }
     

@@ -13,6 +13,8 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
 
 HTMLHelper::_('behavior.multiselect');
 HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => Text::_('JOPTION_SELECT_TAG')));
@@ -51,7 +53,7 @@ $cvlink = 'index.php?option=com_xbfilms&view=fcategory&id=';
 $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 
 ?>
-<form action="<?php echo JRoute::_('index.php?option=com_xbfilms&view=films'); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo Route::_('index.php?option=com_xbfilms&view=films'); ?>" method="post" name="adminForm" id="adminForm">
 	<?php if (!empty( $this->sidebar)) : ?>
         <div id="j-sidebar-container" class="span2">
 			<?php echo $this->sidebar; ?>
@@ -199,7 +201,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
     							} elseif (!file_exists(JPATH_ROOT.'/'.$src)) {
     							    $src = $nofile;
     							}
-    							$src = JURI::root().$src;
+    							$src = Uri::root().$src;
 							?>
 							src="<?php echo $src; ?>"
 							border="0" alt="" />						
@@ -211,7 +213,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 						    echo HTMLHelper::_('jgrid.checkedout', $i, JText::_('XBCULTURE_OPENED_BY').': '.$couname, $item->checked_out_time, 'film.', $canCheckin);
 						} ?>
 						<?php if ($canEdit || $canEditOwn) : ?>
-							<a href="<?php echo JRoute::_($belink.$item->id);?>"
+							<a href="<?php echo Route::_($belink.$item->id);?>"
 								title="<?php echo JText::_('COM_XBFILMS_EDIT_FILM'); ?>" >
 								<b><?php echo $this->escape($item->title); ?></b></a> 
 						<?php else : ?>
@@ -282,7 +284,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 					</td>
 					<td class="hidden-phone">
 						<?php if ($item->revcnt==0) : ?>
-						    <a href="'.JRoute::_($relink.'0&bk='.$item->id).'">
+						    <a href="'.Route::_($relink.'0&bk='.$item->id).'">
                             <i><?php echo JText::_('COM_XBFILMS_NOREVIEW'); ?></i></a><br /> 
 						<?php else: ?>
                         	<?php $stars = (round(($item->averat)*2)/2); ?>
@@ -310,7 +312,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 										 	<?php endif; ?>
 										 </span>
 	                                <?php endif; ?>
-									<a href="<?php echo JRoute::_($rvlink.$rev->id);?>">
+									<a href="<?php echo Route::_($rvlink.$rev->id);?>">
 	    								<span class="xbnit"><?php echo JText::_('XBCULTURE_BY').':';?>
 	    								<?php if ($rev->reviewer) {
 	    								    echo $rev->reviewer;
@@ -324,7 +326,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 							<?php endforeach; ?>
                         <?php endif; ?>
 						<div style="margin-top:5px;">
-							<a href="<?php echo JRoute::_($relink.'0&film_id='.$item->id); ?>" 
+							<a href="<?php echo Route::_($relink.'0&film_id='.$item->id); ?>" 
 								class="btn btn-mini btn-success">
 								<?php echo JText::_('COM_XBFILMS_ADDREVIEW'); ?>
 							</a>

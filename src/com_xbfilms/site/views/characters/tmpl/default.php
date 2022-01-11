@@ -14,6 +14,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Layout\FileLayout;
+use Joomla\CMS\Router\Route;
 
 HTMLHelper::_('behavior.multiselect');
 HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => Text::_('JOPTION_SELECT_TAG')));
@@ -43,7 +44,7 @@ $plink = 'index.php?option=com_xbfilms&view=character'.$itemid.'&id=';
 		echo XbfilmsHelper::sitePageheader($this->header);
 	} ?>
 	
-<form action="<?php echo JRoute::_('index.php?option=com_xbfilms&view=characters'); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo Route::_('index.php?option=com_xbfilms&view=characters'); ?>" method="post" name="adminForm" id="adminForm">
 		<?php  // Search tools bar
 			if ($this->search_bar) {
 				$hide = '';
@@ -127,7 +128,7 @@ $plink = 'index.php?option=com_xbfilms&view=character'.$itemid.'&id=';
                 <?php endif; ?>
 				<td>
 					<p class="xbtitlelist">
-						<a href="<?php echo JRoute::_($plink.$item->id);?>" >
+						<a href="<?php echo Route::_($plink.$item->id);?>" >
 							<b><?php echo $this->escape($item->name); ?></b>
 						</a>
 					</p>

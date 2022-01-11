@@ -13,6 +13,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
 
 HTMLHelper::_('behavior.multiselect');
 HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => JText::_('JOPTION_SELECT_TAG')));
@@ -52,7 +53,7 @@ $chllink = $xblink.'characters'.$itemid.'&tagid=';
 		echo XbfilmsHelper::sitePageheader($this->header);
 	} ?>
 	
-	<form action="<?php echo JRoute::_('index.php?option=com_xbfilms&view=tags'); ?>" method="post" name="adminForm" id="adminForm">
+	<form action="<?php echo Route::_('index.php?option=com_xbfilms&view=tags'); ?>" method="post" name="adminForm" id="adminForm">
 	
 	<?php if (empty($this->items)) : ?>
 		<div class="alert alert-no-items">
@@ -86,7 +87,7 @@ $chllink = $xblink.'characters'.$itemid.'&tagid=';
                         	</span>
 						<?php endif; //show_parent?>
 	    				<span  class="xb11 xbbold">
-	    					<a href="<?php echo JRoute::_($tvlink . $item->id); ?>" title="Details">
+	    					<a href="<?php echo Route::_($tvlink . $item->id); ?>" title="Details">
 	    						<?php echo $item->title; ?>
 	    					</a>
 	    				</span>
@@ -97,22 +98,22 @@ $chllink = $xblink.'characters'.$itemid.'&tagid=';
 				<?php endif; ?>
 	    			<td class="center">
 	   					<?php if ($item->bcnt >0) : ?> 
-	   						<a class="badge bkcnt" href="<?php  echo JRoute::_($bllink.$item->id); ?>"><?php echo $item->bcnt; ?></a>
+	   						<a class="badge bkcnt" href="<?php  echo Route::_($bllink.$item->id); ?>"><?php echo $item->bcnt; ?></a>
 	   					<?php endif; ?>
 	   				</td>
 	    			<td class="center">
 	   					<?php if ($item->rcnt >0) : ?> 
-	   						<a class="badge revcnt" href="<?php  echo JRoute::_($rllink.$item->id); ?>"><?php echo $item->rcnt; ?></a>
+	   						<a class="badge revcnt" href="<?php  echo Route::_($rllink.$item->id); ?>"><?php echo $item->rcnt; ?></a>
 	   					<?php endif; ?>
 	   				</td>
 	    			<td class="center">
 	   					<?php if ($item->pcnt >0) : ?> 
-	   						<a class="badge percnt" href="<?php  echo JRoute::_($pllink.$item->id); ?>"><?php echo $item->pcnt; ?></a>
+	   						<a class="badge percnt" href="<?php  echo Route::_($pllink.$item->id); ?>"><?php echo $item->pcnt; ?></a>
 	   					<?php endif; ?>
 	   				</td>
 	    			<td class="center">
 	   					<?php if ($item->chcnt >0) : ?> 
-	   						<a class="badge percnt" href="<?php  echo JRoute::_($chllink.$item->id); ?>"><?php echo $item->chcnt; ?></a>
+	   						<a class="badge percnt" href="<?php  echo Route::_($chllink.$item->id); ?>"><?php echo $item->chcnt; ?></a>
 	   					<?php endif; ?>
 	   				</td>
 				</tr>

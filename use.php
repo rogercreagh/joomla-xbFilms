@@ -17,6 +17,7 @@ use Joomla\CMS\Table\Observer\Tags;
 use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Version;
 use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
 

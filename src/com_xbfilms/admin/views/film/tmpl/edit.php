@@ -13,6 +13,8 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
 
 HtmlHelper::_('behavior.tabState');
 HTMLHelper::_('behavior.formvalidator');
@@ -28,7 +30,7 @@ $style = '.controls .btn-group > .btn  {'
 		. '}';
 $document->addStyleDeclaration($style);
 ?>
-<form action="<?php echo JRoute::_('index.php?option=com_xbfilms&layout=edit&id=' . (int) $this->item->id); ?>"
+<form action="<?php echo Route::_('index.php?option=com_xbfilms&layout=edit&id=' . (int) $this->item->id); ?>"
     method="post" name="adminForm" id="adminForm">
  	<div class="row-fluid">
 		<div class="span10">
@@ -83,7 +85,7 @@ $document->addStyleDeclaration($style);
     		<?php if($this->form->getValue('poster_img')){?>
     			<div class="control-group">
     				<img class="img-polaroid hidden-phone" style="max-width:100%;" 
-        				src="<?php echo JUri::root() . $this->form->getValue('poster_img');?>" />
+        				src="<?php echo Uri::root() . $this->form->getValue('poster_img');?>" />
     			</div>
     		<?php } ?>
         </div>

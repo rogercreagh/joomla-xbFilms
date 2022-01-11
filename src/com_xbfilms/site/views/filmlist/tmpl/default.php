@@ -14,6 +14,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Layout\FileLayout;
+use Joomla\CMS\Router\Route;
 
 HTMLHelper::_('behavior.multiselect');
 HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => JText::_('JOPTION_SELECT_TAG')));
@@ -49,7 +50,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 		echo XbfilmsHelper::sitePageheader($this->header);
 	} ?>
 	
-	<form action="<?php echo JRoute::_('index.php?option=com_xbfilms&view=filmlist'); ?>" method="post" name="adminForm" id="adminForm">       
+	<form action="<?php echo Route::_('index.php?option=com_xbfilms&view=filmlist'); ?>" method="post" name="adminForm" id="adminForm">       
 		<?php  // Search tools bar
 			if ($this->search_bar) {
 				$hide = '';
@@ -144,7 +145,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
                     <?php endif; ?>
 					<td>
 						<p class="xbtitle">
-							<a href="<?php echo JRoute::_($blink.$item->id);?>" >
+							<a href="<?php echo Route::_($blink.$item->id);?>" >
 								<b><?php echo $this->escape($item->title); ?></b></a></p> 
 						<?php if (!empty($item->subtitle)) :?>
                         	<p><?php echo $this->escape($item->subtitle); ?></p>
@@ -217,7 +218,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
     										<?php if ($item->revcnt>1) : ?>
     											<?php echo $rev->rating;?><span class="xbstar"><i class="<?php echo $this->star_class; ?>"></i></span> 
     			                            <?php endif; ?>
-    			                            <a href="<?php echo JRoute::_($rlink.$rev->id); ?>">
+    			                            <a href="<?php echo Route::_($rlink.$rev->id); ?>">
 	    	                                	<i>by</i> <?php echo $rev->reviewer; ?> 
 	    	                                	<i>on</i> <?php  echo HtmlHelper::date($rev->rev_date , Text::_('d M Y')); ?>
     			                            </a>

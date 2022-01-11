@@ -10,9 +10,10 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Uri\Uri;
 
 $document = Factory::getDocument();
-$document->addStyleSheet(JUri::root() . 'media/com_xbpeople/css/xbculture.css', array('version'=>'auto'));
+$document->addStyleSheet(Uri::root() . 'media/com_xbpeople/css/xbculture.css', array('version'=>'auto'));
 $cssFile = "https://use.fontawesome.com/releases/v5.8.1/css/all.css\" integrity=\"sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf\" crossorigin=\"anonymous";
 $document->addStyleSheet($cssFile);
 

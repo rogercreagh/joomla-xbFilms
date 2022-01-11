@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/cpanel/tmpl/default.php
- * @version 0.9.6.f 10th January 2022
+ * @version 0.9.7.0 11th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -421,7 +421,7 @@ if (!$this->xbpeople_ok) : ?>
                                   </i></p>
                                   <?php echo Text::_('XBCULTURE_OTHER_COMPS'); ?>
                                   <ul>
-                              	<?php $coms = array('com_xbfilms','com_xblive','com_xbpeople');
+                              	<?php $coms = array('com_xbbooks','com_xblive','com_xbpeople');
                               	foreach ($coms as $element) {
                               	    echo '<li>';
                                   	$ext = XbcultureHelper::getExtensionInfo($element);

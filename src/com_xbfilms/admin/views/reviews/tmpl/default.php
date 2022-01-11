@@ -13,6 +13,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
 
 HTMLHelper::_('behavior.multiselect');
 HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => JText::_('JOPTION_SELECT_TAG')));
@@ -186,7 +187,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
     						    $couname = Factory::getUser($item->checked_out)->username;
     						    echo HTMLHelper::_('jgrid.checkedout', $i, JText::_('XBCULTURE_OPENED_BY').': '.$couname, $item->checked_out_time, 'review.', $canCheckin);
     						} ?>
-    						<a href="<?php echo JRoute::_($relink . $item->id); ?>" title="<?php echo JText::_('COM_XBFILMS_EDIT_REVIEW'); ?>">
+    						<a href="<?php echo Route::_($relink . $item->id); ?>" title="<?php echo JText::_('COM_XBFILMS_EDIT_REVIEW'); ?>">
     							<?php echo $item->title; ?>
     						</a>
     						<br /><span class="xb08 xbnorm"><i><?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?></i></span>
@@ -197,7 +198,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 						<td><?php if ($item->filmtitle == '') :  ?>
 							<p class="xbnote">Film not found - orphan review</p>
 							<?php  else : ?>
-								<p><a href="<?php echo JRoute::_($bvlink . $item->filmid); ?>">
+								<p><a href="<?php echo Route::_($bvlink . $item->filmid); ?>">
 	    							<?php echo $item->filmtitle; ?>
 								</a>
 								<br /><span class="xb09">
