@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource script.xbfilms.php
- * @version 0.9.6.a 16th December 2021
+ * @version 0.9.7 11th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html 
@@ -93,6 +93,7 @@ class com_xbfilmsInstallerScript
 	        
          	//check if people available
     		$xbpeople = true;
+    		$db = Factory::getDbo();
     		$db->setQuery('SELECT enabled FROM #__extensions WHERE element = '.$db->quote('com_xbpeople'));
     		if (!$db->loadObject()) {
     			$xbpeople = false;

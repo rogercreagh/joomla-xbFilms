@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmreview/tmpl/default.php
- * @version 0.9.6.f 11th January 2022
+ * @version 0.9.7 11th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -13,6 +13,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Layout\FileLayout;
+use Joomla\CMS\Router\Route;
 
 $item = $this->item;
 
@@ -125,7 +126,7 @@ if ($imgok) {
 					<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBCULTURE_CATEGORY'); ?></div>
 					<div class="pull-left">
     					<?php if($this->show_cat==2) : ?>
-    						<a class="label label-success" href="<?php echo JRoute::_($clink.$item->catid); ?>">
+    						<a class="label label-success" href="<?php echo Route::_($clink.$item->catid); ?>">
     							<?php echo $item->category_title; ?></a>
     					<?php else: ?>
     						<span class="label label-success">

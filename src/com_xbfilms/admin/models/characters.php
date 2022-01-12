@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/characters.php
- * @version 0.9.4 17th April 2021
+ * @version 0.9.7 11th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -12,6 +12,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\Utilities\ArrayHelper;
 use Joomla\CMS\Helper\TagsHelper;
+use Joomla\CMS\Router\Route;
 
 class XbfilmsModelCharacters extends JModelList {
 
@@ -223,7 +224,7 @@ class XbfilmsModelCharacters extends JModelList {
         $db->setQuery($query);
         $list = $db->loadObjectList();
         foreach ($list as $i=>$item){
-            $tlink = JRoute::_($link . $item->id);
+            $tlink = Route::_($link . $item->id);
             $item->link = '<a href="'.$tlink.'">'.$item->title.'</a>';
             $item->display = $item->title;
         }

@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/character.php
- * @version 0.9.6.f 11th January 2022
+ * @version 0.9.7 11th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -14,6 +14,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Application\ApplicationHelper;
+use Joomla\CMS\Table\Table;
 
 class XbfilmsModelCharacter extends JModelAdmin {
  
@@ -36,7 +37,7 @@ class XbfilmsModelCharacter extends JModelAdmin {
 	
 	public function getTable($type = 'Character', $prefix = 'XbfilmsTable', $config = array())
     {
-        return JTable::getInstance($type, $prefix, $config);
+        return Table::getInstance($type, $prefix, $config);
     }
     
     public function getForm($data = array(), $loadData = true) {
