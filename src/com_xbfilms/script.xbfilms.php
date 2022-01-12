@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource script.xbfilms.php
- * @version 0.9.7 11th December 2021
+ * @version 0.9.8.a 11th December 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html 
@@ -121,18 +121,19 @@ class com_xbfilmsInstallerScript
 	        	echo '<h4 style="color:red;margin-left:30px;">You must (re-)install xbPeople component before you can use xbFilms or any other xbCulture component';
 	        	echo '</h4>';
 	        } else {
-		        echo '<p><b>Important</b> <i>Before starting review &amp; set the component options</i>&nbsp;&nbsp;';
-		        echo '<a href="index.php?option=com_config&view=component&component=com_xbfilms" class="btn btn-small btn-info">xbFilms Options</a></p>';
-		        echo '<br /><i>After saving the options you will exit to the Dashboard for an overview</i>&nbsp;&nbsp;';
+		        echo '<p><b>Important</b> Before starting review &amp; set the component options&nbsp;&nbsp;';
+		        echo '<a href="index.php?option=com_config&view=component&component=com_xbfilms" class="btn btn-small btn-info">xbFilms Options</a>';
+		        echo '<br /><i>After saving the options you will exit to the Dashboard for an overview</i>';
+		        echo '</p>';
 		        echo '<p><b>Dashboard</b> <i>The Dashboard view provides an overview of the component status</i>&nbsp;&nbsp;';
-		        echo '<a href="index.php?option=com_xbfilms&view=cpanel" class="btn btn-small btn-success">xbFilms Dashboard</a></p>';
+		        echo '<a href="index.php?option=com_xbfilms&view=cpanel">xbFilms Dashboard</a> (<i>but save the options first!</i>)';
+		        echo '</p>';
 		        echo '<p><b>Sample Data</b> <i>You can install some sample data</i>&nbsp;&nbsp ';
-		        echo 'first set and save option at the top of the <a href="index.php?option=com_config&view=component&component=com_xbfilms#admin">Options</a> Admin tab, then the button will appear in the xbFilms Control Panel toolbar.';
-		        echo 'if the option at the top of the <a href="index.php?option=com_config&view=component&component=com_xbfilms#admin">Options</a> Admin tab is enabled';
-		        echo ' a the button will appear in the xbFilms Dashboard toolbar.</p>';
+		        echo 'first check the option to show sample data button on the <a href="index.php?option=com_config&view=component&component=com_xbfilms#admin">Options Admin</a> tab, ';
+		        echo 'then an [Install/Remove Sample Data] button will appear in the xbFilms Dashboard toolbar.';
 		        echo '</p>';
 		        echo '<p><b>Import Data</b> <i>you can import data from CSV or SQL file</i>&nbsp;&nbsp;: ';
-		        echo 'visit the <a href="index.php?option=com_xbfilms&view=importexport#imp">Data Management</a> Import tab.';
+		        echo 'visit the <a href="index.php?option=com_xbfilms&view=importexport#imp">Data Management Import</a> tab.';
 		        echo 'Be sure to read the <a href="https://crosborne.uk/xbfilms/doc#impcsv">documentation</a> first if importing from CSV';
 		        echo '</p>';
 	        }

@@ -3,18 +3,18 @@
 <config>
 <!-- GENERAL TAB -->				
 	<fieldset name="general"
-		label="General"
-		description="Specific settings for the front-end views are found under the 'List Layouts' and 'Item Layouts' tabs. Most settings can be set separately for books, reviews, people &amp; characters. Most global settings can be overridden in the menu paramters for each view."
+		label="XBCULTURE_GENERAL"
+		description="XBCULTURE_CONFIG_GENERAL_DESC"
 		>
   		<field name="showcatsnote" type="note"
-			label="Show Categories and Tags (site) global settings"
-			description="This provides a quick way to disable categories and or tags on the entire xbFilms front end. A setting of 'No' here will override all other global and menu settings. Categories and Tags will still show on the admin side, and could still be used for menu filtering but will be transpent to the front end visitor."
+			label="XBCULTURE_CONFIG_SHOWCATS_NOTE_LABEL"
+			description="XBCULTURE_CONFIG_SHOWCATS_NOTE_DESC"
 			class="info"
 		/>	
 		<field name="show_cats" type="radio"
  			default="1"
-			label="Show Categories (site)"
-			description="Show categories with or without a link to the category page on the front end. This page lists all the items in a given category with links to the item page."
+			label="XBCULTURE_CONFIG_SHOWCATS_LABEL"
+			description="XBCULTURE_CONFIG_SHOWCATS_DESC"
 			class="btn-group btn-group-yesno"
 			>
 			<option value="0" >JNO</option>
@@ -22,7 +22,8 @@
 		</field>			
 		<field name="show_tags" type="radio"
  			default="1"
-			label="Show Tags (site)"
+			label="XBCULTURE_CONFIG_SHOWTAGS_LABEL"
+			description="XBCULTURE_CONFIG_SHOWTAGS_DESC"
 			class="btn-group btn-group-yesno"
 			>
 			<option value="0" >JNO</option>
@@ -30,42 +31,37 @@
 		</field>	
 		
   		<field name="starsnote" type="note"
-			label="Rating settings"
-			description="xbFilms uses a 7 point scale (1 to 7 stars) for ratings (see &lt;a href='https://blog.crosborne.uk/points-on-the-scale' target='_blank'&gt;blog article&lt;/a&gt;). 
-			There is an option for a zero rating for items that were so dreadful that they should never have been written or seen. 
-			&lt;br /&gt;You can choose a FontAwesome or IcoMoon icon to use for zero and stars. For FontAwesome include both parts of the class &quot;fa fa-star&quot;, for IcoMoon include &quot;icon-&quot; before the icon name. 
-			You can also use any UTF8 character by defining a custom class and specifying the character in the after: selector for it."
+			label="XBCULTURE_CONFIG_STARS_NOTE"
+			description="XBCULTURE_CONFIG_STARS_NOTE_DESC"
 			class="info"
 		/>		
-		<field name="zero_rating"
-	        type="radio" default="1"
+		<field name="zero_rating" type="radio" default="1"
+	        label="XBCULTURE_CONFIG_ZERO_LABEL"
+	        description="XBCULTURE_CONFIG_ZERO_DESC"
 			class="btn-group btn-group-yesno"
-	        label="Start ratings at zero"
-	        description="Allow minimum rating to be zero stars, otherwise one star is minimum and zero rating will not display"
 	    	>
 	        	<option value="0">JNO</option>
 	        	<option value="1">JYES</option>
 		</field>
 		<field name="zero_class" type="text"
-			label="Zero icon class" 
-			description="Enter CSS class name to use for a zero icon. Default &quot;xbzero&quot;. For UTF8 chars define a custom class with the character in the :after selector, for IcoMoon include the &quot;icon-&quot; before the name." 
+			label="XBCULTURE_CONFIG_ZERO_CLASS_LABEL" 
+			description="XBCULTURE_CONFIG_ZERO_CLASS_DESC" 
 			default="fas fa-thumbs-down xbred"
 			showon="zero_rating:1"
 		/>
 		<field name="star_class" type="text"
-			label="Star icon class" 
-			description="Enter CSS class name to use for a star icon. Default &quot;fa fa-star&quot;. For UTF8 chars define a custom class with the character in the :after selector, for IcoMoon include the &quot;icon-&quot; before the name." 
+			label="XBCULTURE_CONFIG_STAR_CLASS_LABEL" 
+			description="XBCULTURE_CONFIG_STAR_CLASS_DESC" 
 			default="fa fa-star xbgold"
 		/>
 		<field name="halfstar_class" type="text"
-			label="Half star class" 
-			description="Enter CSS class name to use for a half star icon. Default &quot;fa fa-star-half&quot;. For UTF8 chars define a custom class with the character in the :after selector, for IcoMoon include the &quot;icon-&quot; before the name." 
+			label="XBCULTURE_CONFIG_HALFSTAR_CLASS_LABEL" 
+			description="XBCULTURE_CONFIG_HALFSTAR_CLASS_DESC"
 			default="fa fa-star-half xbgold"
 		/>
-		
  		<field name="itemsnote" type="note"
-			label="Item Defaults"
-			description="Set various defaults for each type of item. These will apply to both lists and item views on the front end. They can be changed at the individual menu level. NB the Sho Category and Show Tag settings are overriden by the global settings above."
+			label="XBCULTURE_CONFIG_ITEMS_NOTE_LABEL"
+			description="XBCULTURE_CONFIG_ITEMS_NOTE_DESC"
 			class="info"
 		/>	
  		<field name="filmsnote" type="note"
@@ -73,7 +69,7 @@
 		/>	
  		<field name="show_fcat" type="radio"
 			label="Show Film Category"
-			description="If both Show Category and Show Tag are no the the column will be hidden in list view"
+			description="XBCULTURE_CONFIG_CATTAG_NO_DESC"
 			class="btn-group btn-group-yesno"
 			showon="show_cats!:0"
 			default="1"
@@ -85,15 +81,15 @@
 		<field name="rootcat_film" type="category"
 			extension="com_xbfilms"
 			label="Films Root Category"
-			description="This will restrict filtering by category on the front-end to only children of this category"
+			description="XBCULTURE_CONFIG_ROOTCAT_DESC"
 			default=""
 			showon="show_fcat!:0"
 		>
 			<option value="">JOPTION_SELECT_CATEGORY</option>
 		</field>
 		<field name="incroot_film" type="radio"
-			label="Include Root"
-			description="include the root category in the options, or just the subcategories"
+			label="XBCULTURE_CONFIG_INCROOT_LABEL"
+			description="XBCULTURE_CONFIG_INCROOT_DESC"
 			class="btn-group btn-group-yesno"
 			showon="rootcat_film!:"
 		>
@@ -102,7 +98,7 @@
 		</field>
  		<field name="show_ftags" type="radio"
 			label="Show Film Tags"
-			description="Show tags in Category &amp; Tags column. If both Show Category and Show Tag are no the the column will be hidden"
+			description="XBCULTURE_CONFIG_CATTAG_NO_DESC"
 			class="btn-group btn-group-yesno"
 			showon="show_tags:1"
 			default="1"
@@ -111,11 +107,11 @@
 			<option value="1">JSHOW</option>
 		</field>	
  		<field name="revsnote" type="note"
-			label="Reviews Settings"
+			label="XBCULTURE_CONFIG_REVSNOTE_LABEL"
 		/>	
  		<field name="show_rcat" type="radio"
-			label="Show Review Category"
-			description="If both Show Category and Show Tag are no the the column will be hidden in list view"
+			label="XBCULTURE_CONFIG_SHOW_RCAT_LABEL"
+			description="XBCULTURE_CONFIG_CATTAG_NO_DESC"
 			class="btn-group btn-group-yesno"
 			showon="show_cats!:0"
 			default="1"
@@ -126,16 +122,16 @@
 		</field>	
  		<field name="rootcat_review" type="category"
 			extension="com_xbfilms"
-			label="Reviews Root Category"
-			description="This will restrict filtering by category on the front-end to only children of this category"
+			label="XBCULTURE_CONFIG_RCAT_INCROOT_LABEL"
+			description="XBCULTURE_CONFIG_ROOTCAT_DESC"
 			default=""
 			showon="show_rcat!:0"
 		>
 			<option value="">JOPTION_SELECT_CATEGORY</option>
 		</field>
 		<field name="incroot_review" type="radio"
-			label="Include Root"
-			description="include the root category in the options, or just the subcategories"
+			label="XBCULTURE_CONFIG_INCROOT_LABEL"
+			description="XBCULTURE_CONFIG_INCROOT_DESC"
 			class="btn-group btn-group-yesno"
 			showon="rootcat_review!:"
 		>
@@ -143,8 +139,8 @@
 			<option value="1">JYES</option>
 		</field>
  		<field name="show_rtags" type="radio"
-			label="Show Review Tags"
-			description="Show tags in Category &amp; Tags column. If both Show Category and Show Tag are no the the column will be hidden"
+			label="XBCULTURE_CONFIG_SHOW_RTAG_LABEL"
+			description="XBCULTURE_CONFIG_CATTAG_NO_DESC"
 			class="btn-group btn-group-yesno"
 			showon="show_tags:1"
 			default="1"
@@ -156,8 +152,8 @@
 			label="People Settings"
 		/>	
  		<field name="show_pcat" type="radio"
-			label="Show Person Category"
-			description="If both Show Category and Show Tag are no the the column will be hidden in list view"
+			label="XBCULTURE_CONFIG_SHOW_PCAT_LABEL"
+			description="XBCULTURE_CONFIG_CATTAG_NO_DESC"
 			class="btn-group btn-group-yesno"
 			showon="show_cats!:0"
 			default="1"
@@ -168,16 +164,16 @@
 		</field>	
 		<field name="rootcat_person" type="category"
 			extension="com_xbpeople"
-			label="People Root Category"
-			description="This will restrict filtering by category on the front-end to only children of this category"
+			label="XBCULTURE_CONFIG_PCAT_INCROOT_LABEL"
+			description="XBCULTURE_CONFIG_ROOTCAT_DESC"
 			default=""
 			showon="show_pcat!:0"
 		>
 			<option value="">JOPTION_SELECT_CATEGORY</option>
 		</field>
 		<field name="incroot_person" type="radio"
-			label="Include Root"
-			description="include the root category in the options, or just the subcategories"
+			label="XBCULTURE_CONFIG_INCROOT_LABEL"
+			description="XBCULTURE_CONFIG_INCROOT_DESC"
 			class="btn-group btn-group-yesno"
 			showon="rootcat_person!:"
 		>
@@ -185,8 +181,8 @@
 			<option value="1">JYES</option>
 		</field>
  		<field name="show_ptags" type="radio"
-			label="Show Person Tags"
-			description="Show tags in Category &amp; Tags column. If both Show Category and Show Tag are no the the column will be hidden"
+			label="XBCULTURE_CONFIG_SHOW_PTAG_LABEL"
+			description="XBCULTURE_CONFIG_CATTAG_NO_DESC"
 			class="btn-group btn-group-yesno"
 			showon="show_tags:1"
 			default="1"
@@ -198,8 +194,8 @@
 			label="Characters Settings"
 		/>	
  		<field name="show_ccat" type="radio"
-			label="Show Character Category"
-			description="If both Show Category and Show Tag are no the the column will be hidden in list view"
+			label="XBCULTURE_CONFIG_SHOW_CCAT_LABEL"
+			description="XBCULTURE_CONFIG_CATTAG_NO_DESC"
 			class="btn-group btn-group-yesno"
 			showon="show_cats!:0"
 			default="1"
@@ -210,16 +206,16 @@
 		</field>	
 		<field name="rootcat_char" type="category"
 			extension="com_xbpeople"
-			label="Characters Root Category"
-			description="This will restrict filtering by category on the front-end to only children of this category"
+			label="XBCULTURE_CONFIG_CCAT_INCROOT_LABEL"
+			description="XBCULTURE_CONFIG_ROOTCAT_DESC"
 			default=""
 			showon="show_ccat!:0"
 		>
 			<option value="">JOPTION_SELECT_CATEGORY</option>
 		</field>
 		<field name="incroot_char" type="radio"
-			label="Include Root"
-			description="include the root category in the options, or just the subcategories"
+			label="XBCULTURE_CONFIG_INCROOT_LABELt"
+			description="XBCULTURE_CONFIG_INCROOT_DESC"
 			class="btn-group btn-group-yesno"
 			showon="rootcat_char!:"
 		>
@@ -227,8 +223,8 @@
 			<option value="1">JYES</option>
 		</field>
  		<field name="show_ctags" type="radio"
-			label="Show Character Tags"
-			description="Show tags in Category &amp; Tags column. If both Show Category and Show Tag are no the the column will be hidden"
+			label="XBCULTURE_CONFIG_SHOW_CTAG_LABEL"
+			description="XBCULTURE_CONFIG_CATTAG_NO_DESC"
 			class="btn-group btn-group-yesno"
 			showon="show_tags:1"
 			default="1"
