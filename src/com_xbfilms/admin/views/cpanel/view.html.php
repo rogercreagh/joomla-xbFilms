@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/cpanel/view.html.php
- * @version 0.9.6.f 10th January 2022
+ * @version 0.9.8.b 12th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -144,9 +144,9 @@ class XbfilmsViewCpanel extends JViewLegacy
     protected function addToolbar() {
         $canDo = XbfilmsHelper::getActions();
         
-        ToolbarHelper::title(Text::_( 'XBCULTURE_XBFILMS' ).': '.Text::_('XBCULTURE_DASHBOARD'),'info-2');
         
         if ($this->xbpeople_ok) {
+            ToolbarHelper::title(Text::_( 'XBCULTURE_XBFILMS' ).': '.Text::_('XBCULTURE_DASHBOARD'),'info-2');
         	$samplesexist = XbfilmsHelper::getIdFromAlias('#__categories', 'sample-films');
 	        if ($this->show_sample==1) {
 	        	if ($samplesexist > 0) {
@@ -165,7 +165,8 @@ class XbfilmsViewCpanel extends JViewLegacy
 	        }
 	        ToolbarHelper::help( '', false,'https://crosborne.uk/xbfilms/doc?tmpl=component#admin-panel' );
         } else {
-        	ToolBarHelper::help( '', false,'https://www.crosborne.uk/downloads/file/11-xbpeople-component?tmpl=component' );
+            ToolbarHelper::title('xbFilms - please install xbPeople to proceed','info-2');
+            ToolBarHelper::help( '', false,'https://www.crosborne.uk/downloads/file/11-xbpeople-component?tmpl=component' );
         }
     }
     
