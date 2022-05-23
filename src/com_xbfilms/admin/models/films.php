@@ -25,14 +25,14 @@ class XbfilmsModelFilms extends JModelList
             		'ordering','a.ordering',
             		'category_title', 'c.title',
             		'catid', 'a.catid', 'category_id',
-            		'cat_date', 'a.cat_date', 
+            		'acq_date', 'a.acq_date', 
             		'published','a.state',            		  
             		'rel_year','a.rel_year');
         }
         parent::__construct($config);
     }
 
-    protected function populateState($ordering = 'cat_date', $direction = 'desc') {
+    protected function populateState($ordering = 'acq_date', $direction = 'desc') {
         $app = Factory::getApplication();
         
         // Adjust the context to support modal layouts.
@@ -78,7 +78,7 @@ class XbfilmsModelFilms extends JModelList
         $query->select('a.id AS id, a.title AS title, a.subtitle AS subtitle, a.alias AS alias, 
             a.summary AS summary, a.rel_year AS rel_year, a.catid AS catid, 
             a.poster_img AS poster_img, a.synopsis AS synopsis, a.state AS published, 
-            a.created AS created, a.created_by AS created_by, a.cat_date AS cat_date,
+            a.created AS created, a.created_by AS created_by, a.acq_date AS acq_date,
             a.created_by_alias AS created_by_alias, a.ext_links AS ext_links,
             a.checked_out AS checked_out, a.checked_out_time AS checked_out_time, 
             a.metadata AS metadata, a.ordering AS ordering, a.params AS params, a.note AS note');
@@ -219,7 +219,7 @@ class XbfilmsModelFilms extends JModelList
         } //if not empty tagfilt
                
         // Add the list ordering clause.
-        $orderCol       = $this->state->get('list.ordering', 'cat_date');
+        $orderCol       = $this->state->get('list.ordering', 'acq_date');
         $orderDirn      = $this->state->get('list.direction', 'DESC');
         if ($orderCol == 'a.ordering' || $orderCol == 'a.catid') {
                 $orderCol = 'category_title '.$orderDirn.', a.ordering';  
@@ -250,7 +250,7 @@ class XbfilmsModelFilms extends JModelList
             $item->reviews = XbfilmsGeneral::getFilmReviews($item->id);
             $item->revcnt = count($item->reviews);
             if ($item->revcnt>0) {
-            	$item->cat_date = $item->reviews[0]->rev_date;
+            	$item->acq_date = $item->reviews[0]->rev_date;
             }
         	
             $item->ext_links = json_decode($item->ext_links);

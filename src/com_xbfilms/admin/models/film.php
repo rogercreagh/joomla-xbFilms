@@ -109,9 +109,9 @@ class XbfilmsModelFilm extends JModelAdmin {
             $table->alias = ApplicationHelper::stringURLSafe($table->title);
         }
         // Set the values
-        if (empty($table->cat_date)) {
-            //if there are reviews set cat_date to the latest seen date
-            $table->cat_date = $date->toSql();
+        if (empty($table->acq_date)) {
+            //if there are reviews set acq_date to the latest seen date
+            $table->acq_date = $date->toSql();
             if ($table->id>0) { //we must have already saved and have an id
                 $query=$db->getQuery(true);
                 $query->select('COUNT(r.id) as revcnt, MAX(r.rev_date) as lastseen')->from('#__xbfilmreviews AS r')
@@ -119,7 +119,7 @@ class XbfilmsModelFilm extends JModelAdmin {
                 $db->setQuery($query);
                 $revs=$db->loadAssoc();
                 if ($revs['revcnt']>0) {
-                    $table->cat_date = $revs['lastseen'];
+                    $table->acq_date = $revs['lastseen'];
                 }
             }
         }
@@ -267,7 +267,7 @@ class XbfilmsModelFilm extends JModelAdmin {
         	    }
         	    $qry = 'INSERT INTO '.$db->quoteName('#__xbfilmreviews').' (title, alias, film_id, catid, reviewer, rating, rev_date, created, created_by, state ) ';
         	    $qry .= 'VALUES ('.$db->quote($rtitle).','.$db->quote($ralias).','.$fid.','.$catid.','.$db->quote($reviewer).','.
-          	    $data['quick_rating'].','.$db->quote($data['cat_date']).','.$db->quote($date->toSql()).','.$db->quote($data['created_by']).',1)';
+          	    $data['quick_rating'].','.$db->quote($data['acq_date']).','.$db->quote($date->toSql()).','.$db->quote($data['created_by']).',1)';
         	    $db->setQuery($qry);
         	    $db->execute();
         	}        	       	

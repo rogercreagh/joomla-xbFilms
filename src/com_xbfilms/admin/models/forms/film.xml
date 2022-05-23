@@ -112,7 +112,7 @@
 			<option value="No Speech">No speech</option>
 		</field>
 					
-		<field name="cat_date" type="calendar"
+		<field name="acq_date" type="calendar"
 			label="COM_XBFILMS_DATE_SEEN_LABEL" description="COM_XBFILMS_DATE_SEEN_DESC"
 			class="inputbox" size="20" format="%Y-%m-%d 0:0:0" filter="user_utc"
 			showtime="false" translateformat="true" 

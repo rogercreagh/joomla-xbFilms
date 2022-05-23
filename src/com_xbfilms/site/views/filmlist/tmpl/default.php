@@ -23,11 +23,11 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape(strtolower($this->state->get('list.direction')));
 if (!$listOrder) {
-    $listOrder='cat_date';
+    $listOrder='acq_date';
     $listDirn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'rel_year'=>Text::_('COM_XBFILMS_YEAR_RELEASED'), 
-		'averat'=>Text::_('COM_XBFILMS_AVERAGE_RATING'), 'cat_date'=>Text::_('COM_XBFILMS_LAST_SEEN'),'lastseen'=>'last seen',
+		'averat'=>Text::_('COM_XBFILMS_AVERAGE_RATING'), 'acq_date'=>Text::_('COM_XBFILMS_LAST_SEEN'),'lastseen'=>'last seen',
     'category_title'=>Text::_('XBCULTURE_CATEGORY'));
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
@@ -230,7 +230,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
     				<?php endif; ?>
     				<td>
     					<p><?php if($item->lastseen=='') {
-    						echo '<span class="xbnit">(catalogued)<br />('.HtmlHelper::date($item->cat_date , Text::_('d M Y')).')</span>';
+    						echo '<span class="xbnit">(catalogued)<br />('.HtmlHelper::date($item->acq_date , Text::_('d M Y')).')</span>';
     					} else {
     						echo HtmlHelper::date($item->lastseen , Text::_('d M Y')); 
     					}?> </p>

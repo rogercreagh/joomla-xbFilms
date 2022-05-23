@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource script.xbfilms.php
- * @version 0.9.8.a 11th December 2021
+ * @version 0.9.8.3 23rd May January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html 
@@ -14,6 +14,7 @@ use Joomla\CMS\Version;
 use Joomla\CMS\Installer\Installer;
 use Joomla\CMS\Filesystem\Path;
 use Joomla\CMS\Table\Table;
+use Joomla\CMS\Component\ComponentHelper;
 
 class com_xbfilmsInstallerScript 
 {	
@@ -46,20 +47,39 @@ class com_xbfilmsInstallerScript
     function uninstall($parent) {
     	$componentXML = Installer::parseXMLInstallFile(Path::clean(JPATH_ADMINISTRATOR . '/components/com_xbfilms/xbfilms.xml'));
     	$message = 'Uninstalling xbFilms component v.'.$componentXML['version'].' '.$componentXML['creationDate'];
-    	Factory::getApplication()->enqueueMessage($message,'Info');
-    	
-    	$dest='/images/xbfilms';
-    	if (JFolder::exists(JPATH_ROOT.$dest)) {
-    		if (JFolder::delete(JPATH_ROOT.$dest)){
-    			$message = 'Images deleted ok';
-    			Factory::getApplication()->enqueueMessage($message,'Info');
-    		} else {
-    			$message = 'Problem deleting xbFilms images folder "/images/xbfilms" - please check in Media manager';
-    			Factory::getApplication()->enqueueMessage($message,'Error');
-    		}
-    	}
-    	$message = '<br /><b>NB</b> xbFilms uninstall: People and Characters data tables, and images/xbpeople folder have <b>not</b> been deleted.';
-    	Factory::getApplication()->enqueueMessage($message,'Info');
+    	//are we also clearing data?
+    	$killdata = ComponentHelper::getParams('com_xbfilms')->get('killdata',0);
+    	if ($killdata) {
+    	    if ($this->uninstalldata()) {
+    	        $message .= ' ... xbFilms data tables deleted';
+    	    }
+    	    $dest='/images/xbfilms';
+    	    if (JFolder::exists(JPATH_ROOT.$dest)) {
+    	        if (JFolder::delete(JPATH_ROOT.$dest)){
+    	            $message .= ' ... images/xbfilms folder deleted';
+    	        } else {
+    	            $err = 'Problem deleting xbFilms images folder "/images/xbfilms" - please check in Media manager';
+    	            Factory::getApplication()->enqueueMessage($message,'Error');
+    	        }
+    	    }
+    	} else {
+    	    $message .= ' xbFilms data tables and images folder have <b>NOT</b> been deleted.';
+    	    // allow categories to be recovered with same id
+    	    $db = Factory::getDbo();
+    	    $db->setQuery(
+    	        $db->getQuery(true)
+    	        ->update('#__categories')
+    	        ->set('extension='.$db->q('!com_xbfilms!'))
+    	        ->where('extension='.$db->q('com_xbfilms'))
+    	        )
+    	        ->execute();
+    	        $cnt = $db->getAffectedRows();
+    	        
+    	        if ($cnt>0) {
+    	            $message .= '<br />'.$cnt.' xbFilms categories renamed as "<b>!</b>com_xbfilms<b>!</b>". They will be recovered on reinstall with original ids.';
+    	        }
+    	}    	
+    	Factory::getApplication()->enqueueMessage($message,'Info');    	
     }
     
     function update($parent) {
@@ -83,6 +103,20 @@ class com_xbfilmsInstallerScript
          		$message .= '"/images/xbfilms/" already exists.<br />';
          	}
          	
+         	// Recover categories if they exist assigned to extension !com_xbfilms!
+         	$db = Factory::getDbo();
+         	$qry = $db->getQuery(true);
+         	$qry->update('#__categories')
+         	->set('extension='.$db->q('com_xbfilms'))
+         	->where('extension='.$db->q('!com_xbfilms!'));
+         	$db->setQuery($qry);
+         	try {
+         	    $db->execute();
+         	    $cnt = $db->getAffectedRows();
+         	} catch (Exception $e) {
+         	    Factory::getApplication()->enqueueMessage($e->getMessage(),'Error');
+         	}
+         	$message .= $cnt.' existing xbFilm categories restored. ';
          	// create default categories using category table
          	$cats = array(
          			array("title"=>"Uncategorised","desc"=>"default fallback category for all xbFilms items"),
@@ -90,6 +124,53 @@ class com_xbfilmsInstallerScript
          	$message .= $this->createCategory($cats);
          	
 	        Factory::getApplication()->enqueueMessage($message,'Info');  
+
+	        // we assume people default categories are already installed by xbpeople
+	        // we assume that indicies for xbpersons and xbcharacter tables have been handled by xbpeople install
+	        //set up indicies for books and bookreviews tables - can't be done in install.sql as they may already exists
+	        //mysql doesn't support create index if not exists.
+	        $message = 'Checking indicies... ';
+	        
+	        $prefix = $app->get('dbprefix');
+	        $querystr = 'ALTER TABLE '.$prefix.'xbfilms ADD INDEX filmaliasindex (alias)';
+	        $err=false;
+	        try {
+	            $db->setQuery($querystr);
+	            $db->execute();
+	        } catch (Exception $e) {
+	            if($e->getCode() == 1061) {
+	                $message .= '- film alias index already exists. ';
+	            } else {
+	                $message .= '[ERROR creating filmaliasindex: '.$e->getCode().' '.$e->getMessage().']';
+	                $app->enqueueMessage($message, 'Error');
+	                $message = 'Checking indicies... ';
+	                $err = true;
+	            }
+	        }
+	        if (!$err) {
+	            $message .= '- film alias index created. ';
+	        }
+	        $querystr = 'ALTER TABLE '.$prefix.'xbfilmreviews ADD INDEX reviewaliasindex (alias)';
+	        $err=false;
+	        try {
+	            $db->setQuery($querystr);
+	            $db->execute();
+	        } catch (Exception $e) {
+	            if($e->getCode() == 1061) {
+	                $message .= '- filmreviews alias index already exists';
+	            } else {
+	                $message .= '<br />[ERROR creating reviewaliasindex: '.$e->getCode().' '.$e->getMessage().']<br />';
+	                $app->enqueueMessage($message, 'Error');
+	                $message = '';
+	                $err = true;
+	            }
+	        }
+	        if (!$err) {
+	            $message .= '- filmreviews alias index created.';
+	        }
+	        
+	        Factory::getApplication()->enqueueMessage($message,'Info');
+	        
 	        
          	//check if people available
     		$xbpeople = true;
@@ -97,15 +178,6 @@ class com_xbfilmsInstallerScript
     		$db->setQuery('SELECT enabled FROM #__extensions WHERE element = '.$db->quote('com_xbpeople'));
     		if (!$db->loadObject()) {
     			$xbpeople = false;
-    			$peepmess = '<p>Without xbPeople, xbFilms will not function correctly.';
-    			$peepmess .= '<br />To install it now copy this url <b> https://www.crosborne.uk/downloads?download=11 </b>, and paste the link into the box on the ';
-    			$peepmess .= '<a href="index.php?option=com_installer&view=install#url">Install from URL page</a>, ';
-    			$peepmess .= 'or <a href="https://www.crosborne.uk/downloads?download=11">download here</a> and drag and drop onto the install box on this page.';
-    			$peepmess .= '</p>';
-    			echo '<div class="alert alert-error">';
-    			echo '<h4>Error - xbPeople Component appears not to be installed</h4>';
-    			echo $peepmess;
-    			echo '</div>';
     		}
 
 	        $oldval = Factory::getSession()->set('xbpeople_ok', $xbpeople);
@@ -183,6 +255,19 @@ class com_xbfilmsInstallerScript
 			}
 		}
 		return $message;
+	}
+	
+	protected function uninstalldata() {
+	    $message = '';
+	    $db = Factory::getDBO();
+	    $db->setQuery('DROP TABLE IF EXISTS `#__xbfilms`, `#__xbfilmreviews`, `#__xbfilmperson`, `#__xbfilmcharacter`');
+	    $res = $db->execute();
+	    if ($res === false) {
+	        $message = 'Error deleting xbFilms tables, please check manually';
+	        Factory::getApplication()->enqueueMessage($message,'Error');
+	        return false;
+	    }
+	    return true;
 	}
 	
 }

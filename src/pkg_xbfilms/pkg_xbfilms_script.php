@@ -2,7 +2,7 @@
 /**
  * @package xbFilms-Package
  * @filesource pkg_xbfilms_script.php
- * @version 0.9.8.a 12th January 2022
+ * @version 0.9.8.3 23rd May January 2022
  * @desc install, upgrade and uninstall actions
  * @author Roger C-O
  * @copyright (C) Roger Creagh-Osborne, 2019
@@ -13,6 +13,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Version;
+use Joomla\CMS\Uri\Uri;
 
 class pkg_xbfilmsInstallerScript
 {
@@ -32,16 +33,34 @@ class pkg_xbfilmsInstallerScript
     {
     }
     
-    function uninstall($parent)
-    {
-     	echo '<div style="padding: 7px; margin: 0 0 8px; list-style: none; -webkit-border-radius: 4px; -moz-border-radius: 4px;
+    function uninstall($parent) {
+        $oldval = Factory::getSession()->set('xbpkg', 'films');
+        $db = Factory::getDBO();
+        $db->setQuery('SELECT enabled FROM #__extensions WHERE element = '.$db->quote('com_xbbooks'));
+        $res = $db->loadResult();
+        if ($res) {
+            $message = 'xbBooks is still installed. If you wish to uninstall xbFilms then just uninstall the component for now as xbBooks requires xbPeople';
+            //films component could have been uninstalled manually so we'll redirect to xbbooks dashboard as we know that exists
+            $targ = Uri::base().'index.php?option=com_xbbooks&view=cpanel&err='.urlencode($message);
+            header("Location: ".$targ);
+            exit();
+        }
+        echo '<div style="padding: 7px; margin: 0 0 8px; list-style: none; -webkit-border-radius: 4px; -moz-border-radius: 4px;
 	border-radius: 4px; background-image: linear-gradient(#ffffff,#efefef); border: solid 1px #ccc;">';
     	echo '<h4>Uninstalling xbFilms Package</h4>';
-        echo '<p>This is removing the xbFilms and xbPeople components, but will leave the xbPeople data tables and images.';
-        echo '<br />You can can delete the images using Media manager (under Admin menu|Content).';
-        echo '<br />A separate tool to clear residual xbPeople data will be <a href="https://crosborne.uk/xbdelpeople">available dreckly</a> from CrOsborne...</p>';
-        echo '<i>"<b>dreckly</b>" is Cornish dialect word meaning the same as "whenever" but without the terrible sense of urgency</i>';
-        echo '</div>';
+    	$db->setQuery('SELECT enabled FROM #__extensions WHERE element = '.$db->quote('com_xbfilms'));
+    	if ($db->loadResult()) {
+    	    echo '<p>xbFilms component uninstalled.</p>';
+    	} else {
+    	    echo '<p>xbFilms component appears to have already been uninstalled.</p>';
+    	}
+    	$db->setQuery('SELECT enabled FROM #__extensions WHERE element = '.$db->quote('com_xbpeople'));
+    	if ($db->loadResult()) {
+    	    echo '<p>xbPeople component uninstalled.</p>';
+    	} else {
+    	    echo '<p>xbPeople component appears to have already been uninstalled.</p>';
+    	}
+    	echo '</div>';
     }
     
     function update($parent)

@@ -36,7 +36,7 @@ class XbfilmsModelFilm extends JModelItem {
 				a.summary AS summary, a.synopsis AS synopsis, a.setting AS setting, a.poster_img AS poster_img, a.rel_year AS rel_year,
                 a.orig_lang AS orig_lang, a.studio AS studio, a.country AS country, a.runtime AS runtime, 
                 a.filmcolour, a.aspect_ratio, a.cam_format, a.filmsound,
-				a.ext_links AS ext_links, a.cat_date AS cat_date, 
+				a.ext_links AS ext_links, a.acq_date AS acq_date, 
 				a.state AS published, a.catid AS catid, a.params AS params, a.metadata AS metadata ');
 			$query->from('#__xbfilms AS a');
 			$query->select('(SELECT AVG(fr.rating) FROM #__xbfilmreviews AS fr WHERE fr.film_id=a.id) AS averat');
@@ -129,7 +129,7 @@ class XbfilmsModelFilm extends JModelItem {
 				//order by review rating or date?
 				$item->reviews = XbfilmsGeneral::getFilmReviews($item->id);
 				$item->revcnt = count($item->reviews);
-				$item->lastseen = $item->cat_date;
+				$item->lastseen = $item->acq_date;
 				if ($item->revcnt>0) {
 				    $item->lastseen = max(array_column($item->reviews,'rev_date'));
 				}

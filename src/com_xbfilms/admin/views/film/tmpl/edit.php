@@ -106,7 +106,7 @@ $document->addStyleDeclaration($style);
     		</div>
     		<div class="span3 form-vertical">
           		<h4>Production Info</h4>
-         		<?php echo $this->form->renderField('cat_date'); ?>
+         		<?php echo $this->form->renderField('acq_date'); ?>
         		<?php echo $this->form->renderField('rel_year'); ?>
          		<?php echo $this->form->renderField('runtime'); ?>
          		<?php echo $this->form->renderField('country'); ?>

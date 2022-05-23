@@ -4,9 +4,6 @@ DROP TABLE IF EXISTS
 `#__xbfilmcharacter`,
 `#__xbfilmreviews`;
 
-# `#__xbpersons`,
-# `#__xbcharacters`,
-
 DELETE FROM `#__ucm_history` WHERE ucm_type_id in 
 	(select type_id from `#__content_types` where type_alias in ('com_xbfilms.film','com_xbfilms.person','com_xbfilms.character','com_xbfilms.review','com_xbfilms.category'));
 DELETE FROM `#__ucm_base` WHERE ucm_type_id in 

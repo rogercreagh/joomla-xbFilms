@@ -1192,7 +1192,7 @@ class XbfilmsModelImportexport extends JModelAdmin {
 	    	case '#__xbfilms' :
 	    		$select = 'title AS film_title, subtitle, alias AS film_alias, summary AS film_summary, synopsis, 
 					setting,poster_img,rel_year,orig_lang,studio,country,runtime,filmcolour,aspect_ratio,
-					cam_format,filmsound,cat_date,note AS film_note';
+					cam_format,filmsound,acq_date,note AS film_note';
 	    		break;
 	    	case '#__xbfilmreviews' :
 	    		$select = 'a.title AS review_title, a.alias AS review_alias, b.alias AS film_alias, 
@@ -1381,7 +1381,7 @@ class XbfilmsModelImportexport extends JModelAdmin {
 					} else {
 						$sqlfilm = "INSERT INTO #__xbfilms (title,subtitle,alias,summary,synopsis,setting,poster_img,
 							rel_year,orig_lang,studio,country,runtime,filmcolour,aspect_ratio,cam_format,filmsound,
-                            cat_date,note,catid,state) VALUES ('";
+                            acq_date,note,catid,state) VALUES ('";
 						$sqlfilm .= $db->escape($row['film_title']).$qcq;
 						$sqlfilm .= (key_exists('subtitle',$row) ? $db->escape($row['subtitle']) : '').$qcq;
 						$sqlfilm .= $filmalias.$qcq;
@@ -1407,7 +1407,7 @@ class XbfilmsModelImportexport extends JModelAdmin {
 						$sqlfilm .= (key_exists('aspect_ratio',$row) ? $row['aspect_ratio'] : '').$qcq;
 						$sqlfilm .= (key_exists('cam_format',$row) ? $row['cam_format'] : '').$qcq;
 						$sqlfilm .= (key_exists('filmsound',$row) ? $row['filmsound'] : '').$qcq;
-						$sqlfilm .= (key_exists('cat_date',$row) ? date('Y-m-d',strtotime($row['cat_date'])) : '').$qcq;
+						$sqlfilm .= (key_exists('acq_date',$row) ? date('Y-m-d',strtotime($row['acq_date'])) : '').$qcq;
     					$sqlfilm .= $prependnote;
 						if (key_exists('film_note',$row)) {
 							if ($postprependnote>1) {

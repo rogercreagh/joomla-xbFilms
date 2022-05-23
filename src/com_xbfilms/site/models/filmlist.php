@@ -58,7 +58,7 @@ class XbfilmsModelFilmlist extends JModelList {
 		$query->select('a.id AS id, a.title AS title, a.subtitle AS subtitle, a.alias AS alias,
             a.summary AS summary, a.rel_year AS rel_year, a.catid AS catid, 
             a.poster_img AS poster_img, a.synopsis AS synopsis, a.state AS published,
-            a.created AS created,  a.cat_date AS cat_date,
+            a.created AS created,  a.acq_date AS acq_date,
             a.created_by_alias AS created_by_alias,
             a.ordering AS ordering, a.params AS params'); //AVG(r.rating) AS averat,
 //            ->select('(GROUP_CONCAT(p.person_id SEPARATOR '.$db->quote(',') .')) AS personlist');
@@ -255,7 +255,7 @@ class XbfilmsModelFilmlist extends JModelList {
 			
 			$item->reviews = XbfilmsGeneral::getFilmReviews($item->id);
 			$item->revcnt = count($item->reviews);
-//			$item->lastseen = $item->cat_date;
+//			$item->lastseen = $item->acq_date;
 //			if ($item->revcnt>0) {
 //				$item->lastseen = max(array_column($item->reviews,'rev_date'));
 //			}

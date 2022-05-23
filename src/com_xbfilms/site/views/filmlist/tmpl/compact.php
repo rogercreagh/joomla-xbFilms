@@ -22,10 +22,10 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape(strtolower($this->state->get('list.direction')));
 if (!$listOrder) {
-    $listOrder='cat_date';
+    $listOrder='acq_date';
     $orderDrn = 'descending';
 }
-$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'), 'averat'=>'Average Rating', 'cat_date'=>'Last Seen');
+$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'), 'averat'=>'Average Rating', 'acq_date'=>'Last Seen');
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
@@ -86,7 +86,7 @@ $blink = 'index.php?option=com_xbfilms&view=film'.$itemid.'&id=';
 					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_RATING','averat',$listDirn,$listOrder); ?>
 				</th>
 				<th class="hidden-phone">
-					<?php echo HTMLHelper::_('searchtools.sort','COM_XBFILMS_DATE_SEEN','cat_date',$listDirn,$listOrder ); ?>
+					<?php echo HTMLHelper::_('searchtools.sort','COM_XBFILMS_DATE_SEEN','acq_date',$listDirn,$listOrder ); ?>
 				</th>
 			</tr>
 		</thead>
@@ -136,7 +136,7 @@ $blink = 'index.php?option=com_xbfilms&view=film'.$itemid.'&id=';
     					</td>
     				<?php endif; ?>
 					<td class="hidden-phone">
-						<p class="xb09"><?php echo $item->cat_date > 0 ? HtmlHelper::date($item->cat_date , Text::_('M Y')) : ''; ?></p>					
+						<p class="xb09"><?php echo $item->acq_date > 0 ? HtmlHelper::date($item->acq_date , Text::_('M Y')) : ''; ?></p>					
 					</td>
 				</tr>
 				<?php endforeach;?>

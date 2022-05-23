@@ -1,4 +1,4 @@
-# sql installation file for component xbFilms v0.2.4 16th January 2021 (removed disambig chars)
+# sql installation file for component xbFilms v0.9.8.3 23rd May 2022
 # NB no film data is installed with this file, default categories are created by the installation script
 
 INSERT INTO `#__content_types` (`type_title`, `type_alias`, `content_history_options`, `table`, `field_mappings`, `router`,`rules`) 
@@ -217,7 +217,8 @@ CREATE TABLE IF NOT EXISTS `#__xbfilms` (
   `cam_format` varchar(50) NOT NULL DEFAULT '',
   `filmsound` varchar(50) NOT NULL DEFAULT '',
   `ext_links` text,
-  `cat_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `acq_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_seen` datetime,
   `catid` int(10) NOT NULL  DEFAULT '0',
   `access` int(10) NOT NULL  DEFAULT '0',
   `state` tinyint(3) NOT NULL DEFAULT '0',
@@ -236,7 +237,7 @@ CREATE TABLE IF NOT EXISTS `#__xbfilms` (
   PRIMARY KEY (`id`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
-CREATE UNIQUE INDEX `filmaliasindex` ON `#__xbfilms` (`alias`);
+# CREATE UNIQUE INDEX `filmaliasindex` ON `#__xbfilms` (`alias`);
 
 CREATE TABLE IF NOT EXISTS `#__xbfilmperson` (
   `id` int(6) NOT NULL AUTO_INCREMENT,
@@ -295,5 +296,5 @@ CREATE TABLE IF NOT EXISTS `#__xbfilmreviews` (
    PRIMARY KEY (`id`)
   )  ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
-CREATE UNIQUE INDEX `reviewaliasindex` ON `#__xbfilmreviews` (`alias`);
+# CREATE UNIQUE INDEX `reviewaliasindex` ON `#__xbfilmreviews` (`alias`);
 

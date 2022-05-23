@@ -27,7 +27,7 @@ class XbfilmsModelBlog extends JModelList {
 					'category_title', 'c.title',
 					'catid', 'a.catid', 'category_id',
 					'fcatid', 'f.catid', 'fcategory_id',
-					'cat_date', 'a.cat_date',
+					'acq_date', 'a.acq_date',
 					'published','a.state',
 					'rel_year','a.rel_year');
 		}

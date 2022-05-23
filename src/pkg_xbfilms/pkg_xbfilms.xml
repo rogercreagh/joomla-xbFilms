@@ -2,7 +2,7 @@
 <extension type="package" version="3.9" method="upgrade">
 	<name>xbFilms Package</name>
 	<packagename>xbfilms</packagename>
-	<version>0.9.7</version>
+	<version>0.9.8.1</version>
 	<creationDate>11th January 2022</creationDate>
 	<author>Roger C-O</author>
 	<copyright>Copyright (c) Roger Creagh-Osborne, 2021. All rights reserved.</copyright>
@@ -10,11 +10,12 @@
 	<authorEmail>roger@crosborne.co.uk</authorEmail>
 	<authorUrl>www.crosborne.co.uk</authorUrl>
 	<xbfilms_version>0.9.7</xbfilms_version>
-	<xbpeople_version>0.9.7</xbpeople_version>
+	<xbpeople_version>0.9.8.1</xbpeople_version>
 	<url>https://www.crosborne.co.uk/xbfilms</url>
 	<packager>Roger C-O</packager>
 	<packagerurl>https://www.crosborne.co.uk/xbfilms</packagerurl>
 	<description>Package contains xbFilms and xbPeople Components for managing a catalogue of films and reviews with associated people</description>
+	<blockChildUninstall>true</blockChildUninstall>
 	<updateservers>
 	    <server type="extension" priority="1" name="xbFilms Package">
 	    	https://crosborne.co.uk/jupdates/update_pkg_xbfilms.xml
@@ -22,7 +23,7 @@
 	</updateservers>
 	<scriptfile>pkg_xbfilms_script.php</scriptfile>
 	<files folder="packages">
-		<file type="component" id="com_xbpeople" >com_xbpeople_v0.9.7.zip</file>
+		<file type="component" id="com_xbpeople" >com_xbpeople_v0.9.8.1.zip</file>
 		<file type="component" id="com_xbfilms" >com_xbfilms_v0.9.7.zip</file>
 	</files>
 </extension>

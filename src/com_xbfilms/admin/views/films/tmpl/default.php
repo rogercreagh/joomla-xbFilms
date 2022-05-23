@@ -25,11 +25,11 @@ $userId  = $user->get('id');
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn      = $this->escape(strtolower($this->state->get('list.direction')));
 if (!$listOrder) {
-	$listOrder='cat_date';
+	$listOrder='acq_date';
 	$listDirn = 'descending';
 }
 $orderNames = array('title'=>Text::_('COM_XBFILMS_FILMTITLE'), 'rel_year'=>Text::_('COM_XBFILMS_RELYEAR'),
-		'id'=>'id','cat_date'=>Text::_('XBCULTURE_DATES'),
+		'id'=>'id','acq_date'=>Text::_('XBCULTURE_DATES'),
 		'category_title'=>Text::_('XBCULTURE_CATEGORY'),
 		'published'=>Text::_('XBCULTURE_CAPPUBSTATE'),'a.ordering'=>Text::_('XBCULTURE_ORDERING'));
 
@@ -131,7 +131,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 						<?php echo Text::_('XBCULTURE_REVIEWS_U'); ?>
 					</th>
 					<th class="hidden-tablet hidden-phone" style="width:15%;">
-						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_DATE','cat_date',$listDirn,$listOrder ).' ';						    
+						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_DATE','acq_date',$listDirn,$listOrder ).' ';						    
 						echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; ';						
 						echo Text::_( 'Tags' ); ?>
 					</th>
@@ -334,7 +334,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 					</td>
 					<td>
     					<p class="xb09"><?php if($item->lastseen=='') {
-    						echo '<span class="xbnit">(catalogued)<br />('.HtmlHelper::date($item->cat_date , Text::_('d M Y')).')</span>';
+    						echo '<span class="xbnit">(catalogued)<br />('.HtmlHelper::date($item->acq_date , Text::_('d M Y')).')</span>';
     					} else {
     						echo HtmlHelper::date($item->lastseen , Text::_('d M Y')); 
     					}?> </p>
