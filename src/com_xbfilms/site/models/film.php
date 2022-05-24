@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/film.php
- * @version 0.9.7 11th January 2022
+ * @version 0.9.8.3 24th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -36,7 +36,7 @@ class XbfilmsModelFilm extends JModelItem {
 				a.summary AS summary, a.synopsis AS synopsis, a.setting AS setting, a.poster_img AS poster_img, a.rel_year AS rel_year,
                 a.orig_lang AS orig_lang, a.studio AS studio, a.country AS country, a.runtime AS runtime, 
                 a.filmcolour, a.aspect_ratio, a.cam_format, a.filmsound,
-				a.ext_links AS ext_links, a.acq_date AS acq_date, 
+				a.ext_links AS ext_links, a.acq_date AS acq_date, a.last_seen AS last_seen,
 				a.state AS published, a.catid AS catid, a.params AS params, a.metadata AS metadata ');
 			$query->from('#__xbfilms AS a');
 			$query->select('(SELECT AVG(fr.rating) FROM #__xbfilmreviews AS fr WHERE fr.film_id=a.id) AS averat');
@@ -129,23 +129,9 @@ class XbfilmsModelFilm extends JModelItem {
 				//order by review rating or date?
 				$item->reviews = XbfilmsGeneral::getFilmReviews($item->id);
 				$item->revcnt = count($item->reviews);
-				$item->lastseen = $item->acq_date;
-				if ($item->revcnt>0) {
-				    $item->lastseen = max(array_column($item->reviews,'rev_date'));
-				}
 			} //end if loadobject			
             return $this->item;			
 		} //end if item not ok				
 	} //end getitem()
 	
-/*
- 	function max_attribute_in_array($array, $prop) {
-		return max(array_column($array, $prop));
-		// php<v7 version below
-		return max(array_map(function($o) use($prop) {
-			return $o->$prop;
-		},
-		$array));
-	}
- */
 }

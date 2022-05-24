@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms site/models/forms/filter_filmlist.xml v0.9.6.f 10th January 2022 -->
+<!-- xbFilms site/models/forms/filter_filmlist.xml v0.9.8.3 23rd May 2022 -->
 <form>
     <fields name="filter" addfieldpath="administrator/components/com_xbfilms/models/fields">
         <field name="search"
@@ -38,6 +38,18 @@
 			>
 			<option value="">COM_XBFILMS_PERFILT_HINT</option>
 		</field>
+		<field name="seenfilt"
+			type="list"
+			default="0"
+			label="Seen?unseen films"
+			description="Show all films or only those seen or those not-yet seen"
+  			class="btn-group btn-small radiotop"
+			onchange="this.form.submit();"
+			>
+				<option value="0" >XBCULTURE_BOTH</option>
+				<option value="1">Seen films only</option>
+				<option value="2">Unseen films only</option>
+		</field>	
 		<field
 			name="category_id"
 			type="catsubtree"

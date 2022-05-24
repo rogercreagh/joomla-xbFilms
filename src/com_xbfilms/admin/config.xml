@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms config.xml v1.0.0.a 20th November 2021 -->
+<!-- xbFilms config.xml v0.9.8.3 23rd May 2022 -->
 <config>
 <!-- GENERAL TAB -->				
 	<fieldset name="general"
 		label="XBCULTURE_GENERAL"
 		description="XBCULTURE_CONFIG_GENERAL_DESC"
-		>
+	>
+  		<field name="killdata" type="radio"
+			label="Delete Data on Uninstall"
+			description="If you want to uninstall without deleting the data tables xbfilms and xbfilmreviews set this to No"
+ 			class="btn-group btn-group-yesno"
+			default="1"
+			>
+				<option value="0" >JNO</option>
+				<option value="1">JYES</option>
+		</field>			
   		<field name="showcatsnote" type="note"
 			label="XBCULTURE_CONFIG_SHOWCATS_NOTE_LABEL"
 			description="XBCULTURE_CONFIG_SHOWCATS_NOTE_DESC"
@@ -106,14 +115,33 @@
 			<option value="0" >JHIDE</option>
 			<option value="1">JSHOW</option>
 		</field>	
+ 		<field name="show_fdates" type="radio"
+			label="Show Film Dates"
+			description="A film has an acquistion date (when it was entered in the catalogue) and a last seen date. For some sites you might not wish to use these fields on the front-end. If you want to use acquisition date, but not read date then simple leave the read dates blank. When sorting by date the latest of both dates are used. NB this does not affect release year which is a property of the film itself."
+			class="btn-group btn-group-yesno"
+			default="1"
+			>
+			<option value="0" >JHIDE</option>
+			<option value="1">JSHOW</option>
+		</field>	
+		
  		<field name="revsnote" type="note"
 			label="XBCULTURE_CONFIG_REVSNOTE_LABEL"
 		/>	
+		 <field name="show_revs" type="radio"
+			label="Show Film Reviews"
+			description="If you do not wish to use the reviews facility then set it to No here and no reviews or review links will appear on the front end. The functionality will still be there in the back end, but need not be used."
+			class="btn-group btn-group-yesno"
+			default="1"
+			>
+			<option value="0" >JNO</option>
+			<option value="1">JYES</option>
+		</field>	
  		<field name="show_rcat" type="radio"
 			label="XBCULTURE_CONFIG_SHOW_RCAT_LABEL"
 			description="XBCULTURE_CONFIG_CATTAG_NO_DESC"
 			class="btn-group btn-group-yesno"
-			showon="show_cats!:0"
+			showon="show_cats!:0[AND]show_revs!:0"
 			default="1"
 			>
 			<option value="0" >JHIDE</option>
@@ -125,7 +153,7 @@
 			label="XBCULTURE_CONFIG_RCAT_INCROOT_LABEL"
 			description="XBCULTURE_CONFIG_ROOTCAT_DESC"
 			default=""
-			showon="show_rcat!:0"
+			showon="show_rcat!:0[AND]show_revs!:0"
 		>
 			<option value="">JOPTION_SELECT_CATEGORY</option>
 		</field>
@@ -133,7 +161,7 @@
 			label="XBCULTURE_CONFIG_INCROOT_LABEL"
 			description="XBCULTURE_CONFIG_INCROOT_DESC"
 			class="btn-group btn-group-yesno"
-			showon="rootcat_review!:"
+			showon="show_revs!:0[AND]rootcat_review!:"
 		>
 			<option value="0" >JNO</option>
 			<option value="1">JYES</option>
@@ -142,7 +170,7 @@
 			label="XBCULTURE_CONFIG_SHOW_RTAG_LABEL"
 			description="XBCULTURE_CONFIG_CATTAG_NO_DESC"
 			class="btn-group btn-group-yesno"
-			showon="show_tags:1"
+			showon="show_tags:1[AND]show_revs!:0"
 			default="1"
 			>
 			<option value="0" >JHIDE</option>

@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/filmlist.php
- * @version 0.9.6.f 10th January 2022
+ * @version 0.9.8.3 23rd May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -11,7 +11,6 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\Utilities\ArrayHelper;
-use Joomla\CMS\Categories;
 use Joomla\CMS\Helper\TagsHelper;
 
 class XbfilmsModelFilmlist extends JModelList {
@@ -20,7 +19,7 @@ class XbfilmsModelFilmlist extends JModelList {
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array ('title', 'a.title',
 					'rel_year','a.rel_year',
-					'averat', 'lastseen',					
+					'averat', 'sort_date', 'last_seen', 'a.last_seen',					
 					'catid', 'a.catid', 'category_id',
 					'category_title' );
 		}
@@ -58,9 +57,9 @@ class XbfilmsModelFilmlist extends JModelList {
 		$query->select('a.id AS id, a.title AS title, a.subtitle AS subtitle, a.alias AS alias,
             a.summary AS summary, a.rel_year AS rel_year, a.catid AS catid, 
             a.poster_img AS poster_img, a.synopsis AS synopsis, a.state AS published,
-            a.created AS created,  a.acq_date AS acq_date,
+            a.created AS created,  a.acq_date AS acq_date, a.last_seen AS last_seen,
             a.created_by_alias AS created_by_alias,
-            a.ordering AS ordering, a.params AS params'); //AVG(r.rating) AS averat,
+            a.ordering AS ordering, a.params AS params'); 
 //            ->select('(GROUP_CONCAT(p.person_id SEPARATOR '.$db->quote(',') .')) AS personlist');
             $query->from('#__xbfilms AS a')
             	->join('LEFT OUTER',$db->quoteName('#__xbfilmperson', 'p') . ' ON ' .$db->quoteName('a.id') . ' = ' . $db->quoteName('p.film_id'))
@@ -71,7 +70,8 @@ class XbfilmsModelFilmlist extends JModelList {
             
 //            $query->select('(SELECT COUNT(*) FROM #__xbfilmreviews AS br WHERE br.film_id=a.id AND br.state=1) AS revcnt');
             $query->select('(SELECT AVG(br.rating) FROM #__xbfilmreviews AS br WHERE br.film_id=a.id) AS averat');
-            $query->select('(SELECT MAX(fr.rev_date) FROM #__xbfilmreviews AS fr WHERE fr.film_id=a.id) AS lastseen');
+//            $query->select('(SELECT MAX(fr.rev_date) FROM #__xbfilmreviews AS fr WHERE fr.film_id=a.id) AS lastseen');
+            $query->select('GREATEST(a.acq_date, COALESCE(a.last_seen, 0)) AS sort_date');
             
             // Filter by published state, we only show published items in front end. Both item and its category must be published.
             $query->where('a.state = 1');
@@ -114,6 +114,14 @@ class XbfilmsModelFilmlist extends JModelList {
             	} else {
             		$query->where($db->quoteName('a.catid') . ' = ' . (int) $categoryId);
             	}
+            }
+            
+            //filter by seen/unseen
+            $seenfilt = $this->getState('filter.seenfilt');
+            if ((int)$seenfilt==1) {
+                $query->where('a.last_seen > 0');
+            } elseif ($seenfilt==2) {
+                $query->where('COALESCE(a.last_seen,0) = 0');
             }
             
             //filter by person 
@@ -212,7 +220,7 @@ class XbfilmsModelFilmlist extends JModelList {
             
             
             // Add the list ordering clause.
-            $orderCol       = $this->state->get('list.ordering', 'lastseen');
+            $orderCol       = $this->state->get('list.ordering', 'sort_date');
             $orderDirn      = $this->state->get('list.direction', 'DESC');
             switch($orderCol) {
             	case 'a.ordering' :
@@ -255,12 +263,8 @@ class XbfilmsModelFilmlist extends JModelList {
 			
 			$item->reviews = XbfilmsGeneral::getFilmReviews($item->id);
 			$item->revcnt = count($item->reviews);
-//			$item->lastseen = $item->acq_date;
-//			if ($item->revcnt>0) {
-//				$item->lastseen = max(array_column($item->reviews,'rev_date'));
-//			}
 			
-			//makedirectoreditor lists
+			//make director editor lists
 			$item->alist = $item->dircnt==0 ? '' : XbfilmsGeneral::makeLinkedNameList($item->people,'director',',', (($item->editcnt)==0)? true:false) ;
 			$item->elist = $item->editcnt==0 ? '' : XbfilmsGeneral::makeLinkedNameList($item->people,'producer',',');
 			

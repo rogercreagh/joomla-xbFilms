@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/review.php
- * @version 0.9.7 11th January 2022
+ * @version 0.9.8.3 24th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -35,7 +35,7 @@ class XbfilmsModelReview extends JModelAdmin {
 				$app = Factory::getApplication();
 				$item->film_id = $app->getUserState('bk');
 				if ($item->film_id>0) {
-				    $item->title = 'Review of "'.XbfilmsHelper::getFilmTitleById($item->film_id).'" by '.Factory::getUser()->username;
+				    $item->title = 'Review of "'.XbfilmsHelper::getFilmTitleById($item->film_id).'"';
 				}
 			}		
 			return $item;
@@ -122,6 +122,23 @@ class XbfilmsModelReview extends JModelAdmin {
                 $table->modified_by = $user->id;
             }
         }
+    }
+    
+    public function save($data) {
+        if (parent::save($data)) {
+            //get the saved id (valid for new items as well where $data['id'] will still = 0
+            $rid = $this->getState('review.id');
+            if ((array_key_exists('rev2read', $data)) && ($data['rev2read']==1)) {
+                $db = $this->getDbo();
+                $query= $db->getQuery(true);
+                $query = 'UPDATE `#__xbfilms`  AS a SET `last_seen` =  '.$db->quote($data['rev_date']).' ';
+                $query .= 'WHERE a.id  ='.$rid.' AND COALESCE(a.last_seen,0) < STR_TO_DATE("'.$data['rev_date'].'","%Y-%m-%d")';
+                $db->setQuery($query);
+                $db->execute();
+            }
+            return true;
+        }
+        return false;
     }
     
     public function publish(&$pks, $value = 1) {

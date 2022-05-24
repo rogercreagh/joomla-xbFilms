@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/tables/character.php
- * @version 0.9.7 11th January 2022
+ * @version 0.9.8.3 24th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -16,13 +16,15 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Filter\OutputFilter;
 use Joomla\Registry\Registry;
 use Joomla\CMS\Table\Table;
+use Joomla\CMS\Table\Observer\Tags;
 
 class XbfilmsTableCharacter extends Table
 {
     function __construct(&$db) {
         parent::__construct('#__xbcharacters', 'id', $db);
         $this->setColumnAlias('published', 'state');
-        JTableObserverTags::createObserver($this, array('typeAlias' => 'com_xbpeople.character'));
+        $this->_supportNullValue = true;  //write empty checkedouttime as null
+        Tags::createObserver($this, array('typeAlias' => 'com_xbpeople.character'));
     }
     
     public function delete($pk=null) {

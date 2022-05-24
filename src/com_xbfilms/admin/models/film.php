@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/film.php
- * @version 0.9.7 11th January 2022
+ * @version 0.9.8.3 24th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -32,13 +32,6 @@ class XbfilmsModelFilm extends JModelAdmin {
 			
 			$tagsHelper = new TagsHelper;
 			$item->tags = $tagsHelper->getTagIds($item->id, 'com_xbfilms.film');
-			
-// 			//get ave rating
-// 			$db = Factory::getDbo();
-// 			$query = $db->getQuery(true);
-// 			$query->select('AVG(fr.rating) AS averat')->from('#__xbfilmreviews AS fr')->where('fr.film_id='.$db->quote($item->id));
-// 			$db->setQuery($query);
-// 			$item->averat = $db->loadResult();	
 			
 			//get last rating
 			$db = Factory::getDbo();
@@ -112,14 +105,27 @@ class XbfilmsModelFilm extends JModelAdmin {
         if (empty($table->acq_date)) {
             //if there are reviews set acq_date to the latest seen date
             $table->acq_date = $date->toSql();
+//             if ($table->id>0) { //we must have already saved and have an id
+//                 $query=$db->getQuery(true);
+//                 $query->select('COUNT(r.id) as revcnt, MAX(r.rev_date) as lastseen')->from('#__xbfilmreviews AS r')
+//                 ->where('r.film_id = '.$this->id);
+//                 $db->setQuery($query);
+//                 $revs=$db->loadAssoc();
+//                 if ($revs['revcnt']>0) {
+//                     $table->acq_date = $revs['lastseen'];
+//                 }
+//            }
+        }
+        if (empty($table->last_seen)) {
+            //if there are reviews do we want to force a seen date??? - this will, perhaps make an option
             if ($table->id>0) { //we must have already saved and have an id
                 $query=$db->getQuery(true);
-                $query->select('COUNT(r.id) as revcnt, MAX(r.rev_date) as lastseen')->from('#__xbfilmreviews AS r')
-                ->where('r.film_id = '.$this->id);
+                $query->select('COUNT(r.id) as revcnt, MAX(r.rev_date) as lastrev')->from('#__xbfilmreviews AS r')
+                ->where('r.film_id = '.$table->id);
                 $db->setQuery($query);
                 $revs=$db->loadAssoc();
                 if ($revs['revcnt']>0) {
-                    $table->acq_date = $revs['lastseen'];
+                    $table->last_seen = $revs['lastrev'];
                 }
             }
         }
@@ -236,9 +242,21 @@ class XbfilmsModelFilm extends JModelAdmin {
             $data['published'] = 0;
         }
         // allow nulls for year (therwise empty value defaults to 0)
-        if ($data['rel_year']=='') { $data['rel_year'] = NULL; }
+//        if ($data['rel_year']=='') { $data['rel_year'] = NULL; }
         if (parent::save($data)) {
         	$fid = $this->getState('film.id');
+        	// set nulls for empty year and last_read (otherwise empty value defaults to 0000-00-00 00:00:00 which is invalid in latest myql strict mode)
+        	if (($data['last_seen']=='') || ($data['rel_year']=='')){
+        	    $db = $this->getDbo();
+        	    $query= $db->getQuery(true);
+        	    $query = 'UPDATE `#__xbfilms`  AS a SET ';
+        	    $query .= ($data['rel_year']=='') ? '`rel_year` = NULL ' : '';
+        	    $query .= (($data['last_seen']=='') && ($data['rel_year']=='')) ? ',' : '';
+        	    $query .= ($data['last_seen']=='')? '`last_seen` =  NULL ' : '';
+        	    $query .= 'WHERE a.id  ='.$fid.' ';
+        	    $db->setQuery($query);
+        	    $db->execute();
+        	}
         	$this->storeFilmPersons($fid,'director', $data['directorlist']);
         	$this->storeFilmPersons($fid,'producer', $data['producerlist']);
         	$this->storeFilmPersons($fid,'crew', $data['crewlist']);

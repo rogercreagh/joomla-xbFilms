@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/film/tmpl/edit.php
- * @version 0.9.6.f 10th January 2022
+ * @version 0.9.8.3 24th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -107,6 +107,7 @@ $document->addStyleDeclaration($style);
     		<div class="span3 form-vertical">
           		<h4>Production Info</h4>
          		<?php echo $this->form->renderField('acq_date'); ?>
+         		<?php echo $this->form->renderField('last_seen'); ?>
         		<?php echo $this->form->renderField('rel_year'); ?>
          		<?php echo $this->form->renderField('runtime'); ?>
          		<?php echo $this->form->renderField('country'); ?>

@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/tables/review.php
- * @version 0.9.7 11th January 2022
+ * @version 0.9.8.3 24th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -14,6 +14,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Filter\OutputFilter;
+use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Table\Observer\Tags;
 use Joomla\Registry\Registry;
 use Joomla\CMS\Table\Table;
@@ -23,6 +24,7 @@ class XbfilmsTableReview extends Table
     function __construct(&$db) {
         $this->setColumnAlias('published', 'state');
         parent::__construct('#__xbfilmreviews', 'id', $db);
+        $this->_supportNullValue = true;  //write empty checkedouttime as null
         Tags::createObserver($this, array('typeAlias' => 'com_xbfilms.review'));
     }
     
@@ -61,8 +63,7 @@ class XbfilmsTableReview extends Table
 	    	if (trim($this->alias) == '') {
 	    	    $this->alias = 'review-'.$revno.'-'.$title;
 	    	}
-	    	
-    		
+	    		
     	}
     	    	
     	$this->title = $title;
@@ -108,7 +109,6 @@ class XbfilmsTableReview extends Table
         //set metadata to defaults
         $metadata = json_decode($this->metadata,true);
         //meta.author will be set to reviewer if blank. Will only be created on page display (view.html.php)
-        $show_author = $params->get('show_author');
         if ($metadata['author'] == '') {
         	$metadata['author'] = $this->reviewer;
         }

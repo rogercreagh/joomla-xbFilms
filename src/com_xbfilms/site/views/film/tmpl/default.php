@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/film/tmpl/default.php
- * @version 0.9.6.f 11th January 2022
+ * @version 0.9.8.3 24th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -25,7 +25,6 @@ $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
 $clink = 'index.php?option=com_xbfilms&view=category'.$itemid.'&id=';
 
 $flink = XbfilmsHelperRoute::getFilmsLink();
-$filink = XbfilmsHelperRoute::getFilmLink('');
 
 $imgok = (($this->show_image >0) && (JFile::exists(JPATH_ROOT.'/'.$item->poster_img)));
 if ($imgok) {
@@ -209,14 +208,23 @@ if ($imgok) {
 	</div>
 	<hr />
 <?php endif; ?>
-<?php if ((!$hide_empty) || ($item->lastseen>0)) : ?>
-	<div class="pull-left xbnit"><?php echo ($item->lastseen>0) ? 'Last seen: ' : JText::_('COM_XBFILMS_ADDED_CATALOGUE').': '; ?></div>
-	<div class="pull-left">
-		<?php echo HtmlHelper::date($item->lastseen , Text::_('D jS M Y')) ; ?>
-    </div>
-	<div class="clearfix"></div> 
-	<hr />
-<?php endif; ?>
+
+<?php if ($this->show_fdates) : ?>
+    	<div class="pull-left xbnit"><?php echo  Text::_('Date acquired').': '; ?></div>
+    	<div class="pull-left">
+    		<?php echo HtmlHelper::date($item->acq_date , 'M Y') ; ?>
+        </div>
+    	<div class="clearfix"></div> 
+    <?php if ($item->last_seen) : ?>
+    	<div class="pull-left xbnit"><?php echo  Text::_('Date last seen').': '; ?></div>
+    	<div class="pull-left">
+    		<?php echo HtmlHelper::date($item->last_seen , 'D jS M Y') ; ?>
+        </div>
+    	<div class="clearfix"></div> 
+    	<hr />
+    <?php endif; ?>
+<?php endif; ?>	
+<hr />
 
 <div class="row-fluid">
 	<?php if (($item->charcnt > 0) || (!$hide_empty)) : ?>

@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/films.php
- * @version 0.9.5 8th Mayl 2021
+ * @version 0.9.8.3 23rd May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -20,14 +20,15 @@ class XbfilmsModelFilms extends JModelList
     public function __construct($config = array()) {
         if (empty($config['filter_fields'])) {
             $config['filter_fields'] = array( 
-            		'id', 'a.id',
-            		'title', 'a.title',
-            		'ordering','a.ordering',
-            		'category_title', 'c.title',
-            		'catid', 'a.catid', 'category_id',
-            		'acq_date', 'a.acq_date', 
-            		'published','a.state',            		  
-            		'rel_year','a.rel_year');
+        		'id', 'a.id',
+        		'title', 'a.title',
+        		'ordering','a.ordering',
+        		'category_title', 'c.title',
+        		'catid', 'a.catid', 'category_id',
+        		'acq_date', 'a.acq_date', 
+                'sort_date', 'a.sort_date',
+        		'published','a.state',            		  
+        		'rel_year','a.rel_year');
         }
         parent::__construct($config);
     }
@@ -78,7 +79,7 @@ class XbfilmsModelFilms extends JModelList
         $query->select('a.id AS id, a.title AS title, a.subtitle AS subtitle, a.alias AS alias, 
             a.summary AS summary, a.rel_year AS rel_year, a.catid AS catid, 
             a.poster_img AS poster_img, a.synopsis AS synopsis, a.state AS published, 
-            a.created AS created, a.created_by AS created_by, a.acq_date AS acq_date,
+            a.created AS created, a.created_by AS created_by, a.acq_date AS acq_date, a.last_seen AS last_seen,
             a.created_by_alias AS created_by_alias, a.ext_links AS ext_links,
             a.checked_out AS checked_out, a.checked_out_time AS checked_out_time, 
             a.metadata AS metadata, a.ordering AS ordering, a.params AS params, a.note AS note');
@@ -90,8 +91,10 @@ class XbfilmsModelFilms extends JModelList
 		$query->select('c.title AS category_title');
         $query->join('LEFT', '#__categories AS c ON c.id = a.catid');
         
-        $query->select('(SELECT AVG(br.rating) FROM #__xbfilmreviews AS br WHERE br.film_id=a.id) AS averat');
-        $query->select('(SELECT MAX(fr.rev_date) FROM #__xbfilmreviews AS fr WHERE fr.film_id=a.id) AS lastseen');
+        $query->select('(SELECT COUNT(*) FROM #__xbfilmreviews AS fr WHERE fr.book_id=a.id) AS revcnt');
+        $query->select('(SELECT AVG(fr.rating) FROM #__xbfilmreviews AS fr WHERE fr.film_id=a.id) AS averat');
+//        $query->select('(SELECT MAX(fr.rev_date) FROM #__xbfilmreviews AS fr WHERE fr.film_id=a.id) AS lastseen');
+        $query->select('GREATEST(a.acq_date, COALESCE(a.last_seen, 0)) AS sort_date');
         
 		// Filter by published state
         $published = $this->getState('filter.published');
@@ -219,7 +222,7 @@ class XbfilmsModelFilms extends JModelList
         } //if not empty tagfilt
                
         // Add the list ordering clause.
-        $orderCol       = $this->state->get('list.ordering', 'acq_date');
+        $orderCol       = $this->state->get('list.ordering', 'sort_date');
         $orderDirn      = $this->state->get('list.direction', 'DESC');
         if ($orderCol == 'a.ordering' || $orderCol == 'a.catid') {
                 $orderCol = 'category_title '.$orderDirn.', a.ordering';  
@@ -247,11 +250,14 @@ class XbfilmsModelFilms extends JModelList
             $item->chars = XbfilmsGeneral::getFilmCharsArray($item->id);
             $item->charcnt = count($item->chars);
             
-            $item->reviews = XbfilmsGeneral::getFilmReviews($item->id);
-            $item->revcnt = count($item->reviews);
-            if ($item->revcnt>0) {
-            	$item->acq_date = $item->reviews[0]->rev_date;
+            if ($item->dircnt > 0) {
+                $item->dirlist = XbfilmsGeneral::makeLinkedNameList($item->people,'director',',', (($item->prdcnt)==0)? true:false);
             }
+            $prdlist = '';
+            if ($item->prdcnt > 0) {
+                $item->prdlist = XbfilmsGeneral::makeLinkedNameList($item->people,'producer',',');
+            }
+            $item->reviews = XbfilmsGeneral::getFilmReviews($item->id);
         	
             $item->ext_links = json_decode($item->ext_links);
             $item->ext_links_list ='';

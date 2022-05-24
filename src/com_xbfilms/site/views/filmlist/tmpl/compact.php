@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmlist/tmpl/compact.php
- * @version 0.5.3 15th March 2021
+ * @version 0.9.8.3 24th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -25,13 +25,10 @@ if (!$listOrder) {
     $listOrder='acq_date';
     $orderDrn = 'descending';
 }
-$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'), 'averat'=>'Average Rating', 'acq_date'=>'Last Seen');
+$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'), 'averat'=>'Average Rating', 
+    'acq_date'=>Text::_('XBCULTURE_ACQ_DATE'), 'sort_date'=>Text::_('XBCULTURE_SORT_DATE'), );
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
-
-$itemid = XbfilmsHelperRoute::getFilmsRoute();
-$itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
-$blink = 'index.php?option=com_xbfilms&view=film'.$itemid.'&id=';
 
 ?>
 <div class="xbfilms">
@@ -82,12 +79,16 @@ $blink = 'index.php?option=com_xbfilms&view=film'.$itemid.'&id=';
 				<th>
 					<?php echo Text::_('Director');?>
 				</th>
-				<th class="hidden-phone xbtc">
-					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_RATING','averat',$listDirn,$listOrder); ?>
-				</th>
-				<th class="hidden-phone">
-					<?php echo HTMLHelper::_('searchtools.sort','COM_XBFILMS_DATE_SEEN','acq_date',$listDirn,$listOrder ); ?>
-				</th>
+                <?php if ($this->show_rev != 0 ) : ?>
+    				<th class="hidden-phone xbtc">
+    					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_RATING','averat',$listDirn,$listOrder); ?>
+    				</th>
+                <?php endif; ?>
+                <?php if ($this->show_fdates) : ?>
+    				<th class="hidden-phone">
+    					<?php echo HTMLHelper::_('searchtools.sort','Seen/Acquired','sort_date',$listDirn,$listOrder ); ?>
+    				</th>
+                <?php endif; ?>
 			</tr>
 		</thead>
 		<tbody>
@@ -116,7 +117,7 @@ $blink = 'index.php?option=com_xbfilms&view=film'.$itemid.'&id=';
 						</p>
 					</td>
 					<?php if ($this->show_rev != 0 ) : ?>
-    					<td class="hidden-phone">
+    					<td>
     						<?php if ($item->revcnt==0) : ?>
     						   <i><?php  echo ($this->show_rev == 1)? Text::_( 'Not rated yet' ) : Text::_( 'COM_XBFILMS_NOREVIEW' ); ?></i><br />
     						<?php else : ?> 
@@ -135,9 +136,15 @@ $blink = 'index.php?option=com_xbfilms&view=film'.$itemid.'&id=';
      						<?php endif; ?>   											
     					</td>
     				<?php endif; ?>
+    				<?php if ($this->show_fdates ) : ?>   				
 					<td class="hidden-phone">
-						<p class="xb09"><?php echo $item->acq_date > 0 ? HtmlHelper::date($item->acq_date , Text::_('M Y')) : ''; ?></p>					
-					</td>
+        					<p><?php if($item->last_read=='') {
+        						echo '<span class="xbnit">(Acq.)'.HtmlHelper::date($item->acq_date , 'M Y').'</span>';
+        					} else {
+        						echo HtmlHelper::date($item->last_seen , 'd M Y'); 
+        					}?> </p>
+    					</td>
+    				<?php endif; ?>
 				</tr>
 				<?php endforeach;?>
 			</tbody>

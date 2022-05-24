@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/films/tmpl/default.php
- * @version 0.9.6.f 10th January 2022
+ * @version 0.9.8.3 23rd May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -25,13 +25,13 @@ $userId  = $user->get('id');
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn      = $this->escape(strtolower($this->state->get('list.direction')));
 if (!$listOrder) {
-	$listOrder='acq_date';
+	$listOrder='sort_date';
 	$listDirn = 'descending';
 }
 $orderNames = array('title'=>Text::_('COM_XBFILMS_FILMTITLE'), 'rel_year'=>Text::_('COM_XBFILMS_RELYEAR'),
-		'id'=>'id','acq_date'=>Text::_('XBCULTURE_DATES'),
+    'id'=>'id','acq_date'=>Text::_('XBCULTURE_ACQ_DATE'),'sort_date'=>Text::_('XBCULTURE_SORT_DATE'),
 		'category_title'=>Text::_('XBCULTURE_CATEGORY'),
-		'published'=>Text::_('XBCULTURE_CAPPUBSTATE'),'a.ordering'=>Text::_('XBCULTURE_ORDERING'));
+		'published'=>Text::_('XBCULTURE_PUBLISHED'),'a.ordering'=>Text::_('XBCULTURE_ORDERING'));
 
 $saveOrder      = $listOrder == 'a.ordering';
 $canOrder       = $user->authorise('core.edit.state', 'com_xbfilms.film');
@@ -131,9 +131,9 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 						<?php echo Text::_('XBCULTURE_REVIEWS_U'); ?>
 					</th>
 					<th class="hidden-tablet hidden-phone" style="width:15%;">
-						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_DATE','acq_date',$listDirn,$listOrder ).' ';						    
+						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_DATE','sort_date',$listDirn,$listOrder ).' ';						    
 						echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; ';						
-						echo Text::_( 'Tags' ); ?>
+						echo Text::_( 'XBCULTURE_TAGS_U' ); ?>
 					</th>
 					<th class="nowrap hidden-tablet hidden-phone" style="width:45px;">
 						<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ID', 'id', $listDirn, $listOrder );?>
@@ -149,15 +149,6 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 				$canEditOwn = $user->authorise('core.edit.own', 'com_xbfilms.film.'.$item->id) && $item->created_by == $userId;
                 $canChange  = $user->authorise('core.edit.state', 'com_xbfilms.film.'.$item->id) && $canCheckin;
                 
-                //makedirectoreditor lists
-                $dirlist ='';
-                if ($item->dircnt > 0) {
-                	$dirlist = XbfilmsGeneral::makeLinkedNameList($item->people,'director',',', (($item->prdcnt)==0)? true:false);
-                }
-                $prdlist = '';
-                if ($item->prdcnt > 0) {
-                	$prdlist = XbfilmsGeneral::makeLinkedNameList($item->people,'producer',',');
-                }
 			?>
 				<tr class="row<?php echo $i % 2; ?>" sortable-group-id="<?php echo $item->catid; ?>">	
 					<td class="order nowrap center hidden-phone">
@@ -192,19 +183,19 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 						</div>
 					</td>
 					<td>
+						<?php if(!empty($item->poster_img)) : ?>
 						<img class="img-polaroid hasTooltip xbimgthumb" title="" 
 							data-original-title="<?php echo $item->poster_img;?>"
 							<?php 
     							$src = $item->poster_img;
-    							if (empty($src)) {
-    							    $src = $nocover;
-    							} elseif (!file_exists(JPATH_ROOT.'/'.$src)) {
+    							if (!file_exists(JPATH_ROOT.'/'.$src)) {
     							    $src = $nofile;
     							}
     							$src = Uri::root().$src;
 							?>
 							src="<?php echo $src; ?>"
 							border="0" alt="" />						
+						<?php endif; ?>					
 					</td>
 					<td>
 						<p class="xbtitlelist">
@@ -230,12 +221,12 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 							<span class="xbnit">
 								<?php echo JText::_($item->prdcnt>1 ? 'XBCULTURE_CAPPRODUCERS' : 'XBCULTURE_CAPPRODUCER' ); ?>
 							: </span>
-							<?php echo $prdlist; ?>
+							<?php echo $item->prdlist; ?>
 						<?php endif; ?>
 						<?php if ($item->dircnt>0) : ?>
 							<span class="xbnit"><?php echo JText::_($item->dircnt>1 ? 'XBCULTURE_CAPDIRECTORS' : 'XBCULTURE_CAPDIRECTOR' ); ?>
 							: </span>
-							<?php echo $dirlist; ?>
+							<?php echo $item->dirlist; ?>
 						<?php endif; ?>
 						<br />
 							<?php echo $item->rel_year > 0 ? '<span class="xbnit">'.JText::_('Released').': </span>'.$item->rel_year : ''; ?>						
@@ -333,10 +324,10 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 						</div>										
 					</td>
 					<td>
-    					<p class="xb09"><?php if($item->lastseen=='') {
-    						echo '<span class="xbnit">(catalogued)<br />('.HtmlHelper::date($item->acq_date , Text::_('d M Y')).')</span>';
+    					<p class="xb09"><?php if($item->last_seen=='') {
+    						echo '<span class="xbnit">(Acq.) '.HtmlHelper::date($item->acq_date , Text::_('d M Y')).')</span>';
     					} else {
-    						echo HtmlHelper::date($item->lastseen , Text::_('d M Y')); 
+    						echo HtmlHelper::date($item->last_seen , 'd M Y'); 
     					}?> </p>
 						<p><a class="label label-success" href="<?php echo $cvlink.$item->catid; ?>" 
     							title="<?php echo JText::_( 'XBCULTURE_VIEW_CATEGORY' );?>::<?php echo $item->category_title; ?>">

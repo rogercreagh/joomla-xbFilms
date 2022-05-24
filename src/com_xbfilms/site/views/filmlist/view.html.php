@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmlist/view.html.php
- * @version 0.9.1 8th April 2021
+ * @version 0.9.8.3 23rd May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -40,11 +40,14 @@ class XbfilmsViewFilmlist extends JViewLegacy {
 
 		$this->show_pic = $this->params->get('show_fpiccol','1','int');
 		$this->show_sum = $this->params->get('show_fsumcol','1','int');
-		$this->show_rev = $this->params->get('show_frevcol','2','int');
+		$this->show_revs = $this->params->get('show_revs','1','int');
+		$this->show_rev = ($this->show_revs) ? $this->params->get('show_frevcol','2','int') : 0;
 		
 		$this->show_cats = $this->params->get('show_cats','1','int');
 		$this->show_cat = ($this->show_cats) ? $this->params->get('show_fcat','1','int') :0;
 		$this->show_tags = $this->params->get('show_ftags','1','int');
+		
+		$this->show_fdates = $this->params->get('show_fdates','1','int');
 		
 		$this->zero_rating = $this->params->get('zero_rating',1);
 		$this->zero_class = $this->params->get('zero_class','fas fa-thumbs-down xbred');

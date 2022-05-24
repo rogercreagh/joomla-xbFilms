@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/person/tmpl/qnew.php
- * @version 0.9.6.f 10th January 2022
+ * @version 0.9.8.3 24th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -34,13 +34,14 @@ HTMLHelper::_('formbehavior.chosen', 'select');
     </div>
     <div class="row-fluid">
     	<div class="span4">
-			<?php echo $this->form->renderField('catid'); ?> 
+			<?php echo $this->form->renderField('state'); ?> 
 		</div>
 		<div class="span4">
-			<?php echo $this->form->renderField('state'); ?>
+			<?php echo $this->form->renderField('year_born'); ?>
+			<?php echo $this->form->renderField('year_died'); ?>
 		</div>
 		<div class="span4">
-			<?php echo $this->form->renderField('tags'); ?>
+			<?php echo $this->form->renderField('nationality'); ?>
 		</div>
     </div>
     

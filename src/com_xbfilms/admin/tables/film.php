@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/tables/film.php
- * @version 0.9.7 11th January 2022
+ * @version 0.9.8.3 24th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -16,13 +16,15 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Filter\OutputFilter;
 use Joomla\Registry\Registry;
 use Joomla\CMS\Table\Table;
+use Joomla\CMS\Table\Observer\Tags;
 
 class XbfilmsTableFilm extends Table
 {
 	public function __construct(&$db) {
 		$this->setColumnAlias('published', 'state');
         parent::__construct('#__xbfilms', 'id', $db);
-        JTableObserverTags::createObserver($this, array('typeAlias' => 'com_xbfilms.film'));
+        $this->_supportNullValue = true;  //write empty checkedouttime as null
+        Tags::createObserver($this, array('typeAlias' => 'com_xbfilms.film'));
 	}
 
 	public function check() {

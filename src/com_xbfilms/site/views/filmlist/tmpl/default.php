@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmlist/tmpl/default.php
- * @version 0.9.6.f 11th January 2022
+ * @version 0.9.8.3 24th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -27,8 +27,8 @@ if (!$listOrder) {
     $listDirn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'rel_year'=>Text::_('COM_XBFILMS_YEAR_RELEASED'), 
-		'averat'=>Text::_('COM_XBFILMS_AVERAGE_RATING'), 'acq_date'=>Text::_('COM_XBFILMS_LAST_SEEN'),'lastseen'=>'last seen',
-    'category_title'=>Text::_('XBCULTURE_CATEGORY'));
+		'averat'=>Text::_('COM_XBFILMS_AVERAGE_RATING'), 'acq_date'=>Text::_('COM_XBFILMS_ACQ_DATE'),
+        'sort_date'=>Text::_('XBCULTURE_SORT_DATE'), 'category_title'=>Text::_('XBCULTURE_CATEGORY'));
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
@@ -107,9 +107,11 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 						<?php echo HTMLHelper::_('searchtools.sort','Rating','averat',$listDirn,$listOrder); ?>
 					</th>
 				<?php endif; ?>
-				<th>
-					<?php echo HTMLHelper::_('searchtools.sort','Last Review','lastseen',$listDirn,$listOrder ); ?>
-				</th>
+                <?php if ($this->show_fdates) : ?>
+    				<th>
+    					<?php echo HTMLHelper::_('searchtools.sort','Seen/Acquired','sort_date',$listDirn,$listOrder ); ?>
+    				</th>
+				<?php endif; ?>
 				<?php if($this->show_cat || $this->show_tags) : ?>
     				<th class="hidden-tablet hidden-phone">
     					<?php if ($this->show_cat) {
@@ -228,13 +230,15 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
      						<?php endif; ?>   											
     					</td>
     				<?php endif; ?>
-    				<td>
-    					<p><?php if($item->lastseen=='') {
-    						echo '<span class="xbnit">(catalogued)<br />('.HtmlHelper::date($item->acq_date , Text::_('d M Y')).')</span>';
-    					} else {
-    						echo HtmlHelper::date($item->lastseen , Text::_('d M Y')); 
-    					}?> </p>
-     				</td>
+                   <?php if ($this->show_fdates) : ?>
+        				<td>
+        					<p><?php if($item->last_seen=='') {
+        						echo '<span class="xbnit">(Acq.) '.HtmlHelper::date($item->acq_date , Text::_('M Y')).'</span>';
+        					} else {
+        						echo HtmlHelper::date($item->last_seen , Text::_('d M Y')); 
+        					}?> </p>
+         				</td>
+     				<?php endif; ?>
     				<?php if($this->show_cat || $this->show_tags) : ?>
     					<td class="hidden-phone">
      						<?php if($this->show_cat) : ?>	
