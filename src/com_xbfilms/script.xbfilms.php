@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource script.xbfilms.php
- * @version 0.9.8.3 23rd May January 2022
+ * @version 0.9.8.3 25th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html 
@@ -45,7 +45,11 @@ class com_xbfilmsInstallerScript
     }
     
     function uninstall($parent) {
-    	$componentXML = Installer::parseXMLInstallFile(Path::clean(JPATH_ADMINISTRATOR . '/components/com_xbfilms/xbfilms.xml'));
+        $app = Factory::getApplication();
+        //clear the packageuninstall flag if it is set
+        $oldval = Factory::getSession()->clear('xbpkg');
+        
+        $componentXML = Installer::parseXMLInstallFile(Path::clean(JPATH_ADMINISTRATOR . '/components/com_xbfilms/xbfilms.xml'));
     	$message = 'Uninstalling xbFilms component v.'.$componentXML['version'].' '.$componentXML['creationDate'];
     	//are we also clearing data?
     	$killdata = ComponentHelper::getParams('com_xbfilms')->get('killdata',0);
@@ -59,7 +63,7 @@ class com_xbfilmsInstallerScript
     	            $message .= ' ... images/xbfilms folder deleted';
     	        } else {
     	            $err = 'Problem deleting xbFilms images folder "/images/xbfilms" - please check in Media manager';
-    	            Factory::getApplication()->enqueueMessage($message,'Error');
+    	            $app->enqueueMessage($err,'Error');
     	        }
     	    }
     	} else {
@@ -79,7 +83,7 @@ class com_xbfilmsInstallerScript
     	            $message .= '<br />'.$cnt.' xbFilms categories renamed as "<b>!</b>com_xbfilms<b>!</b>". They will be recovered on reinstall with original ids.';
     	        }
     	}    	
-    	Factory::getApplication()->enqueueMessage($message,'Info');    	
+    	$app->enqueueMessage($message,'Info');    	
     }
     
     function update($parent) {
@@ -91,8 +95,9 @@ class com_xbfilmsInstallerScript
     }
     
     function postflight($type, $parent) {
-    	$componentXML = Installer::parseXMLInstallFile(Path::clean(JPATH_ADMINISTRATOR . '/components/com_xbfilms/xbfilms.xml'));
     	if ($type=='install') {
+    	    $app = Factory::getApplication();
+    	    $componentXML = Installer::parseXMLInstallFile(Path::clean(JPATH_ADMINISTRATOR . '/components/com_xbfilms/xbfilms.xml'));
     		$message = 'xbFilms '.$componentXML['version'].' '.$componentXML['creationDate'].'<br />';
     		
     		//create xbfilms image folder
@@ -114,7 +119,7 @@ class com_xbfilmsInstallerScript
          	    $db->execute();
          	    $cnt = $db->getAffectedRows();
          	} catch (Exception $e) {
-         	    Factory::getApplication()->enqueueMessage($e->getMessage(),'Error');
+         	    $app->enqueueMessage($e->getMessage(),'Error');
          	}
          	$message .= $cnt.' existing xbFilm categories restored. ';
          	// create default categories using category table
@@ -123,7 +128,7 @@ class com_xbfilmsInstallerScript
          			array("title"=>"Imported","desc"=>"default category for xbFilms imported data"));
          	$message .= $this->createCategory($cats);
          	
-	        Factory::getApplication()->enqueueMessage($message,'Info');  
+         	$app->enqueueMessage($message,'Info');  
 
 	        // we assume people default categories are already installed by xbpeople
 	        // we assume that indicies for xbpersons and xbcharacter tables have been handled by xbpeople install
@@ -169,7 +174,7 @@ class com_xbfilmsInstallerScript
 	            $message .= '- filmreviews alias index created.';
 	        }
 	        
-	        Factory::getApplication()->enqueueMessage($message,'Info');
+	        $app->enqueueMessage($message,'Info');
 	        
 	        
          	//check if people available

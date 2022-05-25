@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/review/view.html.php
- * @version 0.3.2 13th February 2021
+ * @version 0.9.8.3 25th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -59,6 +59,7 @@ class XbfilmsViewReview extends JViewLegacy {
         ToolbarHelper::apply('review.apply');
         ToolbarHelper::save('review.save');
         ToolbarHelper::save2new('review.save2new');
+        ToolbarHelper::custom('review.saveback', 'reply', '', 'Save->Film', false) ;
         if ($isNew) {
             ToolbarHelper::cancel('review.cancel','JTOOLBAR_CANCEL');
         } else {

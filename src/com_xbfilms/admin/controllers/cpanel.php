@@ -25,23 +25,23 @@ class XbfilmsControllerCpanel extends JControllerAdmin {
         if ($xbbooks_ok == true) {
             $this->setRedirect('index.php?option=com_xbbooks&view=cpanel');
         } elseif ($xbbooks_ok === 0) {
-            Factory::getApplication()->enqueueMessage('xbBooks '.JText::_('COM_XBFILMS_COMP_DISABLED'), 'warning');
+            Factory::getApplication()->enqueueMessage('xbBooks '.JText::_('XBCULTURE_COMP_DISABLED'), 'warning');
             $this->setRedirect('index.php?option=com_installer&view=manage&filter[search]=xbbooks');
         } else {
-            Factory::getApplication()->enqueueMessage('xbBooks '.JText::_('COM_XBFILMS_COMP_MISSING'), 'info');
+            Factory::getApplication()->enqueueMessage('xbBooks '.JText::_('XBCULTURE_COMP_MISSING'), 'info');
             $this->setRedirect('index.php?option=com_xbfilms&view=cpanel');
         }
     }
     
-    function gigs() {
-        $xbgigs_ok = Factory::getSession()->get('xbgigs_ok',false);
-        if ($xbgigs_ok == true) {
-            $this->setRedirect('index.php?option=com_xbgigs');
-        } elseif ($xbgigs_ok === 0) {
-            Factory::getApplication()->enqueueMessage('xbGigs '.JText::_('COM_XBFILMS_COMP_DISABLED'), 'warning');
+    function live() {
+        $xblive_ok = Factory::getSession()->get('xbgigs_ok',false);
+        if ($xblive_ok == true) {
+            $this->setRedirect('index.php?option=com_xblive');
+        } elseif ($xblive_ok === 0) {
+            Factory::getApplication()->enqueueMessage('xbLive '.JText::_('XBCULTURE_COMP_DISABLED'), 'warning');
             $this->setRedirect('index.php?option=com_installer&view=manage&filter[search]=xbgigs');
         } else {
-            Factory::getApplication()->enqueueMessage('xbGigs '.JText::_('COM_XBFILMS_COMP_MISSING'), 'info');
+            Factory::getApplication()->enqueueMessage('xbLive '.JText::_('XBCULTURE_COMP_MISSING'), 'info');
             $this->setRedirect('index.php?option=com_xbfilms&view=cpanel');
         }
     }

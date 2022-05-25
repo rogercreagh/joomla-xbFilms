@@ -24,7 +24,7 @@ class XbfilmsControllerFilm extends FormController {
 		$this->registerTask('save2NewRev', 'save');
 	}		
 		
-		protected function postSaveHook(JModelLegacy $model, $validData = array()) {
+	protected function postSaveHook(JModelLegacy $model, $validData = array()) {
 		
 		$task = $this->getTask();
 		$item = $model->getItem();

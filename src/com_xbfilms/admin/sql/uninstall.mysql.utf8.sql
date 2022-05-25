@@ -1,8 +1,4 @@
-DROP TABLE IF EXISTS
-`#__xbfilms`,
-`#__xbfilmperson`,
-`#__xbfilmcharacter`,
-`#__xbfilmreviews`;
+# DROP TABLE IF EXISTS `#__xbfilms`, `#__xbfilmperson`, `#__xbfilmcharacter`, `#__xbfilmreviews`;
 
 DELETE FROM `#__ucm_history` WHERE ucm_type_id in 
 	(select type_id from `#__content_types` where type_alias in ('com_xbfilms.film','com_xbfilms.person','com_xbfilms.character','com_xbfilms.review','com_xbfilms.category'));

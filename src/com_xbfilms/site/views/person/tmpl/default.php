@@ -175,7 +175,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 				<?php endif; ?>
 				<?php if($item->prev > 0) : ?>
 					<a href="index.php?option=com_xbfilms&view=person&id=<?php echo $item->prev ?>" class="btn btn-small">
-						<?php echo JText::_('COM_XBFILMS_CAPPREV'); ?></a>
+						<?php echo JText::_('XBCULTURE_PREV'); ?></a>
 			    <?php endif; ?>
 			</div>
 			<div class="span8"><center>
@@ -185,7 +185,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 			<div class="span2">
 			<?php if($item->next > 0) : ?>
 				<a href="index.php?option=com_xbfilms&view=person&id=<?php echo $item->next ?>" class="btn btn-small pull-right">
-					<?php echo JText::_('COM_XBFILMS_CAPNEXT'); ?></a>
+					<?php echo JText::_('XBCULTURE_NEXT'); ?></a>
 		    <?php endif; ?>
 			</div>
 	      </div>

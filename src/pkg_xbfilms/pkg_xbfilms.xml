@@ -3,7 +3,7 @@
 	<name>xbFilms Package</name>
 	<packagename>xbfilms</packagename>
 	<version>0.9.8.3</version>
-	<creationDate>24th May 2022</creationDate>
+	<creationDate>25th May 2022</creationDate>
 	<author>Roger C-O</author>
 	<copyright>Copyright (c) Roger Creagh-Osborne, 2021. All rights reserved.</copyright>
 	<license>GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html</license>
@@ -15,7 +15,6 @@
 	<packager>Roger C-O</packager>
 	<packagerurl>https://www.crosborne.co.uk/xbfilms</packagerurl>
 	<description>Package contains xbFilms and xbPeople Components for managing a catalogue of films and reviews with associated people</description>
-	<blockChildUninstall>true</blockChildUninstall>
 	<updateservers>
 	    <server type="extension" priority="1" name="xbFilms Package">
 	    	https://crosborne.co.uk/jupdates/update_pkg_xbfilms.xml

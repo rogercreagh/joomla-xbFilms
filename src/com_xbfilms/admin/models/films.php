@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/films.php
- * @version 0.9.8.3 23rd May 2022
+ * @version 0.9.8.3 25th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -91,7 +91,7 @@ class XbfilmsModelFilms extends JModelList
 		$query->select('c.title AS category_title');
         $query->join('LEFT', '#__categories AS c ON c.id = a.catid');
         
-        $query->select('(SELECT COUNT(*) FROM #__xbfilmreviews AS fr WHERE fr.book_id=a.id) AS revcnt');
+        $query->select('(SELECT COUNT(*) FROM #__xbfilmreviews AS fr WHERE fr.film_id=a.id) AS revcnt');
         $query->select('(SELECT AVG(fr.rating) FROM #__xbfilmreviews AS fr WHERE fr.film_id=a.id) AS averat');
 //        $query->select('(SELECT MAX(fr.rev_date) FROM #__xbfilmreviews AS fr WHERE fr.film_id=a.id) AS lastseen');
         $query->select('GREATEST(a.acq_date, COALESCE(a.last_seen, 0)) AS sort_date');

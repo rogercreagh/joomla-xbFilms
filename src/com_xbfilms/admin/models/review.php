@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/review.php
- * @version 0.9.8.3 24th May 2022
+ * @version 0.9.8.3 25th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -33,7 +33,7 @@ class XbfilmsModelReview extends JModelAdmin {
 			} else {
 				//check for preset film for new review
 				$app = Factory::getApplication();
-				$item->film_id = $app->getUserState('bk');
+				$item->film_id = $app->getUserState('fid');
 				if ($item->film_id>0) {
 				    $item->title = 'Review of "'.XbfilmsHelper::getFilmTitleById($item->film_id).'"';
 				}

@@ -22,11 +22,7 @@ $chelink='index.php?option=com_xbfilms&view=character&layout=edit&id=';
 
 if (!$this->xbpeople_ok) : ?>
     <div class="alert alert-error">
-        <h4>Warning - xbPeople Component appears not to be installed</h4>
-        <p>It should have been installed with pkg_xbfilms_xxx.zip. Without it xbFilms will not work correctly. All front-end xbFilms and other xbCulture pages will generate a 404 error.
-        <br />To install xbPeople either reinstall the xbFilms pkg or copy this url <b> http://www.crosborne.uk/downloads?download=11 </b>, and use it on the 
-        	<a href="index.php?option=com_installer&view=install#url">Install from URL</a> page.
-		</p>
+    	<?php echo Text::_('COM_XBFILMS_PEOPLE_WARNING'); ?>
     </div>
 <?php else: ?>
 
