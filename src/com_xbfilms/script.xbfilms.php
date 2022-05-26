@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource script.xbfilms.php
- * @version 0.9.8.3 25th May 2022
+ * @version 0.9.8.4 26th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html 
@@ -98,7 +98,7 @@ class com_xbfilmsInstallerScript
     	if ($type=='install') {
     	    $app = Factory::getApplication();
     	    $componentXML = Installer::parseXMLInstallFile(Path::clean(JPATH_ADMINISTRATOR . '/components/com_xbfilms/xbfilms.xml'));
-    		$message = 'xbFilms '.$componentXML['version'].' '.$componentXML['creationDate'].'<br />';
+    		$message = '<b>xbFilms '.$componentXML['version'].' '.$componentXML['creationDate'].'</b><br />';
     		
     		//create xbfilms image folder
         	if (!file_exists(JPATH_ROOT.'/images/xbfilms')) {
@@ -202,10 +202,10 @@ class com_xbfilmsInstallerScript
 		        echo '<a href="index.php?option=com_config&view=component&component=com_xbfilms" class="btn btn-small btn-info">xbFilms Options</a>';
 		        echo '<br /><i>After saving the options you will exit to the Dashboard for an overview</i>';
 		        echo '</p>';
-		        echo '<p><b>Dashboard</b> <i>The Dashboard view provides an overview of the component status</i>&nbsp;&nbsp;';
+		        echo '<p><b>Dashboard</b> <i>The Dashboard view provides an overview of the component status</i>&nbsp;&nbsp;:';
 		        echo '<a href="index.php?option=com_xbfilms&view=cpanel">xbFilms Dashboard</a> (<i>but save the options first!</i>)';
 		        echo '</p>';
-		        echo '<p><b>Sample Data</b> <i>You can install some sample data</i>&nbsp;&nbsp ';
+		        echo '<p><b>Sample Data</b> <i>You can install some sample data</i>&nbsp;&nbsp;: ';
 		        echo 'first check the option to show sample data button on the <a href="index.php?option=com_config&view=component&component=com_xbfilms#admin">Options Admin</a> tab, ';
 		        echo 'then an [Install/Remove Sample Data] button will appear in the xbFilms Dashboard toolbar.';
 		        echo '</p>';

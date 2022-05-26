@@ -27,7 +27,7 @@ if (!$listOrder) {
     $listDirn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'rel_year'=>Text::_('COM_XBFILMS_YEAR_RELEASED'), 
-		'averat'=>Text::_('COM_XBFILMS_AVERAGE_RATING'), 'acq_date'=>Text::_('COM_XBFILMS_ACQ_DATE'),
+		'averat'=>Text::_('COM_XBFILMS_AVERAGE_RATING'), 'acq_date'=>Text::_('XBCULTURE_ACQ_DATE'),
         'sort_date'=>Text::_('XBCULTURE_SORT_DATE'), 'category_title'=>Text::_('XBCULTURE_CATEGORY'));
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
