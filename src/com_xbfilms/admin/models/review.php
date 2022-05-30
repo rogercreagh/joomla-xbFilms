@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/review.php
- * @version 0.9.8.3 25th May 2022
+ * @version 0.9.8.5 30th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -132,7 +132,7 @@ class XbfilmsModelReview extends JModelAdmin {
                 $db = $this->getDbo();
                 $query= $db->getQuery(true);
                 $query = 'UPDATE `#__xbfilms`  AS a SET `last_seen` =  '.$db->quote($data['rev_date']).' ';
-                $query .= 'WHERE a.id  ='.$rid.' AND COALESCE(a.last_seen,0) < STR_TO_DATE("'.$data['rev_date'].'","%Y-%m-%d")';
+                $query .= 'WHERE a.id  ='.$data['film_id'].' AND COALESCE(a.last_seen,0) < STR_TO_DATE("'.$data['rev_date'].'","%Y-%m-%d")';
                 $db->setQuery($query);
                 $db->execute();
             }

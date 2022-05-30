@@ -12,6 +12,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
      <h4 class="modal-title">Quick New Person</h4>
+     
 
 </div>
 <div class="modal-body xbml20 xbmr20">

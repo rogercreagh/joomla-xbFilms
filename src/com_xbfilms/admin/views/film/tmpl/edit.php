@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/film/tmpl/edit.php
- * @version 0.9.8.3 25th May 2022
+ * @version 0.9.8.5 30th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -24,10 +24,8 @@ HTMLHelper::_('formbehavior.chosen', '#jform_tags', null, array('placeholder_tex
 HTMLHelper::_('formbehavior.chosen', 'select');
 
 $document = Factory::getDocument();
-$style = '.controls .btn-group > .btn  {'
-		. 'min-width: unset;'
-		.'padding:3px 12px 4px;'
-		. '}';
+$style = '.controls .btn-group > .btn  {min-width: unset;padding:3px 12px 4px;}'
+    .' .modal-body {height:262px;} .modal-body iframe { height:232px;}' ;
 $document->addStyleDeclaration($style);
 ?>
 <form action="<?php echo Route::_('index.php?option=com_xbfilms&layout=edit&id=' . (int) $this->item->id); ?>"
@@ -87,6 +85,8 @@ $document->addStyleDeclaration($style);
     				<img class="img-polaroid hidden-phone" style="max-width:100%;" 
         				src="<?php echo Uri::root() . $this->form->getValue('poster_img');?>" />
     			</div>
+    		<?php } else {?>
+    			<div class="xbbox xbboxwht xbnit" style="width:100px;height:133%;">No Cover Image</div>
     		<?php } ?>
         </div>
     </div>
