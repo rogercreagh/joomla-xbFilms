@@ -113,7 +113,7 @@
 		</field>
 					
 		<field name="acq_date" type="calendar"
-			label="COM_XBFILMS_DATE_SEEN_LABEL" description="COM_XBFILMS_DATE_SEEN_DESC"
+			label="COM_XBFILMS_DATE_ADDED_LABEL" description="COM_XBFILMS_DATE_ADDED_DESC"
 			class="inputbox" size="20" format="%Y-%m-%d 0:0:0" filter="user_utc"
 			showtime="false" translateformat="true" 
 			required="true"
