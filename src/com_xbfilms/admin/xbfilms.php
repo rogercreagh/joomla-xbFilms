@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/xbfilms.php
- * @version 0.9.0 7th April 2021
+ * @version 0.9.8.6 1st June 2022
  * @since 0.1.0 22nd November 2020
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -10,18 +10,35 @@
  ******/
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\MVC\Controller\BaseController;
 
 if (!Factory::getUser()->authorise('core.manage', 'com_xbfilms')) {
-	throw new JAccessExceptionNotallowed(JText::_('JERROR_ALERTNOAUTHOR'), 403);
-	return false;
+    Factory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'),'warning');
+    return false;
 }
 
-//add the component, xbculture and fontawesome css
 $document = Factory::getDocument();
-$cssFile = Uri::root(true)."/media/com_xbpeople/css/xbculture.css";
-$document->addStyleSheet($cssFile);
+//add the component, xbculture and fontawesome css
+$params = ComponentHelper::getParams('com_xbfilm');
+$usexbcss = $params->get('use_xbcss',1);
+if ($usexbcss<2) {
+    $cssFile = Uri::root(true)."/media/com_xbpeople/css/xbculture.css";
+    $altcss = $params->get('css_file','');
+    if ($usexbcss==0) {
+        if ($altcss && file_exists(JPATH_ROOT.$altcss)) {
+            $cssFile = $altcss;
+        }
+    }
+    $document->addStyleSheet($cssFile);
+}
+$exticon = $params->get('ext_icon',0);
+if ($exticon) {
+    $style = 'a[target="_blank"]:after {font-style: normal; font-weight:bold; content: "\2197";}' ;
+    $document->addStyleDeclaration($style);
+}
 $cssFile = "https://use.fontawesome.com/releases/v5.8.1/css/all.css\" integrity=\"sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf\" crossorigin=\"anonymous";
 $document->addStyleSheet($cssFile);
 
@@ -48,7 +65,7 @@ if (!Factory::getSession()->get('xbpeople_ok',false)) {
 }
 
 // Get an instance of the controller prefixed
-$controller = JControllerLegacy::getInstance('Xbfilms');
+$controller = BaseController::getInstance('xbfilms');
 // Perform the Request task and Execute request task
 $controller->execute(Factory::getApplication()->input->get('task'));
 

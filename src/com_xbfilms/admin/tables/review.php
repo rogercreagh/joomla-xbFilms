@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/tables/review.php
- * @version 0.9.8.3 24th May 2022
+ * @version 0.9.8.6 1st June 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -43,10 +43,8 @@ class XbfilmsTableReview extends Table
     	
     	$title = trim($this->title);
 	   	//check title and create default if none supplied
-    	$qr = false;
     	if (($title == '') && (trim($this->summary)=='') && (trim($this->synopsis==''))) {
     		//do quick rating
-    		$qr=true;
     		$title = 'Rating '.$ftitle;
     		if (trim($this->alias) == '') {
     			$this->alias = 'rating-'.$revno.'-'.$ftitle;
@@ -85,7 +83,7 @@ class XbfilmsTableReview extends Table
         if (!$this->catid>0) {
         	$defcat=0;
         	if ($params->get('def_new_revcat')>0) {
-        		$defcat=($qr) ? $params->get('def_new_ratcat') : $params->get('def_new_revcat');
+        		$defcat = $params->get('def_new_revcat');
         	} else {
         		$defcat = XbfilmsHelper::getIdFromAlias('#__categories', 'uncategorised');
         	}

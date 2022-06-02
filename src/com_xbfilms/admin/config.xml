@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms config.xml v0.9.8.3 23rd May 2022 -->
+<!-- xbFilms config.xml v0.9.8.6 1st June 2022 -->
 <config>
 <!-- GENERAL TAB -->				
 	<fieldset name="general"
@@ -7,8 +7,8 @@
 		description="XBCULTURE_CONFIG_GENERAL_DESC"
 	>
   		<field name="killdata" type="radio"
-			label="Delete Data on Uninstall"
-			description="If you want to uninstall without deleting the data tables xbfilms and xbfilmreviews set this to No"
+			label="XBCULTURE_CONFIG_DEL_UNINST_LABEL"
+			description="XBCULTURE_CONFIG_DEL_UNINST_DESC"
  			class="btn-group btn-group-yesno"
 			default="1"
 			>
@@ -38,41 +38,64 @@
 			<option value="0" >JNO</option>
 			<option value="1">JYES</option>
 		</field>	
-		
-  		<field name="starsnote" type="note"
-			label="XBCULTURE_CONFIG_STARS_NOTE"
-			description="XBCULTURE_CONFIG_STARS_NOTE_DESC"
-			class="info"
-		/>		
-		<field name="zero_rating" type="radio" default="1"
-	        label="XBCULTURE_CONFIG_ZERO_LABEL"
-	        description="XBCULTURE_CONFIG_ZERO_DESC"
-			class="btn-group btn-group-yesno"
-	    	>
-	        	<option value="0">JNO</option>
-	        	<option value="1">JYES</option>
-		</field>
-		<field name="zero_class" type="text"
-			label="XBCULTURE_CONFIG_ZERO_CLASS_LABEL" 
-			description="XBCULTURE_CONFIG_ZERO_CLASS_DESC" 
-			default="fas fa-thumbs-down xbred"
-			showon="zero_rating:1"
-		/>
-		<field name="star_class" type="text"
-			label="XBCULTURE_CONFIG_STAR_CLASS_LABEL" 
-			description="XBCULTURE_CONFIG_STAR_CLASS_DESC" 
-			default="fa fa-star xbgold"
-		/>
-		<field name="halfstar_class" type="text"
-			label="XBCULTURE_CONFIG_HALFSTAR_CLASS_LABEL" 
-			description="XBCULTURE_CONFIG_HALFSTAR_CLASS_DESC"
-			default="fa fa-star-half xbgold"
-		/>
- 		<field name="itemsnote" type="note"
-			label="XBCULTURE_CONFIG_ITEMS_NOTE_LABEL"
-			description="XBCULTURE_CONFIG_ITEMS_NOTE_DESC"
+  		<field name="xbsampplenote" type="note"
+			label="XBCULTURE_CONFIG_SAMPDATA_LABEL"
+			description="XBCULTURE_CONFIG_SAMPDATA_DESC"
 			class="info"
 		/>	
+		<field name="show_sample" type="radio"
+			label="COM_XBFILMS_SHOWSAMPLE_LBL"
+			description="COM_XBFILMS_SHOWSAMPLE_DESC"
+			class="btn-group btn-group-yesno"
+ 			default="1"
+			>
+			<option value="1">JYES</option>
+			<option value="0" >JNO</option>
+		</field>	
+ 		<field name="pathnote" type="note"
+			label="XBCULTURE_CONFIG_IMGPATHS_NOTE_LABEL"
+			description="XBCULTURE_CONFIG_IMGPATHS_NOTE_DESC"
+			class="info"
+		/>	
+		<field name="poster_path" type="folderlist" 
+			default="images/xbfilms" directory="images" 
+	        label="Poster images folder" 
+	        description="Default folder for poster for films and reviews. This only constrains which folder is initially shown when selecting image" 
+	        recursive="true" hide_none="true" 
+        />
+		<field name="portrait_path" type="folderlist" 
+			default="images/xbpeople" directory="images" 
+			label="XBCULTURE_CONFIG_PORTRAIT_LABEL" 
+			description="XBCULTURE_CONFIG_PORTRAIT_DESC" 
+	        recursive="true" hide_none="true" 
+        />
+   		<field name="extlinknote" type="note"
+			label="XBCULTURE_CONFIG_EXTLINK_NOTE"
+			class="info"
+		/>	
+		<field name="extlink_target" type="radio"
+			default="1"
+			label="XBCULTURE_CONFIG_EXTLINK_LABEL"
+			description="XBCULTURE_CONFIG_EXTLINK_DESC"
+ 			class="btn-group btn-group-yesno"
+		>
+			<option value="0" >XBCULTURE_CONFIG_SAME_TAB</option>
+			<option value="1">XBCULTURE_CONFIG_NEW_TAB</option>
+		</field>	
+   		<field name="beernote" type="note"
+			label="XBCULTURE_CONFIG_BUY_A_BEER_LABEL"
+			description="XBCULTURE_CONFIG_BUY_A_BEER_DESC"
+			class="info"
+		/>	
+		
+	</fieldset>
+		
+<!-- ITEMS DEFAULTS TAB -->				
+	<fieldset name="itemdefaults" 
+		label="XBCULTURE_CONFIG_ITEMS_NOTE_LABEL" 
+		description="XBCULTURE_CONFIG_ITEMS_NOTE_DESC"
+	>	
+
  		<field name="filmsnote" type="note"
 			label="Film Settings"
 		/>	
@@ -84,15 +107,15 @@
 			default="1"
 			>
 			<option value="0" >JHIDE</option>
-			<option value="1">Yes - not linked</option>
-			<option value="2">Yes - linked</option>
+			<option value="1">XBCULTURE_CONFIG_YES_NO_LINK</option>
+			<option value="2">XBCULTURE_CONFIG_YES_LINKED</option>
 		</field>	
 		<field name="rootcat_film" type="category"
 			extension="com_xbfilms"
 			label="Films Root Category"
 			description="XBCULTURE_CONFIG_ROOTCAT_DESC"
 			default=""
-			showon="show_fcat!:0"
+			showon="show_cats!:0[AND]show_fcat!:0"
 		>
 			<option value="">JOPTION_SELECT_CATEGORY</option>
 		</field>
@@ -100,10 +123,19 @@
 			label="XBCULTURE_CONFIG_INCROOT_LABEL"
 			description="XBCULTURE_CONFIG_INCROOT_DESC"
 			class="btn-group btn-group-yesno"
-			showon="rootcat_film!:"
+			showon="show_cats!:0[AND]show_fcat!:0[AND]rootcat_film!:"
 		>
 			<option value="0" >JNO</option>
 			<option value="1">JYES</option>
+		</field>
+		<field
+			name="def_new_filmcat" type="category"
+			label="New Film Category"
+			extension="com_xbfilms"
+			description="XBCULTURE_CONFIG_DEFAULT_CAT_DESC"
+			showon="show_cats!:0[AND]show_fcat!:0"
+			>			
+			<option value="" >XBCULTURE_CONFIG_SELECT_DEFAULT_NEW</option>
 		</field>
  		<field name="show_ftags" type="radio"
 			label="Show Film Tags"
@@ -126,11 +158,11 @@
 		</field>	
 		
  		<field name="revsnote" type="note"
-			label="XBCULTURE_CONFIG_REVSNOTE_LABEL"
+			label="XBCULTURE_CONFIG_REVIEWS_SETTINGS"
 		/>	
 		 <field name="show_revs" type="radio"
-			label="Show Film Reviews"
-			description="If you do not wish to use the reviews facility then set it to No here and no reviews or review links will appear on the front end. The functionality will still be there in the back end, but need not be used."
+			label="XBCULTURE_CONFIG_SHOW_REVIEWS_LABEL"
+			description="XBCULTURE_CONFIG_SHOW_REVIEWS_DESC"
 			class="btn-group btn-group-yesno"
 			default="1"
 			>
@@ -145,15 +177,15 @@
 			default="1"
 			>
 			<option value="0" >JHIDE</option>
-			<option value="1">Yes - not linked</option>
-			<option value="2">Yes - linked</option>
+			<option value="1">XBCULTURE_CONFIG_YES_NO_LINK</option>
+			<option value="2">XBCULTURE_CONFIG_YES_LINKED</option>
 		</field>	
  		<field name="rootcat_review" type="category"
 			extension="com_xbfilms"
 			label="XBCULTURE_CONFIG_RCAT_INCROOT_LABEL"
 			description="XBCULTURE_CONFIG_ROOTCAT_DESC"
 			default=""
-			showon="show_rcat!:0[AND]show_revs!:0"
+			showon="show_cats!:0[AND]show_rcat!:0[AND]show_revs!:0"
 		>
 			<option value="">JOPTION_SELECT_CATEGORY</option>
 		</field>
@@ -161,11 +193,30 @@
 			label="XBCULTURE_CONFIG_INCROOT_LABEL"
 			description="XBCULTURE_CONFIG_INCROOT_DESC"
 			class="btn-group btn-group-yesno"
-			showon="show_revs!:0[AND]rootcat_review!:"
+			showon="show_cats!:0[AND]show_revs!:0[AND]rootcat_review!:"
 		>
 			<option value="0" >JNO</option>
 			<option value="1">JYES</option>
 		</field>
+		<field
+			name="def_new_revcat" type="category"
+			label="XBCULTURE_CONFIG_NEW_REV_CAT_LABEL"
+			extension="com_xbfilms"
+			description="XBCULTURE_CONFIG_DEFAULT_CAT_DESC"
+			showon="show_cats!:0[AND]show_rcat!:0[AND]show_revs!:0"
+			>			
+			<option value="" >XBCULTURE_CONFIG_SELECT_DEFAULT_NEW</option>
+		</field>
+ 		<field name="rev_auth" type="radio"
+			default="0"
+			label="XBCULTURE_CONFIG_REVIEWER_NAME_LABEL"
+			description="XBCULTURE_CONFIG_REVIEWER_NAME_DESC"
+ 			class="btn-group btn-group-yesno"
+			showon="show_revs!:0"
+			>
+				<option value="0" >Name</option>
+				<option value="1">Username</option>
+		</field>	 
  		<field name="show_rtags" type="radio"
 			label="XBCULTURE_CONFIG_SHOW_RTAG_LABEL"
 			description="XBCULTURE_CONFIG_CATTAG_NO_DESC"
@@ -175,10 +226,52 @@
 			>
 			<option value="0" >JHIDE</option>
 			<option value="1">JSHOW</option>
-		</field>	
+		</field>			
+  		<field name="starsnote" type="note"
+			label="XBCULTURE_CONFIG_STARS_NOTE"
+			description="XBCULTURE_CONFIG_STARS_NOTE_DESC"
+			class="info"
+			showon="show_revs!:0"
+		/>		
+		<field name="zero_rating" type="radio" default="1"
+	        label="XBCULTURE_CONFIG_ZERO_LABEL"
+	        description="XBCULTURE_CONFIG_ZERO_DESC"
+			class="btn-group btn-group-yesno"
+			showon="show_revs!:0"
+	    	>
+	        	<option value="0">JNO</option>
+	        	<option value="1">JYES</option>
+		</field>
+		<field name="zero_class" type="text"
+			label="XBCULTURE_CONFIG_ZERO_CLASS_LABEL" 
+			description="XBCULTURE_CONFIG_ZERO_CLASS_DESC" 
+			default="fas fa-thumbs-down xbred"
+			showon="show_revs!:0[AND]zero_rating:1"
+		/>
+		<field name="star_class" type="text"
+			label="XBCULTURE_CONFIG_STAR_CLASS_LABEL" 
+			description="XBCULTURE_CONFIG_STAR_CLASS_DESC" 
+			default="fa fa-star xbgold"
+			showon="show_revs!:0"
+		/>
+		<field name="halfstar_class" type="text"
+			label="XBCULTURE_CONFIG_HALFSTAR_CLASS_LABEL" 
+			description="XBCULTURE_CONFIG_HALFSTAR_CLASS_DESC"
+			default="fa fa-star-half xbgold"
+			showon="show_revs!:0"
+		/>
  		<field name="peepnote" type="note"
-			label="People Settings"
+			label="XBCULTURE_CONFIG_PEOPLE_SETTINGS"
 		/>	
+   		<field name="people_sort" type="radio"
+			default="0"
+			label="XBCULTURE_CONFIG_NAME_ORDER_LABEL"
+			description="XBCULTURE_CONFIG_NAME_ORDER_DESC"
+ 			class="btn-group btn-group-yesno"
+			>
+				<option value="0" >First Last</option>
+				<option value="1">Last, First</option>
+		</field>					
  		<field name="show_pcat" type="radio"
 			label="XBCULTURE_CONFIG_SHOW_PCAT_LABEL"
 			description="XBCULTURE_CONFIG_CATTAG_NO_DESC"
@@ -187,15 +280,15 @@
 			default="1"
 			>
 			<option value="0" >JHIDE</option>
-			<option value="1">Yes - not linked</option>
-			<option value="2">Yes - linked</option>
+			<option value="1">XBCULTURE_CONFIG_YES_NO_LINK</option>
+			<option value="2">XBCULTURE_CONFIG_YES_LINKED</option>
 		</field>	
 		<field name="rootcat_person" type="category"
 			extension="com_xbpeople"
 			label="XBCULTURE_CONFIG_PCAT_INCROOT_LABEL"
 			description="XBCULTURE_CONFIG_ROOTCAT_DESC"
 			default=""
-			showon="show_pcat!:0"
+			showon="show_cats!:0[AND]show_pcat!:0"
 		>
 			<option value="">JOPTION_SELECT_CATEGORY</option>
 		</field>
@@ -203,11 +296,20 @@
 			label="XBCULTURE_CONFIG_INCROOT_LABEL"
 			description="XBCULTURE_CONFIG_INCROOT_DESC"
 			class="btn-group btn-group-yesno"
-			showon="rootcat_person!:"
+			showon="show_cats!:0[AND]show_pcat!:0[AND]rootcat_person!:"
 		>
 			<option value="0" >JNO</option>
 			<option value="1">JYES</option>
 		</field>
+		<field
+			name="def_new_percat" type="category"
+			label="XBCULTURE_CONFIG_NEW_PERSON_CAT_LABEL"
+			extension="com_xbpeople"
+			description="XBCULTURE_CONFIG_DEFAULT_CAT_DESC"
+			showon="show_cats!:0[AND]show_pcat!:0"
+			>			
+			<option value="" >XBCULTURE_CONFIG_SELECT_DEFAULT_NEW</option>
+		</field>		
  		<field name="show_ptags" type="radio"
 			label="XBCULTURE_CONFIG_SHOW_PTAG_LABEL"
 			description="XBCULTURE_CONFIG_CATTAG_NO_DESC"
@@ -219,8 +321,9 @@
 			<option value="1">JSHOW</option>
 		</field>	
  		<field name="charsnote" type="note"
-			label="Characters Settings"
+			label="XBCULTURE_CONFIG_CHAR_SETTINGS"
 		/>	
+		
  		<field name="show_ccat" type="radio"
 			label="XBCULTURE_CONFIG_SHOW_CCAT_LABEL"
 			description="XBCULTURE_CONFIG_CATTAG_NO_DESC"
@@ -229,15 +332,15 @@
 			default="1"
 			>
 			<option value="0" >JHIDE</option>
-			<option value="1">Yes - not linked</option>
-			<option value="2">Yes - linked</option>
+			<option value="1">XBCULTURE_CONFIG_YES_NO_LINK</option>
+			<option value="2">XBCULTURE_CONFIG_YES_LINKED</option>
 		</field>	
 		<field name="rootcat_char" type="category"
 			extension="com_xbpeople"
 			label="XBCULTURE_CONFIG_CCAT_INCROOT_LABEL"
 			description="XBCULTURE_CONFIG_ROOTCAT_DESC"
 			default=""
-			showon="show_ccat!:0"
+			showon="show_cats!:0[AND]show_ccat!:0"
 		>
 			<option value="">JOPTION_SELECT_CATEGORY</option>
 		</field>
@@ -245,12 +348,21 @@
 			label="XBCULTURE_CONFIG_INCROOT_LABELt"
 			description="XBCULTURE_CONFIG_INCROOT_DESC"
 			class="btn-group btn-group-yesno"
-			showon="rootcat_char!:"
+			showon="show_cats!:0[AND]rootcat_char!:"
 		>
 			<option value="0" >JNO</option>
 			<option value="1">JYES</option>
 		</field>
- 		<field name="show_ctags" type="radio"
+		<field
+			name="def_new_charcat" type="category"
+			label="XBCULTURE_CONFIG_NEW_CHAR_CAT_LABEL"
+			extension="com_xbpeople"
+			description="XBCULTURE_CONFIG_DEFAULT_CAT_DESC"
+			showon="show_cats!:0[AND]show_ccat!:"
+			>			
+			<option value="" >XBCULTURE_CONFIG_SELECT_DEFAULT_NEW</option>
+		</field>
+		<field name="show_ctags" type="radio"
 			label="XBCULTURE_CONFIG_SHOW_CTAG_LABEL"
 			description="XBCULTURE_CONFIG_CATTAG_NO_DESC"
 			class="btn-group btn-group-yesno"
@@ -263,128 +375,6 @@
 		
 	</fieldset>
 
-<!-- ADMIN TAB -->				
-	<fieldset name="admin" 
-		label="Admin (Back-end) Options" 
-		description="Admin defaults and options for new items."
-		>	
-   		<field name="beernote" type="note"
-			label="Hide the credit footer - Buy Roger a Beer"
-			description="If you make a small donation (£4 - enough for a beer) then you will get a code to hide the credit at the foot of all xbCulture components Site pages and remove the PayPal button on the Admin pages.
-			&lt;br /&gt;Use the PayPal button at the foot of any admin page, or visit &lt;a href='https://crosborne.uk/xbculture/beer' target='_blank'&gt;crosborne.uk/xbculture/beer&lt;/a&gt;.
-			Then enter your code on the xbPeople Options Credits tab.
-			&lt;br /&gt;&lt;i&gt;Of course you could simply hack the code to remove, it but that would probably waste more that £4 of your time, and make you a bit of a nasty person.&lt;/i&gt;"
-			class="info"
-		/>	
-  		<field name="xbpeoplenote" type="note"
-			label="Sample Data Reminder"
-			description="Setting this to 'No' will simply hide the reminder on the Dashboard."
-			class="info"
-		/>	
-		<field name="show_sample" type="radio"
-			label="COM_XBFILMS_SHOWSAMPLE_LBL"
-			description="COM_XBFILMS_SHOWSAMPLE_DESC"
-			class="btn-group btn-group-yesno"
- 			default="1"
-			>
-			<option value="1">JYES</option>
-			<option value="0" >JNO</option>
-		</field>	
- 		<field name="pathnote" type="note"
-			label="Image Paths"
-			description="These set the default folders for posters and pictures. This is only used as the starting point when inserting images, you can then navigate to any other folder under /images if you wish. The defaults are /images/xbfilms which is created on installation."
-			class="info"
-		/>	
-		<field name="poster_path" type="folderlist" 
-			default="images/xbfilms" directory="images" 
-	        label="Poster images folder" 
-	        description="Default folder for poster for films and reviews. This only constrains which folder is initially shown when selecting image" 
-	        recursive="true" hide_none="true" 
-        />
-		<field name="portrait_path" type="folderlist" 
-			default="images/xbpeople" directory="images" 
-	        label="Portrait images folder" 
-	        description="Default folder for picture for people and characters. This only constrains which folder is initially shown when selecting image" 
-	        recursive="true" hide_none="true" 
-        />
- 		<field name="newitemnote" type="note"
-			label="New Items"
-			description="These set the defaults for new items."
-			class="info"
-		/>	
-		<field
-			name="def_new_filmcat" type="category"
-			label="New Film Category"
-			extension="com_xbfilms"
-			description="Default category for all new and imported films. You can select a different category when creating an individual item, and a different default for a specific import. This just provides a general fallback - if not set it will default to 'Uncategorised'."
-			>			
-			<option value="" >Select default for new items</option>
-		</field>
-		<field
-			name="def_new_revcat" type="category"
-			label="New Review Category"
-			extension="com_xbfilms"
-			description="Default category for all new and imported reviews. You can select a different category when creating an individual item, and a different default for a specific import. This just provides a general fallback - if not set it will default to 'Uncategorised'."
-			>			
-			<option value="" >Select default for new reviews</option>
-		</field>
-		<field
-			name="def_new_ratcat" type="category"
-			label="Quick Rating Category"
-			extension="com_xbfilms"
-			description="Default category for quick ratings - if not set it will default to 'Uncategorised'."
-			>			
-			<option value="" >Select default for new ratings</option>
-		</field>
- 		<field name="rev_auth" type="radio"
-			default="0"
-			label="Review Author"
-			description="Use user's name or username as default author for reviews. Can be overridden by entering a different name in Reviewer field"
- 			class="btn-group btn-group-yesno"
-			>
-				<option value="0" >Name</option>
-				<option value="1">Username</option>
-		</field>	
-		<field
-			name="def_new_percat" type="category"
-			label="New Person Category"
-			extension="com_xbpeople"
-			description="Default category for all new and imported people. You can select a different category when creating an individual item, and a different default for a specific import. This just provides a general fallback - if not set it will default to 'Uncategorised'."
-			>			
-			<option value="" >Select default for new items</option>
-		</field>
-  		<field name="people_sort" type="radio"
-			default="0"
-			label="Name Order"
-			description="In all views names are displayed as 'Firstnames Lastname'. List views can be sorted by both Lastname and Firstname. This setting determines the order for name lists used in selectors (eg in seach/filter options) which will be listed alphabetically according to tis setting."
- 			class="btn-group btn-group-yesno"
-			>
-				<option value="0" >First Last</option>
-				<option value="1">Last, First</option>
-		</field>			
-		<field
-			name="def_new_charcat" type="category"
-			label="New Character Category"
-			extension="com_xbpeople"
-			description="Default category for all new and imported characters. You can select a different category when creating an individual item, and a different default for a specific import. This just provides a general fallback - if not set it will default to 'Uncategorised'."
-			>			
-			<option value="" >Select default for new items</option>
-		</field>
- 		<field name="extlinknote" type="note"
-			label="External Links"
-			description="Items may have a list of links to external sites created. This sets whether these links should be to a new tab/window or the existing one. It does not affect links you may create in the item description."
-			class="info"
-		/>	
-		<field name="extlink_target" type="radio"
-			default="1"
-			label="External Link Target"
-			description="Open external links in new tab/window or replace existing page. NB this only applies to links added in the 'External Links' field for Films and People."
- 			class="btn-group btn-group-yesno"
-		>
-			<option value="0" >Same Tab</option>
-			<option value="1">New Tab</option>
-		</field>	
-	</fieldset>
 		
 <!-- LIST LAYOUTS TAB -->				
 	<fieldset name="list" 
