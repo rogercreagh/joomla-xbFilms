@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms config.xml v0.9.8.6 1st June 2022 -->
+<!-- xbFilms config.xml v0.9.8.6 3rd June 2022 -->
 <config>
 <!-- GENERAL TAB -->				
 	<fieldset name="general"
@@ -432,9 +432,7 @@
 			<option value="0" >JHIDE</option>
 			<option value="1">Show Average Rating only</option>
 			<option value="2">Show Rating and Review Links</option>
-		</field>
-	
-			    
+		</field>			    
   		<field name="peoplelistnote" type="note"
 			label="People List Specific Options"
 			class="info"
@@ -579,7 +577,7 @@
  	</fieldset>
  	        
 <!-- ITEM LAYOUTS TAB -->				
-	<fieldset name="items"
+	<fieldset name="itemlayouts"
 		label="Item Layouts"
 		description="Options for item views." 
 		>
@@ -616,6 +614,7 @@
 			label="Show Ratings/Reviews"
 			description="Show rating &amp; reviews. Show rating only will make review details inaccessible from this page."
 			default="1"
+			showon="show_revs:1"
 			>
 			<option value="0" >JHIDE</option>
 			<option value="1">Rating only</option>
@@ -626,6 +625,7 @@
 			label="Review View Options"
 			description="These settings apply to the individual review view"
 			class="info"
+			showon="show_revs:1"
 		/>	
 		<field name="rev_layout" type="componentlayout"
 	        label="JFIELD_ALT_LAYOUT_LABEL"
@@ -636,6 +636,7 @@
 			label="Show Image"
 			description="Show image, and in which position"
 			default="1"
+			showon="show_revs:1"
 			>
 			<option value="0" >JHIDE</option>
 			<option value="1">Show to left of title</option>
@@ -721,6 +722,63 @@
 		</field>       
 
 	</fieldset>
+
+<!-- STYLES TAB -->				
+	<fieldset name="styles" 
+		label="XBCULTURE_CONFIG_STYLING_LABEL" 
+		description="XBCULTURE_CONFIG_STYLING_DESC"
+		>	
+		
+   		<field name="cssnote" type="note"
+			label="XBCULTURE_CONFIG_MODIFY_CSS_NOTE_LABEL"
+			description="XBCULTURE_CONFIG_MODIFY_CSS_NOTE_DESC"
+			class="info"
+		/>	
+		<field name="use_xbcss" type="radio"
+			label="XBCULTURE_CONFIG_USE_XBCSS_LABEL"
+			description="XBCULTURE_CONFIG_USE_XBCSS_LABEL"
+			class="btn-group btn-group-yesno"
+			default="1"
+			>
+			<option value="1" >JYES</option>
+			<option value="0">Specify File</option>
+			<option value="2">Use Template</option>
+		</field>
+		<field name="css_file" type="text" 
+			label="XBCULTURE_CONFIG_MOD_CSS_LABEL" 
+			description="XBCULTURE_CONFIG_MOD_CSS_DESC" 
+			default="/media/com_xbpeople/css/xbculture.css" 
+			size="150" showon="use_xbcss:0"
+		/>	
+   		<field name="cssnote2" type="note"
+			description="XBCULTURE_CONFIG_CSS_NOTE2_DESC"
+			 showon="use_xbcss:0"
+			class="info"
+		/>	
+   		<field name="cssnote3" type="note"
+			description="XBCULTURE_CONFIG_CSS_NOTE3_DESC"
+			 showon="use_xbcss:2"
+			class="info"
+		/>	
+		<field name="extlinksnote" type="note"
+			label="XBCULTURE_CONFIG_NEWTAB_HINT_NOTE_LABEL"
+			description="XBCULTURE_CONFIG_NEWTAB_HINT_NOTE_DESC"
+		/>
+		<field name="ext_icon" type="radio"
+			label="XBCULTURE_CONFIG_NEWTAB_ICON_LABEL"
+			description="XBCULTURE_CONFIG_NEWTAB_ICON_DESC"
+			default="0"
+			class="btn-group btn-group-yesno btn-small"
+		>
+			<option value="0" >JNO</option>
+			<option value="1">JYES</option>
+		</field>
+		<field name="extlinksnote2" type="note"
+			description="XBCULTURE_CONFIG_NEWTAB_HINT_NOTE2_DESC"
+		/>
+		
+	</fieldset>
+       
 	
 <!-- META TAB -->
 	<fieldset name="meta"
