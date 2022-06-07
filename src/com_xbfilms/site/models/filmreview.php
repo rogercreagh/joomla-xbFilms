@@ -67,7 +67,7 @@ class XbfilmsModelFilmreview extends JModelItem {
 				$item->edauths = '<i>';
 				if ($item->editcnt == 0){
 					if ($item->authcnt == 0){
-						$item->edauths .= JText::_( 'COM_XBFILMS_NODIRECTOR' ).'</i>';
+						$item->edauths .= JText::_( 'XBFILMS_NODIRECTOR' ).'</i>';
 					} else {
 						$item->edauths .= ($item->authcnt>1)?JText::_('XBCULTURE_CAPDIRECTORS'):JText::_('XBCULTURE_CAPDIRECTOR');
 						$item->edauths .= '</i>: '.XbfilmsGeneral::makeLinkedNameList($item->people,'director',',',false);

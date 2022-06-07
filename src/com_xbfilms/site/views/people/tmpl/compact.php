@@ -94,16 +94,16 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_FILMS_U','fcnt',$listDirn,$listOrder); ?>
 				</th>
 				<?php endif; ?>
-				<?php if($this->show_cat || $this->show_tags) : ?>
+				<?php if($this->show_cats || $this->show_tags) : ?>
     				<th class="hidden-tablet hidden-phone">
-    					<?php if ($this->show_cat) {
+    					<?php if ($this->show_cats) {
     						echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATEGORY','category_title',$listDirn,$listOrder ).' &amp; ';
     					}
-    					if (($this->show_cat) && ($this->show_tags)) {
+    					if (($this->show_cats) && ($this->show_tags)) {
     					    echo ' &amp; ';
     					}
     					if($this->show_tags) {
-    					    echo Text::_( 'COM_XBFILMS_CAPTAGS' ); 
+    					    echo Text::_( 'XBFILMS_CAPTAGS' ); 
     					} ?>                
     				</th>
                 <?php endif; ?>
@@ -137,11 +137,11 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
     					</p>
 					</td>
 				<?php endif; ?>
-    			<?php if(($this->show_cat) || ($this->show_tags)) : ?>
+    			<?php if(($this->show_cats) || ($this->show_tags)) : ?>
 					<td class="hidden-phone">
- 						<?php if (($this->show_cat) && ($this->xbpeople_ok)) : ?>												
+ 						<?php if (($this->show_cats) && ($this->xbpeople_ok)) : ?>												
 							<p>
-								<?php if($this->show_cat == 2) : ?>
+								<?php if($this->show_cats == 2) : ?>
     								<a class="label label-success" href="<?php echo $clink.$item->catid; ?>">
     									<?php  echo $item->category_title; ?></a>		
     							<?php else: ?>

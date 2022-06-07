@@ -26,8 +26,8 @@ if (!$listOrder) {
     $listOrder='acq_date';
     $listDirn = 'descending';
 }
-$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'rel_year'=>Text::_('COM_XBFILMS_YEAR_RELEASED'), 
-		'averat'=>Text::_('COM_XBFILMS_AVERAGE_RATING'), 'acq_date'=>Text::_('XBCULTURE_ACQ_DATE'),
+$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'rel_year'=>Text::_('XBFILMS_YEAR_RELEASED'), 
+		'averat'=>Text::_('XBFILMS_AVERAGE_RATING'), 'acq_date'=>Text::_('XBCULTURE_ACQ_DATE'),
         'sort_date'=>Text::_('XBCULTURE_SORT_DATE'), 'category_title'=>Text::_('XBCULTURE_CATEGORY'));
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
@@ -88,13 +88,13 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 			<tr>
 				<?php if($this->show_pic) : ?>
 					<th class="center" style="width:80px">
-						<?php echo JText::_( 'COM_XBFILMS_POSTER' ); ?>
+						<?php echo JText::_( 'XBFILMS_POSTER' ); ?>
 					</th>	
                 <?php endif; ?>
 				<th>
 					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_TITLE','title',$listDirn,$listOrder).				
     						', '.JText::_('XBCULTURE_CAPDIRECTOR').', '.
-    						HTMLHelper::_('searchtools.sort','COM_XBFILMS_RELYEARCOL','rel_year',$listDirn,$listOrder );
+    						HTMLHelper::_('searchtools.sort','XBFILMS_RELYEARCOL','rel_year',$listDirn,$listOrder );
 					?>
 				</th>					
 				<?php if($this->show_sum) : ?>
@@ -121,7 +121,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
     					    echo ' &amp; ';
     					}
     					if($this->show_tags) {
-    					    echo Text::_( 'COM_XBFILMS_CAPTAGS' ); 
+    					    echo Text::_( 'XBFILMS_CAPTAGS' ); 
     					} ?>                
     				</th>
                 <?php endif; ?>
@@ -154,17 +154,17 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
                         <?php endif; ?>
 						<p>
                         	<?php if ($item->dircnt==0) {
-                        		echo '<span class="xbnit">'.JText::_('COM_XBFILMS_NODIRECTOR').'</span>';
+                        		echo '<span class="xbnit">'.JText::_('XBFILMS_NODIRECTOR').'</span>';
                         	} else { ?> 
 	                        	<span class="xbnit">
 	                        		<?php echo JText::_($item->dircnt>1 ? 'XBCULTURE_CAPDIRECTORS' : 'XBCULTURE_CAPDIRECTOR' ); ?>
 	                        	</span>: 
-                        		<?php echo $item->alist; 
+                        		<?php echo $item->dlist; 
                         	} ?>                          	
 						</br>
 						<span class="xb09">
 							<?php if($item->rel_year > 0) {
-								echo '<span class="xbnit">'.JText::_('COM_XBFILMS_CAPRELEASED').'</span>: '.$item->rel_year.'<br />'; 
+								echo '<span class="xbnit">'.JText::_('XBFILMS_CAPRELEASED').'</span>: '.$item->rel_year.'<br />'; 
 							}?>																			
 						</span></p>
 					</td>
@@ -175,11 +175,11 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
     								<?php echo $item->summary; ?>
         						<?php else : ?>
         							<?php if (!empty($item->synopsis)) : ?>
-        								<span class="xbnit"><?php echo Text::_('COM_XBFILMS_SYNOPSIS_EXTRACT'); ?>: </span>
+        								<span class="xbnit"><?php echo Text::_('XBFILMS_SYNOPSIS_EXTRACT'); ?>: </span>
         								<?php echo XbcultureHelper::makeSummaryText($item->synopsis,0); ?>
         							<?php else : ?>
         							<span class="xbnote">
-        								<?php echo Text::_('COM_XBFILMS_NO_SUMMARY_SYNOPSIS'); ?>
+        								<?php echo Text::_('XBFILMS_NO_SUMMARY_SYNOPSIS'); ?>
         							</span></span>
         							<?php endif; ?>
         						<?php endif; ?>
@@ -187,7 +187,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
                             <?php if (!empty($item->synopsis)) : ?>
                             	<p class="xbnit xb09">   
                                  <?php 
-                                 	echo Text::_('COM_XBFILMS_FULLSYNOPSIS').' '.str_word_count(strip_tags($item->synopsis)).' '.Text::_('XBCULTURE_WORDS'); 
+                                 	echo Text::_('XBFILMS_FULLSYNOPSIS').' '.str_word_count(strip_tags($item->synopsis)).' '.Text::_('XBCULTURE_WORDS'); 
                                  ?>
     							</p>
     						<?php endif; ?>
@@ -196,7 +196,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 					<?php if ($this->show_rev != 0 ) : ?>
     					<td>
     						<?php if ($item->revcnt==0) : ?>
-    						   <i><?php  echo ($this->show_rev == 1)? JText::_( 'Not rated yet' ) : JText::_( 'COM_XBFILMS_NOREVIEW' ); ?></i><br />
+    						   <i><?php  echo ($this->show_rev == 1)? JText::_( 'Not rated yet' ) : JText::_( 'XBFILMS_NOREVIEW' ); ?></i><br />
     						<?php else : ?> 
 	                        	<?php $stars = (round(($item->averat)*2)/2); ?>
 	                            <div class="xbstar">

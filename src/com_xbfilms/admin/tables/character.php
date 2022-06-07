@@ -42,7 +42,7 @@ class XbfilmsTableCharacter extends Table
     	$title = trim($this->name);
     	
     	if ($title == '') {
-    	    $this->setError(JText::_('COM_XBFILMS_PROVIDE_VALID_NAME'));
+    	    $this->setError(JText::_('XBFILMS_PROVIDE_VALID_NAME'));
     	    return false;
     	}
     	

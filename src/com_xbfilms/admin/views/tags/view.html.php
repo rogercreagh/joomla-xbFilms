@@ -70,7 +70,7 @@ class XbfilmsViewTags extends JViewLegacy {
     protected function setDocument()
     {
     	$document = Factory::getDocument();
-    	$document->setTitle(Text::_('COM_XBFILMS_ADMIN_TAGS'));
+    	$document->setTitle(Text::_('XBFILMS_ADMIN_TAGS'));
     }
     
 }

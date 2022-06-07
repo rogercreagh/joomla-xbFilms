@@ -39,6 +39,7 @@ class XbfilmsViewBlog extends JViewLegacy {
 		$show_cats = $this->params->get('show_cats','1','int');
 		$this->show_fcat = ($show_cats) ? $this->params->get('show_fcat','2','int') :0;
 		$show_tags = $this->params->get('show_tags','1','int');
+
 		$this->show_ftags = ($show_tags) ? $this->params->get('show_ftags','1','int') : 0;
 		$this->show_rcat = ($show_cats) ? $this->params->get('show_rcat','1','int') :0;
 		$this->show_rtags = ($show_tags) ? $this->params->get('show_rtags','1','int') :0;

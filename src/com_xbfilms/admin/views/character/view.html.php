@@ -49,9 +49,9 @@ class XbfilmsViewCharacter extends JViewLegacy {
         
         $title = Text::_( 'COM_XBFILMS' ).': ';
         if ($isNew) {
-            $title .= Text::_('COM_XBFILMS_TITLE_NEWCHAR');
+            $title .= Text::_('XBFILMS_TITLE_NEWCHAR');
         } else {
-            $title .= Text::_('COM_XBFILMS_TITLE_EDITCHAR');
+            $title .= Text::_('XBFILMS_TITLE_EDITCHAR');
         }
         
         ToolbarHelper::title($title, 'user');
@@ -69,7 +69,7 @@ class XbfilmsViewCharacter extends JViewLegacy {
     protected function setDocument() {
         $isNew = ($this->item->id < 1);
         $document = Factory::getDocument();
-        $document->setTitle($isNew ? Text::_('COM_XBFILMS_NEW_CHAR') :
-            Text::_('COM_XBFILMS_EDIT_CHAR'));
+        $document->setTitle($isNew ? Text::_('XBFILMS_NEW_CHAR') :
+            Text::_('XBFILMS_EDIT_CHAR'));
     }
 }

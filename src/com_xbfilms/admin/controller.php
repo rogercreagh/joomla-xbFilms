@@ -10,7 +10,7 @@
 defined('_JEXEC') or die;
 
 class XbfilmsController extends JControllerLegacy {
-	protected $default_view = 'cpanel';
+	protected $default_view = 'dashboard';
 	
 	public function display ($cachable = false, $urlparms = false){
 	    //require_once JPATH_COMPONENT.'/helpers/xbfilms.php';

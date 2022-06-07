@@ -51,16 +51,16 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 				<?php if (($item->year_born == 0) && ($item->year_died == 0)) : ?>
 					<?php if(!$this->hide_empty) : ?>
 						<p><span class="xbnit">
-							<?php echo JText::_('COM_XBFILMS_DATES_UNKNOWN'); ?>
+							<?php echo JText::_('XBFILMS_DATES_UNKNOWN'); ?>
 						</span></p>
 					<?php endif; ?>
 				<?php  else : ?>
 					<?php if ($item->year_born != 0) : ?>
-						<p><span class="xbnit"><?php echo JText::_('COM_XBFILMS_CAPBORN').': '; ?> </span> 
+						<p><span class="xbnit"><?php echo JText::_('XBFILMS_CAPBORN').': '; ?> </span> 
 							<?php echo $item->year_born; ?></p>
 					<?php endif; ?>
 					<?php if ($item->year_died != 0) : ?>
-						<p><span class="xbnit"><?php echo JText::_('COM_XBFILMS_CAPDIED').': '; ?> </span> 
+						<p><span class="xbnit"><?php echo JText::_('XBFILMS_CAPDIED').': '; ?> </span> 
 							<?php echo $item->year_died; ?></p>
 					<?php endif; ?>
 				<?php endif; ?>	
@@ -101,7 +101,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
             	<?php endif; ?>
             	<?php if ($item->ext_links_cnt > 0) : ?>
             		<div class="span6">
-            			<div class="xbnit xbmb8"><?php echo JText::_('COM_XBFILMS_EXT_LINKS'); ?></div>
+            			<div class="xbnit xbmb8"><?php echo JText::_('XBFILMS_EXT_LINKS'); ?></div>
             			<div>			
             				<?php echo $item->ext_links_list; ?>
             			</div><div class="clearfix"></div>
@@ -117,7 +117,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 				<?php  endif;?>
 				<p>&nbsp;</p>
 				<?php if ((empty($item->biography)) && (trim($item->summary) == '')) : ?>
-					<p class="xbnit"><?php echo JText::_('COM_XBFILMS_NO_BIOG'); ?></p>
+					<p class="xbnit"><?php echo JText::_('XBFILMS_NO_BIOG'); ?></p>
 				<?php else : ?>
 					<div class="xbnit xbmb8"><?php echo JText::_('XBCULTURE_BIOGRAPHY');?></div>
 					<div class="xbbox xbboxgrn">
@@ -155,7 +155,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 	<?php endif; ?>
 	<?php if(($this->show_tags) && (!empty($item->tags))) : ?>
 		<div class="span<?php $this->showcat ? '7' : '12';?>">
-			<div class="pull-left xbnit xbmr10"><?php echo JText::_('COM_XBFILMS_CAPTAGS'); ?></div>
+			<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBFILMS_CAPTAGS'); ?></div>
 			<div class="pull-left">
 				<?php  $tagLayout = new FileLayout('joomla.content.tags');
 			    	echo $tagLayout->render($item->tags);
@@ -170,7 +170,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 			<div class="span2">
 				<?php if (($item->prev>0) || ($item->next>0)) : ?>
 				<span class="hasTooltip xbinfo" title 
-					data-original-title="<?php echo JText::_('COM_XBFILMS_INFO_PREVNEXT'); ?>" >
+					data-original-title="<?php echo JText::_('XBFILMS_INFO_PREVNEXT'); ?>" >
 				</span>&nbsp;
 				<?php endif; ?>
 				<?php if($item->prev > 0) : ?>
@@ -180,7 +180,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 			</div>
 			<div class="span8"><center>
 				<a href="index.php?option=com_xbfilms&view=people" class="btn btn-small">
-					<?php echo JText::_('COM_XBFILMS_PEOPLELIST'); ?></a></center>
+					<?php echo JText::_('XBFILMS_PEOPLELIST'); ?></a></center>
 			</div>
 			<div class="span2">
 			<?php if($item->next > 0) : ?>

@@ -27,7 +27,7 @@ $xblink = 'index.php?option=com_xbfilms';
 		<form action="index.php?option=com_xbfilms&view=fcategory" method="post" id="adminForm" name="adminForm">
 		<div class="row-fluid xbmb8">
 			<div class= "span3">
-				  <h3><?php echo JText::_('COM_XBFILMS_CAT_ITEMS'); ?></h3>
+				  <h3><?php echo JText::_('XBFILMS_CAT_ITEMS'); ?></h3>
 			</div>
 			<div class= "span5">
 				<a href="<?php echo $celink.$item->id; ?>" class="badge badge-success">
@@ -120,7 +120,7 @@ $xblink = 'index.php?option=com_xbfilms';
 </div>
 <center>
 		<a href="<?php echo $xblink; ?>&view=fcategories" class="btn btn-small">
-			<?php echo JText::_('COM_XBFILMS_CAT_LIST'); ?></a>
+			<?php echo JText::_('XBFILMS_CAT_LIST'); ?></a>
 		</center>
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbFilms');?></p>

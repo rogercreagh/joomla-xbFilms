@@ -33,7 +33,7 @@ class XbfilmsViewTag extends JViewLegacy {
 		
 		ToolBarHelper::title(Text::_( 'COM_XBFILMS' ).': '.Text::_( 'XBCULTURE_TITLE_TAGMANAGER' ), 'tag' );
 		
-		ToolbarHelper::custom('tag.tags', 'tags', '', 'COM_XBFILMS_TAG_LIST', false) ;
+		ToolbarHelper::custom('tag.tags', 'tags', '', 'XBFILMS_TAG_LIST', false) ;
 		ToolbarHelper::custom('tag.tagedit', 'edit', '', 'XBCULTURE_EDIT_TAG', false) ;
 		
 		if ($canDo->get('core.admin')) {
@@ -44,7 +44,7 @@ class XbfilmsViewTag extends JViewLegacy {
 	protected function setDocument()
 	{
 		$document = Factory::getDocument();
-		$document->setTitle(Text::_('COM_XBFILMS_ADMIN_TAGITEMS'));
+		$document->setTitle(Text::_('XBFILMS_ADMIN_TAGITEMS'));
 	}
 	
 }

@@ -75,11 +75,11 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 	<?php if ($search) {
 		echo '<p>Searched for <b>'; 
 		if (stripos($search, 'i:') === 0) {
-            echo trim(substr($search, 2)).'</b> '.Text::_('COM_XBFILMS_AS_PERSONID');
+            echo trim(substr($search, 2)).'</b> '.Text::_('XBFILMS_AS_PERSONID');
 		} elseif ((stripos($search, 's:') === 0) || (stripos($search, 'd:') === 0)) {
-            echo trim(substr($search, 2)).'</b> '.Text::_('COM_XBFILMS_AS_INBIOG');
+            echo trim(substr($search, 2)).'</b> '.Text::_('XBFILMS_AS_INBIOG');
         } else {
-			echo trim($search).'</b> '.Text::_('COM_XBFILMS_AS_INNAMES');
+			echo trim($search).'</b> '.Text::_('XBFILMS_AS_INNAMES');
 		}
 		echo '</p>';
 	} ?> 
@@ -199,7 +199,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 							    echo HTMLHelper::_('jgrid.checkedout', $i, Text::_('XBCULTURE_OPENED_BY').':,'.$couname, $item->checked_out_time, 'person.', $canCheckin); 
 							} ?>
 							
-							<a href="<?php echo $pelink.$item->id; ?>" title="<?php echo Text::_('COM_XBFILMS_EDIT_PERSON'); ?>">
+							<a href="<?php echo $pelink.$item->id; ?>" title="<?php echo Text::_('XBFILMS_EDIT_PERSON'); ?>">
 								<?php echo ' '.$item->name; ?> 
 							</a>
 							<br />
@@ -213,10 +213,10 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
     						<?php else : ?>
     							<span class="xbnit">
     							<?php if (!empty($item->description)) : ?>
-    								<?php echo Text::_('COM_XBFILMS_BIOG_EXTRACT'); ?>: </span>
+    								<?php echo Text::_('XBFILMS_BIOG_EXTRACT'); ?>: </span>
     								<?php echo XbcultureHelper::makeSummaryText($item->description,200); ?>
     							<?php else : ?>
-    								<?php echo Text::_('COM_XBFILMS_NO_SUMMARY_BIOG'); ?></span>
+    								<?php echo Text::_('XBFILMS_NO_SUMMARY_BIOG'); ?></span>
     							<?php endif; ?>
     						<?php endif; ?>
                         </p>

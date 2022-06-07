@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- xbBooks site/views/booklist/default.xml v0.9.4.1 29th April 2021 -->
 <metadata>
-	<layout title="Film Compact List">
+	<layout title="Film List - Compact">
 		<message>Displays a compact list of film with only title, director, rel_year, rating and dateseen columns. Options enable user search &amp; filtering or to restrict to single category and filter person and tags.</message>
 	</layout>
 	<fields name="params" addfieldpath="administrator/components/com_xbfilms/models/fields">
 		<!-- Basic options. -->
 		<fieldset name="basic" label="Options">
 	 		<field name="search_bar" type="radio"
-				label="COM_XBFILMS_LIST_SHOW_SEARCH_LBL"
-				description="COM_XBFILMS_LIST_SHOW_SEARCH_DESC"
+				label="XBFILMS_LIST_SHOW_SEARCH_LBL"
+				description="XBFILMS_LIST_SHOW_SEARCH_DESC"
 				class="btn-group btn-group-yesno btn-small"
 			>
 				<option value="0" >JNO</option>
@@ -18,36 +18,36 @@
 			<field
 				name="menu_perfilt" type="filmpeople"
 				label="XBCULTURE_PEOPLE_U"
-				description="COM_XBFILMS_PERFILT_DESC"
+				description="XBFILMS_PERFILT_DESC"
 				>
-				<option value="">COM_XBFILMS_PERFILT_HINT</option>
+				<option value="">XBFILMS_PERFILT_HINT</option>
 			</field>
 			<field name="menu_prole" type="list" default=""
-				label="COM_XBFILMS_PROLE_LBL"
-				description="COM_XBFILMS_PROLE_DESC"
+				label="XBFILMS_PROLE_LBL"
+				description="XBFILMS_PROLE_DESC"
 				showon="menu_perfilt!:"			
 			>
-	  			<option value="">COM_XBFILMS_PROLE_DEF</option>
+	  			<option value="">XBFILMS_PROLE_DEF</option>
 				<option value="1">XBCULTURE_CAPDIRECTOR</option>
 			</field>	
 			<field
 				name="menu_charfilt" type="characters" label="XBCULTURE_CHARACTER_U"
 				description="Only show films featuring a particular character"
 				>
-				<option value="">COM_XBFILMS_CHARFILT_HINT</option>
+				<option value="">XBFILMS_CHARFILT_HINT</option>
 			</field>
 			<field
 				name="menu_category_id" type="category"
 				label="XBCULTURE_CATEGORY"
 				extension="com_xbfilms"
-				description="COM_XBFILMS_CATEGORY_DESC"
+				description="XBFILMS_CATEGORY_DESC"
 				>
-					<option value="0">COM_XBFILMS_ALL_CATEGORIES</option>
+					<option value="0">XBFILMS_ALL_CATEGORIES</option>
 			</field>
 			<field name="menu_subcats" type="radio"
 				default=""
-				label="COM_XBFILMS_SUBCATS_LBL"
-				description="COM_XBFILMS_SUBCATS_DESC"
+				label="XBFILMS_SUBCATS_LBL"
+				description="XBFILMS_SUBCATS_DESC"
 	  			class="btn-group btn-small radiotop"
 	  			showon="menu_category_id!:0"
 				>
@@ -56,14 +56,14 @@
 			</field>	
  			<field
 				name="menu_tag" type="tag"
-				label="COM_XBFILMS_MENUTAG_LBL"
-				description="COM_XBFILMS_MENUTAG_DESC"
+				label="XBFILMS_MENUTAG_LBL"
+				description="XBFILMS_MENUTAG_DESC"
 				multiple="true"
 				mode="nested"
 			/>
 			<field name="menu_taglogic" type="radio"
 				default=""
-				label="COM_XBFILMS_MULTITAG_LBL"
+				label="XBFILMS_MULTITAG_LBL"
 				description=""
 	  			class="btn-group btn-small radiotop"
 				showon="menu_tag!:"

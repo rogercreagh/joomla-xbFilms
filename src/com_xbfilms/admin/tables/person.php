@@ -44,7 +44,7 @@ class XbfilmsTablePerson extends Table
     	$lastname = trim($this->lastname);
     	
     	if ($lastname == '') {
-            $this->setError(JText::_('COM_XBFILMS_PROVIDE_VALID_NAME'));
+            $this->setError(JText::_('XBFILMS_PROVIDE_VALID_NAME'));
             return false;
         }
         

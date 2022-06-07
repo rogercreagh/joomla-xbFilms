@@ -86,7 +86,7 @@ $document->addStyleDeclaration($style);
         				src="<?php echo Uri::root() . $this->form->getValue('poster_img');?>" />
     			</div>
     		<?php } else {?>
-    			<div class="xbbox xbboxwht xbnit" style="width:100px;height:133%;"><?php echo Text::_('COM_XBFILMS_NO_POSTER_IMAGE'); ?></div>
+    			<div class="xbbox xbboxwht xbnit" style="width:100px;height:133%;"><?php echo Text::_('XBFILMS_NO_POSTER_IMAGE'); ?></div>
     		<?php } ?>
         </div>
     </div>
@@ -146,7 +146,7 @@ $document->addStyleDeclaration($style);
 				</div>
 			</div>
 		<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
-		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'publishing', Text::_('COM_XBFILMS_FIELDSET_PUBLISHING')); ?>
+		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'publishing', Text::_('XBFILMS_FIELDSET_PUBLISHING')); ?>
 		<div class="row-fluid form-horizontal-desktop">
 			<div class="span6">
 				<?php echo LayoutHelper::render('joomla.edit.publishingdata', $this); ?>

@@ -28,7 +28,7 @@ if (!$listOrder) {
 	$listOrder='sort_date';
 	$listDirn = 'descending';
 }
-$orderNames = array('title'=>Text::_('COM_XBFILMS_FILMTITLE'), 'rel_year'=>Text::_('COM_XBFILMS_RELYEAR'),
+$orderNames = array('title'=>Text::_('XBFILMS_FILMTITLE'), 'rel_year'=>Text::_('XBFILMS_RELYEAR'),
     'id'=>'id','acq_date'=>Text::_('XBCULTURE_ACQ_DATE'),'sort_date'=>Text::_('XBCULTURE_SORT_DATE'),
 		'category_title'=>Text::_('XBCULTURE_CATEGORY'),
 		'published'=>Text::_('XBCULTURE_PUBLISHED'),'a.ordering'=>Text::_('XBCULTURE_ORDERING'));
@@ -80,11 +80,11 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 	<?php if ($search) : ?>
 		<?php echo '<p>Searched for <b>'; ?>
 		<?php if (stripos($search, 'i:') === 0) {
-                echo trim(substr($search, 2)).'</b> '.JText::_('COM_XBFILMS_AS_FILMID');
+                echo trim(substr($search, 2)).'</b> '.JText::_('XBFILMS_AS_FILMID');
             } elseif (stripos($search, 's:') === 0) {
-                echo trim(substr($search, 2)).'</b> '.JText::_('COM_XBFILMS_AS_INSYNOP');
+                echo trim(substr($search, 2)).'</b> '.JText::_('XBFILMS_AS_INSYNOP');
             } else {
-				echo trim($search).'</b> '.JText::_('COM_XBFILMS_AS_INTITLE');
+				echo trim($search).'</b> '.JText::_('XBFILMS_AS_INTITLE');
 			}
 			echo '</p>';
         ?>	
@@ -114,13 +114,13 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 						<?php echo HTMLHelper::_('searchtools.sort', 'JSTATUS', 'published', $listDirn, $listOrder); ?>
 					</th>
 					<th class="center" style="width:80px">
-						<?php echo Text::_( 'COM_XBFILMS_POSTER' ); ?>
+						<?php echo Text::_( 'XBFILMS_POSTER' ); ?>
 					</th>			
 					<th>
 						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_TITLE','title',$listDirn,$listOrder).
     						' <span class="xb095">'.
      						Text::_('Director').', '.
-     						HTMLHelper::_('searchtools.sort','COM_XBFILMS_RELYEARCOL','rel_year',$listDirn,$listOrder ).', '.
+     						HTMLHelper::_('searchtools.sort','XBFILMS_RELYEARCOL','rel_year',$listDirn,$listOrder ).', '.
     					   '</span>';
 						?>
 					</th>					
@@ -205,7 +205,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 						} ?>
 						<?php if ($canEdit || $canEditOwn) : ?>
 							<a href="<?php echo Route::_($belink.$item->id);?>"
-								title="<?php echo JText::_('COM_XBFILMS_EDIT_FILM'); ?>" >
+								title="<?php echo JText::_('XBFILMS_EDIT_FILM'); ?>" >
 								<b><?php echo $this->escape($item->title); ?></b></a> 
 						<?php else : ?>
 							<?php echo $this->escape($item->title); ?>
@@ -239,10 +239,10 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
     						<?php else : ?>
     							<span class="xbnit">
     							<?php if (!empty($item->synopsis)) : ?>
-    								<?php echo Text::_('COM_XBFILMS_SYNOPSIS_EXTRACT'); ?>: </span>
+    								<?php echo Text::_('XBFILMS_SYNOPSIS_EXTRACT'); ?>: </span>
     								<?php echo XbcultureHelper::makeSummaryText($item->synopsis,200); ?>
     							<?php else : ?>
-    								<?php echo Text::_('COM_XBFILMS_NO_SUMMARY_SYNOPSIS'); ?></span>
+    								<?php echo Text::_('XBFILMS_NO_SUMMARY_SYNOPSIS'); ?></span>
     							<?php endif; ?>
     						<?php endif; ?>
                         </p>
@@ -276,7 +276,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 					<td class="hidden-phone">
 						<?php if ($item->revcnt==0) : ?>
 						    <a href="'.Route::_($relink.'0&bk='.$item->id).'">
-                            <i><?php echo JText::_('COM_XBFILMS_NOREVIEW'); ?></i></a><br /> 
+                            <i><?php echo JText::_('XBFILMS_NOREVIEW'); ?></i></a><br /> 
 						<?php else: ?>
                         	<?php $stars = (round(($item->averat)*2)/2); ?>
                             <div>
@@ -319,7 +319,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 						<div style="margin-top:5px;">
 							<a href="<?php echo Route::_($relink.'0&film_id='.$item->id); ?>" 
 								class="btn btn-mini btn-success">
-								<?php echo JText::_('COM_XBFILMS_ADDREVIEW'); ?>
+								<?php echo JText::_('XBFILMS_ADDREVIEW'); ?>
 							</a>
 						</div>										
 					</td>

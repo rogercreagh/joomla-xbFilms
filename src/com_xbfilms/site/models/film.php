@@ -92,7 +92,7 @@ class XbfilmsModelFilm extends JModelItem {
 				
 				//make director/producer/char lists
 				if ($item->dircnt==0){
-					$item->dlist = ''; //'<i>'.JText::_( 'COM_XBFILMS_NODIRECTOR' ).'</i>';
+					$item->dlist = ''; //'<i>'.JText::_( 'XBFILMS_NODIRECTOR' ).'</i>';
 				} else {
 					$item->dlist = XbfilmsGeneral::makeLinkedNameList($item->people,'director',',');
 				}

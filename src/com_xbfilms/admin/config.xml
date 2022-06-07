@@ -44,8 +44,8 @@
 			class="info"
 		/>	
 		<field name="show_sample" type="radio"
-			label="COM_XBFILMS_SHOWSAMPLE_LBL"
-			description="COM_XBFILMS_SHOWSAMPLE_DESC"
+			label="XBFILMS_SHOWSAMPLE_LBL"
+			description="XBFILMS_SHOWSAMPLE_DESC"
 			class="btn-group btn-group-yesno"
  			default="1"
 			>
@@ -382,14 +382,14 @@
 		description="Options for front-end list views. Most of these global options can be overridden by specific menu settings."
 		>		
  		<field name="listnote" type="note"
-			label="COM_XBFILMS_LIST_SHOW_SEARCH_LBL"
-			description="COM_XBFILMS_LIST_SHOW_SEARCH_DESC"
+			label="XBFILMS_LIST_SHOW_SEARCH_LBL"
+			description="XBFILMS_LIST_SHOW_SEARCH_DESC"
 			class="info"
 		/>
 			
  		<field name="search_bar" type="radio"
-			label="COM_XBFILMS_SHOWSEARCH_LBL"
-			description="COM_XBFILMS_SHOWSEARCH_DESC"
+			label="XBFILMS_SHOWSEARCH_LBL"
+			description="XBFILMS_SHOWSEARCH_DESC"
 			class="btn-group btn-group-yesno"
 			default="1"
 			>
@@ -542,7 +542,7 @@
 		</field>	
 		<field name="show_cat_parent" type="radio"
 			default="1"
-			label="COM_XBFILMS_SHOW_PARENTS_LABEL"
+			label="XBFILMS_SHOW_PARENTS_LABEL"
 			description="Show category hierarchy - requires showing empty categories, sort will be by parent then title"
   			class="btn-group btn-group-yesno"
   			showon="show_clist_empty:1"
@@ -566,7 +566,7 @@
 		</field>	
 		<field name="show_tag_parent" type="radio"
 			default="1"
-			label="COM_XBFILMS_SHOW_PARENTS_LABEL"
+			label="XBFILMS_SHOW_PARENTS_LABEL"
 			description="show tag hierarchy - if shown sort will be by parent, then title"
   			class="btn-group btn-group-yesno"
 			>

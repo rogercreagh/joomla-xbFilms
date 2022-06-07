@@ -265,7 +265,7 @@ class XbfilmsModelFilmlist extends JModelList {
 			$item->revcnt = count($item->reviews);
 			
 			//make director editor lists
-			$item->alist = $item->dircnt==0 ? '' : XbfilmsGeneral::makeLinkedNameList($item->people,'director',',', (($item->editcnt)==0)? true:false) ;
+			$item->dlist = $item->dircnt==0 ? '' : XbfilmsGeneral::makeLinkedNameList($item->people,'director',',', (($item->editcnt)==0)? true:false) ;
 			$item->elist = $item->editcnt==0 ? '' : XbfilmsGeneral::makeLinkedNameList($item->people,'producer',',');
 			
 			if (($item->charcnt)==0){

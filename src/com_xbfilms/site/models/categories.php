@@ -2,20 +2,27 @@
 /*******
  * @package xbFilms
  * @filesource site/models/categories.php
- * @version 0.5.4 20th March 2021
+ * @version 0.9.8.7 5th June 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\Utilities\ArrayHelper;
 
 class XbfilmsModelCategories extends JModelList {
 	
 	public function __construct($config = array()) {
-		if (empty($config['filterfileds'])) {
+	    $showcats = ComponentHelper::getParams('com_xbfilms')->get('show_cats',1);
+	    if (!$showcats) {
+	        header('Location: index.php?option=com_xbfilms&view=filmlist');
+	        exit();
+	    }
+	    
+	    if (empty($config['filterfileds'])) {
 			$config['filter_fields'] = array ('id','title','path', 'parent','bcnt','bpcnt','rcnt','bchcnt' );
 		}
 		parent::__construct($config);

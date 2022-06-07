@@ -87,7 +87,7 @@ class com_xbfilmsInstallerScript
     }
     
     function update($parent) {
-    	$message = '<br />Visit the <a href="index.php?option=com_xbfilms&view=cpanel" class="btn btn-small btn-info">';
+    	$message = '<br />Visit the <a href="index.php?option=com_xbfilms&view=dashboard" class="btn btn-small btn-info">';
     	$message .= 'xbFilms Control Panel</a> page for overview of status.</p>';
     	$message .= '<br />For ChangeLog see <a href="http://crosborne.co.uk/xbfilms/changelog" target="_blank">
             www.crosborne.co.uk/xbfilms/changelog</a></p>';
@@ -203,7 +203,7 @@ class com_xbfilmsInstallerScript
 		        echo '<br /><i>After saving the options you will exit to the Dashboard for an overview</i>';
 		        echo '</p>';
 		        echo '<p><b>Dashboard</b> <i>The Dashboard view provides an overview of the component status</i>&nbsp;&nbsp;:';
-		        echo '<a href="index.php?option=com_xbfilms&view=cpanel">xbFilms Dashboard</a> (<i>but save the options first!</i>)';
+		        echo '<a href="index.php?option=com_xbfilms&view=dashboard">xbFilms Dashboard</a> (<i>but save the options first!</i>)';
 		        echo '</p>';
 		        echo '<p><b>Sample Data</b> <i>You can install some sample data</i>&nbsp;&nbsp;: ';
 		        echo 'first check the option to show sample data button on the <a href="index.php?option=com_config&view=component&component=com_xbfilms#admin">Options Admin</a> tab, ';

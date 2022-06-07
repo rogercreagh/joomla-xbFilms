@@ -218,7 +218,7 @@ ul.nav-tabs {
 .xbstar {
 	color:#edc500;
 }
-.xbstarcell { /*used in backend cpanel */
+.xbstarcell { /*used in backend dashboard */
 	overflow-wrap:anywhere; 
 	padding:2px; 
 	line-height:12px;

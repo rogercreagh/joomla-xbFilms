@@ -6,7 +6,7 @@
 			name="search"
 			type="text"
 			label="COM_CONTENT_FILTER_SEARCH_DESC"
-			description="COM_XBFILMS_SEARCH_FILMS"
+			description="XBFILMS_SEARCH_FILMS"
 			hint="JSEARCH_FILTER"
 			class="js-stools-search-string"
 		/>
@@ -31,7 +31,7 @@
 		</field>
 		<field
 			name="ratfilt" type="rating" 
-			label="COM_XBFILMS_RATING_LABEL" description="COM_XBFILMS_RATING_DESC" 
+			label="XBFILMS_RATING_LABEL" description="XBFILMS_RATING_DESC" 
 			default="" 
 			onchange="this.form.submit();">
 			<option value="">Filter by Rating</option>
@@ -49,8 +49,8 @@
 		<field name="taglogic"
 			type="radio"
 			default="0"
-			label="COM_XBFILMS_MULTITAG_LBL"
-			description="COM_XBFILMS_MULTITAG_DESC"
+			label="XBFILMS_MULTITAG_LBL"
+			description="XBFILMS_MULTITAG_DESC"
   			class="btn-group btn-small radiotop"
 		>
 			<option value="1" onchange="this.form.submit();">XBCULTURE_ALL</option>

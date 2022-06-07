@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/xbfilms.php
- * @version 0.9.8.6 1st June 2022
+ * @version 0.9.8.7 5th June 2022
  * @since 0.1.0 22nd November 2020
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -57,8 +57,8 @@ if (!Factory::getSession()->get('xbpeople_ok',false)) {
         XbcultureHelper::checkComponent('com_xbpeople');
     } else {
         $app = Factory::getApplication();
-        if ($app->input->get('view')!='cpanel') {
-            $app->redirect('index.php?option=com_xbfilms&view=cpanel');
+        if ($app->input->get('view')!='dashboard') {
+            $app->redirect('index.php?option=com_xbfilms&view=dashboard');
             $app->close();
         }
     }

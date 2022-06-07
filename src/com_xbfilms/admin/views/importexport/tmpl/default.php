@@ -59,11 +59,11 @@ use Joomla\CMS\Router\Route;
       <div class="span12">
 		<?php echo HTMLHelper::_('bootstrap.startTabSet', 'myTab', array('active' => 'exp')); ?>
 
-		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'imp', JText::_('COM_XBFILMS_IMPORT_TAB')); ?>	
+		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'imp', JText::_('XBFILMS_IMPORT_TAB')); ?>	
 	<div class="row-fluid">
 		<fieldset class="form-horizontal">
-			<legend><?php echo JText::_('COM_XBFILMS_IMPORT_LEGEND'); ?></legend>
-			<div class="alert alert-info"><?php echo JText::_('COM_XBFILMS_IMP_INFO'); ?></div>
+			<legend><?php echo JText::_('XBFILMS_IMPORT_LEGEND'); ?></legend>
+			<div class="alert alert-info"><?php echo JText::_('XBFILMS_IMP_INFO'); ?></div>
 			<div class="row-fluid">
 				<div class="span6">
 					<fieldset>
@@ -86,17 +86,17 @@ use Joomla\CMS\Router\Route;
 					<button class="btn btn-warning" type="submit" 
 						onclick="if(confirmImport()) {this.form.submit();}" />
 						<i class="icon-upload icon-white"></i> 
-						<?php echo JText::_('COM_XBFILMS_IMPORT_BTN'); ?>
+						<?php echo JText::_('XBFILMS_IMPORT_BTN'); ?>
 					</button>
 				</div>
 				<div class="span6">
 					<div class="alert alert-info">
-						<b><?php echo JText::_('COM_XBFILMS_IMP_MYSQL_MERGE');?></b>: 
-							<?php echo JText::_('COM_XBFILMS_IMP_MYSQL_MERGE_TIP');?><br />
-						<b><?php echo JText::_('COM_XBFILMS_IMP_CSV_TABLE');?></b>: 
-							<?php echo JText::_('COM_XBFILMS_IMP_CSV_TABLE_TIP');?><br />
-						<b><?php echo JText::_('COM_XBFILMS_INSTALL_SAMPLE');?></b>: 
-							<?php echo JText::_('COM_XBFILMS_INSTALL_SAMPLE_TIP');?><br />
+						<b><?php echo JText::_('XBFILMS_IMP_MYSQL_MERGE');?></b>: 
+							<?php echo JText::_('XBFILMS_IMP_MYSQL_MERGE_TIP');?><br />
+						<b><?php echo JText::_('XBFILMS_IMP_CSV_TABLE');?></b>: 
+							<?php echo JText::_('XBFILMS_IMP_CSV_TABLE_TIP');?><br />
+						<b><?php echo JText::_('XBFILMS_INSTALL_SAMPLE');?></b>: 
+							<?php echo JText::_('XBFILMS_INSTALL_SAMPLE_TIP');?><br />
 					</div>
 				</div>
 			</div>
@@ -104,11 +104,11 @@ use Joomla\CMS\Router\Route;
 	</div>
 		<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
 
-		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'exp', JText::_('COM_XBFILMS_EXPORT_TAB')); ?>
+		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'exp', JText::_('XBFILMS_EXPORT_TAB')); ?>
 		<div class="row-fluid">
 		<fieldset class="form-horizontal">
-			<legend><?php echo JText::_('COM_XBFILMS_EXPORT_LEGEND'); ?></legend>
-			<div class="alert alert-success"><?php echo JText::_('COM_XBFILMS_EXP_INFO'); ?></div>
+			<legend><?php echo JText::_('XBFILMS_EXPORT_LEGEND'); ?></legend>
+			<div class="alert alert-success"><?php echo JText::_('XBFILMS_EXP_INFO'); ?></div>
 			<div class="row-fluid">
 				<div class="span6">
 					<fieldset>
@@ -120,17 +120,17 @@ use Joomla\CMS\Router\Route;
 					<button class="btn btn-primary" type="submit" 
 						onclick="if (confirmExport()) { this.form.submit();}" />
 						<i class="icon-download icon-white"></i> 
-						<?php echo JText::_('COM_XBFILMS_EXPORT_BTN'); ?>
+						<?php echo JText::_('XBFILMS_EXPORT_BTN'); ?>
 					</button>
 				</div>
 				<div class="span6">
 					<div class="alert alert-success">
-					<b><?php echo JText::_('COM_XBFILMS_EXP_MYSQL_FULL');?></b>: 
-						<?php echo JText::_('COM_XBFILMS_EXP_MYSQL_FULL_TIP');?><br />
-					<b><?php echo JText::_('COM_XBFILMS_EXP_MYSQL_TABLE');?></b>: 
-						<?php echo JText::_('COM_XBFILMS_EXP_MYSQL_TABLE_TIP');?><br />
-					<b><?php echo JText::_('COM_XBFILMS_EXP_CSV_TABLE');?></b>: 
-						<?php echo JText::_('COM_XBFILMS_EXP_CSV_TABLE_TIP');?><br />
+					<b><?php echo JText::_('XBFILMS_EXP_MYSQL_FULL');?></b>: 
+						<?php echo JText::_('XBFILMS_EXP_MYSQL_FULL_TIP');?><br />
+					<b><?php echo JText::_('XBFILMS_EXP_MYSQL_TABLE');?></b>: 
+						<?php echo JText::_('XBFILMS_EXP_MYSQL_TABLE_TIP');?><br />
+					<b><?php echo JText::_('XBFILMS_EXP_CSV_TABLE');?></b>: 
+						<?php echo JText::_('XBFILMS_EXP_CSV_TABLE_TIP');?><br />
 					</div>
 				</div>
 			</div>
@@ -138,11 +138,11 @@ use Joomla\CMS\Router\Route;
 		</div>
 		<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
 
-		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'del', JText::_('COM_XBFILMS_DELETE_TAB')); ?>
+		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'del', JText::_('XBFILMS_DELETE_TAB')); ?>
 	<div class="row-fluid">
 		<fieldset class="form-horizontal">
-			<legend><?php echo JText::_( 'COM_XBFILMS_DELETE_LEGEND' ); ?></legend>
-			<div class="alert alert-warning"><?php echo JText::_('COM_XBFILMS_DEL_INFO'); ?></div>
+			<legend><?php echo JText::_( 'XBFILMS_DELETE_LEGEND' ); ?></legend>
+			<div class="alert alert-warning"><?php echo JText::_('XBFILMS_DEL_INFO'); ?></div>
              
 			<div class="row-fluid">
 				<div class="span6">
@@ -164,21 +164,21 @@ use Joomla\CMS\Router\Route;
 					<button class="btn btn-danger" type="submit" 
 						onclick="if(confirmDelete()) {this.form.submit();}" />
 						<i class="icon-delete icon-white"></i> 
-						<?php echo JText::_('COM_XBFILMS_DELETE_BTN'); ?>
+						<?php echo JText::_('XBFILMS_DELETE_BTN'); ?>
 					</button>
 				</div>
 				<div class="span6">
 					<div class="alert alert-warning">
-						<b><?php echo JText::_('COM_XBFILMS_CLEAN');?></b>: 
-							<?php echo JText::_('COM_XBFILMS_CLEAN_TIP');?><br />
-						<b><?php echo JText::_('COM_XBFILMS_DELETE_FILMS');?></b>: 
-							<?php echo JText::_('COM_XBFILMS_DELETE_FILMS_TIP');?><br />
-						<b><?php echo JText::_('COM_XBFILMS_DELETE_REVS');?></b>: 
-							<?php echo JText::_('COM_XBFILMS_DELETE_REVS_TIP');?><br />
-						<b><?php echo JText::_('COM_XBFILMS_DELETE_PEOPLE');?></b>: 
-							<?php echo JText::_('COM_XBFILMS_DELETE_PEOPLE_TIP');?><br />
-						<b><?php echo JText::_('COM_XBFILMS_DELETE_ALL');?></b>: 
-							<?php echo JText::_('COM_XBFILMS_DELETE_ALL_TIP');?><br />
+						<b><?php echo JText::_('XBFILMS_CLEAN');?></b>: 
+							<?php echo JText::_('XBFILMS_CLEAN_TIP');?><br />
+						<b><?php echo JText::_('XBFILMS_DELETE_FILMS');?></b>: 
+							<?php echo JText::_('XBFILMS_DELETE_FILMS_TIP');?><br />
+						<b><?php echo JText::_('XBFILMS_DELETE_REVS');?></b>: 
+							<?php echo JText::_('XBFILMS_DELETE_REVS_TIP');?><br />
+						<b><?php echo JText::_('XBFILMS_DELETE_PEOPLE');?></b>: 
+							<?php echo JText::_('XBFILMS_DELETE_PEOPLE_TIP');?><br />
+						<b><?php echo JText::_('XBFILMS_DELETE_ALL');?></b>: 
+							<?php echo JText::_('XBFILMS_DELETE_ALL_TIP');?><br />
 					</div>
 				</div>
 			</div>

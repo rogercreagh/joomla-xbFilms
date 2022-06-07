@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form>
-	<field name="film_id" type="films" label="COM_XBFILMS_FIELD_ADDFILM_LABEL" >
+	<field name="film_id" type="films" label="XBFILMS_FIELD_ADDFILM_LABEL" >
 		<option value="">JSELECT</option>	
 	</field>
 </form>

@@ -102,7 +102,7 @@ class XbfilmsViewPersons extends JViewLegacy {
     protected function setDocument()
     {
         $document = Factory::getDocument();
-        $document->setTitle(JText::_('COM_XBFILMS_ADMIN_PEOPLE'));
+        $document->setTitle(JText::_('XBFILMS_ADMIN_PEOPLE'));
     }
     
 }

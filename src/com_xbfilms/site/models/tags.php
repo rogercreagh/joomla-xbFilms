@@ -2,20 +2,26 @@
 /*******
  * @package xbFilms
  * @filesource site/models/tags.php
- * @version 0.5.6.1 5th April 2021
+ * @version 0.9.8.7 5th June 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\Utilities\ArrayHelper;
 
 class XbfilmsModelTags extends JModelList {
 	
 	public function __construct($config = array()) {
-		if (empty($config['filterfileds'])) {
+	    $showtags = ComponentHelper::getParams('com_xbfilms')->get('show_tags',1);
+	    if (!$showtags) {
+	        header('Location: index.php?option=com_xbfilms&view=filmlist');
+	        exit();
+	    }
+	    if (empty($config['filterfileds'])) {
 			$config['filter_fields'] = array ('id','title','path', 'parent','bcnt','pcnt','rcnt' );
 		}
 		parent::__construct($config);

@@ -40,7 +40,7 @@ class XbfilmsViewPeople extends JViewLegacy {
 		
 		$this->xbpeople_ok = Factory::getSession()->get('xbpeople_ok');
 		$show_cats = ($this->xbpeople_ok) ? $this->params->get('show_cats','1','int') : 0;
-		$this->show_cat = ($show_cats) ? $this->params->get('show_pcat','2','int') :0;
+		$this->show_cats = ($show_cats) ? $this->params->get('show_pcat','2','int') :0;
 		$show_tags = $this->params->get('show_tags','1','int');
 		$this->show_tags = ($show_tags) ? $this->params->get('show_ptags','1','int') : 0;
 		

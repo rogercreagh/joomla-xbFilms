@@ -5,8 +5,8 @@
 		<field
 			name="search"
 			type="text"
-			label="COM_XBFILMS_SEARCH_IN_NAME"
-			description="COM_XBFILMS_SEARCH_PERSON"
+			label="XBFILMS_SEARCH_IN_NAME"
+			description="XBFILMS_SEARCH_PERSON"
 			hint="JSEARCH_FILTER"
 			class="js-stools-search-string"
 		/>
@@ -25,14 +25,14 @@
 			default="film"
 			onchange="this.form.submit();"			
 		>
-			<option value="all">COM_XBFILMS_ALLPEOPLE</option>
-			<option value="film">COM_XBFILMS_FILMPEOPLE</option>
+			<option value="all">XBFILMS_ALLPEOPLE</option>
+			<option value="film">XBFILMS_FILMPEOPLE</option>
 			<option value="director">XBCULTURE_CAPDIRECTORS</option>
 			<option value="producer">XBCULTURE_CAPPRODUCERS</option>
 			<option value="crew">XBCULTURE_CAPCREW</option>
 			<option value="actor">XBCULTURE_CAPCAST</option>
 			<option value="appearsin">XBCULTURE_CAPAPPEARANCES</option>
-			<option value="notfilm">COM_XBFILMS_NOTINFILMS</option>
+			<option value="notfilm">XBFILMS_NOTINFILMS</option>
 			<option value="orphans">XBCULTURE_ORPHANS</option>
 		</field>
 		<field
@@ -58,8 +58,8 @@
 		<field name="taglogic"
 			type="radio"
 			default="0"
-			label="COM_XBFILMS_MULTITAG_LBL"
-			description="COM_XBFILMS_MULTITAG_DESC"
+			label="XBFILMS_MULTITAG_LBL"
+			description="XBFILMS_MULTITAG_DESC"
   			class="btn-group btn-small radiotop"
 		>
 			<option value="1" onchange="this.form.submit();">XBCULTURE_ALL</option>

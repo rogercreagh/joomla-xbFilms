@@ -33,7 +33,7 @@ class XbfilmsViewFcategory extends JViewLegacy {
 		
 		ToolBarHelper::title(Text::_( 'COM_XBFILMS' ).': '.Text::_( 'XBCULTURE_TITLE_CATMANGER' ), 'tag' );
 		
-		ToolbarHelper::custom('fcategory.fcategories', 'folder', '', 'COM_XBFILMS_CAT_LIST', false) ;
+		ToolbarHelper::custom('fcategory.fcategories', 'folder', '', 'XBFILMS_CAT_LIST', false) ;
 		
 		if ($canDo->get('core.admin')) {
 			ToolBarHelper::preferences('com_xbfilms');
@@ -42,7 +42,7 @@ class XbfilmsViewFcategory extends JViewLegacy {
 	
 	protected function setDocument() {
 		$document = Factory::getDocument();
-		$document->setTitle(Text::_('COM_XBFILMS_ADMIN_CATITEMS'));
+		$document->setTitle(Text::_('XBFILMS_ADMIN_CATITEMS'));
 	}
 	
 }

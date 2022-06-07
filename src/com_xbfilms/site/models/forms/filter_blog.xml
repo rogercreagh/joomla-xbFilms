@@ -9,16 +9,16 @@
             hint="JSEARCH_FILTER"
         /> 
 		<field name="ratfilt" type="rating" 
-			label="COM_XBFILMS_RATFILT_LBL" description="COM_XBFILMS_RATFILT_DESC" 
+			label="XBFILMS_RATFILT_LBL" description="XBFILMS_RATFILT_DESC" 
 			default=""
 			onchange="this.form.submit();"
 		>
-			<option value="">COM_XBFILMS_RATFILT_HINT</option>
+			<option value="">XBFILMS_RATFILT_HINT</option>
 		</field>
 		<field
 			name="category_id" type="catsubtree"
 			label="Review Category"
-			description="COM_XBFILMS_FILTER_CATEGORY_DESC"
+			description="XBFILMS_FILTER_CATEGORY_DESC"
 			extension="com_xbfilms"
 			itemtype="review"
 			published="1"
@@ -29,7 +29,7 @@
 		<field
 			name="fcategory_id" type="catsubtree"
 			label="Film Category"
-			description="COM_XBFILMS_FILTER_CATEGORY_DESC"
+			description="XBFILMS_FILTER_CATEGORY_DESC"
 			extension="com_xbfilms"
 			itemtype="film"
 			published="1"
@@ -39,8 +39,8 @@
 		</field>
 		<field name="subcats" type="radio"
 			default=""
-			label="COM_XBFILMS_SUBCATS_LBL"
-			description="COM_XBFILMS_SUBCATS_DESC"
+			label="XBFILMS_SUBCATS_LBL"
+			description="XBFILMS_SUBCATS_DESC"
   			class="btn-group btn-small radiotop"
   			showon="category_id!:[OR]fcategory_id!:"
 		>
@@ -50,8 +50,8 @@
        
 		<field
 			name="tagfilt" type="tag"
-			label="COM_XBFILMS_CAPTAGS"
-			description="COM_XBFILMS_TAGFILT_DESC"
+			label="XBFILMS_CAPTAGS"
+			description="XBFILMS_TAGFILT_DESC"
 			multiple="true"
 			class="multipleTags"
 			mode="ajax"
@@ -59,8 +59,8 @@
 		/>
 		<field name="taglogic" type="radio"
 			default="0"
-			label="COM_XBFILMS_MULTITAG_LBL"
-			description="COM_XBFILMS_MULTITAG_DESC"
+			label="XBFILMS_MULTITAG_LBL"
+			description="XBFILMS_MULTITAG_DESC"
   			class="btn-group btn-small radiotop"
   			showon="tagfilt!:"
 		>

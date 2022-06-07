@@ -117,7 +117,7 @@ if ($imgok) {
         <?php endif; ?>				        
     	<?php if ((!$item->studio=='') || (!$hide_empty)) : ?>
 			<p><span class="xbnit" style="padding-right:10px;">
-    			<?php echo JText::_('COM_XBFILMS_CAPSTUDIO').': '; ?>
+    			<?php echo JText::_('XBFILMS_CAPSTUDIO').': '; ?>
 				</span>
 				<?php echo $item->studio; ?>
     		</p>
@@ -131,7 +131,7 @@ if ($imgok) {
      	<?php endif; ?>
        	<?php if ((!$item->orig_lang=='') || (!$hide_empty)) : ?>
 			<p><span class="xbnit" style="padding-right:10px;">
-				<?php echo JText::_('COM_XBFILMS_ORIG_LANG').': '; ?>
+				<?php echo JText::_('XBFILMS_ORIG_LANG').': '; ?>
 				</span>
 				<?php echo $item->orig_lang; ?>
             </p>
@@ -180,7 +180,7 @@ if ($imgok) {
 <div class="row-fluid">
     <?php if ($item->ext_links_cnt > 0) : ?>
     	<div class="span<?php echo (($item->castcnt > 0) || ($item->crewcnt > 0) || ($item->subjcnt > 0) || ($item->charcnt > 0))? '6' : '12'; ?>">
-    		<p><b><i><?php echo Text::_('COM_XBFILMS_EXT_LINKS'); ?></i></b></p>   					
+    		<p><b><i><?php echo Text::_('XBFILMS_EXT_LINKS'); ?></i></b></p>   					
     		<?php echo $item->ext_links_list; ?>		
     	</div>
     <?php endif; ?>
@@ -251,7 +251,7 @@ if ($imgok) {
 		<h4><?php echo JText::_('XBCULTURE_SYNOPSIS'); ?></h4>
 		<div class="xbbox xbboxcyan">
 			<?php if (empty($item->synopsis)) : ?>
-				<p class="xbnit"><?php echo JText::_('COM_XBFILMS_NO_SYNOPSIS');?></p>
+				<p class="xbnit"><?php echo JText::_('XBFILMS_NO_SYNOPSIS');?></p>
 			<?php else : ?>
 				<?php echo $item->synopsis; ?>
 			<?php endif; ?> 
@@ -259,7 +259,7 @@ if ($imgok) {
         <div class="row-fluid xbmt16">
 			<?php if ($this->show_fcat >0) : ?>       
 	        	<div class="span4">
-					<div class="pull-left xbnit xbmr10"><?php echo JText::_('COM_XBFILMS_FILM_CAT'); ?></div>
+					<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBFILMS_FILM_CAT'); ?></div>
 					<div class="pull-left">
     					<?php if($this->show_fcat==2) : ?>
     						<a class="label label-success" href="<?php echo Route::_($clink.$item->catid); ?>">
@@ -273,7 +273,7 @@ if ($imgok) {
 	        <?php endif; ?>
         	<?php if (($this->show_ftags) && (!empty($item->tags))) : ?>
         	<div class="span<?php echo ($this->show_fcat>0) ? '8' : '12'; ?>">
-				<div class="pull-left xbnit xbmr10"><?php echo JText::_('COM_XBFILMS_CAPTAGS'); ?>
+				<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBFILMS_CAPTAGS'); ?>
 				</div>
 				<div class="pull-left">
 					<?php  $tagLayout = new FileLayout('joomla.content.tags');
@@ -287,7 +287,7 @@ if ($imgok) {
 	<div class="span6 xbmb12">
 		<h4><?php echo JText::_('XBCULTURE_REVIEWS_U'); ?></h4>
 		<?php if(empty($item->reviews)) : ?>
-			<p><i><?php echo JText::_( 'COM_XBFILMS_NOREVIEW' ); ?></i></p>
+			<p><i><?php echo JText::_( 'XBFILMS_NOREVIEW' ); ?></i></p>
 		<?php else : ?>
 			<?php foreach ($item->reviews as $rev) : ?>
 	<div class="xbrevlist ">
@@ -315,7 +315,7 @@ if ($imgok) {
 			<?php if ($this->show_frevs==2) : ?>
 				<?php if (empty($rev->review)) {
 					if (empty($rev->summary)) {
-						echo '<span class="xbnit">'.JText::_('COM_XBFILMS_NO_REV_TEXT').'</span>';
+						echo '<span class="xbnit">'.JText::_('XBFILMS_NO_REV_TEXT').'</span>';
 					} else {
 						echo $rev->summary;
 					}
@@ -328,7 +328,7 @@ if ($imgok) {
         <div class="row-fluid">
  			<?php if ($this->show_rcat) : ?>       
  		       	<div class="span4">
-					<div class="pull-left xbnit xbmr10"><?php echo JText::_('COM_XBFILMS_REV_CAT'); ?></div>
+					<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBFILMS_REV_CAT'); ?></div>
 					<div class="pull-left">
     					<?php if($this->show_rcat==2) : ?>
 							<a class="label label-success" href="<?php echo Route::_($clink.$rev->catid); ?>">
@@ -341,7 +341,7 @@ if ($imgok) {
             <?php endif; ?>
   			<?php if (($this->show_rtags) && ($rev->tagcnt>0)) : ?>       
             	<div class="span<?php echo ($this->show_rcat>0) ? '8' : '12'; ?>">
-					<div class="pull-left xbnit xbmr10"><?php echo JText::_('COM_XBFILMS_CAPTAGS'); ?>
+					<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBFILMS_CAPTAGS'); ?>
 					</div>
 					<div class="pull-left">	                	
                 		<?php $tagLayout = new FileLayout('joomla.content.tags');
@@ -360,7 +360,7 @@ if ($imgok) {
 	<div class="span2">
 		<?php if (($item->prev>0) || ($item->next>0)) : ?>
 		<span class="hasTooltip xbinfo" title 
-			data-original-title="<?php echo JText::_('COM_XBFILMS_INFO_PREVNEXT'); ?>" >
+			data-original-title="<?php echo JText::_('XBFILMS_INFO_PREVNEXT'); ?>" >
 		</span>&nbsp;
 		<?php endif; ?>
 		<?php if($item->prev > 0) : ?>
@@ -370,7 +370,7 @@ if ($imgok) {
 	</div>
 	<div class="span8"><center>
 		<a href="<?php echo Route::_($flink); ?>" class="btn btn-small">
-			<?php echo JText::_('COM_XBFILMS_FILMLIST'); ?></a></center>
+			<?php echo JText::_('XBFILMS_FILMLIST'); ?></a></center>
 	</div>
 	<div class="span2">
 		<?php if($item->next > 0) : ?>

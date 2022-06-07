@@ -70,7 +70,7 @@ class XbfilmsViewReview extends JViewLegacy {
     protected function setDocument() {
         $isNew = ($this->item->id < 1);
         $document = Factory::getDocument();
-        $document->setTitle($isNew ? Text::_('COM_XBFILMS_REVIEW_CREATING') :
-            Text::_('COM_XBFILMS_REVIEW_EDITING'));
+        $document->setTitle($isNew ? Text::_('XBFILMS_REVIEW_CREATING') :
+            Text::_('XBFILMS_REVIEW_EDITING'));
     }
 }

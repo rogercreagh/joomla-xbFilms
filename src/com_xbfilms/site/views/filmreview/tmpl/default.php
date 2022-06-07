@@ -48,7 +48,7 @@ if ($imgok) {
 			<div class="span12">
 				<div class="xbbox xbboxmag">
 					<h3><?php echo $item->title; ?></h3>
-					<h4><span class="xbnit"><?php echo JText::_('COM_XBFILMS_REVIEWOF'); ?></span>"
+					<h4><span class="xbnit"><?php echo JText::_('XBFILMS_REVIEWOF'); ?></span>"
 						 <?php echo '<a href="'.$flink;
 						 if (!empty($item->edauths)) {
 						 	echo '" class="hasTooltip" title data-original-title="'.$item->edauths;
@@ -137,7 +137,7 @@ if ($imgok) {
 	        <?php endif; ?>
         	<?php if (($this->show_tags) && (!empty($item->tags))) : ?>
         	<div class="span<?php echo ($this->show_fcat>0) ? '8' : '12'; ?>">
-				<div class="pull-left xbnit xbmr10"><?php echo JText::_('COM_XBFILMS_CAPTAGS'); ?>
+				<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBFILMS_CAPTAGS'); ?>
 				</div>
 				<div class="pull-left">
 					<?php  $tagLayout = new FileLayout('joomla.content.tags');
@@ -180,7 +180,7 @@ if ($imgok) {
 			<div class="span2">
 				<?php if (($item->prev>0) || ($item->next>0)) : ?>
 				<span class="hasTooltip xbhelp" title 
-					data-original-title="<?php echo JText::_('COM_XBFILMS_INFO_PREVNEXT'); ?>" >
+					data-original-title="<?php echo JText::_('XBFILMS_INFO_PREVNEXT'); ?>" >
 				</span>&nbsp;
 				<?php endif; ?>
 				<?php if($item->prev > 0) : ?>
@@ -190,7 +190,7 @@ if ($imgok) {
 			</div>
 			<div class="span8"><center>
 				<a href="index.php?option=com_xbfilms&view=filmreviews" class="btn btn-small">
-					<?php echo JText::_('COM_XBFILMS_REVIEWLIST'); ?></a></center>
+					<?php echo JText::_('XBFILMS_REVIEWLIST'); ?></a></center>
 			</div>
 			<div class="span2">
 			<?php if($item->next > 0) : ?>

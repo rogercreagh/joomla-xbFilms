@@ -39,8 +39,8 @@ $chvlink = 'index.php?option=com_xbfilms&view=characters&tagid=';
 	<?php endif;?>
 	
 	<div>
-      <h3><?php echo JText::_('COM_XBFILMS_TAGSPAGE_TITLE'); ?></h3>
-      <p><?php echo JText::_('COM_XBFILMS_TAGSPAGE_INFO'); ?></p>
+      <h3><?php echo JText::_('XBFILMS_TAGSPAGE_TITLE'); ?></h3>
+      <p><?php echo JText::_('XBFILMS_TAGSPAGE_INFO'); ?></p>
       </div>
 	
 	<div class="pull-right span2">

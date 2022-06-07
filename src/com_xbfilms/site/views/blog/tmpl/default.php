@@ -25,8 +25,8 @@ if (!$listOrder) {
     $listOrder='rev_date';
     $orderDrn = 'descending';
 }
-$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'film_title'=>Text::_('COM_XBFILMS_FILM_TITLE'),
-    'rating'=>Text::_('XBCULTURE_RATING'), 'rev_date'=>Text::_('COM_XBFILMS_DATE_SEEN'),
+$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'film_title'=>Text::_('XBFILMS_FILM_TITLE'),
+    'rating'=>Text::_('XBCULTURE_RATING'), 'rev_date'=>Text::_('XBFILMS_DATE_SEEN'),
     'category_title'=>Text::_('XBCULTURE_CATEGORY'));
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
@@ -191,7 +191,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 					<?php echo Text::_(trim($item->review != '') ? 'Reviewed' : 'Rated').' by '; ?> </span>
 					<b><?php echo $item->reviewer; ?></b>,  
 					<?php echo $item->where_seen; ?>
-					<?php echo Text::_('COM_XBFILMS_ON').'&nbsp;'.HtmlHelper::date($item->rev_date , Text::_('d M Y')) ; ?> 
+					<?php echo Text::_('XBFILMS_ON').'&nbsp;'.HtmlHelper::date($item->rev_date , Text::_('d M Y')) ; ?> 
 				</p> 
 			</div>
 			<div class="span6">

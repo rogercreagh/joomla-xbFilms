@@ -8,7 +8,7 @@
 
 		<field name="name" type="text"
 			label="XBCULTURE_NAME"
-			description="COM_XBFILMS_NAME_DESC"
+			description="XBFILMS_NAME_DESC"
 			required="true"
 			size="40" class="inputbox input-xxlarge input-large-text"
 			default="" />
@@ -19,18 +19,18 @@
 			class="inputbox" size="45" />
 		
 		<field name="summary" type="textarea" rows="3" cols="50"
-			label="XBCULTURE_SUMMARY" description="COM_XBFILMS_CHARSUMMARY_DESC" />
+			label="XBCULTURE_SUMMARY" description="XBFILMS_CHARSUMMARY_DESC" />
 						
 		<field name="description" type="editor"
-			class="inputbox" label="COM_XBFILMS_FIELD_DESC_LABEL" description="COM_XBFILMS_FIELD_DESC_DESC"
+			class="inputbox" label="XBFILMS_FIELD_DESC_LABEL" description="XBFILMS_FIELD_DESC_DESC"
 			filter="JComponentHelper::filterText" buttons="true" hide="article,pagebreak,readmore" />
 			
 		<field name="image" type="media"
-			label="COM_XBFILMS_FIELD_IMAGE_LABEL" description="COM_XBFILMS_FIELD_IMAGE_DESC" />
+			label="XBFILMS_FIELD_IMAGE_LABEL" description="XBFILMS_FIELD_IMAGE_DESC" />
 			
 		<field name="catid" type="category" extension="com_xbpeople" class="chzn-custom-value"
 			required="true"
-			label="JCATEGORY" description="COM_XBFILMS_CATEGORY_DESC" >
+			label="JCATEGORY" description="XBFILMS_CATEGORY_DESC" >
 			<option value="0">JOPTION_SELECT_CATEGORY</option>
 		</field>
 		<field name="hcatid" type="hidden"
@@ -60,8 +60,8 @@
 
 		<field name= "filmcharlist"
 			type= "subform"
-			label= "COM_XBFILMS_FIELD_FILMCHAR_LABEL"
-			description="COM_XBFILMS_FIELD_FILMADD_DESC"
+			label= "XBFILMS_FIELD_FILMCHAR_LABEL"
+			description="XBFILMS_FIELD_FILMADD_DESC"
 			min= "0"
 			max= "10"
 			multiple= "true"

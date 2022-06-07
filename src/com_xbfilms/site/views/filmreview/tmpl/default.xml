@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- xbFilms site/views/filmreviewdefault.xml v0.5.1 11th March 2021 -->
 <metadata>
-	<layout title="Review View">
+	<layout title="Film Review View">
 		<message>Display a single review of a film</message>
 	</layout>
 	<fields name="request">

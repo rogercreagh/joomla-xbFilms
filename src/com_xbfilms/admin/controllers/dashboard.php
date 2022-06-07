@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbFilms
- * @filesource admin/controllers/cpanel.php
+ * @filesource admin/controllers/dashboard.php
  * @version 0.9.8.4 25th May 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -12,9 +12,9 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
 
-class XbfilmsControllerCpanel extends JControllerAdmin {
+class XbfilmsControllerDashboard extends JControllerAdmin {
 
-    public function getModel($name = 'Cpanel', $prefix = 'XbfilmsModel', $config = array('ignore_request' => true)) {
+    public function getModel($name = 'Dashboard', $prefix = 'XbfilmsModel', $config = array('ignore_request' => true)) {
         $model = parent::getModel($name, $prefix, $config );
         return $model;
     }
@@ -23,13 +23,13 @@ class XbfilmsControllerCpanel extends JControllerAdmin {
     	$xbbooks_ok = XbcultureHelper::checkComponent('com_xbbooks');
     	//Factory::getSession()->get('xbbooks_ok',false);
         if ($xbbooks_ok == true) {
-            $this->setRedirect('index.php?option=com_xbbooks&view=cpanel');
+            $this->setRedirect('index.php?option=com_xbbooks&view=dashboard');
         } elseif ($xbbooks_ok === 0) {
             Factory::getApplication()->enqueueMessage('<span class="xbhlt" style="padding:5px 10px;">xbBooks '.JText::_('XBCULTURE_COMP_DISABLED').'</span>', 'warning');
             $this->setRedirect('index.php?option=com_installer&view=manage&filter[search]=xbbooks');
         } else {
             Factory::getApplication()->enqueueMessage('<span class="xbhlt" style="padding:5px 10px;">xbBooks '.JText::_('XBCULTURE_COMP_MISSING').'</span>', 'info');
-            $this->setRedirect('index.php?option=com_xbfilms&view=cpanel');
+            $this->setRedirect('index.php?option=com_xbfilms&view=dashboard');
         }
     }
     
@@ -42,12 +42,12 @@ class XbfilmsControllerCpanel extends JControllerAdmin {
             $this->setRedirect('index.php?option=com_installer&view=manage&filter[search]=xbgigs');
         } else {
             Factory::getApplication()->enqueueMessage('<span class="xbhlt" style="padding:5px 10px;">xbLive '.JText::_('XBCULTURE_COMP_MISSING').'</span>', 'info');
-            $this->setRedirect('index.php?option=com_xbfilms&view=cpanel');
+            $this->setRedirect('index.php?option=com_xbfilms&view=dashboard');
         }
     }
     
     function people() {
-    	$this->setRedirect('index.php?option=com_xbpeople&view=cpanel');
+    	$this->setRedirect('index.php?option=com_xbpeople&view=dashboard');
     }
         
     function sample() {
@@ -98,13 +98,13 @@ class XbfilmsControllerCpanel extends JControllerAdmin {
         	$msgtype = 'error';
         }
         Factory::getApplication()->enqueueMessage($mess,$msgtype);
-        $this->setRedirect('index.php?option=com_xbfilms&view=cpanel');
+        $this->setRedirect('index.php?option=com_xbfilms&view=dashboard');
     }
     
     function unsample() {
     	$impmodel = $this->getmodel('importexport');
     	$wynik = $impmodel->uninstallSample();
-    	$this->setRedirect('index.php?option=com_xbfilms&view=cpanel');
+    	$this->setRedirect('index.php?option=com_xbfilms&view=dashboard');
     }
     
 }

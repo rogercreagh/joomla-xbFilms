@@ -9,14 +9,14 @@
 			<field name="mn_type"
 				type="radio"
 				default=""
-				label="COM_XBFILMS_GROUP_LBL"
-				description="COM_XBFILMS_GROUP_DESC"
+				label="XBFILMS_GROUP_LBL"
+				description="XBFILMS_GROUP_DESC"
 	  			class="btn-group btn-small radiotop"
 				>
-					<option value="">COM_XBFILMS_CAPALLTAGS</option>
-					<option value="film" >COM_XBFILMS_CAPTAGFILMS</option>
-					<option value="person">COM_XBFILMS_CAPTAGPERSONS</option>
-					<option value="review">COM_XBFILMS_CAPTAGREVIEWS</option>
+					<option value="">XBFILMS_CAPALLTAGS</option>
+					<option value="film" >XBFILMS_CAPTAGFILMS</option>
+					<option value="person">XBFILMS_CAPTAGPERSONS</option>
+					<option value="review">XBFILMS_CAPTAGREVIEWS</option>
 			</field>	
 		</fieldset>
 	</fields>
@@ -26,8 +26,8 @@
 			<field name="show_desc"
 				type="radio"
 				default="1"
-				label="COM_XBFILMS_SHOW_DESC_LABEL"
-				description="COM_XBFILMS_SHOW_DESC_DESC"
+				label="XBFILMS_SHOW_DESC_LABEL"
+				description="XBFILMS_SHOW_DESC_DESC"
 	  			class="btn-group btn-group-yesno btn-small radiotop"
 	  			useglobal="true"
 				>
@@ -37,8 +37,8 @@
 			<field name="show_parent"
 				type="radio"
 				default="1"
-				label="COM_XBFILMS_SHOW_PARENT_LABEL"
-				description="COM_XBFILMS_SHOW_PARENT_DESC"
+				label="XBFILMS_SHOW_PARENT_LABEL"
+				description="XBFILMS_SHOW_PARENT_DESC"
 	  			class="btn-group btn-group-yesno btn-small radiotop"
 	  			useglobal="true"
 				>

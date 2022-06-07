@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms site/views/filmlist/default.xml v0.9.4.1 29th April 2021 -->
+<!-- xbFilms site/views/filmlist/onecol.xml v0.9.8.7 6th June 2022 -->
 <metadata>
-	<layout title="Film List">
-		<message>Displays a list (table) of films. Options enable user search &amp; filtering or to restrict to single category and filter person and tags.</message>
+	<layout title="Film List - One Column">
+		<message>Displays a list of films in a single column. Options enable user search &amp; filtering or to restrict to single category and filter person and tags.</message>
 	</layout>
 	<fields name="params" addfieldpath="administrator/components/com_xbfilms/models/fields">
 <!-- Basic options. -->
-		<fieldset name="basic" label="Layout">
+		<fieldset name="basic" label="Options">
 			<field name="show_fpiccol" type="radio"
-				label="Poster Column"
-				description="Show poster column"
+				label="Cover Column"
+				description="Show image column"
 				class="btn-group btn-group-yesno btn-small"
 				useglobal="true"
 				>
@@ -36,9 +36,10 @@
 				<option value="1">Show Average Rating only</option>
 				<option value="2">Show Rating and Review Links</option>
 			</field>	
+
 			<field name="show_fcat" type="list"
 				label="Show Film Category"
-				description="If both Category and Tag are hidden the column will be hidden. Links will be to the relevant category list of items view."
+				description="If both Category and Tag are hidden the column will be hidden."
 				class="btn-group btn-group-yesno"
 				useglobal="true"
 				>
@@ -47,8 +48,8 @@
 					<option value="2">Show with link</option>
 			</field>	
 	 		<field name="show_ftags" type="radio"
-				label="Show Film Tags"
-				description="If both Category and Tag are hidden the the column will be hidden"
+				label="Show Tags"
+				description="If both Category and Tag are hidden the column will be hidden."
 				class="btn-group btn-group-yesno"
 				useglobal="true"
 				>
@@ -59,9 +60,10 @@
 			    
 <!-- Search and Filter options. -->
 		<fieldset name="filters" label="Filters">
+
 	 		<field name="search_bar" type="radio"
-				label="XBFILMS_LIST_SHOW_SEARCH_LBL"
-				description="XBFILMS_LIST_SHOW_SEARCH_DESC"
+				label="Show Search Bar"
+				description="Show the search and filter tools above the list"
 				class="btn-group btn-group-yesno btn-small"
 				useglobal="true"
 			>
@@ -70,7 +72,7 @@
 			</field>	
 			<field
 				name="menu_perfilt" type="filmpeople"
-				label="XBCULTURE_PEOPLE_U"
+				label="Person"
 				description="XBFILMS_PERFILT_DESC"
 				>
 				<option value="">XBFILMS_PERFILT_HINT</option>
@@ -82,20 +84,23 @@
 				showon="menu_perfilt!:"			
 			>
 	  			<option value="">XBFILMS_PROLE_DEF</option>
-				<option value="1">XBCULTURE_CAPDIRECTOR</option>
-				<option value="2">XBCULTURE_CAPPRODUCER</option>
+				<option value="1">XBCULTURE_AUTHOR</option>
+				<option value="2">XBCULTURE_EDITOR</option>
 				<option value="3">XBFILMS_CHAR_IN</option>
+				<option value="4">XBFILMS_MENTION_IN</option>
 			</field>	
 			<field
-				name="menu_charfilt" type="characters"
-				label="XBCULTURE_CHARACTER_U"
-				description="Only show films featuring a particular character"
+				name="menu_charfilt"
+				type="characters"
+				label="Character"
+				description="XBFILMS_CHARFILT_DESC"
 				>
-				<option value="">XBFILMS_CHARFILT_HINT</option>
+				<option value="">Character to filter by</option>
 			</field>
 			<field
-				name="menu_category_id" type="category"
-				label="XBCULTURE_CATEGORY"
+				name="menu_category_id"
+				type="category"
+				label="Category"
 				extension="com_xbfilms"
 				description="XBFILMS_CATEGORY_DESC"
 				>
@@ -120,13 +125,13 @@
 			/>
 			<field name="taglogic" type="radio"
 				default="0"
-				label="XBFILMS_MULTITAG_LBL"
-				description="XBFILMS_MULTITAG_DESC"
+				label="Multi tag combination"
+				description="Match all tags, or any tag, or exclude items with any tag"
 	  			class="btn-group btn-small radiotop"
 	  			showon="menu_tag!:"
 			>
-				<option value="1" onchange="this.form.submit();">All</option>
-				<option value="0" onchange="this.form.submit();">Any</option>
+				<option value="1" onchange="this.form.submit();">XBCULTURE_ALL</option>
+				<option value="0" onchange="this.form.submit();">XBCULTURE_ANY</option>
 				<option value="2" onchange="this.form.submit();">None</option>
 			</field>	
 		</fieldset>

@@ -9,18 +9,18 @@
         /> 
 		<field
 			name="category_id" type="catsubtree"
-			label="COM_XBFILMS_FILTER_CATEGORY_LBL"
+			label="XBFILMS_FILTER_CATEGORY_LBL"
 			extension="com_xbpeople"
 			itemtype="char"
-			description="COM_XBFILMS_FILTER_CATEGORY_DESC"
+			description="XBFILMS_FILTER_CATEGORY_DESC"
 			onchange="this.form.submit();"
 			>
 			<option value="">JOPTION_SELECT_CATEGORY</option>
 		</field>
 		<field name="subcats" type="radio"
 			default=""
-			label="COM_XBFILMS_SUBCATS_LBL"
-			description="COM_XBFILMS_SUBCATS_DESC"
+			label="XBFILMS_SUBCATS_LBL"
+			description="XBFILMS_SUBCATS_DESC"
   			class="btn-group btn-small radiotop"
   			showon="category_id!:"
 		>
@@ -31,15 +31,15 @@
 		<field
 			name="filmfilt" type="films"
 			label="XBCULTURE_FILM_U"
-			description="COM_XBFILMS_FILMFILT_DESC"
+			description="XBFILMS_FILMFILT_DESC"
 			onchange="this.form.submit();"
 			>
-			<option value="">COM_XBFILMS_FILMFILT_HINT</option>
+			<option value="">XBFILMS_FILMFILT_HINT</option>
 		</field>
 		<field
 			name="tagfilt" type="tag"
-			label="COM_XBFILMS_CAPTAGS"
-			description="COM_XBFILMS_TAGFILT_DESC"
+			label="XBFILMS_CAPTAGS"
+			description="XBFILMS_TAGFILT_DESC"
 			multiple="true"
 			class="multipleTags"
 			mode="ajax"
@@ -47,8 +47,8 @@
 		/>
 		<field name="taglogic" type="radio"
 			default=""
-			label="COM_XBFILMS_MULTITAG_LBL"
-			description="COM_XBFILMS_MULTITAG_DESC"
+			label="XBFILMS_MULTITAG_LBL"
+			description="XBFILMS_MULTITAG_DESC"
   			class="btn-group btn-small radiotop"
 			showon="tagfilt!:"
 		>

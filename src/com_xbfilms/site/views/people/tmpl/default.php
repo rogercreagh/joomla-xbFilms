@@ -50,7 +50,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 			if ($this->search_bar) {
 				$hide = '';
 				if ($this->hide_prole) { $hide .= 'filter_prole,';}
-				if ((!$this->show_cat) || ($this->hide_cat)) { $hide .= 'filter_category_id,filter_subcats,';}
+				if ((!$this->show_cats) || ($this->hide_cat)) { $hide .= 'filter_category_id,filter_subcats,';}
 				if ($this->hide_tag) { $hide .= 'filter_tagfilt,filter_taglogic,';}
 				echo '<div class="row-fluid"><div class="span12">';
 				echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this,'hide'=>$hide));
@@ -104,16 +104,16 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_FILMS_U','fcnt',$listDirn,$listOrder); ?>
 					</th>
                 <?php endif; ?>
-				<?php if($this->show_cat || $this->show_tags) : ?>
+				<?php if($this->show_cats || $this->show_tags) : ?>
     				<th class="hidden-tablet hidden-phone">
-    					<?php if ($this->show_cat) {
+    					<?php if ($this->show_cats) {
     						echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATEGORY','category_title',$listDirn,$listOrder );
     					}
-    					if (($this->show_cat) && ($this->show_tags)) {
+    					if (($this->show_cats) && ($this->show_tags)) {
     					    echo ' &amp; ';
     					}
     					if($this->show_tags) {
-    					    echo Text::_( 'COM_XBFILMS_CAPTAGS' ); 
+    					    echo Text::_( 'XBFILMS_CAPTAGS' ); 
     					} ?>                
     				</th>
                 <?php endif; ?>
@@ -147,10 +147,10 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 					<td>
 					<p class="xb095">
 					<?php if ($item->year_born != 0) {						
-							echo '<span class="xbnit">'.JText::_('COM_XBFILMS_CAPBORN').'</span>: '.$item->year_born.'<br />'; 
+							echo '<span class="xbnit">'.JText::_('XBFILMS_CAPBORN').'</span>: '.$item->year_born.'<br />'; 
 						}
 						if ($item->year_died != 0) {						
-							echo '<span class="xbnit">'.JText::_('COM_XBFILMS_CAPDIED').'</span>: '.$item->year_died; 
+							echo '<span class="xbnit">'.JText::_('XBFILMS_CAPDIED').'</span>: '.$item->year_died; 
 						}              
 					?>					
 					</p>
@@ -169,7 +169,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
         							<?php echo XbcultureHelper::makeSummaryText($item->biography,0); ?>
         						<?php else : ?>
 		        					<span class="xbnit">
-        								<?php echo Text::_('COM_XBFILMS_NO_SUMMARY_SYNOPSIS'); ?>
+        								<?php echo Text::_('XBFILMS_NO_SUMMARY_SYNOPSIS'); ?>
         							</span>
         						<?php endif; ?>
         					<?php endif; ?>
@@ -196,7 +196,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
     								data-content="<?php echo strip_tags($item->dirlist); ?>"
     						<?php endif; ?>
     						>
-    						<?php echo Text::_('COM_XBFILMS_DIRECTOR_OF').' ';
+    						<?php echo Text::_('XBFILMS_DIRECTOR_OF').' ';
     						if ($this->show_films == '3') {
     							echo $item->dirlist;
     						} else { //implies show_films=cnt or tip ( 1 or 2)
@@ -211,7 +211,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
     								data-content="<?php echo strip_tags($item->prdlist); ?>"
     						<?php endif; ?>
     						>
-    						<?php echo Text::_('COM_XBFILMS_PRODUCER_OF').' ';
+    						<?php echo Text::_('XBFILMS_PRODUCER_OF').' ';
     						if ($this->show_films == '3') {
     							echo $item->dirlist;
     						} else {
@@ -271,11 +271,11 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
     				<?php endif; ?>
 					</td>
 				<?php endif; ?>
-    			<?php if(($this->show_cat) || ($this->show_tags)) : ?>
+    			<?php if(($this->show_cats) || ($this->show_tags)) : ?>
 					<td class="hidden-phone">
- 						<?php if (($this->show_cat) && ($this->xbpeople_ok)) : ?>												
+ 						<?php if (($this->show_cats) && ($this->xbpeople_ok)) : ?>												
 							<p>
-								<?php if($this->show_cat == 2) : ?>
+								<?php if($this->show_cats == 2) : ?>
     								<a class="label label-success" href="<?php echo $clink.$item->catid; ?>">
     									<?php  echo $item->category_title; ?></a>		
     							<?php else: ?>

@@ -27,7 +27,7 @@ if (!$listOrder) {
 	$listOrder='rev_date';
 	$listDirn = 'descending';
 }
-$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'filmtitle'=>Text::_('COM_XBFILMS_FILMTITLE'),
+$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'filmtitle'=>Text::_('XBFILMS_FILMTITLE'),
 		'id'=>'id','rev_date'=>Text::_('XBCULTURE_DATES'),'rating'=>Text::_('XBCULTURE_RATING'),
 		'category_title'=>Text::_('XBCULTURE_CATEGORY'),
 		'published'=>Text::_('XBCULTURE_CAPPUBSTATE'),'a.ordering'=>Text::_('XBCULTURE_ORDERING'));
@@ -77,9 +77,9 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 		if (stripos($search, 'i:') === 0) {
             echo trim(substr($search, 2)).'</b> '.JText::_('XBCULTURE_AS_ID');
 		} elseif ((stripos($search, 's:') === 0) || (stripos($search, 'r:') === 0)) {
-            echo trim(substr($search, 2)).'</b> '.JText::_('COM_XBFILMS_AS_INSUMREV');
+            echo trim(substr($search, 2)).'</b> '.JText::_('XBFILMS_AS_INSUMREV');
         } else {
-			echo trim($search).'</b> '.JText::_('COM_XBFILMS_AS_INTITLE');
+			echo trim($search).'</b> '.JText::_('XBFILMS_AS_INTITLE');
 		}
 		echo '</p>';
 	} ?> 
@@ -111,7 +111,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
         			<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_TITLE', 'title', $listDirn, $listOrder); ?>
         		</th>
         		<th>
-        			<?php echo HTMLHelper::_('searchtools.sort', 'COM_XBFILMS_REVIEW_CAPFILM', 'filmtitle', $listDirn, $listOrder); ?>
+        			<?php echo HTMLHelper::_('searchtools.sort', 'XBFILMS_REVIEW_CAPFILM', 'filmtitle', $listDirn, $listOrder); ?>
         			&amp; 
         			<?php echo HTMLHelper::_('searchtools.sort', 'date seen', 'rev_date', $listDirn, $listOrder); ?>
         		</th>
@@ -119,7 +119,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
         			<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_RATING', 'rating', $listDirn, $listOrder); ?>
         		</th>
         		<th class="hidden-phone">
-        			<?php echo JText::_('COM_XBFILMS_REVIEW_SUMMARY_LABEL');?>
+        			<?php echo JText::_('XBFILMS_REVIEW_SUMMARY_LABEL');?>
         		</th>
  					<th class="hidden-tablet hidden-phone" style="width:15%;">
 						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; '.JText::_( 'Tags' ); ?>
@@ -187,7 +187,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
     						    $couname = Factory::getUser($item->checked_out)->username;
     						    echo HTMLHelper::_('jgrid.checkedout', $i, JText::_('XBCULTURE_OPENED_BY').': '.$couname, $item->checked_out_time, 'review.', $canCheckin);
     						} ?>
-    						<a href="<?php echo Route::_($relink . $item->id); ?>" title="<?php echo JText::_('COM_XBFILMS_EDIT_REVIEW'); ?>">
+    						<a href="<?php echo Route::_($relink . $item->id); ?>" title="<?php echo JText::_('XBFILMS_EDIT_REVIEW'); ?>">
     							<?php echo $item->title; ?>
     						</a>
     						<br /><span class="xb08 xbnorm"><i><?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?></i></span>
@@ -228,17 +228,17 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
     						<?php else : ?>
     							<span class="xbnit">
     							<?php if (!empty($item->review)) : ?>
-    								<?php echo Text::_('COM_XBFILMS_REVIEW_EXTRACT'); ?>: </span>
+    								<?php echo Text::_('XBFILMS_REVIEW_EXTRACT'); ?>: </span>
     								<?php echo XbcultureHelper::makeSummaryText($item->review,250); ?>
     							<?php else : ?>
-    								<?php echo Text::_('COM_XBFILMS_NO_SUMMARY_REVIEW'); ?></span>
+    								<?php echo Text::_('XBFILMS_NO_SUMMARY_REVIEW'); ?></span>
     							<?php endif; ?>
     						<?php endif; ?>
                         </p>
                         <?php if ((!empty($item->review)) && (strlen($item->review)>207)) : ?>
                              <p class="xbnit xb09">   
                              <?php 
-                             	echo Text::_('COM_XBFILMS_FULLREVIEW').' '.str_word_count(strip_tags($item->review)).' '.Text::_('XBCULTURE_WORDS'); 
+                             	echo Text::_('XBFILMS_FULLREVIEW').' '.str_word_count(strip_tags($item->review)).' '.Text::_('XBCULTURE_WORDS'); 
                              ?>
 							</p>
 						<?php endif; ?>

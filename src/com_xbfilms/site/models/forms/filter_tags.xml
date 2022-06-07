@@ -6,31 +6,31 @@
 			name="search"
 			type="text"
 			label="COM_CONTENT_FILTER_SEARCH_DESC"
-			description="COM_XBFILMS_SEARCH_TAGS"
+			description="XBFILMS_SEARCH_TAGS"
 			hint="JSEARCH_FILTER"
 		/>
 		<field
 			name="branch"
 			type="sql"
-			label="COM_XBFILMS_BRANCH_LABEL"
-			description="COM_XBFILMS_BRANCH_DESC"
+			label="XBFILMS_BRANCH_LABEL"
+			description="XBFILMS_BRANCH_DESC"
 			query="SELECT DISTINCT t.id, t.path, t.alias AS alias, t.title AS title FROM `#__tags` AS t LEFT JOIN `#__contentitem_tag_map` AS m ON m.tag_id = t.id WHERE m.type_alias IN ('com_xbfilms.film','com_xbpeople.person','com_xbpeople.character','com_xbfilms.review') ORDER BY t.title"
   			key_field="alias"
   			value_field="title"
 			onchange="this.form.submit();"
 			>
-			<option value="">COM_XBFILMS_ENTIRE_TREE</option>
+			<option value="">XBFILMS_ENTIRE_TREE</option>
 		</field>
 			<field name="tagtype"
 				type="radio"
 				default="" required="true"
-				label="COM_XBFILMS_GROUP_LBL"
-				description="COM_XBFILMS_GROUP_DESC"
+				label="XBFILMS_GROUP_LBL"
+				description="XBFILMS_GROUP_DESC"
 	  			class="btn-group btn-small"				>
-					<option value="" onchange="this.form.submit();">COM_XBFILMS_CAPALLTAGS</option>
-					<option value="film" onchange="this.form.submit();">COM_XBFILMS_CAPTAGFILMS</option>
-					<option value="person" onchange="this.form.submit();">COM_XBFILMS_CAPTAGPERSONS</option>
-					<option value="review" onchange="this.form.submit();">COM_XBFILMS_CAPTAGREVIEWS</option>
+					<option value="" onchange="this.form.submit();">XBFILMS_CAPALLTAGS</option>
+					<option value="film" onchange="this.form.submit();">XBFILMS_CAPTAGFILMS</option>
+					<option value="person" onchange="this.form.submit();">XBFILMS_CAPTAGPERSONS</option>
+					<option value="review" onchange="this.form.submit();">XBFILMS_CAPTAGREVIEWS</option>
 			</field>	
 	</fields>
 </form>

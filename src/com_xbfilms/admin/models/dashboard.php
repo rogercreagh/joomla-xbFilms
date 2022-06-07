@@ -1,7 +1,7 @@
 <?php
 /*******
  * @package xbFilms
- * @filesource admin/models/cpanel.php
+ * @filesource admin/models/dashboard.php
  * @version 0.9.0 7th April 2021
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 //use Joomla\CMS\Table\Observer\Tags;
 
-class XbfilmsModelCpanel extends JModelList {
+class XbfilmsModelDashboard extends JModelList {
     
     protected $xbbooksStatus;
     

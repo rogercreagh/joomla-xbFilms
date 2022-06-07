@@ -53,14 +53,7 @@ class XbfilmsControllerFilm extends FormController {
 				$redirectTo =('index.php?option=com_xbfilms&task=review.edit&id=0&film_id='.$fid);
 				$this->setRedirect(Route::_($redirectTo,false ));
 				break;
-		}
-//			$this->setRedirect(
-//					\JRoute::_(
-//							'index.php?option=' . $this->option . '&view=' . $this->view_item
-//							. $this->getRedirectToItemAppend(null, $urlVar), false
-//							)
-//					);
-			
+		}			
 	}
 	
 	public function publish() {

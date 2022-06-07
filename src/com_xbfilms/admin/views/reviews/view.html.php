@@ -96,7 +96,7 @@ class XbfilmsViewReviews extends JViewLegacy {
     protected function setDocument()
     {
         $document = Factory::getDocument();
-        $document->setTitle(Text::_('COM_XBFILMS_ADMIN_REVIEWS'));
+        $document->setTitle(Text::_('XBFILMS_ADMIN_REVIEWS'));
     }
     
 }

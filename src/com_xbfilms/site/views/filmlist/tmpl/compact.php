@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmlist/tmpl/compact.php
- * @version 0.9.8.3 24th May 2022
+ * @version 0.9.8.7 5th June 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -107,19 +107,19 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 					<td>
 						<p>
                         	<?php if ($item->dircnt==0) {
-                        		echo '<span class="xbnit">'.Text::_('COM_XBFILMS_NODIRECTOR').'</span>';
+                        		echo '<span class="xbnit">'.Text::_('XBFILMS_NODIRECTOR').'</span>';
                         	} else { ?> 
 	                        	<span class="xbnit">
 	                        		<?php echo Text::_($item->dircnt>1 ? 'XBCULTURE_CAPDIRECTORS' : 'XBCULTURE_CAPDIRECTOR' ); ?>
 	                        	</span>: 
-                        		<?php echo $item->alist; 
+                        		<?php echo $item->dlist; 
                         	} ?>                          	
 						</p>
 					</td>
 					<?php if ($this->show_rev != 0 ) : ?>
     					<td>
     						<?php if ($item->revcnt==0) : ?>
-    						   <i><?php  echo ($this->show_rev == 1)? Text::_( 'Not rated yet' ) : Text::_( 'COM_XBFILMS_NOREVIEW' ); ?></i><br />
+    						   <i><?php  echo ($this->show_rev == 1)? Text::_( 'Not rated yet' ) : Text::_( 'XBFILMS_NOREVIEW' ); ?></i><br />
     						<?php else : ?> 
 	                        	<?php $stars = (round(($item->averat)*2)/2); ?>
 	                            <div class="xbstar">
@@ -138,7 +138,7 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
     				<?php endif; ?>
     				<?php if ($this->show_fdates ) : ?>   				
 					<td class="hidden-phone">
-        					<p><?php if($item->last_read=='') {
+        					<p><?php if($item->last_seen=='') {
         						echo '<span class="xbnit">(Acq.)'.HtmlHelper::date($item->acq_date , 'M Y').'</span>';
         					} else {
         						echo HtmlHelper::date($item->last_seen , 'd M Y'); 

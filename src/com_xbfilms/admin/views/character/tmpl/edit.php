@@ -54,7 +54,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
       <div class="span12">
 		<?php echo HTMLHelper::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
 
-		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'general', JText::_('COM_XBFILMS_FIELDSET_GENERAL')); ?>
+		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'general', JText::_('XBFILMS_FIELDSET_GENERAL')); ?>
 		<div class="row-fluid">
 			<div class="span9">
 				<fieldset class="adminform form-vertical">
@@ -73,7 +73,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 			</div>
 		</div>
 		<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
-		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('COM_XBFILMS_FIELDSET_PUBLISHING')); ?>
+		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('XBFILMS_FIELDSET_PUBLISHING')); ?>
 		<div class="row-fluid form-horizontal-desktop">
 			<div class="span6">
 				<?php echo LayoutHelper::render('joomla.edit.publishingdata', $this); ?>

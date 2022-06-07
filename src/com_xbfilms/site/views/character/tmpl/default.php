@@ -101,7 +101,7 @@ if ($imgok) {
 	<?php endif; ?>
 	<?php if(($this->show_tags) && (!empty($item->tags))) : ?>
 		<div class="span<?php $this->showcat ? '7' : '12';?>">
-			<div class="pull-left xbnit xbmr10"><?php echo JText::_('COM_XBFILMS_CAPTAGS'); ?></div>
+			<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBFILMS_CAPTAGS'); ?></div>
 			<div class="pull-left">
 				<?php  $tagLayout = new FileLayout('joomla.content.tags');
 			    	echo $tagLayout->render($item->tags);
@@ -116,7 +116,7 @@ if ($imgok) {
 			<div class="span2">
 				<?php if (($item->prev>0) || ($item->next>0)) : ?>
 				<span class="hasTooltip xbinfo" title 
-					data-original-title="<?php echo JText::_('COM_XBFILMS_INFO_PREVNEXT'); ?>" >
+					data-original-title="<?php echo JText::_('XBFILMS_INFO_PREVNEXT'); ?>" >
 				</span>&nbsp;
 				<?php endif; ?>
 				<?php if($item->prev > 0) : ?>

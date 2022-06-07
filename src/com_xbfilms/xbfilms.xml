@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="3.1" method="upgrade">
 	<name>xbfilms</name>
-	<creationDate>1st June 2022</creationDate>
-	<version>0.9.8.6</version>
+	<creationDate>6th June 2022</creationDate>
+	<version>0.9.8.7</version>
 	<author>Roger C-O</author>
 	<authorEmail>roger@crosborne.uk</authorEmail>
 	<authorUrl>www.crosborne.uk</authorUrl>
 	<copyright>(c) Roger Creagh-Osborne, 2021. All rights reserved.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
-	<description>COM_XBFILMS_XML_DESCRIPTION</description>
+	<description>XBFILMS_XML_DESCRIPTION</description>
 
 	<scriptfile>script.xbfilms.php</scriptfile>
 
@@ -71,48 +71,46 @@
 			<language tag="en-GB">en-GB/en-GB.com_xbfilms.sys.ini</language>
 		</languages>
 
-		<menu img="class:xbfilms"
-			link="option=com_xbfilms"
-			view="cpanel">xbFilms</menu>
+		<menu img="class:xbfilms" link="option=com_xbfilms">xbFilms</menu>
 		<submenu>
 			<menu link="option=com_xbfilms"
-				view="cpanel" img="class:xbfilms-cpanel"
-				alt="Xbfilms/Cpanel">
-					com_xbfilms_control_panel
+				img="class:xbfilms-dashboard"
+				>
+					com_xbfilms_dashboard
 			</menu>
 			<menu link="option=com_xbfilms&amp;view=films"
-				view="films" img="class:xbfilms-films"
-				alt="Xbfilms/Films">
+				img="class:xbfilms-films"
+				>
 					com_xbfilms_films
 			</menu>
 			<menu link="option=com_xbfilms&amp;view=reviews"
-				view="reviews" img="class:xbfilms-reviews"
-				alt="Xbfilms/Reviews">
+				img="class:xbfilms-reviews"
+				>
 					com_xbfilms_reviews
 			</menu>
 			<menu link="option=com_xbfilms&amp;view=persons"
-				view="persons" img="class:xbfilms-persons"
-				alt="Xbfilms/Persons">
+				img="class:xbfilms-persons"
+				>
 					com_xbfilms_people
 			</menu>
 			<menu link="option=com_xbfilms&amp;view=characters" 
-				view="characters" img="class:xbfilms-persons" 
-				alt="Xbfilms/Characters">
+				img="class:xbfilms-persons"
+				>
 					com_xbfilms_characters
 			</menu>
 			<menu link="option=com_xbfilms&amp;view=fcategories"
-				view="fcategories" img="class:categories"
-				alt="Xbfilms/Fcategories">
+				img="class:categories"
+				>
 					com_xbfilms_categories
 			</menu>
 			<menu link="option=com_xbfilms&amp;view=tags"
-				view="tags" img="class:xbfilms-tags"
-				alt="Xbfilms/Tags">
+				img="class:xbfilms-tags"
+				>
 					com_xbfilms_tags
 			</menu>
 			<menu link="option=com_xbfilms&amp;view=importexport"
-			view="importexport" img="class:xbfilms-importexport"
-			alt="Xbfilms/Importexport">
+				img="class:xbfilms-importexport"
+			>
 				com_xbfilms_importexport
 			</menu>
 		</submenu>

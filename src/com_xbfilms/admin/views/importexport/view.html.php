@@ -43,15 +43,15 @@ class XbfilmsViewImportexport extends JViewLegacy {
 	protected function addToolbar() {
 	    $canDo = XbfilmsHelper::getActions();
 	    
-	    ToolBarHelper::title(Text::_( 'COM_XBFILMS' ).': '.Text::_( 'COM_XBFILMS_DATAMANAGER' ), 'file-check importexport' );
+	    ToolBarHelper::title(Text::_( 'COM_XBFILMS' ).': '.Text::_( 'XBFILMS_DATAMANAGER' ), 'file-check importexport' );
 
 	    $samplesexist = XbfilmsHelper::getIdFromAlias('#__categories', 'sample-films')
 	    + XbfilmsHelper::getIdFromAlias('#__categories', 'sample-filmpeople');
 	    if ($this->show_sample==1) {
 	    	if ($samplesexist > 0) {
-	    		ToolbarHelper::custom('cpanel.unsample', 'file-minus', '', 'XBCULTURE_REMOVE_SAMPLE', false) ;
+	    		ToolbarHelper::custom('dashboard.unsample', 'file-minus', '', 'XBCULTURE_REMOVE_SAMPLE', false) ;
 	    	} else {
-	    		ToolbarHelper::custom('cpanel.sample', 'file-plus', '', 'XBCULTURE_INSTALL_SAMPLE', false) ;
+	    		ToolbarHelper::custom('dashboard.sample', 'file-plus', '', 'XBCULTURE_INSTALL_SAMPLE', false) ;
 	    	}
 	    }
 	    

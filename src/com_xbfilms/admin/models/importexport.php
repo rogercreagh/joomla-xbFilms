@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/importexport.php
- * @version 0.9.6.f 10th January 2022
+ * @version 0.9.8.7 5th June 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -1192,7 +1192,7 @@ class XbfilmsModelImportexport extends JModelAdmin {
 	    	case '#__xbfilms' :
 	    		$select = 'title AS film_title, subtitle, alias AS film_alias, summary AS film_summary, synopsis, 
 					setting,poster_img,rel_year,orig_lang,studio,country,runtime,filmcolour,aspect_ratio,
-					cam_format,filmsound,acq_date,note AS film_note';
+					cam_format,filmsound,acq_date,last_seen,note AS film_note';
 	    		break;
 	    	case '#__xbfilmreviews' :
 	    		$select = 'a.title AS review_title, a.alias AS review_alias, b.alias AS film_alias, 
@@ -1381,7 +1381,7 @@ class XbfilmsModelImportexport extends JModelAdmin {
 					} else {
 						$sqlfilm = "INSERT INTO #__xbfilms (title,subtitle,alias,summary,synopsis,setting,poster_img,
 							rel_year,orig_lang,studio,country,runtime,filmcolour,aspect_ratio,cam_format,filmsound,
-                            acq_date,note,catid,state) VALUES ('";
+                            acq_date,last_seen,note,catid,state) VALUES ('";
 						$sqlfilm .= $db->escape($row['film_title']).$qcq;
 						$sqlfilm .= (key_exists('subtitle',$row) ? $db->escape($row['subtitle']) : '').$qcq;
 						$sqlfilm .= $filmalias.$qcq;
@@ -1408,7 +1408,8 @@ class XbfilmsModelImportexport extends JModelAdmin {
 						$sqlfilm .= (key_exists('cam_format',$row) ? $row['cam_format'] : '').$qcq;
 						$sqlfilm .= (key_exists('filmsound',$row) ? $row['filmsound'] : '').$qcq;
 						$sqlfilm .= (key_exists('acq_date',$row) ? date('Y-m-d',strtotime($row['acq_date'])) : '').$qcq;
-    					$sqlfilm .= $prependnote;
+						$sqlfilm .= (key_exists('last_seen',$row) ? date('Y-m-d',strtotime($row['last_seen'])) : '').$qcq;
+						$sqlfilm .= $prependnote;
 						if (key_exists('film_note',$row)) {
 							if ($postprependnote>1) {
 								$sqlfilm .= $db->escape($row['film_note']);

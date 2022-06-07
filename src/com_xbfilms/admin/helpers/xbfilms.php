@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/helpers/xbfilms.php
- * @version 0.9.4 14th April 2021
+ * @version 0.9.8.7 5th June 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -38,12 +38,12 @@ class XbfilmsHelper extends ContentHelper
 	    return $result;
 	}
 	
-	public static function addSubmenu($vName = 'cpanel') {
+	public static function addSubmenu($vName = 'dashboard') {
 		if ($vName != 'categories') {
 			JHtmlSidebar::addEntry(
-	            Text::_('XBCULTURE_ICONMENU_CPANEL'),
-	            'index.php?option=com_xbfilms&view=cpanel',
-	            $vName == 'cpanel'
+	            Text::_('XBCULTURE_ICONMENU_DASHBOARD'),
+	            'index.php?option=com_xbfilms&view=dashboard',
+	            $vName == 'dashboard'
 		        );
 			JHtmlSidebar::addEntry(
 			    Text::_('XBCULTURE_ICONMENU_FILMS'),
@@ -122,16 +122,11 @@ class XbfilmsHelper extends ContentHelper
 	            'index.php?option=com_xbfilms&view=importexport',
 	            $vName == 'importexport'
 	        );
-			JHtmlSidebar::addEntry(
-				Text::_('XBCULTURE_ICONMENU_OPTIONS'),
-				'index.php?option=com_config&view=component&component=com_xbfilms',
-				$vName == 'options'
-				);
 		} else {
 			JHtmlSidebar::addEntry(
-					Text::_('xbFilms cPanel'),
-					'index.php?option=com_xbfilms&view=cpanel',
-					$vName == 'cpanel'
+					Text::_('xbFilms Dashboard'),
+					'index.php?option=com_xbfilms&view=dashboard',
+					$vName == 'dashboard'
 					);
 			
 			JHtmlSidebar::addEntry(

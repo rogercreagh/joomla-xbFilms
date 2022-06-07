@@ -82,7 +82,7 @@ class XbfilmsViewFilm extends JViewLegacy {
     protected function setDocument()
     {
         $document = Factory::getDocument();
-        $document->setTitle($this->isNew ? Text::_('COM_XBFILMS_NEW_FILM') : Text::_('COM_XBFILMS_EDIT_FILM'));
+        $document->setTitle($this->isNew ? Text::_('XBFILMS_NEW_FILM') : Text::_('XBFILMS_EDIT_FILM'));
     }
     
     

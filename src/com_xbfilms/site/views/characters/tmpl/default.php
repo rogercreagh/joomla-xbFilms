@@ -80,7 +80,7 @@ $plink = 'index.php?option=com_xbfilms&view=character'.$itemid.'&id=';
 			<tr>
 				<?php if($this->show_pic) : ?>
 					<th class="center" style="width:80px">
-						<?php echo Text::_( 'COM_XBFILMS_CAPPICTURE' ); ?>
+						<?php echo Text::_( 'XBFILMS_CAPPICTURE' ); ?>
 					</th>	
                 <?php endif; ?>
 				<th>
@@ -103,7 +103,7 @@ $plink = 'index.php?option=com_xbfilms&view=character'.$itemid.'&id=';
     					    echo ' &amp; ';
     					}
     					if($this->show_tags) {
-    					    echo Text::_( 'COM_XBFILMS_CAPTAGS' ); 
+    					    echo Text::_( 'XBFILMS_CAPTAGS' ); 
     					} ?>                
     				</th>
                 <?php endif; ?>
@@ -158,7 +158,7 @@ $plink = 'index.php?option=com_xbfilms&view=character'.$itemid.'&id=';
 				<td class="hidden-phone" >
 					<?php 
 					if ($item->ccnt > 0) {
-					    echo '<p><span class="xbnit">'.Text::_('COM_XBFILMS_CHAR_IN').'</span>: '.$item->clist.'</p>';
+					    echo '<p><span class="xbnit">'.Text::_('XBFILMS_CHAR_IN').'</span>: '.$item->clist.'</p>';
 					}
 					?>
 				</td>

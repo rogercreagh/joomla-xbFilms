@@ -20,7 +20,7 @@
 			class="inputbox" size="45" />
 
 		<field name="subtitle" type="text"
-			label="COM_XBFILMS_SUBTITLE" description="COM_XBFILMS_SUBTITLE_DESC"
+			label="XBFILMS_SUBTITLE" description="XBFILMS_SUBTITLE_DESC"
 			class="inputbox input-xxlarge " size="30" />
 
  		<field name="qratnote" type="note"
@@ -29,7 +29,7 @@
 			showon="id:0"
 		/>
 		<field name="quick_rating" type="rating" 
-			label="COM_XBFILMS_QRATING_LABEL" description="COM_XBFILMS_QRATING_DESC" 
+			label="XBFILMS_QRATING_LABEL" description="XBFILMS_QRATING_DESC" 
 			default=""
 			showon="id!:0"
 			>
@@ -37,37 +37,37 @@
 		</field>
 		
 		<field name="summary" type="textarea" rows="6" cols="50"  
-			label="XBCULTURE_SUMMARY"  description="COM_XBFILMS_FILM_SUMMARY_DESC" />
+			label="XBCULTURE_SUMMARY"  description="XBFILMS_FILM_SUMMARY_DESC" />
 
 		<field name="synopsis" type="editor"
-			class="inputbox" label="COM_XBFILMS_FIELD_SYNOPSIS_LABEL" description="COM_XBFILMS_FIELD_SYNOPSIS_DESC" 
+			class="inputbox" label="XBFILMS_FIELD_SYNOPSIS_LABEL" description="XBFILMS_FIELD_SYNOPSIS_DESC" 
 			filter="JComponentHelper::filterText"  buttons="true" hide="article,pagebreak,readmore"  
 		/>
 
 		<field name="poster_img" type="media"
-			label="COM_XBFILMS_FIELD_POSTER_LABEL" description="COM_XBFILMS_FIELD_POSTER_DESC" />
+			label="XBFILMS_FIELD_POSTER_LABEL" description="XBFILMS_FIELD_POSTER_DESC" />
 		
 		<field name="rel_year" type="number" min="1888" max="2052"
   			hint="Enter a 4 digit year"
-			label="COM_XBFILMS_RELYEAR" description="COM_XBFILMS_RELYEAR_DESC"
+			label="XBFILMS_RELYEAR" description="XBFILMS_RELYEAR_DESC"
 			class="inputbox" size="5" maxlength="4" />
 
 		<field name="studio" type="studio"
-			label="COM_XBFILMS_STUDIO_LABEL" description="COM_XBFILMS_STUDIO_DESC"
+			label="XBFILMS_STUDIO_LABEL" description="XBFILMS_STUDIO_DESC"
 			class="inputbox" maxlength="99" />
 
 		<field name="orig_lang" type="origlang"
-			label="COM_XBFILMS_OLANG_LABEL" description="COM_XBFILMS_OLANG_DESC"
+			label="XBFILMS_OLANG_LABEL" description="XBFILMS_OLANG_DESC"
 			class="inputbox" maxlength="99" 
 			default=""/>
 
 		<field name="country" type="country"
-			label="XBCULTURE_COUNTRY" description="COM_XBFILMS_COUNTRY_DESC"
+			label="XBCULTURE_COUNTRY" description="XBFILMS_COUNTRY_DESC"
 			class="inputbox" maxlength="99" 
 			default=""/>
 
 		<field name="setting" type="text"
-			label="XBCULTURE_SETTING" description="COM_XBFILMS_SETTING_DESC"
+			label="XBCULTURE_SETTING" description="XBFILMS_SETTING_DESC"
 			class="inputbox" maxlength="99" 
 			default="" />
 
@@ -113,13 +113,13 @@
 		</field>
 					
 		<field name="acq_date" type="calendar"
-			label="COM_XBFILMS_DATE_ADDED_LABEL" description="COM_XBFILMS_DATE_ADDED_DESC"
+			label="XBFILMS_DATE_ADDED_LABEL" description="XBFILMS_DATE_ADDED_DESC"
 			class="inputbox" size="20" format="%Y-%m-%d 0:0:0" filter="user_utc"
 			showtime="false" translateformat="true" 
 			required="true"
 		/>
 		<field name="last_seen" type="calendar"
-			label="COM_XBFILMS_DATE_SEEN_LABEL" description="COM_XBFILMS_DATE_SEEN_DESC"
+			label="XBFILMS_DATE_SEEN_LABEL" description="XBFILMS_DATE_SEEN_DESC"
 			class="inputbox" size="20" format="%Y-%m-%d 0:0:0" filter="user_utc"
 			required="false"
 			showtime="false" translateformat="true" 
@@ -127,7 +127,7 @@
 
 		<field name="catid" type="category" extension="com_xbfilms" class="chzn-custom-value"
 			required="true"
-			label="JCATEGORY" description="COM_XBFILMS_CATEGORY_DESC" 
+			label="JCATEGORY" description="XBFILMS_CATEGORY_DESC" 
 		>
 			<option value="0">JOPTION_SELECT_CATEGORY</option>
 		</field>
@@ -152,8 +152,8 @@
 		/>
 
 		<field name="directorlist" type= "subform"
-			label= "COM_XBFILMS_FIELD_DIRECTOR_LABEL"
-			description="COM_XBFILMS_FIELD_DIRECTOR_DESC"
+			label= "XBFILMS_FIELD_DIRECTOR_LABEL"
+			description="XBFILMS_FIELD_DIRECTOR_DESC"
 			min= "0"
 			max= "10"
 			multiple= "true"
@@ -162,7 +162,7 @@
 			groupByFieldset="false" 
 		>
 			<form>
-				<field name="person_id" type="people" label="COM_XBFILMS_FIELD_ADDPERSON_LABEL" >
+				<field name="person_id" type="people" label="XBFILMS_FIELD_ADDPERSON_LABEL" >
 					<option value="">JSELECT</option>	
 				</field>
 				<field name="role_note" type="text" label="Note" size="20" maxlength="50"
@@ -171,8 +171,8 @@
 		</field>			
 			
 		<field name= "producerlist" type= "subform"
-			label= "COM_XBFILMS_FIELD_PRODUCER_LABEL"
-			description="COM_XBFILMS_FIELD_PRODUCER_DESC"
+			label= "XBFILMS_FIELD_PRODUCER_LABEL"
+			description="XBFILMS_FIELD_PRODUCER_DESC"
 			min= "0"
 			max= "10"
 			multiple= "true"
@@ -181,7 +181,7 @@
 			groupByFieldset="false" 
 		>
 			<form>
-				<field name="person_id" type="people" label="COM_XBFILMS_FIELD_ADDPERSON_LABEL" >
+				<field name="person_id" type="people" label="XBFILMS_FIELD_ADDPERSON_LABEL" >
 					<option value="">JSELECT</option>	
 				</field>
 				<field name="role_note" type="text" label="Note" size="20" maxlength="50"
@@ -199,7 +199,7 @@
 			groupByFieldset="false" 
 		>
 			<form>
-				<field name="person_id" type="people" label="COM_XBFILMS_FIELD_ADDPERSON_LABEL" >
+				<field name="person_id" type="people" label="XBFILMS_FIELD_ADDPERSON_LABEL" >
 					<option value="">JSELECT</option>	
 				</field>
 				<field name="role_note" type="crewrole" label="Job" size="20" maxlength="50"
@@ -227,7 +227,7 @@
 
 		<field name= "subjectlist" type= "subform"
 			label= "Appearing"
-			description="COM_XBFILMS_FIELD_FILMAPPEARSIN_DESC"
+			description="XBFILMS_FIELD_FILMAPPEARSIN_DESC"
 			min= "0" max= "10"
 			multiple= "true"
 			buttons= "add,remove,move"
@@ -248,8 +248,8 @@
 		</field>						
 
 		<field name= "charlist" type= "subform"
-			label= "COM_XBFILMS_FIELD_CHAR_LABEL"
-			description="COM_XBFILMS_FIELD_CHAR_DESC"
+			label= "XBFILMS_FIELD_CHAR_LABEL"
+			description="XBFILMS_FIELD_CHAR_DESC"
 			min= "0" max= "10"
 			multiple= "true"
 			buttons= "add,remove,move"
@@ -269,7 +269,7 @@
 		</field>						
 
 		<field name="ext_links" type="subform" 
-			label="XBCULTURE_EXTLINK_LBL" description="COM_XBFILMS_FIELD_EXTLINKS_DESC"
+			label="XBCULTURE_EXTLINK_LBL" description="XBFILMS_FIELD_EXTLINKS_DESC"
 			min="0" max="10" multiple="true"
 			buttons= "add,remove,move"
 			layout="joomla.form.field.subform.repeatable-table"
@@ -277,11 +277,11 @@
 			<form>
 				<field
 					name="link_text" type="text"
-					label="COM_XBFILMS_FIELD_LINKTEXT_LABEL" size="20" maxlength="25"
+					label="XBFILMS_FIELD_LINKTEXT_LABEL" size="20" maxlength="25"
 					/>
 				<field
 					name="link_url" type="url"
-					label="COM_XBFILMS_FIELD_URL_LABEL"
+					label="XBFILMS_FIELD_URL_LABEL"
 					size="40"
  					/>
 				<field

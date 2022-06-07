@@ -45,11 +45,11 @@ $prevext ='';
 	<?php endif;?>
 	
 	<div>
-		<h3><?php echo Text::_('COM_XBFILMS_CATSPAGE_TITLE'); ?></h3>
+		<h3><?php echo Text::_('XBFILMS_CATSPAGE_TITLE'); ?></h3>
 		<?php  if(Factory::getSession()->get('xbbooks_ok',false) != false) : ?>
-	      	<p class="xbnote"><?php echo Text::_('COM_XBFILMS_CATSPAGE_SUBTITLE'); ?></p>
+	      	<p class="xbnote"><?php echo Text::_('XBFILMS_CATSPAGE_SUBTITLE'); ?></p>
       	<?php endif; ?>
-      	<p class="xb095"><?php echo Text::_('COM_XBFILMS_CATSPAGE_SUBTITLE2'); ?></p>
+      	<p class="xb095"><?php echo Text::_('XBFILMS_CATSPAGE_SUBTITLE2'); ?></p>
      </div>
 	
 	<div class="pull-right span2">

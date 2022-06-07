@@ -41,7 +41,7 @@ $tclink = $xblink.'tags' . $itemid;
 <div class="xbfilms">
 <div class="row-fluid" style="margin-bottom:20px;">
 	<div class="span3">
-		<h4><?php echo JText::_('COM_XBFILMS_ITEMSTAGGED').': '; ?></h4>		
+		<h4><?php echo JText::_('XBFILMS_ITEMSTAGGED').': '; ?></h4>		
 	</div>	
 	<div class="span9">
 		<div class="badge badge-info pull-left"><h3><?php echo $item->title; ?></h3></div>
@@ -165,7 +165,7 @@ $tclink = $xblink.'tags' . $itemid;
 <div class="clearfix"></div>
 <p class="xbtc xbmt16">
 	<a href="<?php echo Route::_($tclink); ?>" class="btn btn-small">
-		<?php echo JText::_('COM_XBFILMS_TAG_COUNTS'); ?>
+		<?php echo JText::_('XBFILMS_TAG_COUNTS'); ?>
 	</a>
 </p>
 <div class="clearfix"></div>

@@ -34,7 +34,7 @@ class XbfilmsControllerFcategories extends JControllerAdmin {
     		if (XbcultureHelper::checkComponent('com_xbpeople')==1){
     			$this->setRedirect($this->edcatlink.'com_xbpeople&id='.$id);
 	    	} else {
-	    		Factory::getApplication()->enqueueMessage('COM_XBFILMS_NO_COMPEOPLE','error');
+	    		Factory::getApplication()->enqueueMessage('XBFILMS_NO_COMPEOPLE','error');
 	    	}
     	}
     }
@@ -47,7 +47,7 @@ class XbfilmsControllerFcategories extends JControllerAdmin {
     	if (XbcultureHelper::checkComponent('com_xbpeople')==1){
     		$this->setRedirect($this->edcatlink.'com_xbpeople&id=0');
     	} else {
-    		Factory::getApplication()->enqueueMessage('COM_XBFILMS_NO_COMPEOPLE','error');
+    		Factory::getApplication()->enqueueMessage('XBFILMS_NO_COMPEOPLE','error');
     	}
     }
 

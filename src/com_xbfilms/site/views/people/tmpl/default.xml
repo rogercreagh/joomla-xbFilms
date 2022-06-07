@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- xbFilms site/views/people/tmpl/default.xml v0.9.4.1 29th April 2021 -->
 <metadata>
-	<layout title="People Compact List View">
+	<layout title="People List View">
 		<message>Displays a simple list (table) of people. Option to restrict to single category and filter by role and tags.</message>
 	</layout>
 	<fields name="params" addfieldpath="administrator/components/com_xbfilms/models/fields">
@@ -83,8 +83,8 @@
 			    
 	 		<field name="search_bar"
 				type="radio"
-				label="COM_XBFILMS_LIST_SHOW_SEARCH_LBL"
-				description="COM_XBFILMS_LIST_SHOW_SEARCH_DESC"
+				label="XBFILMS_LIST_SHOW_SEARCH_LBL"
+				description="XBFILMS_LIST_SHOW_SEARCH_DESC"
 				class="btn-group btn-group-yesno btn-small"
 				>
 				<option value="0" >JNO</option>
@@ -107,14 +107,14 @@
 				name="menu_category_id" type="category"
 				label="XBCULTURE_CATEGORY"
 				extension="com_xbpeople"
-				description="COM_XBFILMS_CATEGORY_DESC"
+				description="XBFILMS_CATEGORY_DESC"
 				>
-					<option value="0">COM_XBFILMS_ALL_CATEGORIES</option>
+					<option value="0">XBFILMS_ALL_CATEGORIES</option>
 			</field>
 			<field name="menu_subcats" type="radio"
 				default=""
-				label="COM_XBFILMS_SUBCATS_LBL"
-				description="COM_XBFILMS_SUBCATS_DESC"
+				label="XBFILMS_SUBCATS_LBL"
+				description="XBFILMS_SUBCATS_DESC"
 	  			class="btn-group btn-small radiotop"
 	  			showon="menu_category_id!:0"
 				>
@@ -123,14 +123,14 @@
 			</field>	
 			<field
 				name="menu_tag" type="tag"
-				label="COM_XBFILMS_MENUTAG_LBL"
-				description="COM_XBFILMS_MENUTAG_DESC"
+				label="XBFILMS_MENUTAG_LBL"
+				description="XBFILMS_MENUTAG_DESC"
 				multiple="true"
 				mode="nested"
 			/>
 			<field name="menu_taglogic" type="radio"
 				default=""
-				label="COM_XBFILMS_MENUTAG_LBL"
+				label="XBFILMS_MENUTAG_LBL"
 				description=""
 	  			class="btn-group btn-small radiotop"
 				showon="menu_tag!:"

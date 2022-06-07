@@ -1,8 +1,8 @@
 <?php
 /*******
  * @package xbFilms
- * @filesource admin/views/cpanel/view.html.php
- * @version 0.9.8.3 25th May 2022
+ * @filesource admin/views/dashboard/view.html.php
+ * @version 0.9.8.7 5th June 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -16,7 +16,7 @@ use Joomla\CMS\Installer\Installer;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 
-class XbfilmsViewCpanel extends JViewLegacy
+class XbfilmsViewDashboard extends JViewLegacy
 {
  //   protected $buttons;
 	protected $films; //why?
@@ -60,18 +60,23 @@ class XbfilmsViewCpanel extends JViewLegacy
 			$this->client = $this->get('Client');
 			
 			$params = ComponentHelper::getParams('com_xbfilms');
+			
+			$this->killdata = $params->get('killdata',1);
+			
 			$this->show_sample = $params->get('show_sample');
 			$this->zero_rating = $params->get('zero_rating');
 			$this->zero_class = $params->get('zero_class');
 			
-			$this->show_cat = $params->get('show_cats');
-			$this->show_filmcat = $params->get('show_fcat');
-			$this->show_revcat = $params->get('show_rcat');
-			$this->show_percat = $params->get('show_pcat');
+			$this->show_revs = $params->get('show_revs',1);
 			
-			$this->show_tags = $params->get('show_tags');
-			$this->show_filmtags = $params->get('show_ftags');
-			$this->show_revtags = $params->get('show_rtags');
+			$this->show_cat = $params->get('show_cats',1);
+			$this->show_filmcat = $params->get('show_fcat',1);
+			$this->show_revcat = ($this->show_revs) ? $params->get('show_rcat'):0;
+			$this->show_percat = $params->get('show_pcat',1);
+			
+			$this->show_tags = $params->get('show_tags',1);
+			$this->show_filmtags = $params->get('show_ftags',1);
+			$this->show_revtags = ($this->show_revs) ? $params->get('show_rtags',1) : 0;
 			$this->show_pertags = $params->get('show_ptags');
 			
 			$this->show_search = $params->get('search_bar');
@@ -90,7 +95,7 @@ class XbfilmsViewCpanel extends JViewLegacy
 			$this->show_filmlist_rating = $params->get('show_frevcol');
 			$this->show_film_review = $params->get('show_frevs');
 			
-			XbfilmsHelper::addSubmenu('cpanel');
+			XbfilmsHelper::addSubmenu('dashboard');
 			
 	        // Check for errors.
 	        if (count($errors = $this->get('Errors'))) {
@@ -155,16 +160,16 @@ class XbfilmsViewCpanel extends JViewLegacy
         	$samplesexist = XbfilmsHelper::getIdFromAlias('#__categories', 'sample-films');
 	        if ($this->show_sample==1) {
 	        	if ($samplesexist > 0) {
-	        		ToolbarHelper::custom('cpanel.unsample', 'file-minus', '', 'XBCULTURE_REMOVE_SAMPLE', false) ;
+	        		ToolbarHelper::custom('dashboard.unsample', 'file-minus', '', 'XBCULTURE_REMOVE_SAMPLE', false) ;
 	        	} else {
-	        		ToolbarHelper::custom('cpanel.sample', 'file-plus', '', 'XBCULTURE_INSTALL_SAMPLE', false) ;
+	        		ToolbarHelper::custom('dashboard.sample', 'file-plus', '', 'XBCULTURE_INSTALL_SAMPLE', false) ;
 	        	}
 		        ToolbarHelper::custom(); //spacer
 	        }
-	        ToolbarHelper::custom('cpanel.people', 'info-2', '', 'xbPeople', false) ;
+	        ToolbarHelper::custom('dashboard.people', 'info-2', '', 'xbPeople', false) ;
 	        
-	        ToolbarHelper::custom('cpanel.books', 'book', '', 'xbBooks', false) ;
-	        ToolbarHelper::custom('cpanel.live', 'music', '', 'xbLive', false) ;
+	        ToolbarHelper::custom('dashboard.books', 'book', '', 'xbBooks', false) ;
+	        ToolbarHelper::custom('dashboard.live', 'music', '', 'xbLive', false) ;
 	        if ($canDo->get('core.admin')) {
 	            ToolbarHelper::preferences('com_xbfilms');
 	        }
@@ -177,7 +182,7 @@ class XbfilmsViewCpanel extends JViewLegacy
     
     protected function setDocument() {
     	$document = Factory::getDocument();
-    	$document->setTitle(Text::_('COM_XBFILMS_ADMIN_CPANEL'));
+    	$document->setTitle(Text::_('XBFILMS_ADMIN_DASHBOARD'));
     }
     
 }
