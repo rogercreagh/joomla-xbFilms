@@ -57,8 +57,8 @@ class XbfilmsControllerDashboard extends JControllerAdmin {
         $dest = JPATH_COMPONENT_ADMINISTRATOR ."/uploads/". $filename;
         JFile::copy($src, $dest);  
         $dummypost = array('setpub'=>1, 
-        	'impcat'=>XbfilmsHelper::createCategory('sample-films','','com_xbfilms','Sample film data - anything in this category will be deleted when Sample Data is removed'),
-            'imppcat'=>XbfilmsHelper::createCategory('sample-filmpeople','','com_xbpeople','Sample film people data - anything in this category will be deleted when Sample Data is removed'),
+        	'impcat'=>XbfilmsHelper::createCategory('sample-films','','com_xbfilms','Sample film data - anything in this category will be deleted when xbFilm Sample Data is removed'),
+            'imppcat'=>XbfilmsHelper::createCategory('sample-filmpeople','','com_xbpeople','Sample film people data - anything in this category will be deleted when xbFilm Sample Data is removed'),
         	'poster_path'=>'/images/xbfilms/samples/films/',
         	'portrait_path'=>'/images/xbfilms/samples/people/', 
         	'reviewer'=>'');
