@@ -32,7 +32,7 @@ class JFormFieldCatsubtree extends JFormFieldList {
 			$incroot= $params->get('incroot_'.$itemtype);
 		} else {
 			$rootid = 0;
-			$inroot = false;
+			$incroot = false;
 		}
 		
 		$db = Factory::getDbo();
