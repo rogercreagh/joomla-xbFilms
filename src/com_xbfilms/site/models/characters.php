@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/characters.php
- * @version 0.9.5 9th May 2021
+ * @version 0.9.9.3 13th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -104,7 +104,7 @@ class XbfilmsModelCharacters extends JModelList {
             if ($categoryId > 0) {
             	if ($dosubcats) {
             		$catlist = $categoryId;
-            		$subcatlist = XbfilmsHelper::getChildCats($categoryId,'com_xbpeople');
+            		$subcatlist = XbcultureHelper::getChildCats($categoryId,'com_xbpeople');
             		if ($subcatlist) { $catlist .= ','.implode(',',$subcatlist);}
             		$query->where('a.catid IN ('.$catlist.')');
             	} else {
@@ -112,14 +112,14 @@ class XbfilmsModelCharacters extends JModelList {
             	}
             }
             
-            //filter by film
-            $film = (int)$this->getState('params',0)['menu_film'];
-            if (($searchbar==1) && ($film==0)) { //look for filter setting
-            	$film = (int)$this->getState('filter.filmfilt',0);
-            }
-            if ($film>0) {
-            	$query->where('p.film_id = '.$film);
-            }
+//             //filter by film
+//             $film = (int)$this->getState('params',0)['menu_film'];
+//             if (($searchbar==1) && ($film==0)) { //look for filter setting
+//             	$film = (int)$this->getState('filter.filmfilt',0);
+//             }
+//             if ($film>0) {
+//             	$query->where('p.film_id = '.$film);
+//             }
             
             //filter by tag
             $tagfilt = array($this->getState('tagId'));

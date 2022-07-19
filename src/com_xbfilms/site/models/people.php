@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/people.php
- * @version 0.9.5 9th May 2021
+ * @version 0.9.9.3 13th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -67,7 +67,7 @@ class XbfilmsModelPeople extends JModelList {
         	$prole = $this->getState('filter.prole');
         }
 		$this->prole = $prole;
-		$hide_namesonly = $this->getState('params')['hide_namesonly'];
+//		$hide_namesonly = $this->getState('params')['hide_namesonly'];
 		
 		$db    = Factory::getDbo();
 		$query = $db->getQuery(true);
@@ -82,9 +82,9 @@ class XbfilmsModelPeople extends JModelList {
         $query->from('#__xbpersons AS a');
         $query->join('LEFT',$db->quoteName('#__xbfilmperson', 'p') . ' ON ' . $db->quoteName('p.person_id') . ' = ' .$db->quoteName('a.id') );
         $query->where('p.film_id IS NOT NULL');
-        if ($hide_namesonly) {
-        	$query->where("CONCAT(a.biography,a.summary,a.portrait,a.nationality) >'' OR (a.year_born + a.year_died) > 0");
-        }
+//         if ($hide_namesonly) {
+//         	$query->where("CONCAT(a.biography,a.summary,a.portrait,a.nationality) >'' OR (a.year_born + a.year_died) > 0");
+//         }
         
         $query->select('COUNT(DISTINCT p.film_id) AS fcnt');
         $query->select('c.title AS category_title');
@@ -123,7 +123,7 @@ class XbfilmsModelPeople extends JModelList {
             if ($categoryId > 0) {
             	if ($dosubcats) {
             		$catlist = $categoryId;
-            		$subcatlist = XbfilmsHelper::getChildCats($categoryId,'com_xbpeople');
+            		$subcatlist = XbcultureHelper::getChildCats($categoryId,'com_xbpeople');
             		if ($subcatlist) { $catlist .= ','.implode(',',$subcatlist);}
             		$query->where('a.catid IN ('.$catlist.')');
             	} else {

@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/categories.php
- * @version 0.9.8.7 5th June 2022
+ * @version 0.9.9.3 14th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -16,8 +16,8 @@ use Joomla\Utilities\ArrayHelper;
 class XbfilmsModelCategories extends JModelList {
 	
 	public function __construct($config = array()) {
-	    $showcats = ComponentHelper::getParams('com_xbfilms')->get('show_cats',1);
-	    if (!$showcats) {
+	    $showcat = ComponentHelper::getParams('com_xbfilms')->get('show_cats',1);
+	    if (!$showcat) {
 	        header('Location: index.php?option=com_xbfilms&view=filmlist');
 	        exit();
 	    }

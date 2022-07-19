@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms site/models/forms/filter_people.xml v0.9.5 8th May 2021 -->
+<!-- xbFilms site/models/forms/filter_people.xml 0.9.9.3 13th July 2022 -->
 <form>
     <fields name="filter" addfieldpath="administrator/components/com_xbfilms/models/fields">
         <field name="search" type="text"
@@ -40,7 +40,8 @@
 			<option value="1" onchange="this.form.submit();">XBCULTURE_INCLUDE</option>
 		</field>	
        
-		<field
+<!-- 
+ 		<field
 			name="filmfilt" type="films"
 			label="XBCULTURE_FILM_U"
 			description="XBFILMS_FILMFILT_DESC"
@@ -48,6 +49,7 @@
 			>
 			<option value="">XBFILMS_FILMFILT_HINT</option>
 		</field>
+ -->
 		<field
 			name="tagfilt" type="tag"
 			label="XBFILMS_CAPTAGS"

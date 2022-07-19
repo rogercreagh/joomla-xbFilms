@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmlist/tmpl/compact.php
- * @version 0.9.8.7 5th June 2022
+ * @version 0.9.9.3 14th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -33,7 +33,7 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 ?>
 <div class="xbfilms">
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
-		echo XbfilmsHelper::sitePageheader($this->header);
+	    echo XbcultureHelper::sitePageheader($this->header);
 	} ?>
 	
 	<form action="<?php echo Route::_('index.php?option=com_xbfilms&view=filmlist&layout=compact'); ?>" method="post" name="adminForm" id="adminForm">       
@@ -42,8 +42,8 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 				$hide = '';
 				if ($this->hide_peep) { $hide .= 'filter_perfilt,filter_prole,';}
 				if ($this->hide_char) { $hide .= 'filter_charfilt,';}
-				if ((!$this->show_cat) || $this->hide_cat) { $hide .= 'filter_category_id,filter_subcats,';}
-				if ((!$this->show_tags) || $this->hide_tag) { $hide .= 'filter_tagfilt,filter_taglogic,';}
+				if ((!$this->showcat) || $this->hide_cat) { $hide .= 'filter_category_id,filter_subcats,';}
+				if ((!$this->showtags) || $this->hide_tag) { $hide .= 'filter_tagfilt,filter_taglogic,';}
 				echo '<div class="row-fluid"><div class="span12">';
 	            echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this,'hide'=>$hide));       
 	         echo '</div></div>';
@@ -100,7 +100,7 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 							<a href="<?php echo Route::_(XbfilmsHelperRoute::getFilmLink($item->id));?>" >
 								<b><?php echo $this->escape($item->title); ?></b></a> 
 						<?php if (!empty($item->subtitle)) :?>
-                        	<br /><span class="xb095 xbnorm"><?php echo $this->escape($item->subtitle); ?></span>
+                        	<br /><span class="xb09 xbnorm"><?php echo $this->escape($item->subtitle); ?></span>
                         <?php endif; ?>
 						</p>
 					</td>
@@ -109,9 +109,6 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
                         	<?php if ($item->dircnt==0) {
                         		echo '<span class="xbnit">'.Text::_('XBFILMS_NODIRECTOR').'</span>';
                         	} else { ?> 
-	                        	<span class="xbnit">
-	                        		<?php echo Text::_($item->dircnt>1 ? 'XBCULTURE_CAPDIRECTORS' : 'XBCULTURE_CAPDIRECTOR' ); ?>
-	                        	</span>: 
                         		<?php echo $item->dlist; 
                         	} ?>                          	
 						</p>

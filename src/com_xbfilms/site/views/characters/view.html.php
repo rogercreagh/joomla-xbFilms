@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/characters/view.html.php
- * @version 0.5.1 12th March 2021
+ * @version 0.9.9.3 14th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -38,9 +38,9 @@ class XbfilmsViewCharacters extends JViewLegacy {
 		
 		$this->xbpeople_ok = Factory::getSession()->get('xbpeople_ok');
 		$show_cats = ($this->xbpeople_ok) ? $this->params->get('show_cats','1','int') : 0;
-		$this->show_cat = ($show_cats) ? $this->params->get('show_ccat','2','int') :0;
+		$this->showcat = ($show_cats) ? $this->params->get('show_ccat','2','int') :0;
 		$show_tags = $this->params->get('show_tags','1','int');
-		$this->show_tags = ($show_tags) ? $this->params->get('show_ctags','1','int') : 0;
+		$this->showtags = ($show_tags) ? $this->params->get('show_ctags','1','int') : 0;
 				
 		$this->show_pic = $this->params->get('show_cpiccol','1','int');
 		$this->show_sum = $this->params->get('show_csumcol','1','int');

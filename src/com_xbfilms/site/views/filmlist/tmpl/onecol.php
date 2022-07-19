@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmlist/tmpl/onecol.php
- * @version 0.9.8.7 6th June 2022
+ * @version 0.9.9.3 14th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -46,7 +46,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 ?>
 <div class="xbfilms">
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
-		echo XbfilmsHelper::sitePageheader($this->header);
+	    echo XbcultureHelper::sitePageheader($this->header);
 	} ?>
 	
 	<form action="<?php echo Route::_('index.php?option=com_xbfilms&view=filmlist&layout=onecol'); ?>" method="post" name="adminForm" id="adminForm">       
@@ -88,8 +88,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 				<th>
 					<?php echo HtmlHelper::_('searchtools.sort','XBCULTURE_TITLE','title',$listDirn,$listOrder).				
     						', '.Text::_('XBCULTURE_AUTHOR').', '.
-    						HtmlHelper::_('searchtools.sort','XBFILMS_YEARPUB','rel_year',$listDirn,$listOrder );
-    						  echo ', '.HtmlHelper::_('searchtools.sort','RelYear','rel_year',$listDirn,$listOrder );	
+    						HtmlHelper::_('searchtools.sort','RelYear','rel_year',$listDirn,$listOrder );
 					?>
 				</th>					
 		<tbody>
@@ -158,20 +157,23 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
         						<?php endif; ?>
                         	<?php endif; ?>
 							<br />						
-		                    <?php if(($this->show_cats) || ($this->show_tags)) : ?>
-		     					<?php if($this->show_cats) : ?>
-		     						<span class="icon-folder"></span> &nbsp;										
-	    							<a class="label label-success" href="<?php echo $clink.$item->catid; ?>"><?php echo $item->category_title; ?></a>
-    		    					<br />
-		    					<?php endif; ?>
-        						<?php if($this->show_tags) {
-        						    echo '<span class="icon-tags"></span> &nbsp;';
-        							$tagLayout = new FileLayout('joomla.content.tagline');
-            						echo $tagLayout->render($item->tags);
-        						}
-            					?>
-            					</p>
+		                    <?php if(($this->showcat) || ($this->showtags)) : ?>
+         						<?php if($this->showcat) : ?>	
+		     						<span class="icon-folder"></span> &nbsp;	
+         							<?php if($this->showcat==2) : ?>											
+        								<a class="label label-success" href="<?php echo $clink.$item->catid; ?>"><?php echo $item->category_title; ?></a>
+        							<?php else: ?>
+        								<span class="label label-success"><?php echo $item->category_title; ?></span>
+        							<?php endif; ?>
+        						<?php endif; ?>
+        						<?php if($this->showtags) : ?>
+        							<br />
+        						    <span class="icon-tags"></span> &nbsp;
+        							<?php $tagLayout = new FileLayout('joomla.content.tagline');
+            						echo $tagLayout->render($item->tags); ?>
+        						<?php endif; ?>
 	                		<?php endif; ?>
+	                	</p>
 					</td>
 				</tr>
 				<?php endforeach;?>

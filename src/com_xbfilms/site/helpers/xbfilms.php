@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/helpers/xbfilms.php
- * @version 0.9.5 9th May 2021
+ * @version 0.9.9.3 13th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -33,7 +33,7 @@ class XbfilmsHelper extends JHelperContent {
 		}
 		return $list;
 	}
-	
+/*		
 	public static function getChildCats($pid, $ext, $incroot = true) {
 // 		$childarr = array();
 // 		$db    = Factory::getDbo();
@@ -63,7 +63,6 @@ class XbfilmsHelper extends JHelperContent {
 	}
 	
 	
-	
 	public static function sitePageHeader($displayData) {
 		$header ='';
 		if (!empty($displayData)) {
@@ -83,5 +82,6 @@ class XbfilmsHelper extends JHelperContent {
 		}
 		return $header;
 	}
-
+*/
+	
 }

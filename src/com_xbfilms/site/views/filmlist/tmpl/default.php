@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmlist/tmpl/default.php
- * @version 0.9.8.3 24th May 2022
+ * @version 0.9.9.3 14th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -47,17 +47,17 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 ?>
 <div class="xbfilms">
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
-		echo XbfilmsHelper::sitePageheader($this->header);
+	    echo XbcultureHelper::sitePageheader($this->header);
 	} ?>
 	
 	<form action="<?php echo Route::_('index.php?option=com_xbfilms&view=filmlist'); ?>" method="post" name="adminForm" id="adminForm">       
 		<?php  // Search tools bar
 			if ($this->search_bar) {
 				$hide = '';
-				if ((!$this->show_cat) || ($this->hide_cat)) { $hide .= 'filter_category_id, filter_subcats,';}
+				if ((!$this->showcat) || ($this->hide_cat)) { $hide .= 'filter_category_id, filter_subcats,';}
 				if ($this->hide_peep) { $hide .= 'filter_perfilt,filter_prole,';}
 				if ($this->hide_char) { $hide .= 'filter_charfilt,';}
-				if ((!$this->show_tags) || $this->hide_tag) { $hide .= 'filter_tagfilt,filter_taglogic,';}
+				if ((!$this->showtags) || $this->hide_tag) { $hide .= 'filter_tagfilt,filter_taglogic,';}
 				echo '<div class="row-fluid"><div class="span12">';
 	            echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this,'hide'=>$hide));       
 	         echo '</div></div>';
@@ -112,15 +112,15 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
     					<?php echo HTMLHelper::_('searchtools.sort','Seen/Acquired','sort_date',$listDirn,$listOrder ); ?>
     				</th>
 				<?php endif; ?>
-				<?php if($this->show_cat || $this->show_tags) : ?>
+				<?php if($this->showcat || $this->showtags) : ?>
     				<th class="hidden-tablet hidden-phone">
-    					<?php if ($this->show_cat) {
+    					<?php if ($this->showcat) {
     						echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATEGORY','category_title',$listDirn,$listOrder );
     					}
-    					if (($this->show_cat) && ($this->show_tags)) {
+    					if (($this->showcat) && ($this->showtags)) {
     					    echo ' &amp; ';
     					}
-    					if($this->show_tags) {
+    					if($this->showtags) {
     					    echo Text::_( 'XBFILMS_CAPTAGS' ); 
     					} ?>                
     				</th>
@@ -148,11 +148,11 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 					<td>
 						<p class="xbtitle">
 							<a href="<?php echo Route::_($blink.$item->id);?>" >
-								<b><?php echo $this->escape($item->title); ?></b></a></p> 
+								<b><?php echo $this->escape($item->title); ?></b></a> 
 						<?php if (!empty($item->subtitle)) :?>
-                        	<p><?php echo $this->escape($item->subtitle); ?></p>
+                        	<br /><span class="xb09"><?php echo $this->escape($item->subtitle); ?></span>
                         <?php endif; ?>
-						<p>
+						</p><p>
                         	<?php if ($item->dircnt==0) {
                         		echo '<span class="xbnit">'.JText::_('XBFILMS_NODIRECTOR').'</span>';
                         	} else { ?> 
@@ -239,20 +239,20 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
         					}?> </p>
          				</td>
      				<?php endif; ?>
-    				<?php if($this->show_cat || $this->show_tags) : ?>
+    				<?php if($this->showcat || $this->showtags) : ?>
     					<td class="hidden-phone">
-     						<?php if($this->show_cat) : ?>	
+     						<?php if($this->showcat) : ?>
      							<p>
-     							<?php if($this->show_cat==2) : ?>											
+     							<?php if($this->showcat==2) : ?>											
     								<a class="label label-success" href="<?php echo $clink.$item->catid; ?>"><?php echo $item->category_title; ?></a>
     							<?php else: ?>
     								<span class="label label-success"><?php echo $item->category_title; ?></span>
     							<?php endif; ?>
     							</p>
     						<?php endif; ?>
-    						<?php if($this->show_tags) {
+    						<?php if($this->showtags) {
     							$tagLayout = new FileLayout('joomla.content.tags');
-        						echo $tagLayout->render($item->tags);
+    							echo $tagLayout->render($item->tags);
     						}
         					?>
     					</td>

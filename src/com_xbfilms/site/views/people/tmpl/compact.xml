@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms site/views/people/tmpl/compact.xml v0.9.4.1 29th April 2021 -->
+<!-- xbFilms site/views/people/tmpl/compact.xml v0.9.9.3 13th July 2022 -->
 <metadata>
 	<layout title="People List - Compact">
 		<message>Displays a list (table) of people. Option to restrict to single category and filter by role and tags.</message>
@@ -7,7 +7,8 @@
 	<fields name="params" addfieldpath="administrator/components/com_xbfilms/models/fields">
 		<!-- Basic options. -->
 		<fieldset name="basic" label="Options">
-	 
+
+<!-- 
 			<field name="hide_namesonly" type="radio"
 				label="Hide plain names"
 				description="Hide people who only have names set. Will only show people who have picture, or dates, or summary, or nationality, or biography info."
@@ -17,6 +18,7 @@
 				<option value="0" >Show All</option>
 				<option value="1">Hide Basic</option>
 			</field>
+ -->	 
 	 		<field name="show_pdates" type="radio"
 				label="Show birth/death"
 				description="Show column for dates "

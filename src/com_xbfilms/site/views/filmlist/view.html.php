@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmlist/view.html.php
- * @version 0.9.8.3 23rd May 2022
+ * @version 0.9.9.3 14th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -32,20 +32,22 @@ class XbfilmsViewFilmlist extends JViewLegacy {
 		$this->header['subtitle'] = $this->params->get('list_subtitle','','text');
 		$this->header['text'] = $this->params->get('list_headtext','','text');
 		
+		$show_cats = $this->params->get('show_cats','1','int');
+		$this->showcat = ($show_cats) ? $this->params->get('show_fcat','1','int') : 0;
+		
+		$show_tags = $this->params->get('show_tags','1','int');
+		$this->showtags = ($show_tags) ? $this->params->get('show_ftags','1','int') : 0;
+		
 		$this->search_bar = $this->params->get('search_bar','1','int');
-		$this->hide_cat = $this->params->get('menu_category_id',0)>0 ? true : false;
+		$this->hide_cat = (!$this->showcat || ($this->params->get('menu_category_id',0)>0)) ? true : false;
+		$this->hide_tag = (!$this->showtags || (!empty($this->params->get('menu_tag','')))) ? true : false;
 		$this->hide_peep = $this->params->get('menu_perfilt',0)>0 ? true : false;
 		$this->hide_char = $this->params->get('menu_charfilt',0)>0 ? true : false;
-		$this->hide_tag = (!empty($this->params->get('menu_tag',''))) ? true : false;
-
+		
 		$this->show_pic = $this->params->get('show_fpiccol','1','int');
 		$this->show_sum = $this->params->get('show_fsumcol','1','int');
 		$this->show_revs = $this->params->get('show_revs','1','int');
 		$this->show_rev = ($this->show_revs) ? $this->params->get('show_frevcol','2','int') : 0;
-		
-		$this->show_cats = $this->params->get('show_cats','1','int');
-		$this->show_cat = ($this->show_cats) ? $this->params->get('show_fcat','1','int') :0;
-		$this->show_tags = $this->params->get('show_ftags','1','int');
 		
 		$this->show_fdates = $this->params->get('show_fdates','1','int');
 		

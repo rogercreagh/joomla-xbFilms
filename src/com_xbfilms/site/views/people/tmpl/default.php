@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/people/tmpl/default.php
- * @version 0.9.6.f 11th January 2022
+ * @version 0.9.9.3 14th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -17,7 +17,7 @@ use Joomla\CMS\Layout\FileLayout;
 use Joomla\CMS\Router\Route;
 
 HTMLHelper::_('behavior.multiselect');
-HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => JText::_('JOPTION_SELECT_TAG')));
+HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => Text::_('JOPTION_SELECT_TAG')));
 HTMLHelper::_('formbehavior.chosen', 'select');
 
 $listOrder = $this->escape($this->state->get('list.ordering'));
@@ -42,7 +42,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 ?>
 <div class="xbfilms">
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
-		echo XbfilmsHelper::sitePageheader($this->header);
+	    echo XbcultureHelper::sitePageheader($this->header);
 	} ?>
 	
 <form action="<?php echo Route::_('index.php?option=com_xbfilms&view=people'); ?>" method="post" name="adminForm" id="adminForm">
@@ -50,7 +50,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 			if ($this->search_bar) {
 				$hide = '';
 				if ($this->hide_prole) { $hide .= 'filter_prole,';}
-				if ((!$this->show_cats) || ($this->hide_cat)) { $hide .= 'filter_category_id,filter_subcats,';}
+				if ((!$this->showcat) || ($this->hide_cat)) { $hide .= 'filter_category_id,filter_subcats,';}
 				if ($this->hide_tag) { $hide .= 'filter_tagfilt,filter_taglogic,';}
 				echo '<div class="row-fluid"><div class="span12">';
 				echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this,'hide'=>$hide));
@@ -74,7 +74,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
         	<div class="span12">		
 	<?php if (empty($this->items)) { ?>
 	<div class="alert alert-no-items">
-		<?php echo JText::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
+		<?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
 	</div>
 <?php } else { ?>
 		<table class="table table-striped table-hover" style="table-layout:fixed;" id="xbpeople">	
@@ -82,7 +82,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 			<tr>
 				<?php if($this->show_pic) : ?>
 					<th class="center" style="width:80px">
-						<?php echo JText::_( 'XBCULTURE_PORTRAIT' ); ?>
+						<?php echo Text::_( 'XBCULTURE_PORTRAIT' ); ?>
 					</th>	
                 <?php endif; ?>
 				<th>
@@ -96,23 +96,23 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
                 <?php endif; ?>
 				<?php if($this->show_sum) : ?>
 					<th>
-						<?php echo JText::_('XBCULTURE_SUMMARY');?>
+						<?php echo Text::_('XBCULTURE_SUMMARY');?>
 					</th>
                 <?php endif; ?>
 				<?php if($this->show_films != 0) : ?>
 					<th class="hidden-phone">
-						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_FILMS_U','fcnt',$listDirn,$listOrder); ?>
+						<?php echo ucfirst(Text::_('XBCULTURE_FILMS')); ?>
 					</th>
                 <?php endif; ?>
-				<?php if($this->show_cats || $this->show_tags) : ?>
+				<?php if($this->showcat || $this->showtags) : ?>
     				<th class="hidden-tablet hidden-phone">
-    					<?php if ($this->show_cats) {
+    					<?php if ($this->showcat) {
     						echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATEGORY','category_title',$listDirn,$listOrder );
     					}
-    					if (($this->show_cats) && ($this->show_tags)) {
+    					if (($this->showcat) && ($this->showtags)) {
     					    echo ' &amp; ';
     					}
-    					if($this->show_tags) {
+    					if($this->showtags) {
     					    echo Text::_( 'XBFILMS_CAPTAGS' ); 
     					} ?>                
     				</th>
@@ -147,10 +147,10 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 					<td>
 					<p class="xb095">
 					<?php if ($item->year_born != 0) {						
-							echo '<span class="xbnit">'.JText::_('XBFILMS_CAPBORN').'</span>: '.$item->year_born.'<br />'; 
+							echo '<span class="xbnit">'.Text::_('XBFILMS_CAPBORN').'</span>: '.$item->year_born.'<br />'; 
 						}
 						if ($item->year_died != 0) {						
-							echo '<span class="xbnit">'.JText::_('XBFILMS_CAPDIED').'</span>: '.$item->year_died; 
+							echo '<span class="xbnit">'.Text::_('XBFILMS_CAPDIED').'</span>: '.$item->year_died; 
 						}              
 					?>					
 					</p>
@@ -265,17 +265,17 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
     						</span></p>
     					<?php endif; ?>					
     					<?php if ($item->bookcnt > 0) {
-    						echo '<p><span>'.JText::_('Listed with').'</span>: '.$item->bookcnt.' books</p>';
+    						echo '<p><span>'.Text::_('Listed with').'</span>: '.$item->bookcnt.' books</p>';
     					}
     					?>
     				<?php endif; ?>
 					</td>
 				<?php endif; ?>
-    			<?php if(($this->show_cats) || ($this->show_tags)) : ?>
+    			<?php if(($this->showcat) || ($this->showtags)) : ?>
 					<td class="hidden-phone">
- 						<?php if (($this->show_cats) && ($this->xbpeople_ok)) : ?>												
+ 						<?php if (($this->showcat) && ($this->xbpeople_ok)) : ?>												
 							<p>
-								<?php if($this->show_cats == 2) : ?>
+								<?php if($this->showcat == 2) : ?>
     								<a class="label label-success" href="<?php echo $clink.$item->catid; ?>">
     									<?php  echo $item->category_title; ?></a>		
     							<?php else: ?>
@@ -283,8 +283,10 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 								<?php endif; ?>
 							</p>
 						<?php endif; ?>
-						<?php  $tagLayout = new FileLayout('joomla.content.tags');
-    							echo $tagLayout->render($item->tags);?>
+						<?php if($this->showtags) : ?>
+    						<?php  $tagLayout = new FileLayout('joomla.content.tags');
+        							echo $tagLayout->render($item->tags);?>
+						<?php endif; ?>
 					</td>
                 <?php endif; ?>
 				</tr>

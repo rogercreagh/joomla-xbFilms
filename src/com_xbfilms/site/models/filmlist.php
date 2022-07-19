@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/filmlist.php
- * @version 0.9.8.3 23rd May 2022
+ * @version 0.9.9.3 13th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -108,7 +108,7 @@ class XbfilmsModelFilmlist extends JModelList {
             	if ($dosubcats) {
             		//TODO improve this by getting details for categoryId and using lft and rgt
             		$catlist = $categoryId;
-            		$subcatlist = XbfilmsHelper::getChildCats($categoryId,'com_xbfilms');
+            		$subcatlist = XbcultureHelper::getChildCats($categoryId,'com_xbfilms');
             		if ($subcatlist) { $catlist .= ','.implode(',',$subcatlist);}
             		$query->where('a.catid IN ('.$catlist.')');
             	} else {

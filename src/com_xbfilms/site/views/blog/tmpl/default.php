@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/blog/tmpl/default.php
- * @version 0.9.6.f 11th January 2022
+ * @version 0.9.9.3 13th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -39,7 +39,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 ?>
 <div class="xbfilms">
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
-		echo XbfilmsHelper::sitePageheader($this->header);
+	    echo XbcultureHelper::sitePageheader($this->header);
 	} ?>
 	
 <form action="<?php echo Route::_('index.php?option=com_xbfilms&view=blog'); ?>" method="post" name="adminForm" id="adminForm">
