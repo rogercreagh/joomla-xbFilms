@@ -30,7 +30,7 @@ class XbfilmsViewDashboard extends JViewLegacy
 	    }
 	    $this->xbpeople_ok = Factory::getSession()->get('xbpeople_ok');
 		$this->xbbooks_ok = Factory::getSession()->get('xbbooks_ok');
-		$this->xblive_ok = Factory::getSession()->get('xblive_ok');
+		$this->xbevents_ok = Factory::getSession()->get('xbevents_ok');
 		
 		if ($this->xbpeople_ok) {
 			
@@ -169,7 +169,7 @@ class XbfilmsViewDashboard extends JViewLegacy
 	        ToolbarHelper::custom('dashboard.people', 'info-2', '', 'xbPeople', false) ;
 	        
 	        ToolbarHelper::custom('dashboard.books', 'book', '', 'xbBooks', false) ;
-	        ToolbarHelper::custom('dashboard.live', 'music', '', 'xbLive', false) ;
+	        ToolbarHelper::custom('dashboard.live', 'music', '', 'xbEvents', false) ;
 	        if ($canDo->get('core.admin')) {
 	            ToolbarHelper::preferences('com_xbfilms');
 	        }

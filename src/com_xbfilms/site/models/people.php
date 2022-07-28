@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/people.php
- * @version 0.9.9.3 13th July 2022
+ * @version 0.9.9.4 28th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -11,7 +11,6 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\Utilities\ArrayHelper;
-use Joomla\CMS\Categories;
 use Joomla\CMS\Helper\TagsHelper;
 
 class XbfilmsModelPeople extends JModelList {
@@ -145,7 +144,7 @@ class XbfilmsModelPeople extends JModelList {
             			$query->where('p.role IN ('. $db->quote('director').','.$db->quote('producer').','.$db->quote('crew').')');
             			break;
             		case 5:
-            			$query->where('p.role IN ('. $db->quote('appearsin').','.$db->quote('producer').','.$db->quote('actor').')');
+            			$query->where('p.role IN ('. $db->quote('appearsin').','.$db->quote('actor').')');
             			break;
             			
             	}
@@ -243,46 +242,60 @@ class XbfilmsModelPeople extends JModelList {
 			$peep[$i] = $items[$i]->id;
 		}
 		$app->setUserState('people.sortorder', $peep);
+		$showcnts = $this->getState('params')['showcnts'];
 		
 		foreach ($items as $i=>$item) {
-			//get films by role if they are being displayed...
-			$item->films = XbfilmsGeneral::getPersonRoleArray($item->id);
-			$cnts = array_count_values(array_column($item->films, 'role'));
-			$item->dircnt = (key_exists('director',$cnts))?$cnts['director'] : 0;
-			$item->prdcnt = (key_exists('producer',$cnts))?$cnts['producer'] : 0;
-			$item->crewcnt = (key_exists('crew',$cnts))?$cnts['crew'] : 0;
-			$item->actcnt = (key_exists('actor',$cnts))?$cnts['actor'] : 0;
-			$item->appcnt = (key_exists('appearsin',$cnts))?$cnts['appearsin'] : 0;
+// 			//get films by role if they are being displayed...
+// 			$item->films = XbfilmsGeneral::getPersonRoleArray($item->id);
+// 			$cnts = array_count_values(array_column($item->films, 'role'));
+// 			$item->dircnt = (key_exists('director',$cnts))?$cnts['director'] : 0;
+// 			$item->prdcnt = (key_exists('producer',$cnts))?$cnts['producer'] : 0;
+// 			$item->crewcnt = (key_exists('crew',$cnts))?$cnts['crew'] : 0;
+// 			$item->actcnt = (key_exists('actor',$cnts))?$cnts['actor'] : 0;
+// 			$item->appcnt = (key_exists('appearsin',$cnts))?$cnts['appearsin'] : 0;
 			
-			//make role film lists
-			$item->dirlist = '';
-			if ($item->dircnt > 0){
-				$item->dirlist = XbfilmsGeneral::makeLinkedNameList($item->films,'director',', ', true);
-			}
-			$item->prdlist = '';
-			if ($item->prdcnt > 0){
-				$item->prdlist = XbfilmsGeneral::makeLinkedNameList($item->films,'producer',', ',true);
-			}
-			$item->crewlist = '';
-			if ($item->crewcnt > 0){
-				$item->crewlist = XbfilmsGeneral::makeLinkedNameList($item->films,'crew',', ',true, true, 2);
-			}
-			$item->actlist = '';
-			if ($item->actcnt > 0){
-				$item->actlist = XbfilmsGeneral::makeLinkedNameList($item->films,'act',', ',true, true, 2);
-			}
-			$item->applist = '';
-			if ($item->appcnt > 0){
-				$item->applist = XbfilmsGeneral::makeLinkedNameList($item->films,'appearsin',', ',true, true, 2);
-			}
+// 			//make role film lists
+// 			$item->dirlist = '';
+// 			if ($item->dircnt > 0){
+// 				$item->dirlist = XbfilmsGeneral::makeLinkedNameList($item->films,'director',', ', true);
+// 			}
+// 			$item->prdlist = '';
+// 			if ($item->prdcnt > 0){
+// 				$item->prdlist = XbfilmsGeneral::makeLinkedNameList($item->films,'producer',', ',true);
+// 			}
+// 			$item->crewlist = '';
+// 			if ($item->crewcnt > 0){
+// 				$item->crewlist = XbfilmsGeneral::makeLinkedNameList($item->films,'crew',', ',true, true, 2);
+// 			}
+// 			$item->actlist = '';
+// 			if ($item->actcnt > 0){
+// 				$item->actlist = XbfilmsGeneral::makeLinkedNameList($item->films,'act',', ',true, true, 2);
+// 			}
+// 			$item->applist = '';
+// 			if ($item->appcnt > 0){
+// 				$item->applist = XbfilmsGeneral::makeLinkedNameList($item->films,'appearsin',', ',true, true, 2);
+// 			}
 			
 			$item->tags = $tagsHelper->getItemTags('com_xbpeople.person' , $item->id);
+			
+			$item->filmcnt = 0;
+			$db    = Factory::getDbo();
+			$query = $db->getQuery(true);
+			$query->select('COUNT(*)')->from('#__xbfilmperson');
+			$query->where('person_id = '.$db->quote($item->id));
+			$db->setQuery($query);
+			$item->filmcnt = $db->loadResult();
+			if ($item->filmcnt > 0) {
+			    $item->films = XbcultureHelper::getPersonFilmRoles($item->id,'','title ASC', $showcnts);
+			} else {
+			    $item->films = '';
+			}
 			
 			$item->bookcnt = 0;
 			if ($this->xbbooksStatus===true) {
 				$db    = Factory::getDbo();
 				$query = $db->getQuery(true);
-				$query->select('COUNT(*)')->from('#__xbbookperson');
+				$query->select('COUNT(DISTINCT book_id) AS bcnt')->from('#__xbbookperson');
 				$query->where('person_id = '.$db->quote($item->id));
 				$db->setQuery($query);
 				$item->bookcnt = $db->loadResult();

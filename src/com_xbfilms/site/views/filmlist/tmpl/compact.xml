@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- xbBooks site/views/booklist/default.xml v0.9.4.1 29th April 2021 -->
 <metadata>
-	<layout title="Film List - Compact">
+	<layout title="Film List Compact">
 		<message>Displays a compact list of film with only title, director, rel_year, rating and dateseen columns. Options enable user search &amp; filtering or to restrict to single category and filter person and tags.</message>
 	</layout>
 	<fields name="params" addfieldpath="administrator/components/com_xbfilms/models/fields">

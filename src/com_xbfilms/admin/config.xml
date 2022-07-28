@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms config.xml v0.9.8.6 3rd June 2022 -->
+<!-- xbFilms config.xml v0.9.9.4 28th July 2022 -->
 <config>
 <!-- GENERAL TAB -->				
 	<fieldset name="general"
@@ -10,7 +10,7 @@
 			label="XBCULTURE_CONFIG_DEL_UNINST_LABEL"
 			description="XBCULTURE_CONFIG_DEL_UNINST_DESC"
  			class="btn-group btn-group-yesno"
-			default="1"
+			default="0"
 			>
 				<option value="0" >JNO</option>
 				<option value="1">JYES</option>
@@ -401,11 +401,6 @@
 			label="Film List Specific Options"
 			class="info"
 		/>	
-		<field name="filmlist_layout" type="componentlayout"
-	        label="Films Layout"
-	        description="JFIELD_ALT_COMPONENT_LAYOUT_DESC"
-	       	extension="com_xbfilms" view="filmlist" 
-	    />	    
 		<field name="show_fpiccol" type="radio"
 			label="Poster Column"
 			description="Show poster column by default - can override in menu options"
@@ -437,20 +432,6 @@
 			label="People List Specific Options"
 			class="info"
 		/>	
-		<field name="people_layout" type="componentlayout"
-	        label="People Layout"
-	        description="JFIELD_ALT_COMPONENT_LAYOUT_DESC"
-	       	extension="com_xbfilms" view="people" 
-	    />
-		<field name="hide_namesonly" type="radio"
-			label="Hide plain names"
-			description="Hide people who only have names set. Will only show people who have picture, or dates, or summary, or nationality, or biography info."
-			class="btn-group btn-group-yesno btn-small"
-			default="0"
-			>
-			<option value="0" >Show All</option>
-			<option value="1">Hide Basic</option>
-		</field>
 		<field name="show_ppiccol" type="radio"
 			label="Portrait Column"
 			description="Show portrait column by default - can override in menu options"
@@ -479,26 +460,30 @@
 			<option value="0" >JHIDE</option>
 			<option value="1">JSHOW</option>
 		</field>			
-	 		<field name="show_films" type="list"
-				label="Show Film List"
-				description="Show list of films for each person as a simple count per role, count with mouseover popup list, a linked list in the column, or hide the column"
-				default="cnt"
-				>
-				<option value="0" >JHIDE</option>
-				<option value="cnt">Count</option>
-				<option value="pop">Popover</option>
-				<option value="lst">List</option>
-			</field>	
+		<field name="showcnts" type="radio"
+			label="Show counts"
+			description="Show counts for films per person"
+			class="btn-group btn-group-yesno"
+			default="1"
+			>
+			<option value="0" >JHIDE</option>
+			<option value="1">JSHOW</option>
+		</field>
+		<field name="showlists" type="list"
+			label="Show item lists"
+			description="Show lists of films and roles as popover on the count (more compact) or full list. Popover will be click to show, and in both cases title will be linked to item entry"
+			default="1"
+			showon="showcnts!:0"
+			>
+			<option value="0" >JHIDE</option>
+			<option value="1" >Show as popover</option>
+			<option value="2" >Show as list</option>
+		</field>
 			    
   		<field name="charslistnote" type="note"
 			label="Characters List Specific Options"
 			class="info"
 		/>	
-		<field name="characters_layout" type="componentlayout"
-	        label="Characters Layout"
-	        description="JFIELD_ALT_COMPONENT_LAYOUT_DESC"
-	       	extension="com_xbfilms" view="characters" 
-	    />
 		<field name="show_cpiccol" type="radio"
 			label="Image Column"
 			description="Show poster column by default - can override in menu options"
@@ -517,6 +502,25 @@
 			<option value="0" >JHIDE</option>
 			<option value="1">JSHOW</option>
 		</field>			    		
+		<field name="showccnts" type="radio"
+			label="Show counts"
+			description="Show counts for films per person"
+			class="btn-group btn-group-yesno"
+			default="1"
+			>
+			<option value="0" >JHIDE</option>
+			<option value="1">JSHOW</option>
+		</field>
+		<field name="showclists" type="list"
+			label="Show item lists"
+			description="Show lists of films popover on the count (more compact) or full list. Popover will be click to show, and in both cases title will be linked to item entry"
+			default="1"
+			showon="showcnts!:0"
+			>
+			<option value="0" >JHIDE</option>
+			<option value="1" >Show as popover</option>
+			<option value="2" >Show as list</option>
+		</field>
  			    		
   		<field name="catlistnote" type="note"
 			label="Category Counts View Options"
@@ -736,7 +740,7 @@
 		/>	
 		<field name="use_xbcss" type="radio"
 			label="XBCULTURE_CONFIG_USE_XBCSS_LABEL"
-			description="XBCULTURE_CONFIG_USE_XBCSS_LABEL"
+			description="XBCULTURE_CONFIG_USE_XBCSS_DESC"
 			class="btn-group btn-group-yesno"
 			default="1"
 			>

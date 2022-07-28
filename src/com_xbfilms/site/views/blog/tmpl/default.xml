@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- xbFilms site/views/blog/tmpl/default.xml v0.9.4.1 29th April 2021 -->
 <metadata>
-	<layout title="FilmReviews Blog">
-		<message>Displays a blog of reviews. Options to restrict to single category and filter by tag(s).</message>
+	<layout title="Films Blog">
+		<message>Displays a blog of films with reviews. Options to restrict to single category and filter by tag(s).</message>
 	</layout>
 	<fields name="params">
 <!-- Basic options. -->

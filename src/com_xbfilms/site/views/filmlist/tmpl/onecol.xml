@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- xbFilms site/views/filmlist/onecol.xml v0.9.9.3 14th July 2022 -->
 <metadata>
-	<layout title="Film List - One Column">
+	<layout title="Film List One Column">
 		<message>Displays a list of films in a single column. Options enable user search &amp; filtering or to restrict to single category and filter person and tags.</message>
 	</layout>
 	<fields name="params" addfieldpath="administrator/components/com_xbfilms/models/fields">

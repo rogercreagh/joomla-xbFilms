@@ -1,24 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms site/views/people/tmpl/compact.xml v0.9.9.3 13th July 2022 -->
+<!-- xbFilms site/views/people/tmpl/compact.xml v0.9.9.4 28th July 2022 -->
 <metadata>
-	<layout title="People List - Compact">
+	<layout title="Filom People List Compact">
 		<message>Displays a list (table) of people. Option to restrict to single category and filter by role and tags.</message>
 	</layout>
 	<fields name="params" addfieldpath="administrator/components/com_xbfilms/models/fields">
 		<!-- Basic options. -->
 		<fieldset name="basic" label="Options">
 
-<!-- 
-			<field name="hide_namesonly" type="radio"
-				label="Hide plain names"
-				description="Hide people who only have names set. Will only show people who have picture, or dates, or summary, or nationality, or biography info."
-				class="btn-group btn-group-yesno btn-small"
-				useglobal="true"
-				>
-				<option value="0" >Show All</option>
-				<option value="1">Hide Basic</option>
-			</field>
- -->	 
 	 		<field name="show_pdates" type="radio"
 				label="Show birth/death"
 				description="Show column for dates "
@@ -28,14 +17,25 @@
 				<option value="0" >JHIDE</option>
 				<option value="1">JSHOW</option>
 			</field>	
-	 		<field name="show_cfilms" type="list"
-				label="Show Film List"
-				description="Show list of films for each person as count for all roles"
+			<field name="showcnts" type="radio"
+				label="Show counts"
+				description="Show counts for books and films per person"
+				class="btn-group btn-group-yesno"
 				useglobal="true"
 				>
 				<option value="0" >JHIDE</option>
-				<option value="4">Count all roles</option>
-			</field>	
+				<option value="1">JSHOW</option>
+			</field>
+			<field name="showlists" type="list"
+				label="Show item lists"
+				description="Show lists of books/films and roles as popover on the count (more compact) or full list. Popover will be click to show, and in both cases title will be linked to item entry"
+				useglobal="true"
+				showon="showcnts:1"
+				>
+				<option value="0" >JHIDE</option>
+				<option value="1" >Show as popover</option>
+				<option value="2" >Show as list</option>
+			</field>
 	 		<field name="show_pcat" type="list"
 				label="Show Person Category"
 				description="If both Show Category and Show Tag are no the the column will be hidden in list view"

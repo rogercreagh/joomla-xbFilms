@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/category/tmpl/default.php
- * @version 0.9.4 17th April 2021
+ * @version 0.9.9.4 28th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -21,11 +21,11 @@ $blink = 'index.php?option=com_xbfilms&view=film'.$itemid.'&id=';
 
 $itemid = XbfilmsHelperRoute::getPeopleRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
-$plink = 'index.php?option=com_xbfilms&view=person'.$itemid.'&id=';
+$plink = 'index.php?option=com_xbpeople&view=person'.$itemid.'&id=';
 
 $itemid = XbfilmsHelperRoute::getCharsRoute() ;
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
-$plink = 'index.php?option=com_xbfilms&view=character'.$itemid.'&id=';
+$plink = 'index.php?option=com_xbpeople&view=character'.$itemid.'&id=';
 
 $itemid = XbfilmsHelperRoute::getReviewsRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';

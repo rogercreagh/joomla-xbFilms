@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/people/tmpl/default.php
- * @version 0.9.9.3 14th July 2022
+ * @version 0.9.9.4 28th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -33,11 +33,11 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 
 $itemid = XbfilmsHelperRoute::getPeopleRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
-$plink = 'index.php?option=com_xbfilms&view=person' . $itemid.'&id=';
+$plink = 'index.php?option=com_xbpeople&view=person' . $itemid.'&id=';
 
 $itemid = XbfilmsHelperRoute::getCategoriesRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
-$clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
+$clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
 
 ?>
 <div class="xbfilms">
@@ -99,21 +99,21 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 						<?php echo Text::_('XBCULTURE_SUMMARY');?>
 					</th>
                 <?php endif; ?>
-				<?php if($this->show_films != 0) : ?>
-					<th class="hidden-phone">
-						<?php echo ucfirst(Text::_('XBCULTURE_FILMS')); ?>
-					</th>
-                <?php endif; ?>
+                <?php if ($this->showcnts) : ?>
+    				<th>
+    					<?php echo ucfirst(Text::_('XBCULTURE_FILMS')); ?>
+    				</th>
+               <?php endif; ?>
 				<?php if($this->showcat || $this->showtags) : ?>
     				<th class="hidden-tablet hidden-phone">
     					<?php if ($this->showcat) {
-    						echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATEGORY','category_title',$listDirn,$listOrder );
+    						echo HtmlHelper::_('searchtools.sort','XBCULTURE_CATEGORY','category_title',$listDirn,$listOrder );
     					}
     					if (($this->showcat) && ($this->showtags)) {
     					    echo ' &amp; ';
     					}
     					if($this->showtags) {
-    					    echo Text::_( 'XBFILMS_CAPTAGS' ); 
+    					    echo ucfirst(Text::_( 'XBCULTURE_TAGS'));
     					} ?>                
     				</th>
                 <?php endif; ?>
@@ -183,94 +183,30 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
     					<?php endif; ?>
     				</td>
 				<?php endif; ?>
-				<?php if ($this->show_films != '0') : ?>
-					<td class="hidden-phone" >				
-					<?php if(($this->show_films='4') && ($item->fcnt>0)) : ?>
-    					<p><?php echo Text::_('Listed with').' '.$item->fcnt.' '.Text::_(($item->fcnt ==1) ? 'film' : 'films'); ?>
-    					</p>
-					<?php else: ?>
-    					<?php if ($item->dircnt > 0) : ?>
-    						<p><span 
-    						<?php if ($this->show_films == '2') : ?>
-    								class="hasPopover" title data-original-title="Films" 
-    								data-content="<?php echo strip_tags($item->dirlist); ?>"
-    						<?php endif; ?>
-    						>
-    						<?php echo Text::_('XBFILMS_DIRECTOR_OF').' ';
-    						if ($this->show_films == '3') {
-    							echo $item->dirlist;
-    						} else { //implies show_films=cnt or tip ( 1 or 2)
-    							echo $item->dircnt.' films';
-    						} ?>
-    						</span></p>
-    					<?php endif; ?>
-    					<?php if ($item->prdcnt > 0) : ?>
-    						<p><span 
-    						<?php if ($this->show_films == '2') : ?>
-    								class="hasPopover" title data-original-title="Films" 
-    								data-content="<?php echo strip_tags($item->prdlist); ?>"
-    						<?php endif; ?>
-    						>
-    						<?php echo Text::_('XBFILMS_PRODUCER_OF').' ';
-    						if ($this->show_films == '3') {
-    							echo $item->dirlist;
-    						} else {
-    							echo $item->dircnt.' films';
-    						} ?>
-    						</span></p>
-    					<?php endif; ?>
-    					<?php if ($item->crewcnt > 0) : ?>
-    						<p><span 
-    						<?php if ($this->show_films == '2') : ?>
-    								class="hasPopover" title data-original-title="Films" 
-    								data-content="<?php echo strip_tags($item->crewlist); ?>"
-    						<?php endif; ?>
-    						>
-    						<?php echo Text::_('Crew on').' ';
-    						if ($this->show_films == '3') {
-    							echo $item->crewlist;
-    						} else {
-    							echo $item->crewcnt.' films';
-    						} ?>
-    						</span></p>
-    					<?php endif; ?>
-    					<?php if ($item->actcnt > 0) : ?>
-    						<p><span 
-    						<?php if ($this->show_films == '2') : ?>
-    								class="hasPopover" title data-original-title="Films" 
-    								data-content="<?php echo strip_tags($item->actlist); ?>"
-    						<?php endif; ?>
-    						>
-    						<?php echo Text::_('Actor in').' ';
-    						if ($this->show_films == '3') {
-    							echo $item->actlist;
-    						} else {
-    							echo $item->actcnt.' films';
-    						} ?>
-    						</span></p>
-    					<?php endif; ?>
-    					<?php if ($item->appcnt > 0) : ?>
-    						<p><span 
-    						<?php if ($this->show_films == '2') : ?>
-    								class="hasPopover" title data-original-title="Films" 
-    								data-content="<?php echo strip_tags($item->applist); ?>"
-    						<?php endif; ?>
-    						>
-    						<?php echo Text::_('Appears in').' ';
-    						if ($this->show_films == '3') {
-    							echo $item->applist;
-    						} else {
-    							echo $item->appcnt.' films';
-    						} ?>
-    						</span></p>
-    					<?php endif; ?>					
-    					<?php if ($item->bookcnt > 0) {
-    						echo '<p><span>'.Text::_('Listed with').'</span>: '.$item->bookcnt.' books</p>';
-    					}
-    					?>
+                <?php if ($this->showcnts) : ?>
+    				<td>
+    				<?php if (($this->showlists == 1) && ($item->filmcnt>0)) :?>
+    					<span tabindex="<?php echo $item->id; ?>"
+							class="xbpop xbcultpop xbfocus" data-trigger="focus"
+							title data-original-title="Film List" 
+							data-content="<?php echo htmlentities($item->filmlist); ?>"
+						>        				
+    				<?php  endif; ?>
+    					<span class="badge <?php echo ($item->filmcnt>0) ? 'flmcnt' : ''?>"><?php echo $item->filmcnt;?></span>
+    				<?php if (($this->showlists == 1) && ($item->filmcnt>0)) :?>
+    					</span>
+					<?php endif; ?>        					
+    				<?php if ($this->showlists == 2) :?>
+    					<?php echo $item->filmlist; ?>
     				<?php endif; ?>
-					</td>
+    				</td>
 				<?php endif; ?>
+
+    				<?php if ($item->bookcnt > 0) {
+    						echo '<p class="xbit xb095"><span>'.Text::_('XBCULTURE_LISTED_WITH').'</span>: '.$item->bookcnt.' '.Text::_('XBCULTURE_FILMS').'</p>';
+    					}
+    				?>
+				</td>
     			<?php if(($this->showcat) || ($this->showtags)) : ?>
 					<td class="hidden-phone">
  						<?php if (($this->showcat) && ($this->xbpeople_ok)) : ?>												
@@ -283,10 +219,10 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 								<?php endif; ?>
 							</p>
 						<?php endif; ?>
-						<?php if($this->showtags) : ?>
-    						<?php  $tagLayout = new FileLayout('joomla.content.tags');
-        							echo $tagLayout->render($item->tags);?>
-						<?php endif; ?>
+						<?php if ($this->showtags) : ?>	
+							<?php  $tagLayout = new FileLayout('joomla.content.tags');
+    							echo $tagLayout->render($item->tags);?>
+    					<?php endif; ?>
 					</td>
                 <?php endif; ?>
 				</tr>

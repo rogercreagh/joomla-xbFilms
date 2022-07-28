@@ -34,14 +34,14 @@ class XbfilmsControllerDashboard extends JControllerAdmin {
     }
     
     function live() {
-        $xblive_ok = Factory::getSession()->get('xbgigs_ok',false);
-        if ($xblive_ok == true) {
-            $this->setRedirect('index.php?option=com_xblive');
-        } elseif ($xblive_ok === 0) {
-            Factory::getApplication()->enqueueMessage('<span class="xbhlt" style="padding:5px 10px;">xbLive '.JText::_('XBCULTURE_COMP_DISABLED').'</span>', 'warning');
-            $this->setRedirect('index.php?option=com_installer&view=manage&filter[search]=xbgigs');
+        $xbevents_ok = Factory::getSession()->get('xbevents_ok',false);
+        if ($xbevents_ok == true) {
+            $this->setRedirect('index.php?option=com_xbevents');
+        } elseif ($xbevents_ok === 0) {
+            Factory::getApplication()->enqueueMessage('<span class="xbhlt" style="padding:5px 10px;">xbEvents '.JText::_('XBCULTURE_COMP_DISABLED').'</span>', 'warning');
+            $this->setRedirect('index.php?option=com_installer&view=manage&filter[search]=xbevents');
         } else {
-            Factory::getApplication()->enqueueMessage('<span class="xbhlt" style="padding:5px 10px;">xbLive '.JText::_('XBCULTURE_COMP_MISSING').'</span>', 'info');
+            Factory::getApplication()->enqueueMessage('<span class="xbhlt" style="padding:5px 10px;">xbEvents '.JText::_('XBCULTURE_COMP_MISSING').'</span>', 'info');
             $this->setRedirect('index.php?option=com_xbfilms&view=dashboard');
         }
     }

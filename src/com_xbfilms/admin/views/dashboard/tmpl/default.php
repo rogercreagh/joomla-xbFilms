@@ -47,7 +47,7 @@ if (!$this->xbpeople_ok) : ?>
                               </i></p>
                               <?php echo Text::_('XBCULTURE_OTHER_COMPS'); ?>
                               <ul>
-                          	<?php $coms = array('com_xbbooks','com_xblive','com_xbpeople');
+                          	<?php $coms = array('com_xbbooks','com_xbevents','com_xbpeople');
                           	foreach ($coms as $element) {
                           	    echo '<li>';
                               	$ext = XbcultureHelper::getExtensionInfo($element);
@@ -84,8 +84,6 @@ if (!$this->xbpeople_ok) : ?>
                           <br/><?php echo Text::_( 'XBCULTURE_PLATFORM' ).' '.$this->client['platform'].'<br/>'.Text::_( 'XBCULTURE_BROWSER').' '.$this->client['browser']; ?>
                      	</p>
 				<?php echo HtmlHelper::_('bootstrap.endSlide'); ?>
-					<?php echo HTMLHelper::_('bootstrap.addSlide', 'slide-dashboard', Text::_('XBCULTURE_CONFIG_OPTIONS'), 'keyconfig','xbaccordion'); ?>
-	        		<?php echo HTMLHelper::_('bootstrap.endSlide'); ?>
                   <?php echo HtmlHelper::_('bootstrap.addSlide', 'slide-dashboard', Text::_('XBCULTURE_ABOUT'), 'about'); ?>
                       <p><?php echo Text::_( 'XBFILMS_ABOUT_INFO' ); ?></p>
                   <?php echo HtmlHelper::_('bootstrap.endSlide'); ?>
