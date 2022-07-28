@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/layouts/joomla/content/tags.php
- * @version 0.9.6.f 10th January 2022
+ * @version 0.9.9.4 27th July 2022
  * @desc changes link to the com_xbfilms tag view
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -25,7 +25,7 @@ $authorised = Factory::getUser()->getAuthorisedViewLevels();
 			<?php if (in_array($tag->access, $authorised)) : ?>
 				<?php $tagParams = new Registry($tag->params); ?>
 				<?php $link_class = $tagParams->get('tag_link_class', 'label label-info'); ?>
-				<li class="tag-<?php echo $tag->tag_id; ?> tag-list<?php echo $i; ?>" itemprop="keywords">
+				<li class="tag-<?php echo $tag->tag_id; ?> tag-list<?php echo $i; ?>" style="padding:0;" itemprop="keywords">
 					<a href="<?php echo 'index.php?option=com_xbfilms&view=tag&id='.$tag->tag_id . ':' . $tag->alias; ?>" class="<?php echo $link_class; ?>">
 						<?php echo $this->escape($tag->title); ?>
 					</a>
