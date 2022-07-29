@@ -34,6 +34,8 @@ $itemid = XbfilmsHelperRoute::getBlogRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
 $rvlink = 'index.php?option=com_xbfilms&view=blog' . $itemid.'&catid=';
 
+$plink='index.php?option=com_xbfilms&view=people&catid=';
+$chlink='index.php?option=com_xbfilms&view=characters&catid=';
 $prevext='';
 ?>
 <div class="xbfilms">
@@ -108,12 +110,12 @@ $prevext='';
 	   				</td>
 	    			<td class="center">
 	   					<?php if ($item->bpcnt >0) : ?> 
-	   						<a href="<?php echo $bvlink.$item->id; ?>" class="badge percnt"><?php echo $item->bpcnt; ?></a></span>
+	   						<a href="<?php echo $plink.$item->id; ?>" class="badge percnt"><?php echo $item->bpcnt; ?></a></span>
 	   					<?php endif; ?>
 	   				</td>
 	    			<td class="center">
 	   					<?php if ($item->bchcnt >0) : ?> 
-	   						<a href="<?php echo $rvlink.$item->id; ?>" class="badge chcnt"><?php echo $item->bchcnt; ?></a></span>
+	   						<a href="<?php echo $chlink.$item->id; ?>" class="badge chcnt"><?php echo $item->bchcnt; ?></a></span>
 	   					<?php endif; ?>
 	   				</td>
 				</tr>

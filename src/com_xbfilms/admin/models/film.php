@@ -183,7 +183,7 @@ class XbfilmsModelFilm extends JModelAdmin {
             foreach ($pks as $i=>$item) {
                 $table->load($item);
                 if (!$table->delete($item)) {
-                	$filmword = ($cnt == 1)?  JText::_('ONEFILM') : JText::_('MANYFILMS');
+                	$filmword = ($cnt == 1)?  JText::_('XBCULTURE_FILM') : JText::_('XBCULTURE_FILMS');
                     Factory::getApplication()->enqueueMessage($cnt.$filmword.' deleted');
                     $this->setError($table->getError());
                     return false;
@@ -191,7 +191,7 @@ class XbfilmsModelFilm extends JModelAdmin {
                 $table->reset();
                 $cnt++;
             }
-            $filmword = ($cnt == 1)? JText::_('ONEFILM') : JText::_('MANYFILMS');
+            $filmword = ($cnt == 1)? JText::_('XBCULTURE_FILM') : JText::_('XBCULTURE_FILMS');
             Factory::getApplication()->enqueueMessage($cnt.$filmword.' deleted');
             return true;
         }

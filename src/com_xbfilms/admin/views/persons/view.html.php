@@ -58,7 +58,9 @@ class XbfilmsViewPersons extends JViewLegacy {
     protected function addToolBar() {
         $canDo = XbfilmsHelper::getActions();
         
-        ToolbarHelper::title(JText::_('COM_XBFILMS').': '.JText::_('XBCULTURE_TITLE_PEOPLEMANAGER'), 'users' );
+        	$bar = Toolbar::getInstance('toolbar');        	
+
+        	ToolbarHelper::title(JText::_('COM_XBFILMS').': '.JText::_('XBCULTURE_TITLE_PEOPLEMANAGER'), 'users' );
         
         if ($canDo->get('core.create') > 0) {
             ToolbarHelper::addNew('person.add');
@@ -81,7 +83,6 @@ class XbfilmsViewPersons extends JViewLegacy {
         if ($canDo->get('core.create') && $canDo->get('core.edit')
         		&& $canDo->get('core.edit.state'))
         {
-        	$bar = Toolbar::getInstance('toolbar');        	
         	// we use a standard Joomla layout to get the html for the batch button
         	$layout = new FileLayout('joomla.toolbar.batch');
         	$batchButtonHtml = $layout->render(array('title' => JText::_('JTOOLBAR_BATCH')));

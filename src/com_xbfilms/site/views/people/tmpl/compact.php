@@ -91,7 +91,7 @@ $clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
                 <?php endif; ?>
                 <?php if ($this->showcnts) : ?>
     				<th>
-    					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_BOOKS_U','bcnt',$listDirn,$listOrder); ?>
+    					<?php echo HTMLHelper::_('searchtools.sort','Films','bcnt',$listDirn,$listOrder); ?>
     				</th>
 				<?php endif; ?>
 				<?php if ($this->showcat) : ?>

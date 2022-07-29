@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/tags/tmpl/default.php
- * @version 0.9.9.3 13th July 2022
+ * @version 0.9.9.4 29th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -32,7 +32,7 @@ $tvlink = $xblink.'tag'.$itemid.'&id=';
 
 $itemid = XbfilmsHelperRoute::getPeopleRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
-$pllink = $xblink.'people'.$itemid.'&tagid=';
+$pllink = 'index.php?option=com_xbpeople&view=people'.$itemid.'&tagid=';
 
 $itemid = XbfilmsHelperRoute::getFilmsRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
@@ -44,7 +44,7 @@ $rllink = $xblink.'filmreviews'.$itemid.'&tagid=';
 
 $itemid = XbfilmsHelperRoute::getCharsRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
-$chllink = $xblink.'characters'.$itemid.'&tagid=';
+$chllink = 'index.php?option=com_xbpeople&view=characters'.$itemid.'&tagid=';
 
 ?>
 

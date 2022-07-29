@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/tables/person.php
- * @version 0.9.8.3 24th May 2022
+ * @version 0.9.9.4 29th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -25,7 +25,7 @@ class XbfilmsTablePerson extends Table
         parent::__construct('#__xbpersons', 'id', $db);
         $this->setColumnAlias('published', 'state');
         $this->_supportNullValue = true;  //write empty checkedouttime as null
-        Tags::createObserver($this, array('typeAlias' => 'com_xbfilms.person'));
+        Tags::createObserver($this, array('typeAlias' => 'com_xbpeople.person'));
     }
     
     public function delete($pk=null) {
@@ -149,10 +149,10 @@ class XbfilmsTablePerson extends Table
     		$array['metadata'] = (string)$registry;
     	}
     	return parent::bind($array, $ignore);
-    	if (isset($array['rules']) && is_array($array['rules'])) {
-    		$rules = new JAccessRules($array['rules']);
-    		$this->setRules($rules);
-    	}
+//     	if (isset($array['rules']) && is_array($array['rules'])) {
+//     		$rules = new JAccessRules($array['rules']);
+//     		$this->setRules($rules);
+//     	}
     	
     }
     

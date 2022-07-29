@@ -29,7 +29,7 @@ if (!$listOrder) {
 }
 $orderNames = array('name'=>Text::_('XBCULTURE_NAME'),
 		'id'=>'id','category_title'=>Text::_('XBCULTURE_CATEGORY'),
-		'published'=>Text::_('XBCULTURE_CAPPUBSTATE'),'a.ordering'=>Text::_('XBCULTURE_ORDERING'));
+		'published'=>Text::_('XBCULTURE_PUBSTATE'),'a.ordering'=>Text::_('XBCULTURE_ORDERING'));
 
 $saveOrder      = $listOrder == 'ordering';
 $canOrder       = $user->authorise('core.edit.state', 'com_xbfilms.film');
@@ -75,7 +75,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 	<?php if ($search) {
 		echo '<p>Searched for <b>'; 
 		if (stripos($search, 'i:') === 0) {
-            echo trim(substr($search, 2)).'</b> '.Text::_('XBFILMS_AS_PERSONID');
+            echo trim(substr($search, 2)).'</b> '.Text::_('as character Id');
 		} elseif ((stripos($search, 's:') === 0) || (stripos($search, 'd:') === 0)) {
             echo trim(substr($search, 2)).'</b> '.Text::_('XBFILMS_AS_INBIOG');
         } else {
