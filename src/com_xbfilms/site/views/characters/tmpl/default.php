@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/characters/tmpl/default.php
- * @version 0.9.9.4 28th July 2022
+ * @version 0.9.9.5 30th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -93,7 +93,7 @@ $plink = 'index.php?option=com_xbpeople&view=character'.$itemid.'&id=';
                 <?php endif; ?>
                <?php if ($this->showccnts) : ?>
     				<th class="hidden-phone">
-    					<?php echo ucfirst(Text::_('XBCULTURE_FILMS')); ?>
+    					<?php echo HTMLHelper::_('searchtools.sort','Films','fcnt',$listDirn,$listOrder); ?>
     				</th>
                 <?php endif; ?>
 				<?php if($this->showcat || $this->showtags) : ?>
@@ -174,7 +174,7 @@ $plink = 'index.php?option=com_xbpeople&view=character'.$itemid.'&id=';
     					<?php echo $item->filmlist; ?>
     				<?php endif; ?>
     				<?php if ($item->bcnt > 0) {
-    						echo '<p class="xbit xb095"><span>'.Text::_('XBCULTURE_LISTED_WITH').'</span>: '.$item->bcnt.' '.Text::_('XBCULTURE_FILMS').'</p>';
+    						echo '<p class="xbit xb095">&amp; '.$item->bcnt.' '.Text::_('XBCULTURE_BOOKS').'</p>';
     					}
     				?>
     				</td>

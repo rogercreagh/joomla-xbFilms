@@ -91,7 +91,7 @@ $clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
                 <?php endif; ?>
                 <?php if ($this->showcnts) : ?>
     				<th>
-    					<?php echo HTMLHelper::_('searchtools.sort','Films','bcnt',$listDirn,$listOrder); ?>
+    					<?php echo HTMLHelper::_('searchtools.sort','Films','fcnt',$listDirn,$listOrder); ?>
     				</th>
 				<?php endif; ?>
 				<?php if ($this->showcat) : ?>
@@ -130,20 +130,27 @@ $clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
 				<?php endif; ?>
                 <?php if ($this->showcnts) : ?>
     				<td>
-    				<?php if (($this->showlists == 1) && ($item->filmcnt>0)) :?>
+    				<?php if (($this->showlists == 1) && ($item->fcnt>0)) :?>
     					<span tabindex="<?php echo $item->id; ?>"
 							class="xbpop xbcultpop xbfocus" data-trigger="focus"
 							title data-original-title="Film List" 
 							data-content="<?php echo htmlentities($item->filmlist); ?>"
 						>        				
     				<?php  endif; ?>
-    					<span class="badge <?php echo ($item->filmcnt>0) ? 'flmcnt' : ''?>"><?php echo $item->filmcnt;?></span>
-    				<?php if (($this->showlists == 1) && ($item->filmcnt>0)) :?>
+    					<span class="badge <?php echo ($item->fcnt>0) ? 'flmcnt' : ''?>"><?php echo $item->fcnt;
+    					if ($item->frolecnt>$item->fcnt) {
+    					    echo ' <span class="xbit xbnorm">('.$item->frolecnt.')</span>'; } ?>
+        					</span>
+    					<?php if (($this->showlists == 1) && ($item->fcnt>0)) :?>
     					</span>
 					<?php endif; ?>        					
     				<?php if ($this->showlists == 2) :?>
     					<?php echo $item->filmlist; ?>
     				<?php endif; ?>
+    				<?php if ($item->bcnt > 0) {
+    						echo '<p class="xbit xb095">&amp; '.$item->bcnt.' '.Text::_('XBCULTURE_BOOKS').'</p>';
+    					}
+    				?>
     				</td>
 				<?php endif; ?>
 				<?php if ($this->showcat) : ?>												

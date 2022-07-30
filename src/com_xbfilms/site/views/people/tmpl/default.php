@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/people/tmpl/default.php
- * @version 0.9.9.4 28th July 2022
+ * @version 0.9.9.5 30th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -101,7 +101,7 @@ $clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
                 <?php endif; ?>
                 <?php if ($this->showcnts) : ?>
     				<th>
-    					<?php echo ucfirst(Text::_('XBCULTURE_FILMS')); ?>
+     					<?php echo HtmlHelper::_('searchtools.sort','Films','fcnt',$listDirn,$listOrder ); ?>
     				</th>
                <?php endif; ?>
 				<?php if($this->showcat || $this->showtags) : ?>
@@ -185,15 +185,18 @@ $clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
 				<?php endif; ?>
                 <?php if ($this->showcnts) : ?>
     				<td>
-    				<?php if (($this->showlists == 1) && ($item->filmcnt>0)) :?>
+    				<?php if (($this->showlists == 1) && ($item->fcnt>0)) :?>
     					<span tabindex="<?php echo $item->id; ?>"
 							class="xbpop xbcultpop xbfocus" data-trigger="focus"
 							title data-original-title="Film List" 
 							data-content="<?php echo htmlentities($item->filmlist); ?>"
 						>        				
     				<?php  endif; ?>
-    					<span class="badge <?php echo ($item->filmcnt>0) ? 'flmcnt' : ''?>"><?php echo $item->filmcnt;?></span>
-    				<?php if (($this->showlists == 1) && ($item->filmcnt>0)) :?>
+    					<span class="badge <?php echo ($item->fcnt>0) ? 'flmcnt' : ''?>"><?php echo $item->fcnt;
+    					if ($item->frolecnt > $item->fcnt ) {
+    					    echo ' <span class="xbit xbnorm">('.$item->frolecnt.')</span>'; } ?>
+        					</span>
+    					<?php if (($this->showlists == 1) && ($item->fcnt>0)) :?>
     					</span>
 					<?php endif; ?>        					
     				<?php if ($this->showlists == 2) :?>
@@ -202,8 +205,8 @@ $clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
     				</td>
 				<?php endif; ?>
 
-    				<?php if ($item->bookcnt > 0) {
-    						echo '<p class="xbit xb095"><span>'.Text::_('XBCULTURE_LISTED_WITH').'</span>: '.$item->bookcnt.' '.Text::_('XBCULTURE_FILMS').'</p>';
+    				<?php if ($item->bcnt > 0) {
+    						echo '<p class="xbit xb095">&amp; '.$item->bookcnt.' '.Text::_('XBCULTURE_BOOKS').'</p>';
     					}
     				?>
 				</td>

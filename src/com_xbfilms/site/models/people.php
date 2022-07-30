@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/people.php
- * @version 0.9.9.4 28th July 2022
+ * @version 0.9.9.5 30th July 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -79,13 +79,13 @@ class XbfilmsModelPeople extends JModelList {
 		$query->select('IF((year_born>-9999),year_born,year_died) AS sortdate');
 //            ->select('(GROUP_CONCAT(p.person_id SEPARATOR '.$db->quote(',') .')) AS personlist');
         $query->from('#__xbpersons AS a');
-        $query->join('LEFT',$db->quoteName('#__xbfilmperson', 'p') . ' ON ' . $db->quoteName('p.person_id') . ' = ' .$db->quoteName('a.id') );
-        $query->where('p.film_id IS NOT NULL');
-//         if ($hide_namesonly) {
-//         	$query->where("CONCAT(a.biography,a.summary,a.portrait,a.nationality) >'' OR (a.year_born + a.year_died) > 0");
-//         }
         
-        $query->select('COUNT(DISTINCT p.film_id) AS fcnt');
+        $query->select('(SELECT COUNT(DISTINCT(fp.film_id)) FROM #__xbfilmperson AS fp WHERE fp.person_id = a.id) AS fcnt');
+        if ($this->xbbooksStatus) $query->select('(SELECT COUNT(DISTINCT(bp.book_id)) FROM #__xbbookperson AS bp WHERE bp.person_id = a.id) AS bcnt');
+        
+        //only get film people
+        $query->join('INNER','#__xbfilmperson AS fp ON fp.person_id = a.id');
+        
         $query->select('c.title AS category_title');
         $query->join('LEFT', '#__categories AS c ON c.id = a.catid');
             
@@ -245,61 +245,17 @@ class XbfilmsModelPeople extends JModelList {
 		$showcnts = $this->getState('params')['showcnts'];
 		
 		foreach ($items as $i=>$item) {
-// 			//get films by role if they are being displayed...
-// 			$item->films = XbfilmsGeneral::getPersonRoleArray($item->id);
-// 			$cnts = array_count_values(array_column($item->films, 'role'));
-// 			$item->dircnt = (key_exists('director',$cnts))?$cnts['director'] : 0;
-// 			$item->prdcnt = (key_exists('producer',$cnts))?$cnts['producer'] : 0;
-// 			$item->crewcnt = (key_exists('crew',$cnts))?$cnts['crew'] : 0;
-// 			$item->actcnt = (key_exists('actor',$cnts))?$cnts['actor'] : 0;
-// 			$item->appcnt = (key_exists('appearsin',$cnts))?$cnts['appearsin'] : 0;
-			
-// 			//make role film lists
-// 			$item->dirlist = '';
-// 			if ($item->dircnt > 0){
-// 				$item->dirlist = XbfilmsGeneral::makeLinkedNameList($item->films,'director',', ', true);
-// 			}
-// 			$item->prdlist = '';
-// 			if ($item->prdcnt > 0){
-// 				$item->prdlist = XbfilmsGeneral::makeLinkedNameList($item->films,'producer',', ',true);
-// 			}
-// 			$item->crewlist = '';
-// 			if ($item->crewcnt > 0){
-// 				$item->crewlist = XbfilmsGeneral::makeLinkedNameList($item->films,'crew',', ',true, true, 2);
-// 			}
-// 			$item->actlist = '';
-// 			if ($item->actcnt > 0){
-// 				$item->actlist = XbfilmsGeneral::makeLinkedNameList($item->films,'act',', ',true, true, 2);
-// 			}
-// 			$item->applist = '';
-// 			if ($item->appcnt > 0){
-// 				$item->applist = XbfilmsGeneral::makeLinkedNameList($item->films,'appearsin',', ',true, true, 2);
-// 			}
 			
 			$item->tags = $tagsHelper->getItemTags('com_xbpeople.person' , $item->id);
 			
-			$item->filmcnt = 0;
-			$db    = Factory::getDbo();
-			$query = $db->getQuery(true);
-			$query->select('COUNT(*)')->from('#__xbfilmperson');
-			$query->where('person_id = '.$db->quote($item->id));
-			$db->setQuery($query);
-			$item->filmcnt = $db->loadResult();
-			if ($item->filmcnt > 0) {
+			$item->frolecnt = 0;
+			if ($item->fcnt > 0) {
 			    $item->films = XbcultureHelper::getPersonFilmRoles($item->id,'','title ASC', $showcnts);
+			    $item->frolecnt = count($item->films);
 			} else {
 			    $item->films = '';
 			}
 			
-			$item->bookcnt = 0;
-			if ($this->xbbooksStatus===true) {
-				$db    = Factory::getDbo();
-				$query = $db->getQuery(true);
-				$query->select('COUNT(DISTINCT book_id) AS bcnt')->from('#__xbbookperson');
-				$query->where('person_id = '.$db->quote($item->id));
-				$db->setQuery($query);
-				$item->bookcnt = $db->loadResult();
-			}
 			
 		} //end foreach item
 		return $items;
