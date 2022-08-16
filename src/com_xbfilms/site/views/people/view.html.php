@@ -57,7 +57,7 @@ class XbfilmsViewPeople extends JViewLegacy {
 		
 		foreach ($this->items as $person) {
 		    $person->filmlist = '';
-		    if ($person->filmcnt > 0) {
+		    if ($person->fcnt > 0) {
 		        $person->filmlist = "<ul style='list-style:none;margin-left:0'>";
 		        foreach ($person->films as $film) {
 		            $person->filmlist .= $film->listitem;
