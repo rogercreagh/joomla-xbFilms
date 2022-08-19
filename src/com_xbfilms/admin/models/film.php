@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/film.php
- * @version 0.9.8.6 1st June 2022
+ * @version 0.9.9.6 19th August 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -40,7 +40,9 @@ class XbfilmsModelFilm extends JModelAdmin {
 			 ->where('fr.film_id='.$db->quote($item->id))->order('seen DESC');
 			$db->setQuery($query);
 			$item->lastrat = $db->loadAssoc();
-			
+			if ((!empty($item->lastrat)) && (empty($item->last_seen))) {
+			    $item->last_seen = $item->lastrat['seen'];
+			}
 		}	
 		return $item;
 	}
@@ -104,31 +106,26 @@ class XbfilmsModelFilm extends JModelAdmin {
         // Set the values
         if (empty($table->acq_date)) {
             //if there are reviews set acq_date to the latest seen date
-            $table->acq_date = $date->toSql();
+            if (!empty($table->last_seen)) {
+                $table->acq_date = $table->last_seen;
+            } else {
+                //default to today
+                $table->acq_date = $date->toSql();
+            }
+        }
+//         if (empty($table->last_seen)) {
+//             //if there are reviews do we want to force a seen date??? - this will, perhaps make an option
 //             if ($table->id>0) { //we must have already saved and have an id
 //                 $query=$db->getQuery(true);
-//                 $query->select('COUNT(r.id) as revcnt, MAX(r.rev_date) as lastseen')->from('#__xbfilmreviews AS r')
-//                 ->where('r.film_id = '.$this->id);
+//                 $query->select('COUNT(r.id) as revcnt, MAX(r.rev_date) as lastrev')->from('#__xbfilmreviews AS r')
+//                 ->where('r.film_id = '.$table->id);
 //                 $db->setQuery($query);
 //                 $revs=$db->loadAssoc();
 //                 if ($revs['revcnt']>0) {
-//                     $table->acq_date = $revs['lastseen'];
+//                     $table->last_seen = $revs['lastrev'];
 //                 }
-//            }
-        }
-        if (empty($table->last_seen)) {
-            //if there are reviews do we want to force a seen date??? - this will, perhaps make an option
-            if ($table->id>0) { //we must have already saved and have an id
-                $query=$db->getQuery(true);
-                $query->select('COUNT(r.id) as revcnt, MAX(r.rev_date) as lastrev')->from('#__xbfilmreviews AS r')
-                ->where('r.film_id = '.$table->id);
-                $db->setQuery($query);
-                $revs=$db->loadAssoc();
-                if ($revs['revcnt']>0) {
-                    $table->last_seen = $revs['lastrev'];
-                }
-            }
-        }
+//             }
+//         }
         if (empty($table->created)) {
             $table->created = $date->toSql();
         }

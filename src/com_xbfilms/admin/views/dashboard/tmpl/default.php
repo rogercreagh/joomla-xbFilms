@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/dashboard/tmpl/default.php
- * @version 0.9.8.7 5th June 2022
+ * @version 0.9.9.6 19th August 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -36,7 +36,7 @@ if (!$this->xbpeople_ok) : ?>
         	<?php echo HtmlHelper::_('bootstrap.startAccordion', 'slide-dashboard', array('active' => 'sysinfo')); ?>
         		<?php echo HtmlHelper::_('bootstrap.addSlide', 'slide-dashboard', Text::_('XBFILMS_SYSINFO'), 'sysinfo'); ?>
         			<p><b><?php echo Text::_( 'XBFILMS_COMPONENT' ); ?></b>
-						<br /><?php echo Text::_('XBCULTURE_VERSION').': '.$this->xmldata['version'].' '.
+						<br /><?php echo Text::_('XBCULTURE_VERSION').': <b>'.$this->xmldata['version'].'</b> '.
 							$this->xmldata['creationDate'];?>
                               <br /><i></i>
                               <?php  if (XbcultureHelper::penPont()) {
