@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views//tmpl/edit.php
- * @version 0.9.8.3 24th May 2022
+ * @version 0.9.9.6 20th August 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -60,7 +60,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
                  				<?php echo $this->form->renderField('reviewer'); ?>
                  				<?php echo $this->form->renderField('rev_date'); ?>
                 				<?php echo $this->form->renderField('where_seen'); ?>
-                 				<?php echo $this->form->renderField('rev2read'); ?>
+                 				
                 				<?php echo $this->form->renderField('subtitled'); ?>
 			</div>
 			<div class="span3">

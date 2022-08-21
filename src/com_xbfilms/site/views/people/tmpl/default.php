@@ -205,7 +205,7 @@ $clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
     				</td>
 				<?php endif; ?>
 
-    				<?php if ($item->bcnt > 0) {
+    				<?php if ($item->bookcnt > 0) {
     						echo '<p class="xbit xb095">&amp; '.$item->bookcnt.' '.Text::_('XBCULTURE_BOOKS').'</p>';
     					}
     				?>
