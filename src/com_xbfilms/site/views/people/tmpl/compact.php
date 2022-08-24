@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/people/tmpl/compact.php
- * @version 0.9.9.4 28th July 2022
+ * @version 0.9.9.6 21st August 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -147,10 +147,6 @@ $clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
     				<?php if ($this->showlists == 2) :?>
     					<?php echo $item->filmlist; ?>
     				<?php endif; ?>
-    				<?php if ($item->bcnt > 0) {
-    						echo '<p class="xbit xb095">&amp; '.$item->bcnt.' '.Text::_('XBCULTURE_BOOKS').'</p>';
-    					}
-    				?>
     				</td>
 				<?php endif; ?>
 				<?php if ($this->showcat) : ?>												

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms site/models/forms/filter_people.xml 0.9.9.3 13th July 2022 -->
+<!-- xbFilms site/models/forms/filter_people.xml 0.9.9.6 24th August 2022 -->
 <form>
     <fields name="filter" addfieldpath="administrator/components/com_xbfilms/models/fields">
         <field name="search" type="text"
@@ -8,31 +8,31 @@
             hint="JSEARCH_FILTER"
         /> 
 		<field name="prole" type="list"
-			default="2"
-			label="Person type"
+			default="1"
+			label="Person role"
 			description="People involved in making a film, select by role. All people will include book people is xbBooks is installed"
 			onchange="this.form.submit();"
 			>
-				<option value="2">All Film people</option>
-				<option value="3">Directors only</option>
-				<option value="4">All crew</option>
-				<option value="5">Actors &amp; Appearances</option>
+				<option value="1">All Film people</option>
+				<option value="2">Directors only</option>
+				<option value="3">All crew</option>
+				<option value="4">Actors &amp; Appearances</option>
 		</field>	
 		<field
 			name="category_id" type="catsubtree"
-			label="XBFILMS_FILTER_CATEGORY_LBL"
+			label="XBCULTURE_CATFILT_LABEL"
 			extension="com_xbpeople"
 			itemtype="person"
 			published="1"
-			description="XBFILMS_FILTER_CATEGORY_DESC"
+			description="XBCULTURE_CATFILT_DESC"
 			onchange="this.form.submit();"
 			>
 			<option value="">JOPTION_SELECT_CATEGORY</option>
 		</field>
 		<field name="subcats" type="radio"
 			default=""
-			label="XBFILMS_SUBCATS_LBL"
-			description="XBFILMS_SUBCATS_DESC"
+			label="XBCULTURE_CATFILT_SUBS_LABEL"
+			description="XBCULTURE_CATFILT_SUBS_DESC"
   			class="btn-group btn-small radiotop"
   			showon="category_id!:"
 		>
@@ -52,22 +52,24 @@
  -->
 		<field
 			name="tagfilt" type="tag"
-			label="XBFILMS_CAPTAGS"
-			description="XBFILMS_TAGFILT_DESC"
+			label="XBCULTURE_TAGFILT_LABEL"
+			description="XBCULTURE_TAGFILT_DESC"
 			multiple="true"
 			class="multipleTags"
 			mode="ajax"
 			onchange="this.form.submit();"
 		/>
 		<field name="taglogic" type="radio"
-			default=""
-			label="XBFILMS_MULTITAG_LBL"
-			description="XBFILMS_MULTITAG_DESC"
+			default="0"
+			label="XBCULTURE_TAGFILT_MULTI_LABEL"
+			description="XBCULTURE_TAGFILT_MULTI_DESC"
   			class="btn-group btn-small radiotop"
 			showon="tagfilt!:"
+			onchange="this.form.submit();"
 		>
 			<option value="1" onchange="this.form.submit();">XBCULTURE_ALL</option>
-			<option value="" onchange="this.form.submit();">XBCULTURE_ANY</option>
+			<option value="0" onchange="this.form.submit();">XBCULTURE_ANY</option>
+			<option value="2" onchange="this.form.submit();">XBCULTURE_NONE</option>
 		</field>	
 				
     </fields>

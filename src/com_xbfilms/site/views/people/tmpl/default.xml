@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms site/views/people/tmpl/default.xml v0.9.9.3 13th July 2022 -->
+<!-- xbFilms site/views/people/tmpl/default.xml v0.9.9.6 24th August 2022 -->
 <metadata>
 	<layout title="Film People List">
 		<message>Displays a simple list (table) of people. Option to restrict to single category and filter by role and tags.</message>
@@ -85,6 +85,7 @@
 				label="XBFILMS_LIST_SHOW_SEARCH_LBL"
 				description="XBFILMS_LIST_SHOW_SEARCH_DESC"
 				class="btn-group btn-group-yesno btn-small"
+				useglobal="true"
 				>
 				<option value="0" >JNO</option>
 				<option value="1">JYES</option>
@@ -93,49 +94,49 @@
 				type="list"
 				default="2"
 				label="Person type"
-				description="People involved in making a film, select by role. (can include book people if xbBooks installed)"
+				description="People involved in making a film, select by role. To include other xbCulture roles use xbPeople-People view"
 				>
 				<option value="0">Use search filter</option>
-				<option value="1">All Film &amp; Book People</option>
-				<option value="2">All film people</option>
-				<option value="3">Directors only</option>
-				<option value="4">All crew</option>
-				<option value="5">Actors &amp; Appearances</option>
+				<option value="1">All Film People</option>
+				<option value="2">Directors only</option>
+				<option value="3">All crew</option>
+				<option value="4">Actors &amp; Appearances</option>
 			</field>	
 			<field
 				name="menu_category_id" type="category"
-				label="XBCULTURE_CATEGORY"
+				label="XBCULTURE_CATFILT_LABEL"
 				extension="com_xbpeople"
-				description="XBFILMS_CATEGORY_DESC"
+				description="XBCULTURE_CATFILT_DESC"
 				>
-					<option value="0">XBFILMS_ALL_CATEGORIES</option>
+					<option value="0">XBCULTURE_ALL_CATS</option>
 			</field>
 			<field name="menu_subcats" type="radio"
 				default=""
-				label="XBFILMS_SUBCATS_LBL"
-				description="XBFILMS_SUBCATS_DESC"
+				label="XBCULTURE_CATFILT_SUBS_LABEL"
+				description="XBCULTURE_CATFILT_SUBS_DESC"
 	  			class="btn-group btn-small radiotop"
 	  			showon="menu_category_id!:0"
 				>
-					<option value="" >Exclude</option>
-					<option value="1">Include</option>
+					<option value="" >XBCULTURE_EXCLUDE</option>
+					<option value="1">XBCULTURE_INCLUDE</option>
 			</field>	
 			<field
 				name="menu_tag" type="tag"
-				label="XBFILMS_MENUTAG_LBL"
-				description="XBFILMS_MENUTAG_DESC"
+				label="XBCULTURE_TAGFILT_LABEL"
+				description="XBCULTURE_TAGFILT_DESC"
 				multiple="true"
 				mode="nested"
 			/>
 			<field name="menu_taglogic" type="radio"
-				default=""
-				label="XBFILMS_MENUTAG_LBL"
-				description=""
+				default="0"
+				label="XBCULTURE_TAGFILT_MULTI_LABEL"
+				description="XBCULTURE_TAGFILT_MULTI_DESC"
 	  			class="btn-group btn-small radiotop"
 				showon="menu_tag!:"
 			>
-				<option value="1">All</option>
-				<option value="">Any</option>
+				<option value="1">XBCULTURE_ALL</option>
+				<option value="0">XBCULTURE_ANY</option>
+				<option value="2">XBCULTURE_NONE</option>
 			</field>	
 		</fieldset>
 		

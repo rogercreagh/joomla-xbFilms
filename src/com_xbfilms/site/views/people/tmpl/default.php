@@ -192,25 +192,23 @@ $clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
 							data-content="<?php echo htmlentities($item->filmlist); ?>"
 						>        				
     				<?php  endif; ?>
-    					<span class="badge <?php echo ($item->fcnt>0) ? 'flmcnt' : ''?>"><?php echo $item->fcnt;
+    				<span class="badge <?php echo ($item->fcnt>0) ? 'flmcnt' : ''?>"><?php echo $item->fcnt;
     					if ($item->frolecnt > $item->fcnt ) {
     					    echo ' <span class="xbit xbnorm">('.$item->frolecnt.')</span>'; } ?>
-        					</span>
-    					<?php if (($this->showlists == 1) && ($item->fcnt>0)) :?>
-    					</span>
-					<?php endif; ?>        					
+        			</span><?php if (($this->showlists == 1) && ($item->fcnt>0)) :?></span><?php endif; ?> 
+					<?php if ($item->bcnt>0) echo Text::_('XBCULTURE_FILMS'); ?>       					
     				<?php if ($this->showlists == 2) :?>
     					<?php echo $item->filmlist; ?>
     				<?php endif; ?>
+    				<?php if ($item->bcnt > 0) : ?>
+    						<p class="xbit xb095 xbmt10"><span class="badge bkcnt">
+    							<?php echo $item->bcnt; ?>
+    						</span> <?php echo Text::_('XBCULTURE_BOOKS'); ?></p>
+    					<?php endif; ?>
     				</td>
 				<?php endif; ?>
-
-    				<?php if ($item->bookcnt > 0) {
-    						echo '<p class="xbit xb095">&amp; '.$item->bookcnt.' '.Text::_('XBCULTURE_BOOKS').'</p>';
-    					}
-    				?>
-				</td>
-    			<?php if(($this->showcat) || ($this->showtags)) : ?>
+				
+	   			<?php if(($this->showcat) || ($this->showtags)) : ?>
 					<td class="hidden-phone">
  						<?php if (($this->showcat) && ($this->xbpeople_ok)) : ?>												
 							<p>
