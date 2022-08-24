@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms site/models/forms/filter_characters.xml 0.9.9.3 13th July 2022 -->
+<!-- xbFilms site/models/forms/filter_characters.xml 0.9.9.6 24th August 2022 -->
 <form>
     <fields name="filter" addfieldpath="administrator/components/com_xbfilms/models/fields">
         <field name="search" type="text"
@@ -28,34 +28,26 @@
 			<option value="1" onchange="this.form.submit();">XBCULTURE_INCLUDE</option>
 		</field>	
        
-<!-- 
- 		<field
-			name="filmfilt" type="films"
-			label="XBCULTURE_FILM_U"
-			description="XBFILMS_FILMFILT_DESC"
-			onchange="this.form.submit();"
-			>
-			<option value="">XBFILMS_FILMFILT_HINT</option>
-		</field>
- -->
 		<field
 			name="tagfilt" type="tag"
-			label="XBFILMS_CAPTAGS"
-			description="XBFILMS_TAGFILT_DESC"
+			label="XBCULTURE_TAGFILT_LABEL"
+			description="XBCULTURE_TAGFILT_DESC"
 			multiple="true"
 			class="multipleTags"
 			mode="ajax"
 			onchange="this.form.submit();"
 		/>
 		<field name="taglogic" type="radio"
-			default=""
-			label="XBFILMS_MULTITAG_LBL"
-			description="XBFILMS_MULTITAG_DESC"
+			default="0"
+			label="XBCULTURE_TAGFILT_MULTI_LABEL"
+			description="XBCULTURE_TAGFILT_MULTI_DESC"
   			class="btn-group btn-small radiotop"
 			showon="tagfilt!:"
+			onchange="this.form.submit();"
 		>
 			<option value="1" onchange="this.form.submit();">XBCULTURE_ALL</option>
-			<option value="" onchange="this.form.submit();">XBCULTURE_ANY</option>
+			<option value="0" onchange="this.form.submit();">XBCULTURE_ANY</option>
+			<option value="2" onchange="this.form.submit();">XBCULTURE_NONE</option>
 		</field>	
 				
     </fields>

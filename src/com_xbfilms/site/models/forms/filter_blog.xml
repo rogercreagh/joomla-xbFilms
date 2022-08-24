@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms site/models/forms/filter_blog.xml v0.4.6 2nd March 2021 -->
+<!-- xbFilms site/models/forms/filter_blog.xml 0.9.9.6 24th August 2022 -->
 <form>
     <fields name="filter" addfieldpath="administrator/components/com_xbfilms/models/fields">
         <field name="search"
@@ -50,8 +50,8 @@
        
 		<field
 			name="tagfilt" type="tag"
-			label="XBFILMS_CAPTAGS"
-			description="XBFILMS_TAGFILT_DESC"
+			label="XBCULTURE_TAGFILT_LABEL"
+			description="XBCULTURE_TAGFILT_DESC"
 			multiple="true"
 			class="multipleTags"
 			mode="ajax"
@@ -59,14 +59,16 @@
 		/>
 		<field name="taglogic" type="radio"
 			default="0"
-			label="XBFILMS_MULTITAG_LBL"
-			description="XBFILMS_MULTITAG_DESC"
+			label="XBCULTURE_TAGFILT_MULTI_LABEL"
+			description="XBCULTURE_TAGFILT_MULTI_DESC"
   			class="btn-group btn-small radiotop"
-  			showon="tagfilt!:"
+			showon="tagfilt!:"
+			onchange="this.form.submit();"
 		>
 			<option value="1" onchange="this.form.submit();">XBCULTURE_ALL</option>
 			<option value="0" onchange="this.form.submit();">XBCULTURE_ANY</option>
-		</field>
+			<option value="2" onchange="this.form.submit();">XBCULTURE_NONE</option>
+		</field>	
 		
 		<field name="rev_year" type="revyear"
 			label="Year Reviewed"

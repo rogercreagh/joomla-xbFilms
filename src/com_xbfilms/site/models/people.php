@@ -43,10 +43,6 @@ class XbfilmsModelPeople extends JModelList {
 		$app->setUserState('tagid', '');
 		$this->setState('tagId',$tagId);
 		
-//		$catid = $app->input->getStr('catid');
-//		$this->setState('catid', $catid);
-//		$app->setUserState('catid', $catid);
-		
 		parent::populateState($ordering, $direction);
 		
 		//pagination limit
@@ -106,57 +102,56 @@ class XbfilmsModelPeople extends JModelList {
         }
                         
         // Filter by category and subcats
-            $categoryId = $this->getState('categoryId');
-            $this->setState('categoryId','');
-            $dosubcats = 0;
-            if (empty($categoryId)) {
-                $categoryId = $this->getState('params',0,'int')['menu_category_id'];
-                $dosubcats=$this->getState('params',0)['menu_subcats'];
-            }
-            if (($searchbar==1) && ($categoryId==0)){
-            	$categoryId = $this->getState('filter.category_id');
-            	$dosubcats=$this->getState('filter.subcats');
-            }
-//            if ($this->getState('catid')>0) { $categoryId = $this->getState('catid'); }
-            if ($categoryId > 0) {
-            	if ($dosubcats) {
-            		$catlist = $categoryId;
-            		$subcatlist = XbcultureHelper::getChildCats($categoryId,'com_xbpeople');
-            		if ($subcatlist) { $catlist .= ','.implode(',',$subcatlist);}
-            		$query->where('a.catid IN ('.$catlist.')');
-            	} else {
-            		$query->where($db->quoteName('a.catid') . ' = ' . (int) $categoryId);
-            	}
-            }
+        $categoryId = $this->getState('categoryId');
+        $this->setState('categoryId','');
+        $dosubcats = 0;
+        if (empty($categoryId)) {
+            $categoryId = $this->getState('params',0,'int')['menu_category_id'];
+            $dosubcats=$this->getState('params',0)['menu_subcats'];
+        }
+        if (($searchbar==1) && ($categoryId==0)){
+        	$categoryId = $this->getState('filter.category_id');
+        	$dosubcats=$this->getState('filter.subcats');
+        }
+        if ($categoryId > 0) {
+        	if ($dosubcats) {
+        		$catlist = $categoryId;
+        		$subcatlist = XbcultureHelper::getChildCats($categoryId,'com_xbpeople');
+        		if ($subcatlist) { $catlist .= ','.implode(',',$subcatlist);}
+        		$query->where('a.catid IN ('.$catlist.')');
+        	} else {
+        		$query->where($db->quoteName('a.catid') . ' = ' . (int) $categoryId);
+        	}
+        }
             
-            //filter by person type
-            if ($prole > 0) {
-            	switch ($prole) {
-            		case 1: //all
-             			break;
-            		case 2: //directors
-            			$query->where('fp.role = '. $db->quote('director'));
-            			break;
-            		case 3: //crew
-            			$query->where('fp.role IN ('. $db->quote('director').','.$db->quote('producer').','.$db->quote('crew').')');
-            			break;
-            		case 4: //cast & appearances
-            			$query->where('fp.role IN ('. $db->quote('appearsin').','.$db->quote('actor').')');
-            			break;
-            		default:
-            		    break;            			
-            	}
-            }
+        //filter by person type
+        if ($prole > 0) {
+        	switch ($prole) {
+        		case 1: //all
+         			break;
+        		case 2: //directors
+        			$query->where('fp.role = '. $db->quote('director'));
+        			break;
+        		case 3: //crew
+        			$query->where('fp.role IN ('. $db->quote('director').','.$db->quote('producer').','.$db->quote('crew').')');
+        			break;
+        		case 4: //cast & appearances
+        			$query->where('fp.role IN ('. $db->quote('appearsin').','.$db->quote('actor').')');
+        			break;
+        		default:
+        		    break;            			
+        	}
+        }
                         
-            //filter by tag
-            $tagfilt = $this->getState('tagId');
-           // $this->setState('tagId','');
-            $taglogic = 0;
-            if (empty($tagfilt)) {
-                $tagfilt = $this->getState('params')['menu_tag'];
-                $taglogic = $this->getState('params')['menu_taglogic']; //1=AND otherwise OR
-		}
-            
+        //filter by tag
+        $tagfilt = $this->getState('tagId');
+        // $this->setState('tagId','');
+        $taglogic = 0;
+        if (empty($tagfilt)) {
+            $tagfilt = $this->getState('params')['menu_tag'];
+            $taglogic = $this->getState('params')['menu_taglogic']; //1=AND otherwise OR
+	    }
+        
 		if (($searchbar==1) && (empty($tagfilt))) { 	//look for menu options
 			//look for filter options and ignore menu options
 			$tagfilt = $this->getState('filter.tagfilt');
@@ -164,29 +159,29 @@ class XbfilmsModelPeople extends JModelList {
 		}
             
 		if ($tagfilt && is_array($tagfilt)) {
-            	$tagfilt = ArrayHelper::toInteger($tagfilt);    
-            	$subquery = '(SELECT tmap.tag_id AS tlist FROM j3tst_contentitem_tag_map AS tmap 
-                    WHERE tmap.type_alias = '.$db->quote('com_xbpeople.person').' 
-                    AND tmap.content_item_id = a.id)';
-            	switch ($taglogic) {
-            	    case 1: //all
-            	        for ($i = 0; $i < count($tagfilt); $i++) {
-            	            $query->where($tagfilt[$i].' IN '.$subquery);
-            	        }
-            	    break;
-            	    case 2: //none
-            	        for ($i = 0; $i < count($tagfilt); $i++) {
-            	            $query->where($tagfilt[$i].' NOT IN '.$subquery);
-            	        }
-            	        break;
-            	    default: //any
-            	        $conds = array();
-            	        for ($i = 0; $i < count($tagfilt); $i++) {
-            	            $conds[] = $tagfilt[$i].' IN '.$subquery;
-            	        }
-            	        $query->extendWhere('AND', $conds, 'OR');
-            	        break;
-            	}
+        	$tagfilt = ArrayHelper::toInteger($tagfilt);    
+        	$subquery = '(SELECT tmap.tag_id AS tlist FROM #__contentitem_tag_map AS tmap 
+                WHERE tmap.type_alias = '.$db->quote('com_xbpeople.person').' 
+                AND tmap.content_item_id = a.id)';
+        	switch ($taglogic) {
+        	    case 1: //all
+        	        for ($i = 0; $i < count($tagfilt); $i++) {
+        	            $query->where($tagfilt[$i].' IN '.$subquery);
+        	        }
+        	    break;
+        	    case 2: //none
+        	        for ($i = 0; $i < count($tagfilt); $i++) {
+        	            $query->where($tagfilt[$i].' NOT IN '.$subquery);
+        	        }
+        	        break;
+        	    default: //any
+        	        $conds = array();
+        	        for ($i = 0; $i < count($tagfilt); $i++) {
+        	            $conds[] = $tagfilt[$i].' IN '.$subquery;
+        	        }
+        	        $query->extendWhere('AND', $conds, 'OR');
+        	        break;
+        	}
 		}
             	
 		// Add the list ordering clause.

@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/filmlist.php
- * @version 0.9.9.3 13th July 2022
+ * @version 0.9.9.6 24th August 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -21,7 +21,7 @@ class XbfilmsModelFilmlist extends JModelList {
 					'rel_year','a.rel_year',
 					'averat', 'sort_date', 'last_seen', 'a.last_seen',					
 					'catid', 'a.catid', 'category_id',
-					'category_title' );
+					'category_title','tagfilt' );
 		}
 		parent::__construct($config);
 	}
@@ -60,17 +60,13 @@ class XbfilmsModelFilmlist extends JModelList {
             a.created AS created,  a.acq_date AS acq_date, a.last_seen AS last_seen,
             a.created_by_alias AS created_by_alias,
             a.ordering AS ordering, a.params AS params'); 
-//            ->select('(GROUP_CONCAT(p.person_id SEPARATOR '.$db->quote(',') .')) AS personlist');
             $query->from('#__xbfilms AS a')
             	->join('LEFT OUTER',$db->quoteName('#__xbfilmperson', 'p') . ' ON ' .$db->quoteName('a.id') . ' = ' . $db->quoteName('p.film_id'))
             	->join('LEFT OUTER',$db->quoteName('#__xbfilmcharacter', 'ch') . ' ON ' .$db->quoteName('a.id') . ' = ' . $db->quoteName('ch.film_id'));
-            	//->join('LEFT', $db->quoteName('#__xbfilmreviews', 'r').' ON r.film_id = a.id');
             $query->select('c.title AS category_title');
             $query->join('LEFT', '#__categories AS c ON c.id = a.catid');
             
-//            $query->select('(SELECT COUNT(*) FROM #__xbfilmreviews AS br WHERE br.film_id=a.id AND br.state=1) AS revcnt');
             $query->select('(SELECT AVG(br.rating) FROM #__xbfilmreviews AS br WHERE br.film_id=a.id) AS averat');
-//            $query->select('(SELECT MAX(fr.rev_date) FROM #__xbfilmreviews AS fr WHERE fr.film_id=a.id) AS lastseen');
             $query->select('GREATEST(a.acq_date, COALESCE(a.last_seen, 0)) AS sort_date');
             
             // Filter by published state, we only show published items in front end. Both item and its category must be published.
@@ -148,74 +144,43 @@ class XbfilmsModelFilmlist extends JModelList {
             
             //filter by tag
             $tagfilt = $this->getState('tagId');
-            $this->setState('tagId','');
+            // $this->setState('tagId','');
             $taglogic = 0;
             if (empty($tagfilt)) {
                 $tagfilt = $this->getState('params')['menu_tag'];
-                $taglogic = $this->getState('params')['taglogic']; //1=AND otherwise OR           	
+                $taglogic = $this->getState('params')['menu_taglogic']; //1=AND otherwise OR
             }
-                       
-            if (($searchbar==1) && (empty($tagfilt))) { 
-            //look for filter options and ignore menu options 
-	            $tagfilt = $this->getState('filter.tagfilt');
-	            $taglogic = $this->getState('filter.taglogic'); //1=AND otherwise OR
+            
+            if (($searchbar==1) && (empty($tagfilt))) { 	//look for menu options
+                //look for filter options and ignore menu options
+                $tagfilt = $this->getState('filter.tagfilt');
+                $taglogic = $this->getState('filter.taglogic'); //1=AND otherwise OR
             }
-            // Run simplified query when filtering by one tag.
-            if (is_array($tagfilt) && count($tagfilt) === 1) {
-            	$tagfilt = $tagfilt[0];
-            }           
+            
             if ($tagfilt && is_array($tagfilt)) {
-            	$tagfilt = ArrayHelper::toInteger($tagfilt);            	
-            	if ($taglogic) { //AND logic
-            		/***
-            		 SELECT id FROM j3tst_xbfilms AS a
-            		 INNER JOIN j3tst_contentitem_tag_map AS tagmap
-            		 ON tagmap.content_item_id  = a.id
-            		 INNER JOIN j3tst_contentitem_tag_map AS tagmap2
-            		 ON tagmap2.content_item_id  = a.id
-            		 WHERE tagmap.tag_id = 5 AND tagmap.type_alias = 'com_xbfilms.film'
-            		 AND tagmap2.tag_id = 2 AND tagmap2.type_alias = 'com_xbfilms.film'
-            		 ***/
-            		for ($i = 0; $i < count($tagfilt); $i++) {
-            			$mapname = 'tagmap'.$i;
-            			$query->join( 'INNER', $db->quoteName('#__contentitem_tag_map', $mapname).
-            					' ON ' . $db->quoteName($mapname.'.content_item_id') . ' = ' . $db->quoteName('a.id'));
-            			$query->where( array(
-            							$db->quoteName($mapname.'.tag_id') . ' = ' . $tagfilt[$i],
-            							$db->quoteName($mapname.'.type_alias') . ' = ' . $db->quote('com_xbfilms.film'))
-            					);
-            		}
-            	} else { //OR logic           		
-            		$subQuery = $db->getQuery(true)
-            		->select('DISTINCT ' . $db->quoteName('content_item_id'))
-            		->from($db->quoteName('#__contentitem_tag_map'))
-            		->where(
-            				array(
-            						$db->quoteName('tag_id') . ' IN (' . implode(',', $tagfilt) . ')',
-            						$db->quoteName('type_alias') . ' = ' . $db->quote('com_xbfilms.film'),
-            				)
-            				);
-            		
-            		$query->join(
-            				'INNER',
-            				'(' . $subQuery . ') AS ' . $db->quoteName('tagmap')
-            				. ' ON ' . $db->quoteName('tagmap.content_item_id') . ' = ' . $db->quoteName('a.id')
-            				);
-            		
-            	}
-            	
-            } elseif ($tag = (int) $tagfilt) {
-            	$query->join(
-            			'INNER',
-            			$db->quoteName('#__contentitem_tag_map', 'tagmap')
-            			. ' ON ' . $db->quoteName('tagmap.content_item_id') . ' = ' . $db->quoteName('a.id')
-            			)
-            			->where(
-            					array(
-            							$db->quoteName('tagmap.tag_id') . ' = ' . $tagfilt,
-            							$db->quoteName('tagmap.type_alias') . ' = ' . $db->quote('com_xbfilms.film')
-            					)
-            					);
+                $tagfilt = ArrayHelper::toInteger($tagfilt);
+                $subquery = '(SELECT tmap.tag_id AS tlist FROM #__contentitem_tag_map AS tmap
+                WHERE tmap.type_alias = '.$db->quote('com_xbfilms.film').'
+                AND tmap.content_item_id = a.id)';
+                switch ($taglogic) {
+                    case 1: //all
+                        for ($i = 0; $i < count($tagfilt); $i++) {
+                            $query->where($tagfilt[$i].' IN '.$subquery);
+                        }
+                        break;
+                    case 2: //none
+                        for ($i = 0; $i < count($tagfilt); $i++) {
+                            $query->where($tagfilt[$i].' NOT IN '.$subquery);
+                        }
+                        break;
+                    default: //any
+                        $conds = array();
+                        for ($i = 0; $i < count($tagfilt); $i++) {
+                            $conds[] = $tagfilt[$i].' IN '.$subquery;
+                        }
+                        $query->extendWhere('AND', $conds, 'OR');
+                        break;
+                }
             } //endif tagfilt
             
             

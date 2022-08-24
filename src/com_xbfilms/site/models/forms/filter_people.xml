@@ -40,16 +40,6 @@
 			<option value="1" onchange="this.form.submit();">XBCULTURE_INCLUDE</option>
 		</field>	
        
-<!-- 
- 		<field
-			name="filmfilt" type="films"
-			label="XBCULTURE_FILM_U"
-			description="XBFILMS_FILMFILT_DESC"
-			onchange="this.form.submit();"
-			>
-			<option value="">XBFILMS_FILMFILT_HINT</option>
-		</field>
- -->
 		<field
 			name="tagfilt" type="tag"
 			label="XBCULTURE_TAGFILT_LABEL"
