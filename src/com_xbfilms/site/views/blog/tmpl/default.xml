@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms site/views/blog/tmpl/default.xml v0.9.4.1 29th April 2021 -->
+<!-- xbFilms site/views/blog/tmpl/default.xml v0.9.9.6 24th August 2022 -->
 <metadata>
 	<layout title="Films Blog">
 		<message>Displays a blog of films with reviews. Options to restrict to single category and filter by tag(s).</message>
@@ -92,22 +92,22 @@
 			<field
 				name="menu_tag"
 				type="tag"
-				label="XBFILMS_MENUTAG_LBL"
-				description="XBFILMS_MENUTAG_DESC"
+				label="XBCULTURE_TAGFILT_LABEL"
+				description="XBCULTURE_TAGFILT_DESC"
 				multiple="true"
 				mode="nested"
 			/>
 			<field name="menu_taglogic"
 				type="radio"
 				default="0"
-				label="XBFILMS_MULTITAG_LBL"
-				description="XBFILMS_MULTITAG_DESC"
+				label="XBCULTURE_TAGFILT_MULTI_LABEL"
+				description="XBCULTURE_TAGFILT_MULTI_DESC"
 	  			class="btn-group btn-small radiotop"
-	  			showon="menu_tag!:"
+				showon="menu_tag!:"
 			>
-				<option value="1" onchange="this.form.submit();">All</option>
-				<option value="0" onchange="this.form.submit();">Any</option>
-				<option value="2" onchange="this.form.submit();">None</option>
+				<option value="1">XBCULTURE_ALL</option>
+				<option value="0">XBCULTURE_ANY</option>
+				<option value="2">XBCULTURE_NONE</option>
 			</field>	
 		</fieldset>
 		

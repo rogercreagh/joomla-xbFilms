@@ -182,7 +182,7 @@ class XbfilmsModelPeople extends JModelList {
         	        $query->extendWhere('AND', $conds, 'OR');
         	        break;
         	}
-		}
+		} //end if $tagfilt
             	
 		// Add the list ordering clause.
 		$orderCol       = $this->state->get('list.ordering', 'lastname');

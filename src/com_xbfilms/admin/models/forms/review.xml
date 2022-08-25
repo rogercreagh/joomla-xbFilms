@@ -24,7 +24,7 @@
 			label="XBCULTURE_SUMMARY"
 			description="XBFILMS_REVSUMMARY_DESC"
 			size="40" class="inputbox"
-			de8.3 24th Mayfault="" />
+			default="" />
 			
 		<field
 		    name="film_id"
