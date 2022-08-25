@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/people.php
- * @version 0.9.9.6 24th August 2022
+ * @version 0.9.9.6 25th August 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -158,6 +158,12 @@ class XbfilmsModelPeople extends JModelList {
 			$taglogic = $this->getState('filter.taglogic'); //1=AND otherwise OR
 		}
             
+		if (($taglogic === '2') && (empty($tagfilt))) {
+		    //if if we select tagged=excl and no tags specified then only show untagged items
+		    $subQuery = '(SELECT content_item_id FROM #__contentitem_tag_map
+ 					WHERE type_alias = '.$db->quote('com_xbpeople.person').')';
+		    $query->where('a.id NOT IN '.$subQuery);
+		}
 		if ($tagfilt && is_array($tagfilt)) {
         	$tagfilt = ArrayHelper::toInteger($tagfilt);    
         	$subquery = '(SELECT tmap.tag_id AS tlist FROM #__contentitem_tag_map AS tmap 
