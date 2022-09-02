@@ -26,7 +26,7 @@
 			showon="perfilt!:"			
 		>
   			<option value="" onchange="this.form.submit();">XBFILMS_PROLE_DEF</option>
-			<option value="1" onchange="this.form.submit();">XBCULTURE_CAPDIRECTOR</option>
+			<option value="1" onchange="this.form.submit();">XBCULTURE_DIRECTOR</option>
 			<option value="2" onchange="this.form.submit();">XBCULTURE_CAPPRODUCER</option>
 		</field>	
 		<field

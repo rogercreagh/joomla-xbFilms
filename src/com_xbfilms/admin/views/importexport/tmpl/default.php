@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/importexport/tmpl/default.php
- * @version 0.9.6.f 10th January 2022
+ * @version 0.9.9.6 31st August 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -95,7 +95,7 @@ use Joomla\CMS\Router\Route;
 							<?php echo JText::_('XBFILMS_IMP_MYSQL_MERGE_TIP');?><br />
 						<b><?php echo JText::_('XBFILMS_IMP_CSV_TABLE');?></b>: 
 							<?php echo JText::_('XBFILMS_IMP_CSV_TABLE_TIP');?><br />
-						<b><?php echo JText::_('XBFILMS_INSTALL_SAMPLE');?></b>: 
+						<b><?php echo JText::_('XBCULTURE_INSTALL_SAMPLE');?></b>: 
 							<?php echo JText::_('XBFILMS_INSTALL_SAMPLE_TIP');?><br />
 					</div>
 				</div>

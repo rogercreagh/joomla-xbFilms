@@ -93,7 +93,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
                 <?php endif; ?>
 				<th>
 					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_TITLE','title',$listDirn,$listOrder).				
-    						', '.JText::_('XBCULTURE_CAPDIRECTOR').', '.
+    						', '.JText::_('XBCULTURE_DIRECTOR').', '.
     						HTMLHelper::_('searchtools.sort','XBFILMS_RELYEARCOL','rel_year',$listDirn,$listOrder );
 					?>
 				</th>					
@@ -157,7 +157,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
                         		echo '<span class="xbnit">'.JText::_('XBFILMS_NODIRECTOR').'</span>';
                         	} else { ?> 
 	                        	<span class="xbnit">
-	                        		<?php echo JText::_($item->dircnt>1 ? 'XBCULTURE_CAPDIRECTORS' : 'XBCULTURE_CAPDIRECTOR' ); ?>
+	                        		<?php echo JText::_($item->dircnt>1 ? 'XBCULTURE_DIRECTORS' : 'XBCULTURE_DIRECTOR' ); ?>
 	                        	</span>: 
                         		<?php echo $item->dlist; 
                         	} ?>                          	

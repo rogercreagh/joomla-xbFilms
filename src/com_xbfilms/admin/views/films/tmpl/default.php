@@ -119,7 +119,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 					<th>
 						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_TITLE','title',$listDirn,$listOrder).
     						' <span class="xb095">'.
-     						Text::_('Director').', '.
+     						Text::_('XBCULTURE_DIRECTOR').', '.
      						HTMLHelper::_('searchtools.sort','XBFILMS_RELYEARCOL','rel_year',$listDirn,$listOrder ).', '.
     					   '</span>';
 						?>
@@ -224,12 +224,12 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 							<?php echo $item->prdlist; ?>
 						<?php endif; ?>
 						<?php if ($item->dircnt>0) : ?>
-							<span class="xbnit"><?php echo JText::_($item->dircnt>1 ? 'XBCULTURE_CAPDIRECTORS' : 'XBCULTURE_CAPDIRECTOR' ); ?>
+							<span class="xbnit"><?php echo JText::_($item->dircnt>1 ? 'XBCULTURE_DIRECTORS' : 'XBCULTURE_DIRECTOR' ); ?>
 							: </span>
 							<?php echo $item->dirlist; ?>
 						<?php endif; ?>
 						<br />
-							<?php echo $item->rel_year > 0 ? '<span class="xbnit">'.JText::_('Released').': </span>'.$item->rel_year : ''; ?>						
+							<?php echo $item->rel_year > 0 ? '<span class="xbnit">'.JText::_('XBFILMS_RELEASED').': </span>'.$item->rel_year : ''; ?>						
 						</span></p>						
 					</td>
 					<td>
@@ -260,9 +260,9 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
                             if ($item->actcnt>0) { $list .= $item->crewcnt.' actors, ';}
                             if ($item->charcnt>0) { $list .=  $item->charcnt.' characters ';}
                             if ($list != '') {
-                            	echo trim($list,', ').' '.JText::_('listed');
+                            	echo trim($list,', ').' '.JText::_('XBCULTURE_LISTED');
                             } else {
-                            	echo JText::_('no people listed');
+                            	echo JText::_('XBCULTURE_NO_PEOPLE');
                             } ?>
                         </p>
 						<?php if($item->ext_links_cnt >0 ) : ?>
@@ -310,7 +310,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 	    								    echo Factory::getUser($rev->created_by)->name;
 	    								} ?>
 	    								</span>
-	    								<span class="xb09"> <?php echo HtmlHelper::date($rev->rev_date , Text::_('d M Y')); ?></span>
+	    								<span class="xb09"> <?php echo HtmlHelper::date($rev->rev_date , 'd M Y'); ?></span>
 									</a>
 								</div>
 							<?php endforeach; ?>
@@ -324,7 +324,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 					</td>
 					<td>
     					<p class="xb09"><?php if($item->last_seen=='') {
-    						echo '<span class="xbnit">(Acq.) '.HtmlHelper::date($item->acq_date , Text::_('d M Y')).')</span>';
+    						echo '<span class="xbnit">(Acq.) '.HtmlHelper::date($item->acq_date , 'd M Y').')</span>';
     					} else {
     						echo HtmlHelper::date($item->last_seen , 'd M Y'); 
     					}?> </p>

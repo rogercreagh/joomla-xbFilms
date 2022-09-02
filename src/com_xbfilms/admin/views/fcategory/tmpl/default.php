@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/fcategory/tmpl/edit.php
- * @version 0.9.6.f 10th January 2022
+ * @version 0.9.9.6 31st August 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -69,7 +69,7 @@ $xblink = 'index.php?option=com_xbfilms';
 		<div class="row-fluid">
 			<div class= "span6">
 				<div class="xbbox xbboxcyan">
-					<p><?php echo $item->bcnt.' '.JText::_('films in category'); ?>  <span class="label label-success"><?php echo $item->title; ?></span></p>
+					<p><?php echo $item->bcnt.' '.JText::_('XBFILMS_FILMS_IN_CAT'); ?>  <span class="label label-success"><?php echo $item->title; ?></span></p>
 					<?php if ($item->bcnt > 0 ) : ?>
 						<ul>
 						<?php foreach ($item->bks as $i=>$bk) { 
@@ -79,7 +79,7 @@ $xblink = 'index.php?option=com_xbfilms';
 					<?php endif; ?>
 				</div>
 				<div class="xbbox xbboxmag">
-					<p><?php echo $item->rcnt.' '.JText::_('reviews in category'); ?>  <span class="label label-success"><?php echo $item->title; ?></span></p>
+					<p><?php echo $item->rcnt.' '.JText::_('XBCULTURE_REVIEWS_IN_CAT'); ?>  <span class="label label-success"><?php echo $item->title; ?></span></p>
 					<?php if ($item->rcnt > 0 ) : ?>
 						<ul>
 						<?php foreach ($item->revs as $i=>$rev) { 
@@ -91,7 +91,7 @@ $xblink = 'index.php?option=com_xbfilms';
 			</div>
 			<div class= "span6">
 				<div class="xbbox xbboxgrn">
-					<p><?php echo $item->pcnt.' '.JText::_('people in category'); ?>  <span class="label label-success"><?php echo $item->title; ?></span></p>
+					<p><?php echo $item->pcnt.' '.JText::_('XBCULTURE_PEOPLE_IN_CAT'); ?>  <span class="label label-success"><?php echo $item->title; ?></span></p>
 					<?php if ($item->pcnt > 0 ) : ?>
 						<ul>
 						<?php foreach ($item->people as $i=>$per) { 
@@ -101,7 +101,7 @@ $xblink = 'index.php?option=com_xbfilms';
 					<?php endif; ?>
 				</div>
 				<div class="xbbox xbboxgrey">
-					<p><?php echo $item->chcnt.' '.JText::_('characters in category'); ?>  <span class="label label-success"><?php echo $item->title; ?></span></p>
+					<p><?php echo $item->chcnt.' '.JText::_('XBCULTURE_CHARS_IN_CAT'); ?>  <span class="label label-success"><?php echo $item->title; ?></span></p>
 					<?php if ($item->chcnt > 0 ) : ?>
 						<ul>
 						<?php foreach ($item->chars as $i=>$char) { 

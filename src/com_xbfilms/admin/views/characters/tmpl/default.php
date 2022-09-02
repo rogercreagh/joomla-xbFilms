@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/characters/tmpl/default.php
- * @version 0.9.6.f 10th January 2022
+ * @version 0.9.9.6 31st August 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -75,7 +75,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 	<?php if ($search) {
 		echo '<p>Searched for <b>'; 
 		if (stripos($search, 'i:') === 0) {
-            echo trim(substr($search, 2)).'</b> '.Text::_('as character Id');
+            echo trim(substr($search, 2)).'</b> '.Text::_('XBFILMS_AS_CHARID');
 		} elseif ((stripos($search, 's:') === 0) || (stripos($search, 'd:') === 0)) {
             echo trim(substr($search, 2)).'</b> '.Text::_('XBFILMS_AS_INBIOG');
         } else {
@@ -114,7 +114,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 					<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_NAME', 'name', $listDirn, $listOrder); ?>					
     			</th>
     			<th>
-    				<?php echo Text::_('Description'); ?>
+    				<?php echo Text::_('XBCULTURE_DESCRIPTION'); ?>
     			</th>
     			<th >
     				<?php echo Text::_('XBCULTURE_FILMS_U') ;?>
@@ -123,7 +123,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 						<?php if ($this->xbpeople_ok!==false) {
 							echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; ';
 						}
-						echo Text::_( 'Tags' ); ?>
+						echo Text::_( 'XBCULTURE_TAGS_U' ); ?>
 					</th>
     			
     			<th class="nowrap hidden-phone" style="width:45px;">
@@ -231,7 +231,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 					<td>
 						<?php if (count($item->films)>0) { 
 						    echo '<span class="xb09 xbnorm"><i>';
-						    echo Text::_('Appers in').' '.count($item->films).' ';
+						    echo Text::_('XBCULTURE_APPEARS_IN').' '.count($item->films).' ';
 						    echo Text::_((count($item->films)==1)?'XBCULTURE_FILM':'XBCULTURE_FILMS'); 
 						    echo '</i><br />';
 						    echo XbfilmsGeneral::makeLinkedNameList($item->films,'','<br />',true).'</span><br />';

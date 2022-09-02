@@ -27,7 +27,7 @@
 		>
 			<option value="all">XBFILMS_ALLPEOPLE</option>
 			<option value="film">XBFILMS_FILMPEOPLE</option>
-			<option value="director">XBCULTURE_CAPDIRECTORS</option>
+			<option value="director">XBCULTURE_DIRECTORS</option>
 			<option value="producer">XBCULTURE_CAPPRODUCERS</option>
 			<option value="crew">XBCULTURE_CAPCREW</option>
 			<option value="actor">XBCULTURE_CAPCAST</option>

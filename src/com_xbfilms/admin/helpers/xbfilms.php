@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/helpers/xbfilms.php
- * @version 0.9.8.7 5th June 2022
+ * @version 0.9.9.6 31st August 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -124,23 +124,23 @@ class XbfilmsHelper extends ContentHelper
 	        );
 		} else {
 			JHtmlSidebar::addEntry(
-					Text::_('xbFilms Dashboard'),
+					Text::_('XBFILMS_XBFILMS_DASHBOARD'),
 					'index.php?option=com_xbfilms&view=dashboard',
 					$vName == 'dashboard'
 					);
 			
 			JHtmlSidebar::addEntry(
-					Text::_('Films'),
+					Text::_('XBCULTURE_FILMS'),
 					'index.php?option=com_xbfilms&view=films',
 					$vName == 'films'
 					);
 			JHtmlSidebar::addEntry(
-					Text::_('Reviews'),
+					Text::_('XBCULTURE_REVIEWS_U'),
 					'index.php?option=com_xbfilms&view=reviews',
 					$vName == 'reviews'
 					);
 			JHtmlSidebar::addEntry(
-					Text::_('Film Cat.Counts'),
+					Text::_('XBFILMS_FILM_CAT_CNTS'),
 					'index.php?option=com_xbfilms&view=fcategories',
 					$vName == 'fcategories'
 					);

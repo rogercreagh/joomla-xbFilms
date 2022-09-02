@@ -72,7 +72,7 @@ if ($imgok) {
 				<div class="span9">
                     <?php if ($item->dircnt>0) : ?>
 						<h4><span class="xbnit xbmr10">
-							<?php echo JText::_(($item->dircnt==1) ? 'XBCULTURE_CAPDIRECTOR' : 'XBCULTURE_CAPDIRECTORS'); ?>
+							<?php echo JText::_(($item->dircnt==1) ? 'XBCULTURE_DIRECTOR' : 'XBCULTURE_DIRECTORS'); ?>
 						: </span>
 						<?php echo $item->dlist; ?>                          
 						</h4>

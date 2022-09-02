@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/film/tmpl/edit.php
- * @version 0.9.8.6 2nd June 2022
+ * @version 0.9.9.6 31st August 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -44,15 +44,15 @@ $document->addStyleDeclaration($style);
                 	<div class="row-fluid xbbox xbboxgrey">
 						<div class="span6">
 							<?php if (($this->item->id > 0) && (!empty($this->item->lastrat))) { 
-								echo Text::_('Last rated').' ';
+								echo Text::_('XBCULTURE_LAST_RATED').' ';
 								if ($this->item->lastrat['rate']>0) {
 									echo str_repeat('<i class="'.$this->star_class.' "></i>',(int)($this->item->lastrat['rate']));
 								} else {
 									echo '<i class="'.$this->zero_class.' "></i>';
 								}
-								echo ' on '.HtmlHelper::date($this->item->lastrat['seen'] , Text::_('d M Y'));
+								echo ' on '.HtmlHelper::date($this->item->lastrat['seen'] , 'd M Y');
                             } else { 
-                                echo Text::_('No rating yet');
+                                echo Text::_('XBCULTURE_NO_RATING');
                             } ?>
                         </div>
                         <div class="span6">
@@ -94,7 +94,7 @@ $document->addStyleDeclaration($style);
       <div class="span12">
 		<?php echo HTMLHelper::_('bootstrap.startTabSet', 'myTab', array('active' => 'details')); ?>
 
-		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'details', Text::_('Details')); ?>
+		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'details', Text::_('XBCULTURE_DETAILS')); ?>
 		<div class="row-fluid">
     		<div class="span6">
           		<h4>Content</h4>

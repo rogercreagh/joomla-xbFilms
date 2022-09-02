@@ -227,7 +227,7 @@ if (!$this->xbpeople_ok) : ?>
     					<div class="row-fluid">
     						<div class="span1"></div><div class="span11">
     							<span class="badge badge-info xbmr10"><?php echo $this->people['dirpub']+$this->people['dirunpub'];?></span>
-    							<?php echo Text::_('XBCULTURE_CAPDIRECTORS'); ?>
+    							<?php echo Text::_('XBCULTURE_DIRECTORS'); ?>
     							<span class="pull-right xb08">
     							 	<?php echo Text::_('XBCULTURE_PUBCOLON'); ?> 				
     							 	<span class="badge badge-success xbmr10"><?php echo $this->people['dirpub'];?></span>
@@ -371,7 +371,7 @@ if (!$this->xbpeople_ok) : ?>
     				<h2 class="xbtitle">
     					<span class="badge badge-info pull-right">
     						<?php echo $this->catStates['total']; ?></span> 
-    					<?php echo Text::_('Film Categories'); ?>
+    					<?php echo Text::_('XBFILMS_FILM_CATS'); ?>
     				</h2>
     				<div class="row-striped">
     					<div class="row-fluid">
@@ -406,7 +406,7 @@ if (!$this->xbpeople_ok) : ?>
      				<h2 class="xbtitle">
     					<span class="badge badge-info pull-right">
     						<?php echo $this->pcatStates['total']; ?></span> 
-    					<?php echo Text::_('People Categories'); ?>
+    					<?php echo Text::_('XBCULTURE_PEOPLE_CATEGORIES'); ?>
     				</h2>
     				<div class="row-striped">
     					<div class="row-fluid">
@@ -441,7 +441,7 @@ if (!$this->xbpeople_ok) : ?>
     			<div class="xbbox xbboxgrey">
     				<h2 class="xbtitle">
     					<span class="badge badge-info pull-right"><?php echo ($this->tags['tagcnts']['bkcnt'] + $this->tags['tagcnts']['percnt']  + $this->tags['tagcnts']['revcnt']) ; ?></span> 
-    					<?php echo Text::_('Tagged Items'); ?>
+    					<?php echo Text::_('XBCULTURE_TAGGED_ITEMS'); ?>
     				</h2>
     				<div class="row-striped">
     					<div class="row-fluid">

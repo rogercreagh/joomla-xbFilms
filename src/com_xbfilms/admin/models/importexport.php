@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/importexport.php
- * @version 0.9.8.7 5th June 2022
+ * @version 0.9.9.6 31st August 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -454,7 +454,7 @@ class XbfilmsModelImportexport extends JModelAdmin {
 	                 		$query->clear();
 	                 		$db->setQuery($newqry);
 	                 		if (!$db->execute()) {
-	                 			Factory::getApplication()->enqueueMessage('JDatabase::query: '.JText::_('SQL Error')." ".$db->stderr(true), 'warning');
+	                 			Factory::getApplication()->enqueueMessage('JDatabase::query: '.JText::_('XBCULTURE_SQL_ERROR')." ".$db->stderr(true), 'warning');
 	                 			$importcnts['errs'] .= 'error in qry '.$qcnt.', ';
 	                 		} else {
 	                 			$importcnts[$table] ++;
@@ -1425,7 +1425,7 @@ class XbfilmsModelImportexport extends JModelAdmin {
 							$db->setQuery($sqlfilm);
 							$db->execute();
 						} catch (Exception $e) {
-							Factory::getApplication()->enqueueMessage('JDatabase::query: '.JText::_('SQL Error')." ".$db->stderr(true), 'warning');
+							Factory::getApplication()->enqueueMessage('JDatabase::query: '.JText::_('XBCULTURE_SQL_ERROR')." ".$db->stderr(true), 'warning');
 							$importcnts['errs'] .= 'error in qry '.$qcnt.', ';
 							return $importcnts;
 						}
@@ -1481,7 +1481,7 @@ class XbfilmsModelImportexport extends JModelAdmin {
 							$db->setQuery($sqlperson);
 							$db->execute();
 						} catch (Exception $e) {
-							Factory::getApplication()->enqueueMessage('JDatabase::query: '.JText::_('SQL Error')." ".$db->stderr(true), 'warning');
+							Factory::getApplication()->enqueueMessage('JDatabase::query: '.JText::_('XBCULTURE_SQL_ERROR')." ".$db->stderr(true), 'warning');
 							$importcnts['errs'] .= 'error in query. ';
 							return $importcnts;
 						}
@@ -1533,7 +1533,7 @@ class XbfilmsModelImportexport extends JModelAdmin {
 							$db->setQuery($sqlperson);
 							$db->execute();
 						} catch (Exception $e) {
-							Factory::getApplication()->enqueueMessage('JDatabase::query: '.JText::_('SQL Error')." ".$db->stderr(true), 'warning');
+							Factory::getApplication()->enqueueMessage('JDatabase::query: '.JText::_('XBCULTURE_SQL_ERROR')." ".$db->stderr(true), 'warning');
 							$importcnts['errs'] .= 'error in qry '.$qcnt.', ';
 							return $importcnts;
 						}
@@ -1571,7 +1571,7 @@ class XbfilmsModelImportexport extends JModelAdmin {
 								$db->setQuery($sqllink);
 								$db->execute();
 							} catch (Exception $e) {
-								Factory::getApplication()->enqueueMessage('JDatabase::query: '.JText::_('SQL Error')." ".$db->stderr(true), 'warning');
+								Factory::getApplication()->enqueueMessage('JDatabase::query: '.JText::_('XBCULTURE_SQL_ERROR')." ".$db->stderr(true), 'warning');
 								$importcnts['errs'] .= 'error in qry '.$qcnt.', ';
 								return $importcnts;
 							}
@@ -1605,7 +1605,7 @@ class XbfilmsModelImportexport extends JModelAdmin {
 			  				$db->setQuery($sqllink);
 			  				$db->execute();
 			  			} catch (Exception $e) {
-			  				Factory::getApplication()->enqueueMessage('JDatabase::query: '.JText::_('SQL Error')." ".$db->stderr(true), 'warning');
+			  				Factory::getApplication()->enqueueMessage('JDatabase::query: '.JText::_('XBCULTURE_SQL_ERROR')." ".$db->stderr(true), 'warning');
 			  				$importcnts['errs'] .= 'error in qry '.$qcnt.', ';
 			  				return $importcnts;
 			  			}
@@ -1667,7 +1667,7 @@ class XbfilmsModelImportexport extends JModelAdmin {
 								$db->setQuery($sqlrev);
 								$db->execute();
 							} catch (Exception $e) {
-								Factory::getApplication()->enqueueMessage('JDatabase::query: '.JText::_('SQL Error')." ".$db->stderr(true), 'warning');
+								Factory::getApplication()->enqueueMessage('JDatabase::query: '.JText::_('XBCULTURE_SQL_ERROR')." ".$db->stderr(true), 'warning');
 								$importcnts['errs'] .= 'error in qry '.$qcnt.', ';
 								return $importcnts;
 							}

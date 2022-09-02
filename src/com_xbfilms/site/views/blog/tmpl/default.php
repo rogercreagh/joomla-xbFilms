@@ -86,7 +86,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 			$evenrow = !$evenrow;
 		?>
         <div class="xbbox xbboxwht">
-        <h4><?php echo HtmlHelper::date($item->rev_date , Text::_('l jS F Y')); ?></h4>
+        <h4><?php echo HtmlHelper::date($item->rev_date , 'l jS F Y'); ?></h4>
 		<div class="row-fluid">
 			<div class="xbbox <?php echo $rowcol; ?>">
 				<div class="row-fluid">
@@ -126,12 +126,12 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 							<div class="span9">
 		                        <?php if ($item->dircnt>0) : ?>
 									<h4><span class="xbnit xbmr10">
-										<?php echo Text::_(($item->dircnt==1) ? 'XBCULTURE_CAPDIRECTOR' : 'XBCULTURE_CAPDIRECTORS'); ?>
+										<?php echo Text::_(($item->dircnt==1) ? 'XBCULTURE_DIRECTOR' : 'XBCULTURE_DIRECTORS'); ?>
 									: </span>
 									<?php echo $item->dlist; ?>                          
 									</h4>
 								<?php else: ?>
-									<p class="xbnit"><?php echo Text::_('no director listed'); ?></p>
+									<p class="xbnit"><?php echo Text::_('XBFILMS_NODIRECTOR'); ?></p>
 		                        <?php endif; ?>
 							</div>
 						</div>   						
@@ -158,7 +158,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 			</div>
 			<div class="span6">
 				<?php if ($this->show_fcat) : ?>
-					<div class="pull-left xbnit xbmr10"><?php echo Text::_('Film category'); ?></div>
+					<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBFILMS_FILM_CAT'); ?></div>
 					<div class="pull-left">
 					<?php if ($this->show_fcat == 2) : ?>
     					<a class="label label-success" href="<?php echo Route::_($clink.$item->fcatid); ?>">
@@ -173,7 +173,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 				<?php endif; ?>
 				<?php if ($this->show_ftags) : ?>
 					<?php if (!empty($item->ftags)) : ?>
-						<div class="pull-left xbnit xbmr10"><?php echo Text::_('Film Tags'); ?>
+						<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBFILMS_CAPTAGFILMS'); ?>
 						</div>
 						<div class="pull-left">
 							<?php  $tagLayout = new FileLayout('joomla.content.tags');
@@ -188,17 +188,17 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 		<div class="row-fluid"><div class="span1"></div>
 			<div class="span5">
 				<p><span class="xbnit"> 
-					<?php echo Text::_(trim($item->review != '') ? 'Reviewed' : 'Rated').' by '; ?> </span>
+					<?php echo Text::_(trim($item->review != '') ? 'XBCULTURE_REVIEWED' : 'XBCULTURE_RATED').' by '; ?> </span>
 					<b><?php echo $item->reviewer; ?></b>,  
 					<?php echo $item->where_seen; ?>
-					<?php echo Text::_('XBFILMS_ON').'&nbsp;'.HtmlHelper::date($item->rev_date , Text::_('d M Y')) ; ?> 
+					<?php echo Text::_('XBFILMS_ON').'&nbsp;'.HtmlHelper::date($item->rev_date , 'd M Y') ; ?> 
 				</p> 
 			</div>
 			<div class="span6">
 				<?php $sumtext =  trim($item->summary);
 				if ( $sumtext != '') : ?>
 					<div class="xbbox xbboxwht">
-						<div class="pull-left"><span class="xbnit"><?php echo Text::_('Review Summary'); ?> 
+						<div class="pull-left"><span class="xbnit"><?php echo Text::_('XBCULTURE_REVIEW_SUMMARY'); ?> 
 						: </span></div>
 					 	<div><?php echo $sumtext; ?></div> 
 					</div>
@@ -228,7 +228,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 			<div class="row-fluid">
 			<?php if($this->show_rcat) : ?>
 				<div class="span4">
-					<div class="pull-left xbnit xbmr10"><?php echo Text::_('Review category'); ?></div>
+					<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_REVIEW_CATEGORY'); ?></div>
 					<div class="pull-left">
 						<?php if($this->show_rcat ==2) : ?>
 	    					<a class="label label-success" href="<?php echo Route::_($clink.$item->catid); ?>">
@@ -245,7 +245,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 			<?php if ($this->show_rtags) : ?>
 		       	<div class="span<?php echo ($this->show_fcat) ? '8' : '12'; ?>">
 				<?php if (!empty($item->tags)) : ?>
-					<div class="pull-left xbnit xbmr10"><?php echo Text::_('Review Tags'); ?>
+					<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_REVIEW_TAGS'); ?>
 					</div>
 					<div class="pull-left">
 						<?php  $tagLayout = new FileLayout('joomla.content.tags');

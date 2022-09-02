@@ -121,7 +121,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
                         		echo '<span class="xbnit">'.Text::_('XBFILMS_NODIRECTOR').'</span>';
                         	} else { ?> 
 	                        	<span class="xbnit">
-	                        		<?php echo Text::_($item->dircnt>1 ? 'XBCULTURE_DIRECTORS' : 'XBCULTURE_DIRECTOR' ); ?>
+	                        		<?php echo lcfirst(Text::_($item->dircnt>1 ? 'XBCULTURE_DIRECTORS' : 'XBCULTURE_DIRECTOR' )); ?>
 	                        	</span>: 
                         		<?php echo $item->dlist; 
                         	} ?>                          	

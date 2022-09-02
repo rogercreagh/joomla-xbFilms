@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 
 class XbfilmsViewCategory extends JViewLegacy {
 	
@@ -29,7 +30,7 @@ class XbfilmsViewCategory extends JViewLegacy {
 		
 		$document = $this->document; //Factory::getDocument();
 		$document->setTitle('Category view: '.$this->item->title);
-		$document->setMetaData('title', JText::_('Category details').' '.$this->item->title);
+		$document->setMetaData('title', Text::_('XBCULTURE_TITLE_CATMANAGER').' '.$this->item->title);
 		$metadata = json_decode($this->item->metadata,true);
 		if (!empty($metadata['metadesc'])) { $document->setDescription($metadata['metadesc']); }
 		if (!empty($metadata['metakey'])) { $document->setMetaData('keywords', $metadata['metakey']);}

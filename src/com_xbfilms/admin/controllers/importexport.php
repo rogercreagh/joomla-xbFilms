@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/controllers/importexport.php
- * @version 0.2.4.2 21st January 2021
+ * @version 0.9.9.6 31st August 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 
 class XbfilmsControllerImportexport extends JControllerForm
 {
@@ -50,7 +51,7 @@ class XbfilmsControllerImportexport extends JControllerForm
 				$wynik = $model->mergeCsv($filename, $post); //['impcat'],$post['setpub'] );
 				break;
 			default:
-				$wynik['errs'] = JText::_( 'Invalid option' );
+				$wynik['errs'] = Text::_( 'XBCULTURE_INVALID_OPTION' );
 				break;
 		}
 		//get back counts for each table imported plus error details
@@ -114,7 +115,7 @@ class XbfilmsControllerImportexport extends JControllerForm
 				$msg = $model->deleteCharacters($post['delpcat'], $statelist);
 				break;
 			default:
-				$msg = JText::_( 'Select delete type' );
+				$msg = Text::_( 'XBCULTURE_SELECT_DELETE_TYPE' );
 				$msgtype = 'error';
 				break;
 		}

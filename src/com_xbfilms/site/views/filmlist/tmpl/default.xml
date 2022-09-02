@@ -82,7 +82,7 @@
 				showon="menu_perfilt!:"			
 			>
 	  			<option value="">XBFILMS_PROLE_DEF</option>
-				<option value="1">XBCULTURE_CAPDIRECTOR</option>
+				<option value="1">XBCULTURE_DIRECTOR</option>
 				<option value="2">XBCULTURE_CAPPRODUCER</option>
 				<option value="3">XBFILMS_CHAR_IN</option>
 			</field>	
