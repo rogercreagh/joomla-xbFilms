@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/helpers/xbfilmsgeneral.php
- * @version 0.4.9 6th March 2021
+ * @version 0.9.9.7 6th September 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -150,32 +150,40 @@ class XbfilmsGeneral {
      * @param boolean $edit set true for the link to be to the edit view, default false for the front-end view
 	 * @param string $order - field to order list by (role first if specified)
 	 * @param int $listfmt - 0=name only, 1=role,name,note (if role!='' then name,note)  2=name,role,note (if role!='' then name,note)
-     * @return Array of objects (empty if no match)
+     * @return Array of objects (empty if no match) props: role role_note firtname lastname id pstate name listitem
+     * if not isadmin then filter by state==1, if isadmin & state!=1 then highlight display
      */
-    public static function getFilmRoleArray($filmid, $role='', $edit=false, $listfmt = 0) {
-        $edit = Factory::getApplication()->isClient('administrator');
+    public static function getFilmRoleArray($filmid, $role='', $listfmt = 0) {
+        $isadmin = Factory::getApplication()->isClient('administrator');
     	$plink = 'index.php?option=com_xbpeople&view=person';
-    	if ($edit) {
+    	if ($isadmin) {
     	    $plink .= '&layout=edit';
     	}
     	$plink .= '&id=';
     	//$plink .= $edit ? '&task=person.edit&id=' : '&view=person&id=';
     	$db = Factory::getDBO();
     	$query = $db->getQuery(true);
-    	//TODO use global name order param
     	$query->select('a.role, a.role_note, p.firstname, p.lastname, p.id, p.state AS pstate')
     	->from('#__xbfilmperson AS a')
     	->join('LEFT','#__xbpersons AS p ON p.id=a.person_id')
     	->join('LEFT','#__xbfilms AS f ON f.id=a.film_id')
     	->where('a.film_id = "'.$filmid.'"' );
-    	$query->order(array('a.role','a.listorder ASC','p.lastname'));
-//    	if ($role!='') {
-//    	} else {
-//    	    $query->order('p.lastname ASC');
-//    	}
+    	if (!$isadmin) {
+    	    $query->where('p.state = 1');
+    	}
     	if (!empty($role)) {
     		$query->where('a.role = "'.$role.'"');
+    	} else { //order by role and listorder first
+    	    $query->order('(case a.role when '.$db->quote('director').' then 0 
+                when '.$db->quote('producer').' then 1 
+                when '.$db->quote('crew').' then 2
+                when '.$db->quote('actor').' then 3
+                when '.$db->quote('appearsin').' then 4
+                end)');
+    	    $query->order('a.listorder ASC');
     	}
+    	//TODO use global name order param
+        $query->order(array('p.lastname','p.firstname'));    	    
     	
     	$db->setQuery($query);
     	$people = $db->loadObjectList();
@@ -185,36 +193,92 @@ class XbfilmsGeneral {
     	    $name .= $p->lastname;
     		//if not published highlight in yellow if editable or grey if view not linked
     	    if ($p->pstate != 1) {
-    			$flag = $edit ? 'xbhlt' : 'xbdim';
+    	        $flag = $isadmin ? 'xbhlt' : 'xbdim';
     			$p->display = '<span class="'.$flag.'">'.$name.'</span>';
     		} else {
     		    $p->display = $name;
     		}
     		//if item not published only link if to edit page
-    		if (($edit) || ($p->pstate == 1)) {
+    		if (($isadmin) || ($p->pstate == 1)) {
     		    $p->link = '<a href="'.$ilink.'">'.$p->display.'</a>';
     		} else {
     		    $p->link = $p->display;
     		}
-    		$p->listitem = '<li>';
-    		if ($listfmt==0) {
-    		    $p->listitem .= $p->link;
-    		} elseif (!empty($role)) {
-    		    $p->listitem .= $p->display . ' (' . $p->role_note . ')';
-    		} elseif ($listfmt==1) {
-    		    $p->listitem .= '<i>'.$p->role .'</i> ' . $p->display;
-    		    if (!empty ($p->role_note)) $p->listitem .= ' (' . $p->role_note . ')';
-    		} else {
-    		    $p->listitem .= $p->display . '<i>'.$p->role ;   		    
-    		    if (!empty ($p->role_note)) $p->listitem .= ' (' . $p->role_note . ')';
-    		    $p->listitem .= '</i>';
-    		}
-    		$p->listitem .= '</li>';
+//     		$p->listitem = '';
+//     		if ($listfmt==0) {
+//     		    $p->listitem .= $p->link;
+//     		} elseif (!empty($role)) {
+//     		    $p->listitem .= $p->display . ' (' . $p->role_note . ')';
+//     		} elseif ($listfmt==1) {
+//     		    $p->listitem .= '<i>'.$p->role .'</i> ' . $p->display;
+//     		    if (!empty ($p->role_note)) $p->listitem .= ' (' . $p->role_note . ')';
+//     		} else {
+//     		    $p->listitem .= $p->display . '<i>'.$p->role ;   		    
+//     		    if (!empty ($p->role_note)) $p->listitem .= ' (' . $p->role_note . ')';
+//     		    $p->listitem .= '</i>';
+//     		}
+//     		$p->listitem .= '';
     	}
     	return $people;
     }
     
     /**
+     * @name makeLinkedNameList
+     * @param array $arr required - array of details to turn into list
+     * @param string $role default'' - filter by role type
+     * @param string $sep default ',' - separtor between list elements (eg <br />)
+     * @param boolean $linked default true - if true use linked names to detail view (set false for use in tooltips)
+     * @param boolean $amp default true - if true and list is only two people used ampersand as separator
+     * @param boolean $note default 0 - - 1 = prepend role_note as itallics in span minwidth 60px, 2 = append the role_note to the name in brackets
+     * @return string
+     * options - separator (space, comma, andcomma, br, ulli, olli, ) 
+     * - namelinked (true/false)
+     * - rowformat - (role-name 0, role-name-note 1, name-role 2, name-role-note 3) NB if filter by role then role not shown
+     * - no wrapper
+     */
+    public static function NewmakeLinkedNameList($arr, $role='', $sep=',', $linked=true, $rowfmt = 0) {
+        $wynik = '';
+        $cnt = 0;
+        foreach ($arr as $item) {
+            $item->listitem = '';
+            if ($listfmt==0) {
+                $p->listitem .= $p->link;
+            } elseif (!empty($role)) {
+                $p->listitem .= $p->display . ' (' . $p->role_note . ')';
+            } elseif ($listfmt==1) {
+                $p->listitem .= '<i>'.$p->role .'</i> ' . $p->display;
+                if (!empty ($p->role_note)) $p->listitem .= ' (' . $p->role_note . ')';
+            } else {
+                $p->listitem .= $p->display . '<i>'.$p->role ;
+                if (!empty ($p->role_note)) $p->listitem .= ' (' . $p->role_note . ')';
+                $p->listitem .= '</i>';
+            }
+            $p->listitem .= '';
+            
+            
+            
+            if (($role=='') || ($role == $item->role)) {
+                if($note==1) {
+                    $wynik .= '<span class="xbnit xbsp60">'.$item->role_note.':</span> ';
+                }
+                $wynik .= ($linked) ? $item->link : $item->display;
+                if (($note==2) && ($item->role_note !='')) {
+                    $wynik .= ' ('.$item->role_note.')';
+                }
+                $wynik .= $sep;
+                $cnt++;
+            }
+        }
+        //strip off final separator which could be a string so can't use trim
+        if (substr($wynik,-strlen($sep))===$sep) $wynik = substr($wynik, 0, strlen($wynik)-strlen($sep));
+        //if it is a comma list with only two items then we might use & rather than ,
+        if (($cnt==2) && (trim($sep)==',') && $amp) {
+            $wynik = str_replace($sep,' &amp; ',$wynik);
+        }
+        return trim($wynik);
+    }
+    
+ /**
      * @name getFilmPeopleList
      * @desc given a film id returns list of people and roles, can be filtered by role and list format set
      * @param int $filmid
