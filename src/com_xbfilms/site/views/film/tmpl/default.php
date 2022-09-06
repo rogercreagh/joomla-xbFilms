@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/film/tmpl/default.php
- * @version 0.9.8.4 26th May 2022
+ * @version 0.9.9.7 5th September 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -177,22 +177,17 @@ if ($imgok) {
 	</div>
 </div>
 <hr />
-<div class="row-fluid">
-    <?php if ($item->ext_links_cnt > 0) : ?>
-    	<div class="span<?php echo (($item->castcnt > 0) || ($item->crewcnt > 0) || ($item->subjcnt > 0) || ($item->charcnt > 0))? '6' : '12'; ?>">
-    		<p><b><i><?php echo Text::_('XBFILMS_EXT_LINKS'); ?></i></b></p>   					
-    		<?php echo $item->ext_links_list; ?>		
-    	</div>
-    <?php endif; ?>
-    <?php if (($item->castcnt > 0) || ($item->crewcnt > 0) || ($item->subjcnt > 0) || ($item->charcnt > 0)) : ?>
-        <div class="span<?php echo ($item->ext_links_cnt > 0)? '6' : '12'; ?>">
-        	<p><b><i>Cast &amp; Crew, People Appearing and Characters</i></b></p>
+<?php if ((($item->castcnt + $item->crewcnt + $item->subjcnt + $item->charcnt) > 0) || (!$hide_empty)) : ?>
+	<div class="row-fluid">
+		<?php if(($item->castcnt + $item->crewcnt)>0) : ?>
+        <div class="span<?php echo (($item->subjcnt + $item->charcnt) > 0)? '6' : '12'; ?>">
+        	<p><b><i>Cast &amp; Crew</i></b></p>
 			<?php if (($item->castcnt > 0) || (!$hide_empty)) : ?>
 				<p class="xbnit"><?php echo JText::_('Cast').': '; ?>
 				<?php if ($item->castcnt==0) {
 				    echo Text::_('none listed');
 				} else {
-				    echo '<br />'. $item->alist;
+				    echo '<ul class="xbdetails">'. $item->castlist .'</ul>';
 				}?>
 				</p>
 			<?php endif; ?>
@@ -201,31 +196,47 @@ if ($imgok) {
 				<?php if ($item->crewcnt==0) {
 				    echo Text::_('none listed');
 				} else {
-				    echo '<br />'. $item->crlist;
+				    echo '<ul class="xbdetails">'. $item->crewlist.'</ul>';
 				}?>
 				</p>
 			<?php endif; ?>
+		</div>
+		<?php endif; ?>
+		<?php if(($item->subjcnt + $item->charcnt)>0) : ?>
+        <div class="span<?php echo (($item->castcnt + $item->crewcnt) > 0)? '6' : '12'; ?>">
+			<p><b><i>People Appearing &amp; Characters</i></b></p>			
 			<?php if (($item->subjcnt > 0) || (!$hide_empty)) : ?>
 				<p class="xbnit"><?php echo JText::_('Subjects &amp; Cameos').': '; ?>
 				<?php if ($item->subjcnt==0) {
 				    echo Text::_('none listed');
 				} else {
-				    echo '<br />'. $item->slist;
+				    echo '<ul class="xbdetails">'. $item->subjlist.'</ul>';
 				}?>
 				</p>
-			<?php endif; ?>
-			<?php if (($item->charcnt > 0) || (!$hide_empty)) : ?>
-				<p class="xbnit"><?php echo JText::_('Characters').': '; ?>
-				<?php if ($item->charcnt==0) {
-				    echo Text::_('none listed');
-				} else {
-				    echo '<br />'. $item->chlist;
-				}?>
-				</p>
+    			<?php endif; ?>
+    			<?php if (($item->charcnt > 0) || (!$hide_empty)) : ?>
+    				<p class="xbnit"><?php echo JText::_('Characters').': '; ?>
+    				<?php if ($item->charcnt==0) {
+    				    echo Text::_('none listed');
+    				} else {
+    				    echo '<br />'. $item->chlist;
+    				}?>
+    				</p>
+    			<?php endif; ?>
 			<?php endif; ?>
 		</div>
-	<?php endif; ?>
-</div>	
+	</div>	
+	</hr>
+<?php endif; ?>
+<?php if ($item->ext_links_cnt > 0) : ?>
+<div class="row-fluid">
+	<div class="span12">
+		<p><b><i><?php echo Text::_('XBFILMS_EXT_LINKS'); ?></i></b></p>   					
+		<?php echo $item->ext_links_list; ?>		
+	</div>
+</div>
+<?php endif; ?>
+
 <?php if ($this->show_fdates) : ?>
 	<hr />
 	<div class="row-fluid">

@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/characters/view.html.php
- * @version 0.9.9.4 28th July 2022
+ * @version 0.9.9.7 5th September 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -55,7 +55,7 @@ class XbfilmsViewCharacters extends JViewLegacy {
 		foreach ($this->items as $char) {
 		    $char->filmlist = '';
 		    if ($char->fcnt > 0) {
-		        $char->filmlist = "<ul style='list-style:none;margin-left:0'>";
+		        $char->filmlist = '<ul class="xbdetails">';
 		        foreach ($char->films as $film) {
 		            $char->filmlist .= $film->listitem;
 		        }

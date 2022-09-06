@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/characters.php
- * @version 0.9.9.6 25th August 2022
+ * @version 0.9.9.7 4th September 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -16,6 +16,8 @@ use Joomla\CMS\Router\Route;
 
 class XbfilmsModelCharacters extends JModelList {
 
+    protected $xbbooksStatus;
+    
     public function __construct($config = array()) {
         
         if (empty($config['filter_fields'])) {
@@ -27,13 +29,12 @@ class XbfilmsModelCharacters extends JModelList {
                 'catid', 'a.catid', 'category_id', 'tagfilt', 'taglogic',
                 'published','a.state' );
         }
+        $this->xbbooksStatus = Factory::getSession()->get('xbbooks_ok',false);
         
         parent::__construct($config);
     }
     
     protected function getListQuery() {
-        //TODO need to also get roles list with film titles
-        // Initialize variables.
         $db    = Factory::getDbo();
         $query = $db->getQuery(true);
         
@@ -46,8 +47,10 @@ class XbfilmsModelCharacters extends JModelList {
 
             ->from($db->quoteName('#__xbcharacters','a'));
         
-        $query->select('(GROUP_CONCAT(b.film_id SEPARATOR '.$db->quote(',') .')) AS filmlist')
-            ->join('LEFT OUTER',$db->quoteName('#__xbfilmcharacter', 'b') . ' ON ' . $db->quoteName('b.char_id') . ' = ' .$db->quoteName('a.id'));
+            $query->select('(SELECT COUNT(DISTINCT(fp.film_id)) FROM #__xbfilmcharacter AS fp WHERE fp.char_id = a.id) AS fcnt');
+            if ($this->xbbooksStatus) $query->select('(SELECT COUNT(DISTINCT(bp.book_id)) FROM #__xbbookcharacter AS bp WHERE bp.char_id = a.id) AS bcnt');
+            //        $query->select('(GROUP_CONCAT(b.film_id SEPARATOR '.$db->quote(',') .')) AS filmlist');
+         $query->join('LEFT OUTER',$db->quoteName('#__xbfilmcharacter', 'b') . ' ON ' . $db->quoteName('b.char_id') . ' = ' .$db->quoteName('a.id'));
         
         $query->select('c.title AS category_title')
             ->join('LEFT', '#__categories AS c ON c.id = a.catid');
@@ -181,13 +184,17 @@ class XbfilmsModelCharacters extends JModelList {
         // we are going to add the list of characters for each film
         $tagsHelper = new TagsHelper;
         foreach ($items as $i=>$item) { 
-            $item->films = $this->getCharacterArray($item->id);
-            
+ //           $item->films = $this->getCharacterArray($item->id);
+            $item->films = ($item->fcnt>0) ? XbcultureHelper::getCharFilms($item->id) : '';
+            $item->filmlist = '';
+           foreach ($item->films as $film) {
+                $item->filmlist .= $film->listitem;
+            }
 	        $item->tags = $tagsHelper->getItemTags('com_xbpeople.character' , $item->id);
         } //end foreach item
 	        return $items;
     }
-
+/* 
     public function getCharacterArray($personid) {
         $link = 'index.php?option=com_xbfilms&task=film.edit&id=';
         $db = Factory::getDBO();
@@ -207,4 +214,6 @@ class XbfilmsModelCharacters extends JModelList {
         }
         return $list;
     }   
+    
+ */
 }

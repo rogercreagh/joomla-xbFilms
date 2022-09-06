@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/people/view.html.php
- * @version 0.9.9.6 21st August 2022
+ * @version 0.9.9.7 5th September 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -59,7 +59,7 @@ class XbfilmsViewPeople extends JViewLegacy {
 		foreach ($this->items as $person) {
 		    $person->filmlist = '';
 		    if ($person->fcnt > 0) {
-		        $person->filmlist = "<ul style='list-style:none;margin-left:0'>";
+		        $person->filmlist = '<ul class="xbdetails">';
 		        $unique_films = array();
 		        foreach ($person->films as $film) {
 		            if ($layout == 'compact') {

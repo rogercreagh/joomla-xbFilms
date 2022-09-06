@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/people/tmpl/default.php
- * @version 0.9.9.6 31st AUgust 2022
+ * @version 0.9.9.7 4th September 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -29,6 +29,7 @@ if (!$listOrder) {
 }
 $orderNames = array('firstname'=>Text::_('XBCULTURE_FIRSTNAME'),'lastname'=>Text::_('XBCULTURE_LASTNAME'),
 		'id'=>'id','sortdate'=>Text::_('XBCULTURE_DATES'),'category_title'=>Text::_('XBCULTURE_CATEGORY'),
+        'fcnt'=>'film roles',
 		'published'=>Text::_('XBCULTURE_PUBSTATE'),'a.ordering'=>Text::_('XBCULTURE_ORDERING'));
 
 $saveOrder      = $listOrder == 'ordering';
@@ -46,7 +47,7 @@ $celink = 'index.php?option=com_categories&task=category.edit&id=';
 $cvlink = 'index.php?option=com_xbfilms&view=fcategory&id=';
 $telink = 'index.php?option=com_tags&view=tag&task=tag.edit&id=';
 $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
-$bplink = 'index.php?option=com_xbbooks&view=person&layout=edit&id=';
+$bplink = 'index.php?option=com_xbpeople&view=person&layout=edit&id=';
 
 ?>
 <form action="index.php?option=com_xbfilms&view=persons" method="post" id="adminForm" name="adminForm">
@@ -124,8 +125,8 @@ $bplink = 'index.php?option=com_xbbooks&view=person&layout=edit&id=';
     				<?php echo Text::_('XBCULTURE_BIOGRAPHY'); ?>
     			</th>
     			<th >
-    				<?php echo Text::_('XBCULTURE_FILMS_U') ;?>
-    			</th>
+					<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_FILMS_U', 'fcnt', $listDirn, $listOrder); ?>
+     			</th>
     			<th class="hidden-tablet hidden-phone" style="width:15%;">
 						<?php if ($this->xbpeople_ok!==false) {
 							echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; ';
@@ -255,40 +256,66 @@ $bplink = 'index.php?option=com_xbbooks&view=person&layout=edit&id=';
 						<?php endif; ?>
                     </td>
 					<td>
-						<?php if ($item->dircnt>0) { 
-							echo '<span class="xbnit hasTooltip" data-original-title="'.$item->dirlist.'">';
-						    echo Text::_('XBFILMS_DIRECTOR_OF').' '.$item->dircnt.' ';
-                            echo Text::_(($item->dircnt==1)?'XBCULTURE_FILM':'XBCULTURE_FILMS'); 
-						    echo '</span><br />';
-						}?> 
-						<?php if ($item->prdcnt>0) { 
-							echo '<span class="xbnit hasTooltip" data-original-title="'.$item->prdlist.'">';
-							echo Text::_('XBFILMS_PRODUCER_OF').' '.$item->prdcnt.' ';
-                            echo Text::_(($item->prdcnt==1)?'XBCULTURE_FILM':'XBCULTURE_FILMS'); 
-                            echo '</span><br />';
-						}?>
-						<?php if ($item->crewcnt>0) { 
-							echo '<span class="xbnit hasTooltip" data-original-title="'.$item->crewlist.'">';
-							echo Text::_('XBFILMS_FIELD_FILMCREW_LABEL').' '.$item->crewcnt.' ';
-                            echo Text::_(($item->crewcnt==1)?'XBCULTURE_FILM':'XBCULTURE_FILMS'); 
-                            echo '</span><br />';
-						}?>
-						<?php if ($item->appcnt>0) { 
-							echo '<span class="xbnit hasTooltip" data-original-title="'.$item->applist.'">';
-							echo Text::_('XBFILMS_SUBJECT_CAMEO').' '.$item->appcnt.' ';
-							echo Text::_(($item->appcnt==1)?'XBCULTURE_FILM':'XBCULTURE_FILMS'); 
-                            echo '</span><br />';
-						}?>
-						<?php if ($item->actcnt>0) { 
-							echo '<span class="xbnit hasTooltip" data-original-title="'.$item->actlist.'">';
-							echo Text::_('XBFILMS_ACTOR_IN').' '.$item->actcnt.' ';
-							echo Text::_(($item->actcnt==1)?'XBCULTURE_FILM':'XBCULTURE_FILMS'); 
-                            echo '</span><br />';
-						}?>
-						<?php if ($item->bookcnt>0) {
+						<?php if ($item->dircnt>0) : ?>
+                          <details>
+                          	<summary><span class="xbnit">
+ 								<?php echo Text::_('XBFILMS_DIRECTOR_OF').' '.$item->dircnt.' ';
+                                echo Text::_(($item->dircnt==1)?'XBCULTURE_FILM':'XBCULTURE_FILMS');   ?>
+                            </span></summary>
+                            <ul class="xbdetails">
+								<?php echo $item->dirlist; ?>
+							</ul>
+                          </details>
+						<?php endif; ?> 
+						<?php if ($item->prdcnt>0) : ?>
+                          <details>
+                          	<summary><span class="xbnit">
+ 								<?php echo Text::_('XBFILMS_PRODUCER_OF').' '.$item->prdcnt.' ';
+                                echo Text::_(($item->prdcnt==1)?'XBCULTURE_FILM':'XBCULTURE_FILMS');   ?>
+                            </span></summary>
+                            <ul class="xbdetails">
+								<?php echo $item->prdlist; ?>
+							</ul>
+                          </details>
+						<?php endif; ?> 
+						<?php if ($item->crewcnt>0) : ?>
+                          <details>
+                          	<summary><span class="xbnit">
+ 								<?php echo Text::_('XBFILMS_FIELD_FILMCREW_LABEL').' '.$item->crewcnt.' ';
+ 								echo Text::_(($item->crewcnt==1)?'XBCULTURE_FILM':'XBCULTURE_FILMS');   ?>
+                            </span></summary>
+                            <ul class="xbdetails">
+								<?php echo $item->crewlist; ?>
+							</ul>
+                          </details>
+						<?php endif; ?> 
+						<?php if ($item->castcnt>0) : ?>
+                          <details>
+                          	<summary><span class="xbnit">
+ 								<?php echo Text::_('XBFILMS_ACTOR_IN').' '.$item->castcnt.' ';
+ 								echo Text::_(($item->castcnt==1)?'XBCULTURE_FILM':'XBCULTURE_FILMS');   ?>
+                            </span></summary>
+                            <ul class="xbdetails">
+								<?php echo $item->castlist; ?>
+							</ul>
+                          </details>
+						<?php endif; ?> 
+						<?php if ($item->appcnt>0) : ?>
+                          <details>
+                          	<summary><span class="xbnit">
+ 								<?php echo Text::_('XBFILMS_SUBJECT_CAMEO').' '.$item->appcnt.' ';
+ 								echo Text::_(($item->appcnt==1)?'XBCULTURE_FILM':'XBCULTURE_FILMS');   ?>
+                            </span></summary>
+                            <ul class="xbdetails">
+								<?php echo $item->applist; ?>
+							</ul>
+                          </details>
+						<?php endif; ?> 
+
+						<?php if ($item->bcnt>0) {
 							echo '<span class="xbnit">';
-							echo Text::_('XBCULTURE_ALSO_WITH').' <a href="'.$bplink.$item->id.'">'.$item->bookcnt.' ';
-							echo Text::_(($item->bookcnt==1)?'XBCULTURE_BOOK':'XBCULTURE_BOOKS');
+							echo Text::_('XBCULTURE_ALSO_WITH').' <a href="'.$bplink.$item->id.'">'.$item->bcnt.' ';
+							echo Text::_(($item->bcnt==1)?'XBCULTURE_BOOK':'XBCULTURE_BOOKS');
 							echo '</a></span>';
 						}?>
 					</td>

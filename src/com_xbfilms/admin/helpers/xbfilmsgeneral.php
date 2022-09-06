@@ -148,11 +148,18 @@ class XbfilmsGeneral {
      * @param int $filmid
      * @param string $role if set return only those with a specific role, or '' for all roles
      * @param boolean $edit set true for the link to be to the edit view, default false for the front-end view
+	 * @param string $order - field to order list by (role first if specified)
+	 * @param int $listfmt - 0=name only, 1=role,name,note (if role!='' then name,note)  2=name,role,note (if role!='' then name,note)
      * @return Array of objects (empty if no match)
      */
-    public static function getFilmRoleArray($filmid, $role='', $edit=false) {
-    	$link = 'index.php?option=com_xbfilms';
-    	$link .= $edit ? '&task=person.edit&id=' : '&view=person&id=';
+    public static function getFilmRoleArray($filmid, $role='', $edit=false, $listfmt = 0) {
+        $edit = Factory::getApplication()->isClient('administrator');
+    	$plink = 'index.php?option=com_xbpeople&view=person';
+    	if ($edit) {
+    	    $plink .= '&layout=edit';
+    	}
+    	$plink .= '&id=';
+    	//$plink .= $edit ? '&task=person.edit&id=' : '&view=person&id=';
     	$db = Factory::getDBO();
     	$query = $db->getQuery(true);
     	//TODO use global name order param
@@ -171,28 +178,102 @@ class XbfilmsGeneral {
     	}
     	
     	$db->setQuery($query);
-    	$list = $db->loadObjectList();
-    	foreach ($list as $i=>$item){
-    		$ilink = Route::_($link . $item->id);
-    		$name = ($item->firstname!='') ? $item->firstname.' ' : '';
-    		$name .= $item->lastname;
+    	$people = $db->loadObjectList();
+    	foreach ($people as $i=>$p){
+    	    $ilink = Route::_($plink . $p->id);
+    	    $name = ($p->firstname!='') ? $p->firstname.' ' : '';
+    	    $name .= $p->lastname;
     		//if not published highlight in yellow if editable or grey if view not linked
-    		if ($item->pstate != 1) {
+    	    if ($p->pstate != 1) {
     			$flag = $edit ? 'xbhlt' : 'xbdim';
-    			$item->display = '<span class="'.$flag.'">'.$name.'</span>';
+    			$p->display = '<span class="'.$flag.'">'.$name.'</span>';
     		} else {
-    			$item->display = $name;
+    		    $p->display = $name;
     		}
     		//if item not published only link if to edit page
-    		if (($edit) || ($item->pstate == 1)) {
-    			$item->link = '<a href="'.$ilink.'">'.$item->display.'</a>';
+    		if (($edit) || ($p->pstate == 1)) {
+    		    $p->link = '<a href="'.$ilink.'">'.$p->display.'</a>';
     		} else {
-    			$item->link = $item->display;
+    		    $p->link = $p->display;
     		}
+    		$p->listitem = '<li>';
+    		if ($listfmt==0) {
+    		    $p->listitem .= $p->link;
+    		} elseif (!empty($role)) {
+    		    $p->listitem .= $p->display . ' (' . $p->role_note . ')';
+    		} elseif ($listfmt==1) {
+    		    $p->listitem .= '<i>'.$p->role .'</i> ' . $p->display;
+    		    if (!empty ($p->role_note)) $p->listitem .= ' (' . $p->role_note . ')';
+    		} else {
+    		    $p->listitem .= $p->display . '<i>'.$p->role ;   		    
+    		    if (!empty ($p->role_note)) $p->listitem .= ' (' . $p->role_note . ')';
+    		    $p->listitem .= '</i>';
+    		}
+    		$p->listitem .= '</li>';
     	}
-    	return $list;
+    	return $people;
     }
     
+    /**
+     * @name getFilmPeopleList
+     * @desc given a film id returns list of people and roles, can be filtered by role and list format set
+     * @param int $filmid
+     * @param string $role if set return only those with a specific role, or '' for all roles
+     * @param int $listfmt - 0=name only, 1=role,name,note (if role!='' then name,note)  2=name,role,note (if role!='' then name,note)
+     * @return Array of objects (empty if no match)
+     */
+    public static function getFilmPeopleList($filmid, $role='', $edit=false, $listfmt = 0) {
+        $edit = Factory::getApplication()->isClient('administrator');
+        $plink = 'index.php?option=com_xbpeople&view=person';
+        if ($edit) {
+            $plink .= '&layout=edit';
+        }
+        $plink .= '&id=';
+        //$plink .= $edit ? '&task=person.edit&id=' : '&view=person&id=';
+        $db = Factory::getDBO();
+        $query = $db->getQuery(true);
+        //TODO use global name order param
+        $query->select('a.role, a.role_note, p.firstname, p.lastname, p.id, p.state AS pstate')
+            ->from('#__xbfilmperson AS a')
+            ->join('LEFT','#__xbpersons AS p ON p.id=a.person_id')
+            ->join('LEFT','#__xbfilms AS f ON f.id=a.film_id')
+            ->where('a.film_id = "'.$filmid.'"' );
+        if (!$edit) $query->where('p.state = '.$db->quote('1'));
+        $query->order(array('a.role','a.listorder ASC','p.lastname'));
+        if (!empty($role)) {
+            $query->where('a.role = "'.$role.'"');
+        }        
+        $db->setQuery($query);
+        $people = $db->loadObjectList();
+        $peoplelist = '';
+        foreach ($people as $i=>$p){
+            $ilink = Route::_($plink . $p->id);
+            $name = ($p->firstname!='') ? $p->firstname.' ' : '';
+            $name .= $p->lastname;
+            //if not published highlight in yellow if editable or grey if view not linked
+            if ($p->pstate != 1) {
+                $name = '<span class="xbhlt">'.$name.'</span>';
+            }
+            $name = '<a href="'.$ilink.'">'.$name.'</a>';
+            $peoplelist .= '<li>';
+            if ($listfmt==0) {
+                $peoplelist .= $name;
+            } elseif (!empty($role)) {
+                $peoplelist .= $name . ' (' . $p->role_note . ')';
+            } elseif ($listfmt==1) {
+                $peoplelist .= '<i>'.$p->role .'</i> ' . $name;
+                if (!empty ($p->role_note)) $peoplelist .= ' (' . $p->role_note . ')';
+            } else {
+                $peoplelist .= $name . '<i>'.$p->role ;
+                if (!empty ($p->role_note)) $peoplelist .= ' (' . $p->role_note . ')';
+                $peoplelist .= '</i>';
+            }
+            $peoplelist .= '</li>';
+        }
+        return $peoplelist;
+}
+
+
     public static function getFilmCharsArray($filmid) {
     	$admin = Factory::getApplication()->isClient('administrator');
     	$link = 'index.php?option=com_xbfilms'. ($admin) ? '&task=character.edit&id=' : '&view=character&id=';
@@ -225,49 +306,7 @@ class XbfilmsGeneral {
     	return $list;
     }
     
-    /**
-     * @name getPersonROleArray
-     * @desc given a person id returns an array of objects representing films and their role in the film  
-     * @param int $personid
-     * @param string $role - if set return only those with matching roles, or '' for all roles
-     * @param boolean $edit - true for the linked version of the title to point to the edit page for the film, false for the normal view
-     * @return Array of objects
-     */
-    public static function getPersonRoleArray($personid, $role='', $edit=false) {
-        $link = 'index.php?option=com_xbfilms';
-        $link .= $edit ? '&task=film.edit&id=' : '&view=film&id=';
-        $db = Factory::getDBO();
-        $query = $db->getQuery(true);
-        
-        $query->select('a.role, a.role_note, f.title, f.subtitle, f.rel_year, f.id, f.state AS fstate')
-        ->from('#__xbfilmperson AS a')
-        ->join('LEFT','#__xbfilms AS f ON f.id=a.film_id')
-        ->where('a.person_id = "'.$personid.'"' )
-        ->order('f.rel_year DESC, f.title', 'ASC');
-        if (!empty($role)) {
-            $query->where('a.role = "'.$role.'"');
-        }
-        $db->setQuery($query);
-        $list = $db->loadObjectList();
-        foreach ($list as $i=>$item){
-            $tlink = Route::_($link . $item->id);
-            //if not published highlight in yellow if editable or grey if view
-            if ($item->fstate != 1) {
-            	$flag = $edit ? 'xbhlt' : 'xbdim';
-            	$item->display = '<span class="'.$flag.'">'.$item->title.'</span>';
-            } else {
-            	$item->display = $item->title;
-            }
-            //if item not published only link if to edit page
-            if (($edit) || ($item->fstate == 1)) {
-            	$item->link = '<a href="'.$tlink.'">'.$item->display.'</a>';
-            } else {
-            	$item->link = $item->display;
-            }
-        }
-        return $list;
-    }   
-
+/* 
     public static function credit() {
         if (Factory::getSession()->get('xbpeople_ok')) { //(self::checkComponent('com_xbpeople') ) {
             require_once JPATH_ADMINISTRATOR.'/components/com_xbpeople/helpers/xbpeople.php';
@@ -289,4 +328,5 @@ class XbfilmsGeneral {
         return $credit;
     }
     
+ */
 }

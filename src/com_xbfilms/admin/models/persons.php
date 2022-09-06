@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/persons.php
- * @version 0.9.9.6 25th August 2022
+ * @version 0.9.9.7 4th September 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -27,7 +27,7 @@ class XbfilmsModelPersons extends JModelList {
             	'ordering', 'a.ordering',
                 'category_title', 'c.title',
                 'catid', 'a.catid', 'category_id', 'tagfilt', 'taglogic',
-                'sortdate' );
+                'sortdate', 'fcnt', 'bcnt' );
         }
         //$this->xbbooksStatus = XbcultureHelper::checkComponent('com_xbbooks');
         $this->xbbooksStatus = Factory::getSession()->get('xbbooks_ok',false);
@@ -48,7 +48,9 @@ class XbfilmsModelPersons extends JModelList {
             
         $query->from($db->quoteName('#__xbpersons','a'));
         
-//        $query->select('(GROUP_CONCAT(b.film_id SEPARATOR '.$db->quote(',') .')) AS filmlist')
+        $query->select('(SELECT COUNT(DISTINCT(fp.film_id)) FROM #__xbfilmperson AS fp WHERE fp.person_id = a.id) AS fcnt');
+        if ($this->xbbooksStatus) $query->select('(SELECT COUNT(DISTINCT(bp.book_id)) FROM #__xbbookperson AS bp WHERE bp.person_id = a.id) AS bcnt');
+
         $query->join('LEFT',$db->quoteName('#__xbfilmperson', 'b') . ' ON ' . $db->quoteName('b.person_id') . ' = ' .$db->quoteName('a.id'));
         
         $query->select('c.title AS category_title')
@@ -176,15 +178,44 @@ class XbfilmsModelPersons extends JModelList {
         //and apply any film title filter
         $tagsHelper = new TagsHelper;
         
-        foreach ($items as $i=>$item) { 
-            $item->films = XbfilmsGeneral::getPersonRoleArray($item->id);
+        foreach ($items as $i=>$item) {            
+            
+            $item->films = XbcultureHelper::getPersonFilmRoles($item->id);
             $cnts = array_count_values(array_column($item->films, 'role'));
             $item->dircnt = (key_exists('director',$cnts))?$cnts['director'] : 0;
             $item->prdcnt = (key_exists('producer',$cnts))?$cnts['producer'] : 0;
             $item->crewcnt = (key_exists('crew',$cnts))?$cnts['crew'] : 0;
-            $item->actcnt = (key_exists('actor',$cnts))?$cnts['actor'] : 0;
+            $item->castcnt = (key_exists('actor',$cnts))?$cnts['actor'] : 0;
             $item->appcnt = (key_exists('appearsin',$cnts))?$cnts['appearsin'] : 0;
 
+            $item->dirlist = '';
+            $item->prdlist ='';
+            $item->crewlist='';
+            $item->castlist='';
+            $item->applist='';
+            foreach ($item->films as $film) {
+                switch ($film->role) {
+                    case 'director' :
+                        $item->dirlist .= $film->listitem;
+                        break;
+                    case 'producer' :
+                        $item->prdlist .= $film->listitem;
+                        break;
+                    case 'crew' :
+                        $item->crewlist .= $film->listitem;
+                        break;
+                    case 'actor' :
+                        $item->castlist .= $film->listitem;
+                        break;
+                    case 'appearsin' :
+                        $item->applist .= $film->listitem;
+                        break;
+                    default:
+                        break;
+                }
+                
+            }
+/*             
             $item->bookcnt = 0;
             if ($this->xbbooksStatus) {
             	$db    = Factory::getDbo();
@@ -214,7 +245,7 @@ class XbfilmsModelPersons extends JModelList {
             if ($item->appcnt>0) {
             	$item->applist = htmlentities(XbfilmsGeneral::makeLinkedNameList($item->films,'appearsin',', ',false,true));
             }
-            
+ */            
             $item->ext_links = json_decode($item->ext_links);
             $item->ext_links_list ='';
             $item->ext_links_cnt = 0; 

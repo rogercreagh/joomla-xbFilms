@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/characters/tmpl/default.php
- * @version 0.9.9.6 31st August 2022
+ * @version 0.9.9.7 4th September 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -28,7 +28,7 @@ if (!$listOrder) {
 	$listDirn = 'ascending';
 }
 $orderNames = array('name'=>Text::_('XBCULTURE_NAME'),
-		'id'=>'id','category_title'=>Text::_('XBCULTURE_CATEGORY'),
+		'id'=>'id','category_title'=>Text::_('XBCULTURE_CATEGORY'), 'fcnt'=>'films count',
 		'published'=>Text::_('XBCULTURE_PUBSTATE'),'a.ordering'=>Text::_('XBCULTURE_ORDERING'));
 
 $saveOrder      = $listOrder == 'ordering';
@@ -40,7 +40,7 @@ if ($saveOrder) {
 
 $nofile = "media/com_xbfilms/images/nofile.jpg";
 
-$pelink = 'index.php?option=com_xbfilms&view=person&task=character.edit&id=';
+$pelink = 'index.php?option=com_xbpeople&view=person&task=character.edit&id=';
 $pvlink = 'index.php?option=com_xbfilms&view=person&task=character.edit&id='; //change this to view view when available
 $celink = 'index.php?option=com_categories&task=category.edit&id=';
 $cvlink = 'index.php?option=com_xbfilms&view=fcategory&id=';
@@ -117,7 +117,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
     				<?php echo Text::_('XBCULTURE_DESCRIPTION'); ?>
     			</th>
     			<th >
-    				<?php echo Text::_('XBCULTURE_FILMS_U') ;?>
+					<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_FILMS_U', 'fcnt', $listDirn, $listOrder); ?>					
     			</th>
     			<th class="hidden-tablet hidden-phone" style="width:15%;">
 						<?php if ($this->xbpeople_ok!==false) {
@@ -229,13 +229,23 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 						<?php endif; ?>
                     </td>
 					<td>
-						<?php if (count($item->films)>0) { 
-						    echo '<span class="xb09 xbnorm"><i>';
-						    echo Text::_('XBCULTURE_APPEARS_IN').' '.count($item->films).' ';
-						    echo Text::_((count($item->films)==1)?'XBCULTURE_FILM':'XBCULTURE_FILMS'); 
-						    echo '</i><br />';
-						    echo XbfilmsGeneral::makeLinkedNameList($item->films,'','<br />',true).'</span><br />';
-						}?> 
+						<?php if ($item->fcnt>0) : ?> 
+						    <details>
+						    <summary><span class="xbnit">
+						    <?php echo Text::_('XBCULTURE_APPEARS_IN').' '.$item->fcnt.' ';
+						    echo Text::_(($item->fcnt==1)?'XBCULTURE_FILM':'XBCULTURE_FILMS');   ?>
+                            </span></summary>
+                            <ul class="xbdetails">
+								<?php echo $item->filmlist; ?>
+							</ul>
+                          </details>
+						 <?php endif; ?> 
+						<?php if ($item->bcnt>0) {
+							echo '<span class="xbnit">';
+							echo Text::_('also in').' <a href="'.$bplink.$item->id.'">'.$item->bcnt.' ';
+							echo Text::_(($item->bcnt==1)?'XBCULTURE_BOOK':'XBCULTURE_BOOKS');
+							echo '</a></span>';
+						}?>
 					</td>
 					<td>
 						<?php if ($this->xbpeople_ok!==false): ?>						
