@@ -222,62 +222,6 @@ class XbfilmsGeneral {
     	return $people;
     }
     
-    /**
-     * @name makeLinkedNameList
-     * @param array $arr required - array of details to turn into list
-     * @param string $role default'' - filter by role type
-     * @param string $sep default ',' - separtor between list elements (eg <br />)
-     * @param boolean $linked default true - if true use linked names to detail view (set false for use in tooltips)
-     * @param boolean $amp default true - if true and list is only two people used ampersand as separator
-     * @param boolean $note default 0 - - 1 = prepend role_note as itallics in span minwidth 60px, 2 = append the role_note to the name in brackets
-     * @return string
-     * options - separator (space, comma, andcomma, br, ulli, olli, ) 
-     * - namelinked (true/false)
-     * - rowformat - (role-name 0, role-name-note 1, name-role 2, name-role-note 3) NB if filter by role then role not shown
-     * - no wrapper
-     */
-    public static function NewmakeLinkedNameList($arr, $role='', $sep=',', $linked=true, $rowfmt = 0) {
-        $wynik = '';
-        $cnt = 0;
-        foreach ($arr as $item) {
-            $item->listitem = '';
-            if ($listfmt==0) {
-                $p->listitem .= $p->link;
-            } elseif (!empty($role)) {
-                $p->listitem .= $p->display . ' (' . $p->role_note . ')';
-            } elseif ($listfmt==1) {
-                $p->listitem .= '<i>'.$p->role .'</i> ' . $p->display;
-                if (!empty ($p->role_note)) $p->listitem .= ' (' . $p->role_note . ')';
-            } else {
-                $p->listitem .= $p->display . '<i>'.$p->role ;
-                if (!empty ($p->role_note)) $p->listitem .= ' (' . $p->role_note . ')';
-                $p->listitem .= '</i>';
-            }
-            $p->listitem .= '';
-            
-            
-            
-            if (($role=='') || ($role == $item->role)) {
-                if($note==1) {
-                    $wynik .= '<span class="xbnit xbsp60">'.$item->role_note.':</span> ';
-                }
-                $wynik .= ($linked) ? $item->link : $item->display;
-                if (($note==2) && ($item->role_note !='')) {
-                    $wynik .= ' ('.$item->role_note.')';
-                }
-                $wynik .= $sep;
-                $cnt++;
-            }
-        }
-        //strip off final separator which could be a string so can't use trim
-        if (substr($wynik,-strlen($sep))===$sep) $wynik = substr($wynik, 0, strlen($wynik)-strlen($sep));
-        //if it is a comma list with only two items then we might use & rather than ,
-        if (($cnt==2) && (trim($sep)==',') && $amp) {
-            $wynik = str_replace($sep,' &amp; ',$wynik);
-        }
-        return trim($wynik);
-    }
-    
  /**
      * @name getFilmPeopleList
      * @desc given a film id returns list of people and roles, can be filtered by role and list format set
