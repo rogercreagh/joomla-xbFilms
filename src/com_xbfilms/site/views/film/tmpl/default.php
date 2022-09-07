@@ -74,7 +74,7 @@ if ($imgok) {
 						<h4><span class="xbnit xbmr10">
 							<?php echo JText::_(($item->dircnt==1) ? 'XBCULTURE_DIRECTOR' : 'XBCULTURE_DIRECTORS'); ?>
 						: </span>
-						<?php echo $item->dlist; ?>                          
+						<?php echo $item->dirlist; ?>                          
 						</h4>
 					<?php else: ?>
 						<p class="xbnit"><?php echo JText::_('no director listed'); ?></p>
@@ -112,7 +112,7 @@ if ($imgok) {
 			<p><span class="xbnit" style="padding-right:10px;">
 				<?php echo JText::_('XBCULTURE_CAPPRODUCER').': '; ?>
 				</span>
-				<?php  echo $item->plist; ?> 
+				<?php  echo $item->prodlist; ?> 
     		</p>
         <?php endif; ?>				        
     	<?php if ((!$item->studio=='') || (!$hide_empty)) : ?>
@@ -219,7 +219,7 @@ if ($imgok) {
     				<?php if ($item->charcnt==0) {
     				    echo Text::_('none listed');
     				} else {
-    				    echo '<br />'. $item->chlist;
+    				    echo '<br />'. $item->charlist;
     				}?>
     				</p>
     			<?php endif; ?>

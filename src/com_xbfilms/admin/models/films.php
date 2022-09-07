@@ -220,8 +220,11 @@ class XbfilmsModelFilms extends JModelList
             $item->actcnt = (key_exists('actor',$cnts))? $cnts['actor'] : 0;
             $item->appcnt = (key_exists('appearsin',$cnts))? $cnts['appearsin'] : 0;
             
+            $item->charcnt = 0;
             $item->chars = XbfilmsGeneral::getFilmCharsArray($item->id);
-            $item->charcnt = count($item->chars);
+            if (!empty($item->chars)) {
+                $item->charcnt = count($item->chars);
+            }
             
             if ($item->dircnt > 0) {
                 $item->dirlist = XbfilmsGeneral::makeLinkedNameList($item->people,'director',',', (($item->prdcnt)==0)? true:false);

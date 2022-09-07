@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/helpers/xbfilmsgeneral.php
- * @version 0.9.9.7 6th September 2022
+ * @version 0.9.9.7 7th September 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -204,81 +204,63 @@ class XbfilmsGeneral {
     		} else {
     		    $p->link = $p->display;
     		}
-//     		$p->listitem = '';
-//     		if ($listfmt==0) {
-//     		    $p->listitem .= $p->link;
-//     		} elseif (!empty($role)) {
-//     		    $p->listitem .= $p->display . ' (' . $p->role_note . ')';
-//     		} elseif ($listfmt==1) {
-//     		    $p->listitem .= '<i>'.$p->role .'</i> ' . $p->display;
-//     		    if (!empty ($p->role_note)) $p->listitem .= ' (' . $p->role_note . ')';
-//     		} else {
-//     		    $p->listitem .= $p->display . '<i>'.$p->role ;   		    
-//     		    if (!empty ($p->role_note)) $p->listitem .= ' (' . $p->role_note . ')';
-//     		    $p->listitem .= '</i>';
-//     		}
-//     		$p->listitem .= '';
     	}
     	return $people;
     }
     
  /**
-     * @name getFilmPeopleList
-     * @desc given a film id returns list of people and roles, can be filtered by role and list format set
+     * @name getFilmPeople
+     * @desc given a film id returns array of people objects, can be filtered by role
      * @param int $filmid
      * @param string $role if set return only those with a specific role, or '' for all roles
-     * @param int $listfmt - 0=name only, 1=role,name,note (if role!='' then name,note)  2=name,role,note (if role!='' then name,note)
-     * @return Array of objects (empty if no match)
+     * @return Array of objects (empty if no match) with properties name, link, role, note (plus others not used outside this function : firstname, lastname, id, pstate
      */
-    public static function getFilmPeopleList($filmid, $role='', $edit=false, $listfmt = 0) {
-        $edit = Factory::getApplication()->isClient('administrator');
+    public static function getFilmPeople($filmid, $role='') {
+        $isadmin = Factory::getApplication()->isClient('administrator');
         $plink = 'index.php?option=com_xbpeople&view=person';
-        if ($edit) {
+        if ($isadmin) {
             $plink .= '&layout=edit';
         }
         $plink .= '&id=';
         //$plink .= $edit ? '&task=person.edit&id=' : '&view=person&id=';
         $db = Factory::getDBO();
         $query = $db->getQuery(true);
-        //TODO use global name order param
         $query->select('a.role, a.role_note, p.firstname, p.lastname, p.id, p.state AS pstate')
             ->from('#__xbfilmperson AS a')
             ->join('LEFT','#__xbpersons AS p ON p.id=a.person_id')
             ->join('LEFT','#__xbfilms AS f ON f.id=a.film_id')
             ->where('a.film_id = "'.$filmid.'"' );
-        if (!$edit) $query->where('p.state = '.$db->quote('1'));
-        $query->order(array('a.role','a.listorder ASC','p.lastname'));
+        if (!$isadmin) {
+            $query->where('p.state = 1');
+        }
         if (!empty($role)) {
             $query->where('a.role = "'.$role.'"');
-        }        
+        } else { //order by role and listorder first
+            //TODO make role names and order into param or table
+            $query->order('(case a.role when '.$db->quote('director').' then 0
+            when '.$db->quote('producer').' then 1
+            when '.$db->quote('crew').' then 2
+            when '.$db->quote('actor').' then 3
+            when '.$db->quote('appearsin').' then 4
+            end)');
+            $query->order('a.listorder ASC');
+        }
+        //TODO use global name order param
+        $query->order(array('p.lastname','p.firstname'));
+        
         $db->setQuery($query);
         $people = $db->loadObjectList();
-        $peoplelist = '';
+ 
         foreach ($people as $i=>$p){
-            $ilink = Route::_($plink . $p->id);
-            $name = ($p->firstname!='') ? $p->firstname.' ' : '';
-            $name .= $p->lastname;
-            //if not published highlight in yellow if editable or grey if view not linked
+            $p->link = Route::_($plink . $p->id);
+            $p->name = ($p->firstname!='') ? $p->firstname.' ' : '';
+            $p->name .= $p->lastname;
+            //if not published highlight in yellow if editable
             if ($p->pstate != 1) {
-                $name = '<span class="xbhlt">'.$name.'</span>';
+                $p->name = '<span class="xbhlt">'.$p->name.'</span>';
             }
-            $name = '<a href="'.$ilink.'">'.$name.'</a>';
-            $peoplelist .= '<li>';
-            if ($listfmt==0) {
-                $peoplelist .= $name;
-            } elseif (!empty($role)) {
-                $peoplelist .= $name . ' (' . $p->role_note . ')';
-            } elseif ($listfmt==1) {
-                $peoplelist .= '<i>'.$p->role .'</i> ' . $name;
-                if (!empty ($p->role_note)) $peoplelist .= ' (' . $p->role_note . ')';
-            } else {
-                $peoplelist .= $name . '<i>'.$p->role ;
-                if (!empty ($p->role_note)) $peoplelist .= ' (' . $p->role_note . ')';
-                $peoplelist .= '</i>';
-            }
-            $peoplelist .= '</li>';
         }
-        return $peoplelist;
+        return $people;
 }
 
 
@@ -288,9 +270,10 @@ class XbfilmsGeneral {
     	$db = Factory::getDBO();
     	$query = $db->getQuery(true);
     	
-    	$query->select('c.name, c.id, c.state AS chstate, a.char_note, a.actor_id')
+    	$query->select('c.name, c.id, c.state AS chstate, a.char_note AS note, a.actor_id AS aid,p.firstname AS firstname,p.lastname AS lastname')
     	->from('#__xbfilmcharacter AS a')
     	->join('LEFT','#__xbcharacters AS c ON c.id=a.char_id')
+    	->join('LEFT','#__xbpeople AS p ON p.id=a.actor_id')
     	->where('a.film_id = "'.$filmid.'"' );
     	if (!$admin) {
     		$query->where('c.state = 1');
@@ -302,14 +285,18 @@ class XbfilmsGeneral {
     	} catch (Exception $e) {
     		return '';
     	}
-    	foreach ($list as $i=>$item){
-    		$ilink = Route::_($link . $item->id);
-    		if ($item->chstate != 1) {
-    			$item->display = '<span style="background:yellow;">'.$item->name.'</span>';
-    		} else {
-    			$item->display = $item->name;
-    		}
-    		$item->link = '<a href="'.$ilink.'">'.$item->display.'</a>';
+    	if (!empty($list)) {
+        	foreach ($list as $i=>$item){
+        	    $item->link = Route::_($link . $item->id);
+        		if ($item->chstate != 1) {
+        			$item->name = '<span style="background:yellow;">'.$item->name.'</span>';
+        		}
+        		$item->role='char';
+        		if (!empty($item->aid)) {
+        		    $item->note.= 'played by '.$item->firstname.' '.$item->lastname;
+        		}
+        	    
+        	}
     	}
     	return $list;
     }
