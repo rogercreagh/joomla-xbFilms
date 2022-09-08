@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/film.php
- * @version 0.9.8.3 24th May 2022
+ * @version 0.9.9.7 8th September 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -77,17 +77,6 @@ class XbfilmsModelFilm extends JModelItem {
 					$item->ext_links_list .= '</ul>';
 				}
 				
-				$item->dirlist = '';
-				$item->prodlist = '';
-				$item->crewlist = '';
-				$item->castlist = '';
-				$item->subjlist = '';
-				$item->dircnt = 0;
-				$item->prodcnt = 0;
-				$item->crewcnt =  0;
-				$item->subjcnt =  0;
-				$item->castcnt =  0;
-
 				$item->people = XbfilmsGeneral::getFilmPeople($item->id);
 				 
 				//get counts for director,producers,cast,crew,appearances
@@ -96,35 +85,18 @@ class XbfilmsModelFilm extends JModelItem {
 				$item->prodcnt = (key_exists('producer',$cnts))? $cnts['producer'] : 0;
 				$item->crewcnt = (key_exists('crew',$cnts))? $cnts['crew'] : 0;
 				$item->subjcnt = (key_exists('appearsin',$cnts))? $cnts['appearsin'] : 0;
-				$item->castcnt = (key_exists('actor',$cnts))? $cnts['actor'] : 0;
-				
+				$item->castcnt = (key_exists('actor',$cnts))? $cnts['actor'] : 0;				
 				
 				//make director/producer/char lists
-				if ($item->dircnt > 0){
-					$item->dirlist = XbcultureHelper::makeLinkedNameList($item->people,'director','comma');
-				}
-				if ($item->prodcnt > 0){
-				    $item->prodlist = XbcultureHelper::makeLinkedNameList($item->people,'producer','comma');
-				}
-				if ($item->crewcnt > 0){
-				    $item->crewlist = XbcultureHelper::makeLinkedNameList($item->people,'crew','ul',true,1);
-				}
-				if ($item->subjcnt > 0){
-				    $item->subjlist = XbcultureHelper::makeLinkedNameList($item->people,'appearsin','ul',true,1);
-				}
-				if ($item->castcnt > 0){
-				    $item->castlist = XbcultureHelper::makeLinkedNameList($item->people,'actor','ul',true,1);
-				}
+			    $item->dirlist = $item->dircnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'director','comma');
+			    $item->prodlist = $item->prodcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'producer','comma');
+			    $item->crewlist = $item->crewcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'crew','ul',true,1);
+			    $item->subjlist =$item->subjcnt==0 ? '' :  XbcultureHelper::makeLinkedNameList($item->people,'appearsin','ul',true,1);
+			    $item->castlist = $item->castcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'actor','ul',true,1);
 			
-				$item->charcnt=0;
-				$item->chars = XbfilmsGeneral::getFilmCharsArray($item->id);
-				if (!empty($item->chars)) {
-				    $item->charcnt = count($item->chars);
-				}
-				$item->charlist = '';
-				if ($item->charcnt > 0){
-				    $item->charlist = XbcultureHelper::makeLinkedNameList($item->chars,'','ul',true,1);
-				}
+				$item->chars = XbfilmsGeneral::getFilmChars($item->id);
+				$item->charcnt = empty($item->chars) ? 0 : count($item->chars);
+				$item->charlist = $item->charcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->chars,'char','ul',true,1);
 				
 				//order by review rating or date?
 				$item->reviews = XbfilmsGeneral::getFilmReviews($item->id);

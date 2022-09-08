@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmlist/tmpl/onecol.php
- * @version 0.9.9.3 14th July 2022
+ * @version 0.9.9.7 8th September 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -87,7 +87,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 			<tr>
 				<th>
 					<?php echo HtmlHelper::_('searchtools.sort','XBCULTURE_TITLE','title',$listDirn,$listOrder).				
-    						', '.Text::_('XBCULTURE_AUTHOR').', '.
+    						', '.Text::_('XBCULTURE_DIRECTOR').', '.
     						HtmlHelper::_('searchtools.sort','RelYear','rel_year',$listDirn,$listOrder );
 					?>
 				</th>					
@@ -121,9 +121,9 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
                         		echo '<span class="xbnit">'.Text::_('XBFILMS_NODIRECTOR').'</span>';
                         	} else { ?> 
 	                        	<span class="xbnit">
-	                        		<?php echo lcfirst(Text::_($item->dircnt>1 ? 'XBCULTURE_DIRECTORS' : 'XBCULTURE_DIRECTOR' )); ?>
+	                        		<?php echo (Text::_($item->dircnt>1 ? 'XBCULTURE_DIRECTORS' : 'XBCULTURE_DIRECTOR' )); ?>
 	                        	</span>: 
-                        		<?php echo $item->dlist; 
+                        		<?php echo $item->dirlist; 
                         	} ?>                          	
 						</p>
 						

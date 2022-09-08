@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/filmlist.php
- * @version 0.9.9.6 25th August 2022
+ * @version 0.9.9.7 8th September 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -225,28 +225,22 @@ class XbfilmsModelFilmlist extends JModelList {
 		
 		
 		foreach ($items as $i=>$item) {
-			$item->people = XbfilmsGeneral::getFilmRoleArray($item->id);
+		    $item->people = XbfilmsGeneral::getFilmPeople($item->id);
 			$cnts = array_count_values(array_column($item->people, 'role'));
 			$item->dircnt = (key_exists('director',$cnts))? $cnts['director'] : 0;
-			$item->editcnt = (key_exists('producer',$cnts))? $cnts['producer'] : 0;
+			$item->prodcnt = (key_exists('producer',$cnts))? $cnts['producer'] : 0;
 			
-			$item->chars = XbfilmsHelper::getCharacterFilmsArray($item->id);
-			$item->charcnt = count($item->chars);
+			$item->chars = XbfilmsGeneral::getFilmChars($item->id);
+			$item->charcnt = empty($item->chars) ? 0 : count($item->chars);
 			
 			$item->reviews = XbfilmsGeneral::getFilmReviews($item->id);
 			$item->revcnt = count($item->reviews);
 			
 			//make director editor lists
-			$item->dlist = $item->dircnt==0 ? '' : XbfilmsGeneral::makeLinkedNameList($item->people,'director',',', (($item->editcnt)==0)? true:false) ;
-			$item->elist = $item->editcnt==0 ? '' : XbfilmsGeneral::makeLinkedNameList($item->people,'producer',',');
+			$item->dirlist = $item->dircnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'director','comma') ;
+			$item->prodlist = $item->prodcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'producer','comma');
 			
-			if (($item->charcnt)==0){
-				$item->clist = '';
-			} elseif ($item->charcnt == 1) {
-				$item->clist = XbfilmsGeneral::makeLinkedNameList($item->chars,'',', ',true);
-			} else {
-				$item->clist = XbfilmsGeneral::makeLinkedNameList($item->chars,'',', ',false);
-			}
+			$item->clist = $item->charcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->chars,'char','li',true,1);
 			
 			$item->tags = $tagsHelper->getItemTags('com_xbfilms.film' , $item->id);			
 			

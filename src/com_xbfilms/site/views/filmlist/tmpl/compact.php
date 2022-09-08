@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmlist/tmpl/compact.php
- * @version 0.9.9.3 14th July 2022
+ * @version 0.9.9.7 8th September 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -77,7 +77,7 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 					?>
 				</th>					
 				<th>
-					<?php echo Text::_('Director');?>
+					<?php echo Text::_('XBCULTURE_DIRECTOR');?>
 				</th>
                 <?php if ($this->show_rev != 0 ) : ?>
     				<th class="hidden-phone xbtc">
@@ -109,7 +109,7 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
                         	<?php if ($item->dircnt==0) {
                         		echo '<span class="xbnit">'.Text::_('XBFILMS_NODIRECTOR').'</span>';
                         	} else { ?> 
-                        		<?php echo $item->dlist; 
+                        		<?php echo $item->dirlist; 
                         	} ?>                          	
 						</p>
 					</td>

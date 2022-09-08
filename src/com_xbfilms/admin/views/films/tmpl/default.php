@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/films/tmpl/default.php
- * @version 0.9.9.6 19th August 2022
+ * @version 0.9.9.7 8th September 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -65,7 +65,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 	<div class="pull-right span2">
 		<p style="text-align:right;">
 			<?php $fnd = $this->pagination->total;
-			echo $fnd .' '. JText::_(($fnd==1)?'XBCULTURE_FILM':'XBCULTURE_FILMS').' '.JText::_('XBCULTURE_FOUND');
+			echo $fnd .' '. Text::_(($fnd==1)?'XBCULTURE_FILM':'XBCULTURE_FILMS').' '.Text::_('XBCULTURE_FOUND');
             ?>
 		</p>
 	</div>
@@ -80,11 +80,11 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 	<?php if ($search) : ?>
 		<?php echo '<p>Searched for <b>'; ?>
 		<?php if (stripos($search, 'i:') === 0) {
-                echo trim(substr($search, 2)).'</b> '.JText::_('XBFILMS_AS_FILMID');
+                echo trim(substr($search, 2)).'</b> '.Text::_('XBFILMS_AS_FILMID');
             } elseif (stripos($search, 's:') === 0) {
-                echo trim(substr($search, 2)).'</b> '.JText::_('XBFILMS_AS_INSYNOP');
+                echo trim(substr($search, 2)).'</b> '.Text::_('XBFILMS_AS_INSYNOP');
             } else {
-				echo trim($search).'</b> '.JText::_('XBFILMS_AS_INTITLE');
+				echo trim($search).'</b> '.Text::_('XBFILMS_AS_INTITLE');
 			}
 			echo '</p>';
         ?>	
@@ -174,7 +174,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 						<div class="btn-group">
 							<?php echo HTMLHelper::_('jgrid.published', $item->published, $i, 'film.', $canChange, 'cb'); ?>
 							<?php if ($item->note!=""){ ?>
-								<span class="btn btn-micro active hasTooltip" title="" data-original-title="<?php echo '<b>'.JText::_( 'XBCULTURE_NOTE' ) .'</b>: '. htmlentities($item->note); ?>">
+								<span class="btn btn-micro active hasTooltip" title="" data-original-title="<?php echo '<b>'.Text::_( 'XBCULTURE_NOTE' ) .'</b>: '. htmlentities($item->note); ?>">
 									<i class="icon- xbinfo"></i>
 								</span>
 							<?php } else {?>
@@ -201,11 +201,11 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 						<p class="xbtitlelist">
 						<?php if ($item->checked_out) {
 						    $couname = Factory::getUser($item->checked_out)->username;
-						    echo HTMLHelper::_('jgrid.checkedout', $i, JText::_('XBCULTURE_OPENED_BY').': '.$couname, $item->checked_out_time, 'film.', $canCheckin);
+						    echo HTMLHelper::_('jgrid.checkedout', $i, Text::_('XBCULTURE_OPENED_BY').': '.$couname, $item->checked_out_time, 'film.', $canCheckin);
 						} ?>
 						<?php if ($canEdit || $canEditOwn) : ?>
 							<a href="<?php echo Route::_($belink.$item->id);?>"
-								title="<?php echo JText::_('XBFILMS_EDIT_FILM'); ?>" >
+								title="<?php echo Text::_('XBFILMS_EDIT_FILM'); ?>" >
 								<b><?php echo $this->escape($item->title); ?></b></a> 
 						<?php else : ?>
 							<?php echo $this->escape($item->title); ?>
@@ -214,22 +214,22 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
                           echo '<br /><span class="xbnorm xb09">'.$this->escape($item->subtitle).'</span>';
                         } ?>
                         <br />                        
-						<?php $alias = JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?>
+						<?php $alias = Text::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?>
                         <span class="xbnit xb08"><?php echo $alias;?></span>
 						<br /><span class="xb09">
-						<?php if ($item->prdcnt>0) : ?>
-							<span class="xbnit">
-								<?php echo JText::_($item->prdcnt>1 ? 'XBCULTURE_CAPPRODUCERS' : 'XBCULTURE_CAPPRODUCER' ); ?>
-							: </span>
-							<?php echo $item->prdlist; ?>
-						<?php endif; ?>
 						<?php if ($item->dircnt>0) : ?>
-							<span class="xbnit"><?php echo JText::_($item->dircnt>1 ? 'XBCULTURE_DIRECTORS' : 'XBCULTURE_DIRECTOR' ); ?>
+							<span class="xbnit"><?php echo Text::_($item->dircnt>1 ? 'XBCULTURE_DIRECTORS' : 'XBCULTURE_DIRECTOR' ); ?>
 							: </span>
 							<?php echo $item->dirlist; ?>
+						<?php elseif ($item->prodcnt>0) : ?>
+							<span class="xbnit"><?php echo Text::_($item->dircnt>1 ? 'XBCULTURE_PRODUCERS' : 'XBCULTURE_PRODUCER' ); ?>
+							: </span>
+							<?php echo $item->prodlist; ?>
+						<?php else : ?>
+							<span class="xbnit">No director or producer listed</span>
 						<?php endif; ?>
 						<br />
-							<?php echo $item->rel_year > 0 ? '<span class="xbnit">'.JText::_('XBFILMS_RELEASED').': </span>'.$item->rel_year : ''; ?>						
+							<?php echo $item->rel_year > 0 ? '<span class="xbnit">'.Text::_('XBFILMS_RELEASED').': </span>'.$item->rel_year : ''; ?>						
 						</span></p>						
 					</td>
 					<td>
@@ -255,19 +255,25 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 						<?php endif; ?>
 						<p class="xb095 xbnit">	
                             <?php $list = '';
-                            if ($item->crewcnt>0) { $list .= $item->crewcnt.' crew, ';}
-                            if ($item->appcnt>0) { $list .= $item->appcnt.' appearances, ';}
-                            if ($item->actcnt>0) { $list .= $item->crewcnt.' actors, ';}
-                            if ($item->charcnt>0) { $list .=  $item->charcnt.' characters ';}
+                            if ($item->prodcnt>0) { $list .=  $item->prodcnt.' '.lcfirst($item->prodcnt==1 ? Text::_('XBCULTURE_PRODUCER') :Text::_('XBCULTURE_PRODUCERS')).', ';}
+                            if ($item->crewcnt>0) { $list .= $item->crewcnt.' '.lcfirst('XBCULTURE_CREW').', ';}
+                            if ($item->appcnt>0) { $list .= $item->appcnt.' '.lcfirst($item->appcnt==1 ? Text::_('XBCULTURE_APPEARANCE') :Text::_('XBCULTURE_APPEARANCES')).', ';}
+                            if ($item->actcnt>0) { $list .= $item->crewcnt.' '.lcfirst($item->crewcnt==1 ? Text::_('XBCULTURE_ACTOR') :Text::_('XBCULTURE_ACTORS'));}
                             if ($list != '') {
-                            	echo trim($list,', ').' '.JText::_('XBCULTURE_LISTED');
+                            	echo trim($list,', ').' '.Text::_('XBCULTURE_LISTED');
                             } else {
-                            	echo JText::_('XBCULTURE_NO_PEOPLE');
+                            	echo Text::_('XBCULTURE_NO_PEOPLE_LISTED');
+                            } ?>
+                            <br />
+                            <?php if ($item->charcnt>0) {
+                                $item->charcnt.' '.lcfirst(Text::_($item->charcnt==1 ? 'XBCULTURE_CHARACTER' :'XBCULTURE_CHARACTERS'));
+                            } else {
+                                echo Text::_('XBCULTURE_NO_CHARS_LISTED');
                             } ?>
                         </p>
 						<?php if($item->ext_links_cnt >0 ) : ?>
 							<p class="xbnit xb095">	
-								<?php echo JText::_('XBCULTURE_EXTLINK_LBL').': '; 
+								<?php echo Text::_('XBCULTURE_EXTLINK_LBL').': '; 
 	                            echo '<span class="xb09 xbnorm">';
 	                            echo $item->ext_links_list.'</span>'; ?>
 	                    	</p>
@@ -275,7 +281,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 					</td>
 					<td class="hidden-phone">
 						<?php if ($item->revcnt==0) : ?>						    
-                            <i><?php echo JText::_('XBFILMS_NOREVIEW'); ?></i><br /> 
+                            <i><?php echo Text::_('XBFILMS_NOREVIEW'); ?></i><br /> 
 						<?php else: ?>
                         	<?php $stars = (round(($item->averat)*2)/2); ?>
                             <div>
@@ -303,7 +309,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 										 </span>
 	                                <?php endif; ?>
 									<a href="<?php echo Route::_($rvlink.$rev->id);?>">
-	    								<span class="xbnit"><?php echo JText::_('XBCULTURE_BY').':';?>
+	    								<span class="xbnit"><?php echo Text::_('XBCULTURE_BY').':';?>
 	    								<?php if ($rev->reviewer) {
 	    								    echo $rev->reviewer;
 	    								} else {
@@ -318,7 +324,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 						<div style="margin-top:5px;">
 							<a href="<?php echo Route::_($relink.'0&film_id='.$item->id); ?>" 
 								class="btn btn-mini btn-success">
-								<?php echo JText::_('XBFILMS_ADDREVIEW'); ?>
+								<?php echo Text::_('XBFILMS_ADDREVIEW'); ?>
 							</a>
 						</div>										
 					</td>
@@ -329,7 +335,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
     						echo HtmlHelper::date($item->last_seen , 'd M Y'); 
     					}?> </p>
 						<p><a class="label label-success" href="<?php echo $cvlink.$item->catid; ?>" 
-    							title="<?php echo JText::_( 'XBCULTURE_VIEW_CATEGORY' );?>::<?php echo $item->category_title; ?>">
+    							title="<?php echo Text::_( 'XBCULTURE_VIEW_CATEGORY' );?>::<?php echo $item->category_title; ?>">
     								<?php echo $item->category_title; ?>
     							</a>
 						</p>						
@@ -353,7 +359,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
             'bootstrap.renderModal',
             'collapseModal',
             array(
-                'title' => JText::_('XBCULTURE_BATCH_TITLE'),
+                'title' => Text::_('XBCULTURE_BATCH_TITLE'),
                 'footer' => $this->loadTemplate('batch_footer')
             ),
             $this->loadTemplate('batch_body')

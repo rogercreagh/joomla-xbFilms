@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/film.php
- * @version 0.9.7 11th January 2022
+ * @version 0.9.9.7 8th September 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -57,25 +57,15 @@ class XbfilmsModelFilmreview extends JModelItem {
 				$params->merge($item->params);
 				$item->params = $params;				
 				
-				//get people and counts
-				$item->people = XbfilmsGeneral::getFilmRoleArray($item->film_id);
-				$cnts = array_count_values(array_column($item->people, 'role'));
-				$item->authcnt = (key_exists('director',$cnts))? $cnts['director'] : 0;
-				$item->editcnt = (key_exists('producer',$cnts))? $cnts['producer'] : 0;
+// 				//get people and counts
+// 				$item->people = XbfilmsGeneral::getFilmPeople($item->film_id);
+// 				$cnts = array_count_values(array_column($item->people, 'role'));
+// 				$item->dircnt = (key_exists('director',$cnts))? $cnts['director'] : 0;
+// 				$item->prodcnt = (key_exists('producer',$cnts))? $cnts['producer'] : 0;
 				
-				//makedirectoreditor list
-				$item->edauths = '<i>';
-				if ($item->editcnt == 0){
-					if ($item->authcnt == 0){
-						$item->edauths .= JText::_( 'XBFILMS_NODIRECTOR' ).'</i>';
-					} else {
-						$item->edauths .= ($item->authcnt>1)?JText::_('XBCULTURE_DIRECTORS'):JText::_('XBCULTURE_DIRECTOR');
-						$item->edauths .= '</i>: '.XbfilmsGeneral::makeLinkedNameList($item->people,'director',',',false);
-					}
-				} else {
-					$item->edauths .= JText::_('XBCULTURE_CAPPRODUCER').'</i>: '.
-							XbfilmsGeneral::makeLinkedNameList($item->people,'producer',',',false);
-				}
+// 				$item->dirlist = $item->dircnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'director','comma');
+// 				$item->prodlist = $item->prodcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'producer','comma');
+				
 				
 				//get other reviews
 				$item->reviews = XbfilmsGeneral::getFilmReviews($item->film_id);				

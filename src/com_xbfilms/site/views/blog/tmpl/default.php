@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/blog/tmpl/default.php
- * @version 0.9.9.3 13th July 2022
+ * @version 0.9.9.7 8th September 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -128,7 +128,7 @@ $clink = 'index.php?option=com_xbfilms&view=category' . $itemid.'&id=';
 									<h4><span class="xbnit xbmr10">
 										<?php echo Text::_(($item->dircnt==1) ? 'XBCULTURE_DIRECTOR' : 'XBCULTURE_DIRECTORS'); ?>
 									: </span>
-									<?php echo $item->dlist; ?>                          
+									<?php echo $item->dirlist; ?>                          
 									</h4>
 								<?php else: ?>
 									<p class="xbnit"><?php echo Text::_('XBFILMS_NODIRECTOR'); ?></p>

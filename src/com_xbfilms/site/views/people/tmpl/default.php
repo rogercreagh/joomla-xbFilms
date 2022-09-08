@@ -147,10 +147,10 @@ $clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
 					<td>
 					<p class="xb095">
 					<?php if ($item->year_born != 0) {						
-							echo '<span class="xbnit">'.Text::_('XBFILMS_CAPBORN').'</span>: '.$item->year_born.'<br />'; 
+							echo '<span class="xbnit">'.Text::_('XBCULTURE_BORN_U').'</span>: '.$item->year_born.'<br />'; 
 						}
 						if ($item->year_died != 0) {						
-							echo '<span class="xbnit">'.Text::_('XBFILMS_CAPDIED').'</span>: '.$item->year_died; 
+							echo '<span class="xbnit">'.Text::_('XBCULTURE_DIED_U').'</span>: '.$item->year_died; 
 						}              
 					?>					
 					</p>

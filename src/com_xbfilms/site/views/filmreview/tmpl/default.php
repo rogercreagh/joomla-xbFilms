@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmreview/tmpl/default.php
- * @version 0.9.7 11th January 2022
+ * @version 0.9.9.7 8th September 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -48,13 +48,13 @@ if ($imgok) {
 			<div class="span12">
 				<div class="xbbox xbboxmag">
 					<h3><?php echo $item->title; ?></h3>
-					<h4><span class="xbnit"><?php echo JText::_('XBFILMS_REVIEWOF'); ?></span>"
+					<h4><span class="xbnit"><?php echo Text::_('XBFILMS_REVIEWOF'); ?></span>"
 						 <?php echo '<a href="'.$flink;
 						 if (!empty($item->edauths)) {
 						 	echo '" class="hasTooltip" title data-original-title="'.$item->edauths;
 						 }
 							echo '">'.$item->film_title.'</a>'; ?>" 
-						<span class="xbnit"><?php echo JText::_('XBCULTURE_BY'); ?></span>
+						<span class="xbnit"><?php echo Text::_('XBCULTURE_BY'); ?></span>
 						 <?php echo $item->reviewer.', '.
 								 HtmlHelper::date($item->rev_date , Text::_('D jS M Y')); ?>
 					</h4>
@@ -63,7 +63,7 @@ if ($imgok) {
 		</div>
     	<div class="row-fluid"><!-- rating -->
     		<div class="span12 xbmt16 center">
-    			<span class="xbnit"><?php echo JText::_('XBCULTURE_RATING'); ?>: </span>
+    			<span class="xbnit"><?php echo Text::_('XBCULTURE_RATING'); ?>: </span>
     	        <?php if (($this->zero_rating) && ($item->rating==0)) : ?>
     	            <span class="<?php echo $this->zero_class; ?> zero24" style="color:red;"></span>
     	        <?php else: ?>
@@ -85,7 +85,7 @@ if ($imgok) {
 <?php if ((!empty($item->summary)) && (!empty($item->review))) : ?>
 	<div class="row-fluid"><!-- show summary if review text exists -->
 		<div class="span2">
-			<div class=" pull-right xbnit"><?php echo JText::_('XBCULTURE_SUMMARY'); ?>
+			<div class=" pull-right xbnit"><?php echo Text::_('XBCULTURE_SUMMARY'); ?>
 			</div>					
 		</div>
 		<div class="span9">
@@ -98,7 +98,7 @@ if ($imgok) {
 <div class="row-fluid"><!-- other bits -->
 	<?php if(!($this->hide_empty) && ($item->where_seen =='')): ?>
 		<div class="span6">
-			<span class="xbnit"><?php echo JText::_('Where seen'); ?>: </span>
+			<span class="xbnit"><?php echo Text::_('Where seen'); ?>: </span>
 			<?php echo $item->where_seen; ?>
 		</div>
 	<?php endif; ?>
@@ -110,11 +110,11 @@ if ($imgok) {
     			<?php if (empty($item->summary)) : ?>
         			<p class="xbnit">No review text provided</p>
     			<?php else : ?>
-    				<p class="xbnit"><?php echo JText::_('Short Review'); ?></p>
+    				<p class="xbnit"><?php echo Text::_('Short Review'); ?></p>
     				<div class="xbbox xbboxmag"><?php echo $item->summary; ?></div>
     			<?php endif; ?>
 		<?php else : ?>
-			<p class="xbnit xbmb8"><?php echo JText::_('XBCULTURE_REVIEW_U');?></p>
+			<p class="xbnit xbmb8"><?php echo Text::_('XBCULTURE_REVIEW_U');?></p>
 			<div class="xbbox xbboxmag"><?php echo $item->review; ?></div>
         <?php endif; ?>
 	</div>
@@ -123,7 +123,7 @@ if ($imgok) {
 <div class="row-fluid xbmt16">
 			<?php if ($this->show_cat >0) : ?>       
 	        	<div class="span4">
-					<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBCULTURE_CATEGORY'); ?></div>
+					<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_CATEGORY'); ?></div>
 					<div class="pull-left">
     					<?php if($this->show_cat==2) : ?>
     						<a class="label label-success" href="<?php echo Route::_($clink.$item->catid); ?>">
@@ -137,7 +137,7 @@ if ($imgok) {
 	        <?php endif; ?>
         	<?php if (($this->show_tags) && (!empty($item->tags))) : ?>
         	<div class="span<?php echo ($this->show_fcat>0) ? '8' : '12'; ?>">
-				<div class="pull-left xbnit xbmr10"><?php echo JText::_('XBFILMS_CAPTAGS'); ?>
+				<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBFILMS_CAPTAGS'); ?>
 				</div>
 				<div class="pull-left">
 					<?php  $tagLayout = new FileLayout('joomla.content.tags');
@@ -151,7 +151,7 @@ if ($imgok) {
 	<div class="row-fluid">
 		<div class="span12">
 			<div class="xbbox xbboxwht">
-				<span class="xbnit"><?php echo JText::_('Other reviews of').' '.$item->film_title; ?>: </span>
+				<span class="xbnit"><?php echo Text::_('Other reviews of').' '.$item->film_title; ?>: </span>
 				<p>
 				<?php foreach ($item->reviews as $rev) : ?>
 					<?php if ($rev->id != $item->id) : ?>
@@ -180,22 +180,22 @@ if ($imgok) {
 			<div class="span2">
 				<?php if (($item->prev>0) || ($item->next>0)) : ?>
 				<span class="hasTooltip xbhelp" title 
-					data-original-title="<?php echo JText::_('XBFILMS_INFO_PREVNEXT'); ?>" >
+					data-original-title="<?php echo Text::_('XBFILMS_INFO_PREVNEXT'); ?>" >
 				</span>&nbsp;
 				<?php endif; ?>
 				<?php if($item->prev > 0) : ?>
 					<a href="index.php?option=com_xbfilms&view=filmreview&id=<?php echo $item->prev ?>" class="btn btn-small">
-						<?php echo JText::_('XBCULTURE_PREV'); ?></a>
+						<?php echo Text::_('XBCULTURE_PREV'); ?></a>
 			    <?php endif; ?>
 			</div>
 			<div class="span8"><center>
 				<a href="index.php?option=com_xbfilms&view=filmreviews" class="btn btn-small">
-					<?php echo JText::_('XBFILMS_REVIEWLIST'); ?></a></center>
+					<?php echo Text::_('XBFILMS_REVIEWLIST'); ?></a></center>
 			</div>
 			<div class="span2">
 			<?php if($item->next > 0) : ?>
 				<a href="index.php?option=com_xbfilms&view=filmreview&id=<?php echo $item->next ?>" class="btn btn-small pull-right">
-					<?php echo JText::_('XBCULTURE_NEXT'); ?></a>
+					<?php echo Text::_('XBCULTURE_NEXT'); ?></a>
 		    <?php endif; ?>
 			</div>
 	      </div>
