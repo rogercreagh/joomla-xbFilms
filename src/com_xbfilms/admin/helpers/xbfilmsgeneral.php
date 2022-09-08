@@ -225,7 +225,7 @@ class XbfilmsGeneral {
         //$plink .= $edit ? '&task=person.edit&id=' : '&view=person&id=';
         $db = Factory::getDBO();
         $query = $db->getQuery(true);
-        $query->select('a.role, a.role_note, p.firstname, p.lastname, p.id, p.state AS pstate')
+        $query->select('a.role, a.role_note AS note, p.firstname, p.lastname, p.id, p.state AS pstate')
             ->from('#__xbfilmperson AS a')
             ->join('LEFT','#__xbpersons AS p ON p.id=a.person_id')
             ->join('LEFT','#__xbfilms AS f ON f.id=a.film_id')
@@ -270,10 +270,10 @@ class XbfilmsGeneral {
     	$db = Factory::getDBO();
     	$query = $db->getQuery(true);
     	
-    	$query->select('c.name, c.id, c.state AS chstate, a.char_note AS note, a.actor_id AS aid,p.firstname AS firstname,p.lastname AS lastname')
+    	$query->select('c.name, c.id, c.state AS chstate, a.char_note, a.actor_id AS aid, p.firstname AS firstname,p.lastname AS lastname')
     	->from('#__xbfilmcharacter AS a')
     	->join('LEFT','#__xbcharacters AS c ON c.id=a.char_id')
-    	->join('LEFT','#__xbpeople AS p ON p.id=a.actor_id')
+    	->join('LEFT','#__xbpersons AS p ON p.id=a.actor_id')
     	->where('a.film_id = "'.$filmid.'"' );
     	if (!$admin) {
     		$query->where('c.state = 1');
@@ -293,7 +293,9 @@ class XbfilmsGeneral {
         		}
         		$item->role='char';
         		if (!empty($item->aid)) {
-        		    $item->note.= 'played by '.$item->firstname.' '.$item->lastname;
+        		    $item->note = 'played by '.$item->firstname.' '.$item->lastname.' - '.$item->char_note;
+        		} else {
+        		    $item->note = $item->char_note;
         		}
         	    
         	}

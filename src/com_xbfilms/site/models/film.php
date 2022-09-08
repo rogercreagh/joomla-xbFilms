@@ -107,23 +107,23 @@ class XbfilmsModelFilm extends JModelItem {
 				    $item->prodlist = XbcultureHelper::makeLinkedNameList($item->people,'producer','comma');
 				}
 				if ($item->crewcnt > 0){
-				    $item->crewlist = XbcultureHelper::makeLinkedNameList($item->people,'crew','li',true,3);
+				    $item->crewlist = XbcultureHelper::makeLinkedNameList($item->people,'crew','ul',true,1);
 				}
 				if ($item->subjcnt > 0){
-				    $item->subjlist = XbcultureHelper::makeLinkedNameList($item->people,'appearsin','li',true,3);
+				    $item->subjlist = XbcultureHelper::makeLinkedNameList($item->people,'appearsin','ul',true,1);
 				}
 				if ($item->castcnt > 0){
-				    $item->castlist = XbcultureHelper::makeLinkedNameList($item->people,'actor','li',true,3);
+				    $item->castlist = XbcultureHelper::makeLinkedNameList($item->people,'actor','ul',true,1);
 				}
 			
 				$item->charcnt=0;
 				$item->chars = XbfilmsGeneral::getFilmCharsArray($item->id);
 				if (!empty($item->chars)) {
-				$item->charcnt = count($item->chars);
+				    $item->charcnt = count($item->chars);
 				}
 				$item->charlist = '';
 				if ($item->charcnt > 0){
-				    $item->charlist = XbcultureHelper::makeLinkedNameList($item->chars,'','li',true,3);
+				    $item->charlist = XbcultureHelper::makeLinkedNameList($item->chars,'','ul',true,1);
 				}
 				
 				//order by review rating or date?

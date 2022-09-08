@@ -242,7 +242,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 						 <?php endif; ?> 
 						<?php if ($item->bcnt>0) {
 							echo '<span class="xbnit">';
-							echo Text::_('also in').' <a href="'.$bplink.$item->id.'">'.$item->bcnt.' ';
+							echo Text::_('also in').' <a href="'.$pelink.$item->id.'">'.$item->bcnt.' ';
 							echo Text::_(($item->bcnt==1)?'XBCULTURE_BOOK':'XBCULTURE_BOOKS');
 							echo '</a></span>';
 						}?>
