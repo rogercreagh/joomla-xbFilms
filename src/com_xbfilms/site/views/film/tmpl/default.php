@@ -72,9 +72,9 @@ if ($imgok) {
 				<div class="span9">
                     <?php if ($item->dircnt>0) : ?>
 						<h4><span class="xbnit xbmr10">
-							<?php echo Text::_(($item->dircnt==1) ? 'XBCULTURE_DIRECTOR' : 'XBCULTURE_DIRECTORS'); ?>
-						: </span>
-						<?php echo $item->dirlist; ?>                          
+							<?php echo $item->dircnt>1 ? Text::_('XBCULTURE_DIRECTORS') : Text::_('XBCULTURE_DIRECTOR'); ?>
+							: </span>
+							<?php echo $item->dirlist; ?>                          
 						</h4>
 					<?php else: ?>
 						<p class="xbnit"><?php echo Text::_('XBFILMS_NO_DIR_LISTED'); ?></p>
@@ -320,7 +320,7 @@ if ($imgok) {
                 			<?php endif; ?>
                 			<p>
                 				<?php echo ' by '.$rev->reviewer;
-                					echo ' on '.HtmlHelper::date($rev->rev_date , 'D jS M Y'.' ';
+                					echo ' on '.HtmlHelper::date($rev->rev_date , 'D jS M Y').' ';
                 					echo $rev->where_seen; 
                 					if ($rev->subtitled >0) { echo ' ('.Text::_('XBFILMS_SUBTITLED').')'; } ?>
                 			</p>

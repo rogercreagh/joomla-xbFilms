@@ -218,11 +218,11 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
                         <span class="xbnit xb08"><?php echo $alias;?></span>
 						<br /><span class="xb09">
 						<?php if ($item->dircnt>0) : ?>
-							<span class="xbnit"><?php echo Text::_($item->dircnt>1 ? 'XBCULTURE_DIRECTORS' : 'XBCULTURE_DIRECTOR' ); ?>
+							<span class="xbnit"><?php echo $item->dircnt>1 ? Text::_('XBCULTURE_DIRECTORS') : Text::_('XBCULTURE_DIRECTOR'); ?>
 							: </span>
 							<?php echo $item->dirlist; ?>
 						<?php elseif ($item->prodcnt>0) : ?>
-							<span class="xbnit"><?php echo Text::_($item->dircnt>1 ? 'XBCULTURE_PRODUCERS' : 'XBCULTURE_PRODUCER' ); ?>
+							<span class="xbnit"><?php echo $item->prodcnt>1 ? Text::_('XBCULTURE_PRODUCERS') : Text::_('XBCULTURE_PRODUCER'); ?>
 							: </span>
 							<?php echo $item->prodlist; ?>
 						<?php else : ?>
@@ -256,7 +256,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 						<p class="xb095 xbnit">	
                             <?php $list = '';
                             if ($item->prodcnt>0) { $list .=  $item->prodcnt.' '.lcfirst($item->prodcnt==1 ? Text::_('XBCULTURE_PRODUCER') :Text::_('XBCULTURE_PRODUCERS')).', ';}
-                            if ($item->crewcnt>0) { $list .= $item->crewcnt.' '.lcfirst('XBCULTURE_CREW').', ';}
+                            if ($item->crewcnt>0) { $list .= $item->crewcnt.' '.lcfirst(Text::_('XBCULTURE_CREW')).', ';}
                             if ($item->appcnt>0) { $list .= $item->appcnt.' '.lcfirst($item->appcnt==1 ? Text::_('XBCULTURE_APPEARANCE') :Text::_('XBCULTURE_APPEARANCES')).', ';}
                             if ($item->actcnt>0) { $list .= $item->crewcnt.' '.lcfirst($item->crewcnt==1 ? Text::_('XBCULTURE_ACTOR') :Text::_('XBCULTURE_ACTORS'));}
                             if ($list != '') {

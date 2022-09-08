@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/fields/filmcolour.php
- * @version 0.9.6.f 10th January 2022
+ * @version 0.9.9.7 8th September 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -28,8 +28,7 @@ class JFormFieldFilmcolour extends JFormFieldCombo {
 		
 		$query->select('DISTINCT filmcolour AS text, filmcolour AS value')
 		->from('#__xbfilms')
-//		->where("filmcolour<>''")
-		->where("filmcolour NOT IN ('','B&W','Colour')")
+		->where("filmcolour<>''")
 		->order('filmcolour');
 		
 		// Get the options.

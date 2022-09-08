@@ -221,8 +221,8 @@ class XbfilmsModelFilms extends JModelList
             $item->actcnt = (key_exists('actor',$cnts))? $cnts['actor'] : 0;
             $item->appcnt = (key_exists('appearsin',$cnts))? $cnts['appearsin'] : 0;
             
-            $item->dirlist = $item->dircnt=0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'director','comma');            
-            $item->prodlist = $item->prodcnt=0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'producer','comma');
+            $item->dirlist = $item->dircnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'director','comma');            
+            $item->prodlist = $item->prodcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'producer','comma');
            
             $item->chars = XbfilmsGeneral::getFilmChars($item->id);
             $item->charcnt = (empty($item->chars)) ? 0 : count($item->chars);

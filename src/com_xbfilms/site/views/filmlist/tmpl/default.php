@@ -157,9 +157,9 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
                         		echo '<span class="xbnit">'.JText::_('XBFILMS_NODIRECTOR').'</span>';
                         	} else { ?> 
 	                        	<span class="xbnit">
-	                        		<?php echo JText::_($item->dircnt>1 ? 'XBCULTURE_DIRECTORS' : 'XBCULTURE_DIRECTOR' ); ?>
+	                        		<?php echo $item->dircnt>1 ? JText::_('XBCULTURE_DIRECTORS') : Text::_('XBCULTURE_DIRECTOR' ); ?>
 	                        	</span>: 
-                        		<?php echo $item->dlist; 
+                        		<?php echo $item->dirlist; 
                         	} ?>                          	
 						</br>
 						<span class="xb09">
@@ -233,9 +233,9 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
                    <?php if ($this->show_fdates) : ?>
         				<td>
         					<p><?php if($item->last_seen=='') {
-        						echo '<span class="xbnit">(Acq.) '.HtmlHelper::date($item->acq_date , Text::_('M Y')).'</span>';
+        						echo '<span class="xbnit">(Acq.) '.HtmlHelper::date($item->acq_date , 'M Y').'</span>';
         					} else {
-        						echo HtmlHelper::date($item->last_seen , Text::_('d M Y')); 
+        						echo HtmlHelper::date($item->last_seen , 'd M Y'); 
         					}?> </p>
          				</td>
      				<?php endif; ?>
