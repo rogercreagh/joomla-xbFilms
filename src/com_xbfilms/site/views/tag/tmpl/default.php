@@ -123,41 +123,39 @@ $tclink = $xblink.'tags' . $itemid;
 		<div class="xbbox xbboxgrey xbmh200 xbyscroll">
 			<p><?php echo $item->othercnt; ?> other (not xbFilms) items tagged</p>
 			<?php if ($item->othercnt > 0 ) : ?>
-						<?php $span = intdiv(12, count($item->othcnts)); ?>
-						<div class="row-fluid">
-						<?php $thiscomp=''; $firstcomp=true; $thisview = ''; $firstview=true; 
-						foreach ($item->others as $i=>$oth) {
-							$comp = substr($oth->type_alias, 0,strpos($oth->type_alias, '.'));
-							$view = substr($oth->type_alias,strpos($oth->type_alias, '.')+1);
-							if (($view=='review') && ($comp == 'com_xbfilms')) {								
-								$view = 'filmreview';								
-							}
-							$isnewcomp = ($comp!=$thiscomp) ? true : false;
-							$newview= ($view!=$thisview) ? true : false;
-							// if it isnewcomp
-							if ($isnewcomp) {
-								if ($firstcomp) {
-									$firstcomp = false;
-								} else {
-									echo '</ul></div>';
-								}
-								$thiscomp = $comp;
-								$firstview=true;
-								echo '<div class="span'.$span.'"><ul>';
-							}
-							if ($newview) {
-								if ($firstview) {
-									$firstview = false;
-								} else {
-									echo '<br />';
-								}
-								$thisview = $view;
-							}
-							echo '<li><i>'.ucfirst($view);
-							echo '</i> : <a href="index.php?option='.$comp.'&view='.$view.'&id='.$oth->othid.'">'.$oth->core_title.'</a></li> ';
-							// 				<ul>
-				} ?>			
-				</ul>
+				<?php $span = intdiv(12, count($item->othcnts)); ?>
+				<div class="row-fluid">
+				<?php $thiscomp=''; $firstcomp=true; $thisview = ''; $firstview=true; 
+				foreach ($item->others as $i=>$oth) {
+					$comp = substr($oth->type_alias, 0,strpos($oth->type_alias, '.'));
+					if (($view=='review') && ($comp == 'com_xbbooks')) {
+					    $view = 'bookreview';
+					}
+					$isnewcomp = ($comp!=$thiscomp) ? true : false;
+					$newview= ($view!=$thisview) ? true : false;
+					// if it isnewcomp
+					if ($isnewcomp) {
+					    if ($firstcomp) {
+					        $firstcomp = false;
+					    } else {
+					        echo '</ul></div>';
+					    }
+					    $thiscomp = $comp;
+					    $firstview=true;
+					    echo '<div class="span'.$span.'">'.ucfirst(substr($comp,4)).' ';
+					}
+					if ($newview) {
+					    if ($firstview) {
+					        $firstview = false;
+					        echo '<br /><i>'.ucfirst($view).'</i><ul>';
+					    } else {
+					        echo '</ul><i>'.ucfirst($view).'</i><ul>';
+					    }
+					    $thisview = $view;
+					}
+					echo '<li><a href="index.php?option='.$comp.'&view='.$view.'&id='.$oth->othid.'">'.$oth->core_title.'</a></li> ';
+				} 			
+				echo '</ul>'; ?>
 			<?php endif; ?>
 		</div>
 	</div>

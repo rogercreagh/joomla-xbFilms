@@ -62,7 +62,8 @@ Factory::getSession()->set('xbfilms_ok',true);
 //detect related components and set session flag
 XbcultureHelper::checkComponent('com_xbpeople');
 XbcultureHelper::checkComponent('com_xbbooks');
-	
+XbcultureHelper::checkComponent('com_xblive');
+
 // Get an instance of the controller
 $controller = BaseController::getInstance('Xbfilms');
 

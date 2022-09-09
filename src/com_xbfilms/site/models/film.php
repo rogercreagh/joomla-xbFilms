@@ -80,12 +80,12 @@ class XbfilmsModelFilm extends JModelItem {
 				$item->people = XbfilmsGeneral::getFilmPeople($item->id);
 				 
 				//get counts for director,producers,cast,crew,appearances
-				$cnts = array_count_values(array_column($item->people, 'role'));
-				$item->dircnt = (key_exists('director',$cnts))? $cnts['director'] : 0;
-				$item->prodcnt = (key_exists('producer',$cnts))? $cnts['producer'] : 0;
-				$item->crewcnt = (key_exists('crew',$cnts))? $cnts['crew'] : 0;
-				$item->subjcnt = (key_exists('appearsin',$cnts))? $cnts['appearsin'] : 0;
-				$item->castcnt = (key_exists('actor',$cnts))? $cnts['actor'] : 0;				
+				$roles = array_column($item->people,'role');
+				$item->dircnt = count(array_keys($roles, 'director'));
+				$item->prodcnt = count(array_keys($roles, 'producer'));
+				$item->crewcnt = count(array_keys($roles, 'crew'));
+				$item->subjcnt = count(array_keys($roles, 'appearsin'));
+				$item->castcnt = count(array_keys($roles, 'actor'));
 				
 				//make director/producer/char lists
 			    $item->dirlist = $item->dircnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'director','comma');

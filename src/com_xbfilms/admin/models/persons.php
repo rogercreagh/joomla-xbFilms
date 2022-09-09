@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/persons.php
- * @version 0.9.9.7 4th September 2022
+ * @version 0.9.9.7 9th September 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -181,12 +181,20 @@ class XbfilmsModelPersons extends JModelList {
         foreach ($items as $i=>$item) {            
             
             $item->films = XbcultureHelper::getPersonFilmRoles($item->id);
-            $cnts = array_count_values(array_column($item->films, 'role'));
-            $item->dircnt = (key_exists('director',$cnts))?$cnts['director'] : 0;
-            $item->prdcnt = (key_exists('producer',$cnts))?$cnts['producer'] : 0;
-            $item->crewcnt = (key_exists('crew',$cnts))?$cnts['crew'] : 0;
-            $item->castcnt = (key_exists('actor',$cnts))?$cnts['actor'] : 0;
-            $item->appcnt = (key_exists('appearsin',$cnts))?$cnts['appearsin'] : 0;
+            
+            $roles = array_column($item->roles,'role');
+            $item->dircnt = count(array_keys($roles, 'director'));
+            $item->prdcnt = count(array_keys($roles, 'producer'));
+            $item->crewcnt = count(array_keys($roles, 'crew'));
+            $item->appcnt = count(array_keys($roles, 'appearsin'));
+            $item->castcnt = count(array_keys($roles, 'actor'));
+            
+//             $cnts = array_count_values(array_column($item->films, 'role'));
+//             $item->dircnt = (key_exists('director',$cnts))?$cnts['director'] : 0;
+//             $item->prdcnt = (key_exists('producer',$cnts))?$cnts['producer'] : 0;
+//             $item->crewcnt = (key_exists('crew',$cnts))?$cnts['crew'] : 0;
+//             $item->castcnt = (key_exists('actor',$cnts))?$cnts['actor'] : 0;
+//             $item->appcnt = (key_exists('appearsin',$cnts))?$cnts['appearsin'] : 0;
 
             $item->dirlist = '';
             $item->prdlist ='';

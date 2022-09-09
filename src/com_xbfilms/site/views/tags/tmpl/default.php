@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/tags/tmpl/default.php
- * @version 0.9.9.4 29th July 2022
+ * @version 0.9.9.7 9th September 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -84,7 +84,7 @@ $chllink = 'index.php?option=com_xbpeople&view=characters'.$itemid.'&tagid=';
  						    	$ans = substr($item->path, 0, strrpos($item->path, '/'));
  						    	echo str_replace('/',' - ',$ans).' - ';
  						    } ?>
-                        	</span>
+                        	</span><br />
 						<?php endif; //show_parent?>
 	    				<span  class="xb11 xbbold">
 	    					<a href="<?php echo Route::_($tvlink . $item->id); ?>" title="Details">

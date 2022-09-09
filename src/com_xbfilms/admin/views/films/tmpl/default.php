@@ -257,8 +257,8 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
                             <?php $list = '';
                             if ($item->prodcnt>0) { $list .=  $item->prodcnt.' '.lcfirst($item->prodcnt==1 ? Text::_('XBCULTURE_PRODUCER') :Text::_('XBCULTURE_PRODUCERS')).', ';}
                             if ($item->crewcnt>0) { $list .= $item->crewcnt.' '.lcfirst(Text::_('XBCULTURE_CREW')).', ';}
-                            if ($item->appcnt>0) { $list .= $item->appcnt.' '.lcfirst($item->appcnt==1 ? Text::_('XBCULTURE_APPEARANCE') :Text::_('XBCULTURE_APPEARANCES')).', ';}
-                            if ($item->actcnt>0) { $list .= $item->crewcnt.' '.lcfirst($item->crewcnt==1 ? Text::_('XBCULTURE_ACTOR') :Text::_('XBCULTURE_ACTORS'));}
+                            if ($item->subjcnt>0) { $list .= $item->subjcnt.' '.lcfirst($item->subjcnt==1 ? Text::_('XBCULTURE_APPEARANCE') :Text::_('XBCULTURE_APPEARANCES')).', ';}
+                            if ($item->castcnt>0) { $list .= $item->castcnt.' '.lcfirst($item->castcnt==1 ? Text::_('XBCULTURE_ACTOR') :Text::_('XBCULTURE_ACTORS'));}
                             if ($list != '') {
                             	echo trim($list,', ').' '.Text::_('XBCULTURE_LISTED');
                             } else {

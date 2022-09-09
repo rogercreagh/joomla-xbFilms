@@ -51,9 +51,20 @@ JLoader::register('XbcultureHelper', JPATH_ADMINISTRATOR . '/components/com_xbpe
 
 Factory::getSession()->set('xbfilms_ok',true);
 
-//detect related components and set session flag
-if (!Factory::getSession()->get('xbpeople_ok',false)) {
-    if (file_exists(JPATH_ADMINISTRATOR . '/components/com_xbpeople/helpers/xbculture.php')) {
+//detect related components and set session flags
+$sess= Factory::getSession();
+if (!$sess->get('xbbooks_ok',false)) {
+    if (file_exists(JPATH_ADMINISTRATOR . '/components/com_xbbooks/xbbooks.php')) {
+        XbcultureHelper::checkComponent('com_xbbooks');
+    }
+}
+if (!$sess->get('xblive_ok',false)) {
+    if (file_exists(JPATH_ADMINISTRATOR . '/components/com_xblive/xblive.php')) {
+        XbcultureHelper::checkComponent('com_xblive');
+    }
+}
+if (!$sess->get('xbpeople_ok',false)) {
+    if (file_exists(JPATH_ADMINISTRATOR . '/components/com_xbpeople/xbpeople.php')) {
         XbcultureHelper::checkComponent('com_xbpeople');
     } else {
         $app = Factory::getApplication();

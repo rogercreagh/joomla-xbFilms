@@ -67,10 +67,10 @@ $prevext='';
         			<?php if ($prevext != $item->extension) {
         			    switch ($item->extension) {
         			    	case 'com_xbfilms':
-        			    		$section = 'Films and Film Review Categories' ;
+        			    		$section = 'Films &amp; Film Review Categories' ;
         			    		break;
         			    	case 'com_xbpeople':
-        			    		$section = 'xbPeople Categories <span class="xbnit xb09"> - only those associated with films</span>';
+        			    		$section = 'People &amp; Character Categories <span class="xbnit xb09"> - only those associated with films</span>';
         			    		break;
         			    	default:
         			    		$section = $item->extension;
