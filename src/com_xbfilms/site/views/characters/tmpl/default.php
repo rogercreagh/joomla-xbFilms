@@ -144,14 +144,14 @@ $plink = 'index.php?option=com_xbpeople&view=character'.$itemid.'&id=';
     						<?php if (!empty($item->description)) : ?>
     							<?php echo XbcultureHelper::makeSummaryText($item->description,0); ?>
     						<?php else : ?>
-    							<span class="xbnit xb09"><?php echo Text::_('No description available'); ?></span>
+    							<span class="xbnit xb09"><?php echo Text::_('XBCULTURE_NO_DESCRIPTION'); ?></span>
     						<?php endif; ?>
     					<?php endif; ?>
                     </p>
                     <?php if (!empty($item->description)) : ?>
                         <p class="xbnit xb09">   
                              <?php 
-                             echo Text::_('Description').' '.str_word_count(strip_tags($item->description)).' '.Text::_('XBCULTURE_WORDS'); 
+                             echo Text::_('XBCULTURE_DESCRIPTION').' '.str_word_count(strip_tags($item->description)).' '.Text::_('XBCULTURE_WORDS'); 
                             ?>
 						</p>
 					<?php endif; ?>

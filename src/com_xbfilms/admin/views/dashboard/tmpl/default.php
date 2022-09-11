@@ -239,7 +239,7 @@ if (!$this->xbpeople_ok) : ?>
     					<div class="row-fluid">
     						<div class="span1"></div><div class="span11">
     							<span class="badge badge-info xbmr10"><?php echo $this->people['prodpub']+$this->people['produnpub'];?></span>
-    							<?php echo Text::_('XBCULTURE_CAPPRODUCERS'); ?>
+    							<?php echo Text::_('XBCULTURE_PRODUCERS'); ?>
     							<span class="pull-right xb08">
     							 	<?php echo Text::_('XBCULTURE_PUBCOLON'); ?> 				
     							 	<span class="badge badge-success xbmr10"><?php echo $this->people['prodpub'];?></span>
@@ -251,7 +251,7 @@ if (!$this->xbpeople_ok) : ?>
     					<div class="row-fluid">
     						<div class="span1"></div><div class="span11">
     							<span class="badge badge-info xbmr10"><?php echo $this->people['crewpub']+$this->people['crewunpub'];?></span>
-    							<?php echo Text::_('XBCULTURE_CAPCREW'); ?>
+    							<?php echo Text::_('XBCULTURE_CREW'); ?>
     							<span class="pull-right xb08">
     							 	<?php echo Text::_('XBCULTURE_PUBCOLON'); ?> 				
     							 	<span class="badge badge-success xbmr10"><?php echo $this->people['crewpub'];?></span>
@@ -263,7 +263,7 @@ if (!$this->xbpeople_ok) : ?>
     					<div class="row-fluid">
     						<div class="span1"></div><div class="span11">
     							<span class="badge badge-info xbmr10"><?php echo $this->people['castpub']+$this->people['castunpub'];?></span>
-    							<?php echo Text::_('XBCULTURE_CAPCAST'); ?>
+    							<?php echo Text::_('XBCULTURE_CAST'); ?>
     							<span class="pull-right xb08">
     							 	<?php echo Text::_('XBCULTURE_PUBCOLON'); ?> 				
     							 	<span class="badge badge-success xbmr10"><?php echo $this->people['castpub'];?></span>
@@ -275,7 +275,7 @@ if (!$this->xbpeople_ok) : ?>
     					<div class="row-fluid">
     						<div class="span1"></div><div class="span11">
     							<span class="badge badge-info xbmr10"><?php echo $this->people['apppub']+$this->people['appunpub'];?></span>
-    							<?php echo Text::_('XBCULTURE_CAPAPPEARANCES'); ?>
+    							<?php echo Text::_('XBCULTURE_APPEARANCES'); ?>
     							<span class="pull-right xb08">
     							 	<?php echo Text::_('XBCULTURE_PUBCOLON'); ?> 				
     							 	<span class="badge badge-success xbmr10"><?php echo $this->people['apppub'];?></span>

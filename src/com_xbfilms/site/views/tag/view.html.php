@@ -29,7 +29,7 @@ class XbfilmsViewTag extends JViewLegacy {
 		
 		$document = $this->document; //Factory::getDocument();
 		$document->setTitle('Tag view: '.$this->item->title);
-		$document->setMetaData('title', JText::_('Tag details').' '.$this->item->title);
+		$document->setMetaData('title', JText::_('XBCULTURE_TAG_DETAILS').' '.$this->item->title);
 		$metadata = json_decode($this->item->metadata,true);
 		if (!empty($metadata['metadesc'])) { $document->setDescription($metadata['metadesc']); }
 		if (!empty($metadata['metakey'])) { $document->setMetaData('keywords', $metadata['metakey']);}

@@ -82,7 +82,7 @@ class XbfilmsViewPeople extends JViewLegacy {
 		
 		//set metadata
 		$document=$this->document;
-		$document->setMetaData('title', JText::_('People catalogue').': '.$document->title);
+		$document->setMetaData('title', JText::_('XBCULTURE_PEOPLE_LIST').': '.$document->title);
 		$metadesc = $this->params->get('menu-meta_description');
 		if (!empty($metadesc)) { $document->setDescription($metadesc); }
 		$metakey = $this->params->get('menu-meta_keywords');

@@ -116,7 +116,7 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 					<?php if ($this->show_rev != 0 ) : ?>
     					<td>
     						<?php if ($item->revcnt==0) : ?>
-    						   <i><?php  echo ($this->show_rev == 1)? Text::_( 'Not rated yet' ) : Text::_( 'XBFILMS_NOREVIEW' ); ?></i><br />
+    						   <i><?php  echo ($this->show_rev == 1)? Text::_( 'XBCULTURE_NO_RATING' ) : Text::_( 'XBCULTURE_NO_REVIEW' ); ?></i><br />
     						<?php else : ?> 
 	                        	<?php $stars = (round(($item->averat)*2)/2); ?>
 	                            <div class="xbstar">

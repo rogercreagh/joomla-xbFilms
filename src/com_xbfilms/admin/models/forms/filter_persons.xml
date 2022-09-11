@@ -28,13 +28,23 @@
 			<option value="all">XBFILMS_ALLPEOPLE</option>
 			<option value="film">XBFILMS_FILMPEOPLE</option>
 			<option value="director">XBCULTURE_DIRECTORS</option>
-			<option value="producer">XBCULTURE_CAPPRODUCERS</option>
-			<option value="crew">XBCULTURE_CAPCREW</option>
-			<option value="actor">XBCULTURE_CAPCAST</option>
-			<option value="appearsin">XBCULTURE_CAPAPPEARANCES</option>
+			<option value="producer">XBCULTURE_PRODUCERS</option>
+			<option value="crew">XBCULTURE_CREW</option>
+			<option value="actor">XBCULTURE_CAST</option>
+			<option value="appearsin">XBCULTURE_APPEARANCES</option>
 			<option value="notfilm">XBFILMS_NOTINFILMS</option>
 			<option value="orphans">XBCULTURE_ORPHANS</option>
 		</field>
+		<field name="nationality" type="natlist"
+			label="XBFILMS_NATIONALITY_LABEL"
+			description="XBFILMS_NATIONALITY_DESC"
+			size="40" class="inputbox" maxlength="40"
+			onchange="this.form.submit();"
+			default="" 
+		>
+			<option value="">- Nationality Filter -</option>
+		</field>	
+			
 		<field
 			name="category_id"
 			type="category"

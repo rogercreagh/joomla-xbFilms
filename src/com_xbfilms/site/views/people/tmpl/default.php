@@ -164,7 +164,7 @@ $clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
         					<?php else : ?>
         						<?php if (!empty($item->biography)) : ?>
 		        					<span class="xbnit">
-        								<?php echo Text::_('Biog. extract'); ?>: 
+        								<?php echo Text::_('XBCULTURE_BIOG_EXTRACT'); ?>: 
         							</span>
         							<?php echo XbcultureHelper::makeSummaryText($item->biography,0); ?>
         						<?php else : ?>
@@ -177,7 +177,7 @@ $clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
                         <?php if (!empty($item->biography)) : ?>
                             <p class="xbnit xb09">   
                                  <?php 
-                                 	echo Text::_('Biography').' '.str_word_count(strip_tags($item->biography)).' '.Text::_('XBCULTURE_WORDS'); 
+                                 	echo Text::_('XBCULTURE_BIOGRAPHY').' '.str_word_count(strip_tags($item->biography)).' '.Text::_('XBCULTURE_WORDS'); 
                                  ?>
     						</p>
     					<?php endif; ?>

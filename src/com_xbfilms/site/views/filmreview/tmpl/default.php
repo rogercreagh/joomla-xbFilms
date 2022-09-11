@@ -56,7 +56,7 @@ if ($imgok) {
 							echo '">'.$item->film_title.'</a>'; ?>" 
 						<span class="xbnit"><?php echo Text::_('XBCULTURE_BY'); ?></span>
 						 <?php echo $item->reviewer.', '.
-								 HtmlHelper::date($item->rev_date , Text::_('D jS M Y')); ?>
+								 HtmlHelper::date($item->rev_date , 'D jS M Y'); ?>
 					</h4>
 				</div>
 			</div>
@@ -98,7 +98,7 @@ if ($imgok) {
 <div class="row-fluid"><!-- other bits -->
 	<?php if(!($this->hide_empty) && ($item->where_seen =='')): ?>
 		<div class="span6">
-			<span class="xbnit"><?php echo Text::_('Where seen'); ?>: </span>
+			<span class="xbnit"><?php echo Text::_('XBCULTURE_WHERE_SEEN'); ?>: </span>
 			<?php echo $item->where_seen; ?>
 		</div>
 	<?php endif; ?>
@@ -110,7 +110,7 @@ if ($imgok) {
     			<?php if (empty($item->summary)) : ?>
         			<p class="xbnit">No review text provided</p>
     			<?php else : ?>
-    				<p class="xbnit"><?php echo Text::_('Short Review'); ?></p>
+    				<p class="xbnit"><?php echo Text::_('XBCULTURE_SHORT_REVIEW'); ?></p>
     				<div class="xbbox xbboxmag"><?php echo $item->summary; ?></div>
     			<?php endif; ?>
 		<?php else : ?>
@@ -151,7 +151,7 @@ if ($imgok) {
 	<div class="row-fluid">
 		<div class="span12">
 			<div class="xbbox xbboxwht">
-				<span class="xbnit"><?php echo Text::_('Other reviews of').' '.$item->film_title; ?>: </span>
+				<span class="xbnit"><?php echo Text::_('XBCULTURE_OTHER_REVIEWS_OF').' '.$item->film_title; ?>: </span>
 				<p>
 				<?php foreach ($item->reviews as $rev) : ?>
 					<?php if ($rev->id != $item->id) : ?>
@@ -165,7 +165,7 @@ if ($imgok) {
 		        			<?php endif; ?> 	
 	                    </div>
 	                    <a href="<?php echo $frlink.$rev->id; ?>"><b><?php echo $rev->title; ?></b></a>
-	                     by <?php echo $rev->created_by_alias.', '.HtmlHelper::date($rev->created , Text::_('d M Y')); ?>
+	                     by <?php echo $rev->created_by_alias.', '.HtmlHelper::date($rev->created , 'd M Y'); ?>
 	                     <br />
 	                <?php endif; ?>
 				<?php endforeach; ?>

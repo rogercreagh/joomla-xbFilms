@@ -23,6 +23,7 @@ class XbfilmsModelPersons extends JModelList {
             $config['filter_fields'] = array(
                 'id', 'a,id',
             	'firstname', 'lastname', 
+                'nationality', 'a.nationality',
             	'published', 'a.state',
             	'ordering', 'a.ordering',
                 'category_title', 'c.title',
@@ -97,6 +98,12 @@ class XbfilmsModelPersons extends JModelList {
         	} else {
         		$query->where('b.role = '.$db->quote($rolefilt));       		
         	}
+        }
+        
+        //filter by nationality
+        $natfilt = $this->getState('filter.nationality');
+        if (!empty($natfilt)) {
+            $query->where('a.nationality = '.$db->quote($natfilt));
         }
         
         // Filter by category.
@@ -182,20 +189,13 @@ class XbfilmsModelPersons extends JModelList {
             
             $item->films = XbcultureHelper::getPersonFilmRoles($item->id);
             
-            $roles = array_column($item->roles,'role');
+            $roles = array_column($item->films,'role');
             $item->dircnt = count(array_keys($roles, 'director'));
             $item->prdcnt = count(array_keys($roles, 'producer'));
             $item->crewcnt = count(array_keys($roles, 'crew'));
             $item->appcnt = count(array_keys($roles, 'appearsin'));
             $item->castcnt = count(array_keys($roles, 'actor'));
             
-//             $cnts = array_count_values(array_column($item->films, 'role'));
-//             $item->dircnt = (key_exists('director',$cnts))?$cnts['director'] : 0;
-//             $item->prdcnt = (key_exists('producer',$cnts))?$cnts['producer'] : 0;
-//             $item->crewcnt = (key_exists('crew',$cnts))?$cnts['crew'] : 0;
-//             $item->castcnt = (key_exists('actor',$cnts))?$cnts['actor'] : 0;
-//             $item->appcnt = (key_exists('appearsin',$cnts))?$cnts['appearsin'] : 0;
-
             $item->dirlist = '';
             $item->prdlist ='';
             $item->crewlist='';
@@ -223,37 +223,6 @@ class XbfilmsModelPersons extends JModelList {
                 }
                 
             }
-/*             
-            $item->bookcnt = 0;
-            if ($this->xbbooksStatus) {
-            	$db    = Factory::getDbo();
-            	$query = $db->getQuery(true);
-            	$query->select('COUNT(*)')->from('#__xbbookperson');
-            	$query->where('person_id = '.$db->quote($item->id));
-            	$db->setQuery($query);
-            	$item->bookcnt = $db->loadResult();
-            }
-            $item->dirlist='';
-            if ($item->dircnt>0) {
-            	$item->dirlist = htmlentities(XbfilmsGeneral::makeLinkedNameList($item->films,'director',', ',false,true));
-            }
-            $item->prdlist='';
-            if ($item->prdcnt>0) {
-            	$item->prdlist = htmlentities(XbfilmsGeneral::makeLinkedNameList($item->films,'producer',', ',false,true));
-            }
-            $item->crewlist='';
-            if ($item->crewcnt>0) {
-            	$item->crewlist = htmlentities(XbfilmsGeneral::makeLinkedNameList($item->films,'crew',', ',false,true));
-            }
-            $item->actlist='';
-            if ($item->actcnt>0) {
-            	$item->actlist = htmlentities(XbfilmsGeneral::makeLinkedNameList($item->films,'actor',', ',false,true));
-            }
-            $item->applist='';
-            if ($item->appcnt>0) {
-            	$item->applist = htmlentities(XbfilmsGeneral::makeLinkedNameList($item->films,'appearsin',', ',false,true));
-            }
- */            
             $item->ext_links = json_decode($item->ext_links);
             $item->ext_links_list ='';
             $item->ext_links_cnt = 0; 

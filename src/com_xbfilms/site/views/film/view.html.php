@@ -70,7 +70,7 @@ class XbfilmsViewFilm extends JViewLegacy {
 		
 		$document = $this->document; //Factory::getDocument();
 		$document->setTitle($this->item->title);
-		$document->setMetaData('title', JText::_('Film catalogue entry for').' '.$this->item->title);
+		$document->setMetaData('title', JText::_('XBCULTURE_DETAILS_OF').' '.$this->item->title);
 		$metadata = json_decode($this->item->metadata,true);
 		if (!empty($metadata['metadesc'])) { $document->setDescription($metadata['metadesc']); }
 		if (!empty($metadata['metakey'])) { $document->setMetaData('keywords', $metadata['metakey']);}

@@ -17,7 +17,7 @@ use Joomla\CMS\Layout\FileLayout;
 use Joomla\CMS\Router\Route;
 
 HTMLHelper::_('behavior.multiselect');
-HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => JText::_('JOPTION_SELECT_TAG')));
+HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => ::_('JOPTION_SELECT_TAG')));
 HTMLHelper::_('formbehavior.chosen', 'select');
 
 $listOrder = $this->escape($this->state->get('list.ordering'));
@@ -79,7 +79,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
         	<div class="span12">
 				<?php if (empty($this->items)) : ?>
 					<div class="alert alert-no-items">
-						<?php echo JText::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
+						<?php echo ::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
 					</div>
 				<?php else : ?>
 
@@ -88,18 +88,18 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 			<tr>
 				<?php if($this->show_pic) : ?>
 					<th class="center" style="width:80px">
-						<?php echo JText::_( 'XBFILMS_POSTER' ); ?>
+						<?php echo ::_( 'XBFILMS_POSTER' ); ?>
 					</th>	
                 <?php endif; ?>
 				<th>
 					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_TITLE','title',$listDirn,$listOrder).				
-    						', '.JText::_('XBCULTURE_DIRECTOR').', '.
+    						', '.::_('XBCULTURE_DIRECTOR').', '.
     						HTMLHelper::_('searchtools.sort','XBFILMS_RELYEARCOL','rel_year',$listDirn,$listOrder );
 					?>
 				</th>					
 				<?php if($this->show_sum) : ?>
     				<th class="hidden-phone">
-    					<?php echo JText::_('XBCULTURE_SUMMARY');?>
+    					<?php echo ::_('XBCULTURE_SUMMARY');?>
     				</th>
                 <?php endif; ?>
                 <?php if ($this->show_rev != 0 ) : ?>
@@ -154,17 +154,17 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
                         <?php endif; ?>
 						</p><p>
                         	<?php if ($item->dircnt==0) {
-                        		echo '<span class="xbnit">'.JText::_('XBFILMS_NODIRECTOR').'</span>';
+                        		echo '<span class="xbnit">'.::_('XBFILMS_NODIRECTOR').'</span>';
                         	} else { ?> 
 	                        	<span class="xbnit">
-	                        		<?php echo $item->dircnt>1 ? JText::_('XBCULTURE_DIRECTORS') : Text::_('XBCULTURE_DIRECTOR' ); ?>
+	                        		<?php echo $item->dircnt>1 ? ::_('XBCULTURE_DIRECTORS') : Text::_('XBCULTURE_DIRECTOR' ); ?>
 	                        	</span>: 
                         		<?php echo $item->dirlist; 
                         	} ?>                          	
 						</br>
 						<span class="xb09">
 							<?php if($item->rel_year > 0) {
-								echo '<span class="xbnit">'.JText::_('XBFILMS_CAPRELEASED').'</span>: '.$item->rel_year.'<br />'; 
+								echo '<span class="xbnit">'.::_('XBFILMS_CAPRELEASED').'</span>: '.$item->rel_year.'<br />'; 
 							}?>																			
 						</span></p>
 					</td>
@@ -196,7 +196,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 					<?php if ($this->show_rev != 0 ) : ?>
     					<td>
     						<?php if ($item->revcnt==0) : ?>
-    						   <i><?php  echo ($this->show_rev == 1)? JText::_( 'Not rated yet' ) : JText::_( 'XBFILMS_NOREVIEW' ); ?></i><br />
+    						   <i><?php  echo ($this->show_rev == 1)? ::_( 'XBCULTURE_NO_RATING' ) : Text::_( 'XBCULTURE_NO_REVIEW' ); ?></i><br />
     						<?php else : ?> 
 	                        	<?php $stars = (round(($item->averat)*2)/2); ?>
 	                            <div class="xbstar">
@@ -222,7 +222,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
     			                            <?php endif; ?>
     			                            <a href="<?php echo Route::_($rlink.$rev->id); ?>">
 	    	                                	<i>by</i> <?php echo $rev->reviewer; ?> 
-	    	                                	<i>on</i> <?php  echo HtmlHelper::date($rev->rev_date , Text::_('d M Y')); ?>
+	    	                                	<i>on</i> <?php  echo HtmlHelper::date($rev->rev_date , 'd M Y'); ?>
     			                            </a>
         								</div>
         							<?php endforeach; ?> 

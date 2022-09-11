@@ -124,7 +124,7 @@ if ($imgok) {
     	<?php endif; ?>
     	<?php if ((!$item->country=='') || (!$hide_empty)) : ?>
 			<p><span class="xbnit xbpr10">
- 				<?php echo Text::_('Country').': '; ?>
+ 				<?php echo Text::_('XBCULTURE_COUNTRY').': '; ?>
 				</span>
 				<?php echo $item->country; ?>
 			</p>

@@ -23,7 +23,9 @@ class XbfilmsModelPeople extends JModelList {
 			$config['filter_fields'] = array ( 'firstname', 'lastname',
 					'catid', 'a.catid', 'category_id',
 					'category_title', 'c.title','tagfilt',
-					'sortdate','fcnt' );
+					'sortdate','fcnt',
+			     'a.nationality', 'nationality'
+			);
 		}
 		//$this->xbbooksStatus = XbcultureHelper::checkComponent('com_xbbooks');
 		$this->xbbooksStatus = Factory::getSession()->get('xbbooks_ok',false);
@@ -67,7 +69,8 @@ class XbfilmsModelPeople extends JModelList {
 		$query = $db->getQuery(true);
 		
 		$query->select('DISTINCT(a.id) AS id, a.firstname AS firstname, a.lastname AS lastname, 
-            a.summary AS summary, a.year_born AS year_born, a.year_died AS year_died, a.catid AS catid,
+            a.summary AS summary, a.year_born AS year_born, a.year_died AS year_died, 
+            a.nationality AS nationality, a.catid AS catid,
             a.portrait AS portrait, a.biography AS biography, a.state AS published,
             a.created AS created, a.created_by_alias AS created_by_alias,
             a.ordering AS ordering, a.params AS params, a.note AS note');
@@ -101,6 +104,12 @@ class XbfilmsModelPeople extends JModelList {
             }
         }
                         
+        //filter by nationality
+        $natfilt = $this->getState('filter.nationality');
+        if (!empty($natfilt)) {
+            $query->where('a.nationality = '.$db->quote($natfilt));
+        }
+        
         // Filter by category and subcats
         $categoryId = $this->getState('categoryId');
         $this->setState('categoryId','');

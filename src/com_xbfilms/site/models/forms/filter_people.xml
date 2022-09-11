@@ -18,6 +18,15 @@
 				<option value="3">All crew</option>
 				<option value="4">Actors &amp; Appearances</option>
 		</field>	
+		<field name="nationality" type="natlist"
+			label="XBFILMS_NATIONALITY_LABEL"
+			description="XBFILMS_NATIONALITY_DESC"
+			size="40" class="inputbox" maxlength="40"
+			onchange="this.form.submit();"
+			default="" 
+		>
+			<option value="">- Nationality Filter -</option>
+		</field>	
 		<field
 			name="category_id" type="catsubtree"
 			label="XBCULTURE_CATFILT_LABEL"
