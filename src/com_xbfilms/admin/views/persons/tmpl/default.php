@@ -260,55 +260,45 @@ $bplink = 'index.php?option=com_xbpeople&view=person&layout=edit&id=';
                           <details>
                           	<summary><span class="xbnit">
  								<?php echo Text::_('XBFILMS_DIRECTOR_OF').' '.$item->dircnt.' ';
-                                echo Text::_(($item->dircnt==1)?'XBCULTURE_FILM':'XBCULTURE_FILMS');   ?>
+                                echo ($item->dircnt==1)?Text ::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS');   ?>
                             </span></summary>
-                            <ul class="xbdetails">
-								<?php echo $item->dirlist; ?>
-							</ul>
+ 							<?php echo $item->dirlist; ?>
                           </details>
 						<?php endif; ?> 
-						<?php if ($item->prdcnt>0) : ?>
+						<?php if ($item->prodcnt>0) : ?>
                           <details>
                           	<summary><span class="xbnit">
- 								<?php echo Text::_('XBFILMS_PRODUCER_OF').' '.$item->prdcnt.' ';
-                                echo Text::_(($item->prdcnt==1)?'XBCULTURE_FILM':'XBCULTURE_FILMS');   ?>
+ 								<?php echo Text::_('XBFILMS_PRODUCER_OF').' '.$item->prodcnt.' ';
+                                echo ($item->prodcnt==1)? Text::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS');   ?>
                             </span></summary>
-                            <ul class="xbdetails">
-								<?php echo $item->prdlist; ?>
-							</ul>
+							<?php echo $item->prodlist; ?>
                           </details>
 						<?php endif; ?> 
 						<?php if ($item->crewcnt>0) : ?>
                           <details>
                           	<summary><span class="xbnit">
- 								<?php echo Text::_('XBFILMS_FIELD_FILMCREW_LABEL').' '.$item->crewcnt.' ';
- 								echo Text::_(($item->crewcnt==1)?'XBCULTURE_FILM':'XBCULTURE_FILMS');   ?>
+ 								<?php echo Text::_('XBFILMS_CREW').' '.$item->crewcnt.' ';
+ 								echo ($item->crewcnt==1)? Text::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS');   ?>
                             </span></summary>
-                            <ul class="xbdetails">
-								<?php echo $item->crewlist; ?>
-							</ul>
+							<?php echo $item->crewlist; ?>
                           </details>
 						<?php endif; ?> 
 						<?php if ($item->castcnt>0) : ?>
                           <details>
                           	<summary><span class="xbnit">
  								<?php echo Text::_('XBFILMS_ACTOR_IN').' '.$item->castcnt.' ';
- 								echo Text::_(($item->castcnt==1)?'XBCULTURE_FILM':'XBCULTURE_FILMS');   ?>
+ 								echo ($item->castcnt==1)? Text::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS');   ?>
                             </span></summary>
-                            <ul class="xbdetails">
-								<?php echo $item->castlist; ?>
-							</ul>
+							<?php echo $item->castlist; ?>
                           </details>
 						<?php endif; ?> 
 						<?php if ($item->appcnt>0) : ?>
                           <details>
                           	<summary><span class="xbnit">
  								<?php echo Text::_('XBFILMS_SUBJECT_CAMEO').' '.$item->appcnt.' ';
- 								echo Text::_(($item->appcnt==1)?'XBCULTURE_FILM':'XBCULTURE_FILMS');   ?>
+ 								echo ($item->appcnt==1)? Text::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS');   ?>
                             </span></summary>
-                            <ul class="xbdetails">
-								<?php echo $item->applist; ?>
-							</ul>
+							<?php echo $item->applist; ?>
                           </details>
 						<?php endif; ?> 
 

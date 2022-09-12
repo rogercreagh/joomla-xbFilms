@@ -187,42 +187,50 @@ class XbfilmsModelPersons extends JModelList {
         
         foreach ($items as $i=>$item) {            
             
-            $item->films = XbcultureHelper::getPersonFilmRoles($item->id);
+            $item->films = XbcultureHelper::getPersonFilms($item->id);
+//            $item->films = XbcultureHelper::getPersonFilmRoles($item->id);
             
             $roles = array_column($item->films,'role');
             $item->dircnt = count(array_keys($roles, 'director'));
-            $item->prdcnt = count(array_keys($roles, 'producer'));
+            $item->prodcnt = count(array_keys($roles, 'producer'));
             $item->crewcnt = count(array_keys($roles, 'crew'));
             $item->appcnt = count(array_keys($roles, 'appearsin'));
             $item->castcnt = count(array_keys($roles, 'actor'));
             
-            $item->dirlist = '';
-            $item->prdlist ='';
-            $item->crewlist='';
-            $item->castlist='';
-            $item->applist='';
-            foreach ($item->films as $film) {
-                switch ($film->role) {
-                    case 'director' :
-                        $item->dirlist .= $film->listitem;
-                        break;
-                    case 'producer' :
-                        $item->prdlist .= $film->listitem;
-                        break;
-                    case 'crew' :
-                        $item->crewlist .= $film->listitem;
-                        break;
-                    case 'actor' :
-                        $item->castlist .= $film->listitem;
-                        break;
-                    case 'appearsin' :
-                        $item->applist .= $film->listitem;
-                        break;
-                    default:
-                        break;
-                }
+            $item->dirlist = $item->dircnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->films,'director','ul',true,1);
+            $item->prodlist = $item->prodcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->films,'producer','ul',true,1);
+            $item->crewlist = $item->crewcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->films,'crew','ul',true,1);
+            $item->castlist = $item->castcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->films,'actor','ul',true,1);
+            $item->applist = $item->appcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->films,'appearsin','ul',true,1);
+            
+            //           $item->prodlist = $item->prodcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'producer','comma');
+ //           $item->dirlist = '';
+//             $item->prdlist ='';
+//             $item->crewlist='';
+//             $item->castlist='';
+//             $item->applist='';
+//             foreach ($item->films as $film) {
+//                 switch ($film->role) {
+//                     case 'director' :
+//                         $item->dirlist .= $film->listitem;
+//                         break;
+//                     case 'producer' :
+//                         $item->prdlist .= $film->listitem;
+//                         break;
+//                     case 'crew' :
+//                         $item->crewlist .= $film->listitem;
+//                         break;
+//                     case 'actor' :
+//                         $item->castlist .= $film->listitem;
+//                         break;
+//                     case 'appearsin' :
+//                         $item->applist .= $film->listitem;
+//                         break;
+//                     default:
+//                         break;
+//                 }
                 
-            }
+//            }
             $item->ext_links = json_decode($item->ext_links);
             $item->ext_links_list ='';
             $item->ext_links_cnt = 0; 
