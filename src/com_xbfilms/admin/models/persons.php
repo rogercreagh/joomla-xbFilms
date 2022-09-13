@@ -181,14 +181,12 @@ class XbfilmsModelPersons extends JModelList {
     
     public function getItems() {
         $items  = parent::getItems();
-        // we are going to add the list of people (with roles) for teach film
-        //and apply any film title filter
+        // we are going to add the list of films (with roles) for each person
         $tagsHelper = new TagsHelper;
         
         foreach ($items as $i=>$item) {            
             
             $item->films = XbcultureHelper::getPersonFilms($item->id);
-//            $item->films = XbcultureHelper::getPersonFilmRoles($item->id);
             
             $roles = array_column($item->films,'role');
             $item->dircnt = count(array_keys($roles, 'director'));
@@ -203,34 +201,6 @@ class XbfilmsModelPersons extends JModelList {
             $item->castlist = $item->castcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->films,'actor','ul',true,1);
             $item->applist = $item->appcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->films,'appearsin','ul',true,1);
             
-            //           $item->prodlist = $item->prodcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'producer','comma');
- //           $item->dirlist = '';
-//             $item->prdlist ='';
-//             $item->crewlist='';
-//             $item->castlist='';
-//             $item->applist='';
-//             foreach ($item->films as $film) {
-//                 switch ($film->role) {
-//                     case 'director' :
-//                         $item->dirlist .= $film->listitem;
-//                         break;
-//                     case 'producer' :
-//                         $item->prdlist .= $film->listitem;
-//                         break;
-//                     case 'crew' :
-//                         $item->crewlist .= $film->listitem;
-//                         break;
-//                     case 'actor' :
-//                         $item->castlist .= $film->listitem;
-//                         break;
-//                     case 'appearsin' :
-//                         $item->applist .= $film->listitem;
-//                         break;
-//                     default:
-//                         break;
-//                 }
-                
-//            }
             $item->ext_links = json_decode($item->ext_links);
             $item->ext_links_list ='';
             $item->ext_links_cnt = 0; 

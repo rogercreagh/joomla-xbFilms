@@ -241,13 +241,17 @@ class XbfilmsModelPeople extends JModelList {
 			
 			$item->tags = $tagsHelper->getItemTags('com_xbpeople.person' , $item->id);
 			
-			$item->frolecnt = 0;
-			if ($item->fcnt > 0) {
-			    $item->films = XbcultureHelper::getPersonFilmRoles($item->id,'','title ASC', $showcnts);
-			    $item->frolecnt = count($item->films);
-			} else {
-			    $item->films = '';
-			}
+            $item->films = XbcultureHelper::getPersonFilms($item->id);
+            $item->frolecnt = count($item->films);
+            $item->filmlist = $item->frolecnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->films,'','ul',true,3);
+			
+// 			$item->frolecnt = 0;
+// 			if ($item->fcnt > 0) {
+// 			    $item->films = XbcultureHelper::getPersonFilmRoles($item->id,'','title ASC', $showcnts);
+// 			    $item->frolecnt = count($item->films);
+// 			} else {
+// 			    $item->films = '';
+// 			}
 			
 			
 		} //end foreach item

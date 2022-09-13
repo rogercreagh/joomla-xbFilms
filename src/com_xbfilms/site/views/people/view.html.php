@@ -56,24 +56,24 @@ class XbfilmsViewPeople extends JViewLegacy {
 		$this->showcnts = $this->params->get('showcnts',1);
 		$this->showlists = ($this->showcnts == 1) ? $this->params->get('showlists',1) : 0;
 		
-		foreach ($this->items as $person) {
-		    $person->filmlist = '';
-		    if ($person->fcnt > 0) {
-		        $person->filmlist = '<ul class="xbdetails">';
-		        $unique_films = array();
-		        foreach ($person->films as $film) {
-		            if ($layout == 'compact') {
-		                if (!isset($unique_films[$film->title])) {
-		                    $person->filmlist .= '<li>'.$film->link.'</li>';
-		                    $unique_films[$film->title] = 1;
-		                }
-		            } else {
-		              $person->filmlist .= $film->listitem;
-		            }
-		        }
-		        $person->filmlist .= '</ul>';
-		    }
-		}
+// 		foreach ($this->items as $person) {
+// 		    $person->filmlist = '';
+// 		    if ($person->fcnt > 0) {
+// 		        $person->filmlist = '<ul class="xbdetails">';
+// 		        $unique_films = array();
+// 		        foreach ($person->films as $film) {
+// 		            if ($layout == 'compact') {
+// 		                if (!isset($unique_films[$film->title])) {
+// 		                    $person->filmlist .= '<li>'.$film->link.'</li>';
+// 		                    $unique_films[$film->title] = 1;
+// 		                }
+// 		            } else {
+// 		              $person->filmlist .= $film->listitem;
+// 		            }
+// 		        }
+// 		        $person->filmlist .= '</ul>';
+// 		    }
+// 		}
 		
 		if (count($errors = $this->get('Errors'))) {
 			Factory::getApplication()->enqueueMessage(implode('<br />', $errors),'error');
