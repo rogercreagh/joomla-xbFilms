@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/helpers/xbfilmsgeneral.php
- * @version 0.9.9.7 8th September 2022
+ * @version 0.9.9.7 14th September 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -149,27 +149,4 @@ public static function getFilmChars($filmid) {
     	return $list;
     }
     
-/* 
-    public static function credit() {
-        if (Factory::getSession()->get('xbpeople_ok')) { //(self::checkComponent('com_xbpeople') ) {
-            require_once JPATH_ADMINISTRATOR.'/components/com_xbpeople/helpers/xbpeople.php';
-            if (XbpeopleHelper::penPont()) {
-                return '';
-            }
-        }
-        $credit='<div class="xbcredit">';
-        if (Factory::getApplication()->isClient('administrator')==true) {
-            $xmldata = Installer::parseXMLInstallFile(JPATH_ADMINISTRATOR.'/components/com_xbfilms/xbfilms.xml');
-            $credit .= '<a href="http://crosborne.uk/xbfilms" target="_blank">
-                xbFilms Component '.$xmldata['version'].' '.$xmldata['creationDate'].'</a>';
-            $credit .= '<br />'.Text::_('COM_XBCULTURE_BEER_TAG');
-            $credit .= Text::_('COM_XBCULTURE_BEER_FORM');
-        } else {
-        	$credit .= 'xbFilms by <a href="http://crosborne.uk/xbfilms" target="_blank">CrOsborne</a>';           	
-        }
-        $credit .= '</div>';
-        return $credit;
-    }
-    
- */
 }

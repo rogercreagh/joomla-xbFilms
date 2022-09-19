@@ -277,7 +277,7 @@ $bplink = 'index.php?option=com_xbpeople&view=person&layout=edit&id=';
 						<?php if ($item->crewcnt>0) : ?>
                           <details>
                           	<summary><span class="xbnit">
- 								<?php echo Text::_('XBFILMS_CREW').' '.$item->crewcnt.' ';
+ 								<?php echo Text::_('XBCULTURE_CREW').' '.$item->crewcnt.' ';
  								echo ($item->crewcnt==1)? Text::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS');   ?>
                             </span></summary>
 							<?php echo $item->crewlist; ?>

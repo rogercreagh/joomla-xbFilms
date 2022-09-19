@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/people.php
- * @version 0.9.9.6 25th August 2022
+ * @version 0.9.9.7 14th September 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -244,15 +244,6 @@ class XbfilmsModelPeople extends JModelList {
             $item->films = XbcultureHelper::getPersonFilms($item->id);
             $item->frolecnt = count($item->films);
             $item->filmlist = $item->frolecnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->films,'','ul',true,3);
-			
-// 			$item->frolecnt = 0;
-// 			if ($item->fcnt > 0) {
-// 			    $item->films = XbcultureHelper::getPersonFilmRoles($item->id,'','title ASC', $showcnts);
-// 			    $item->frolecnt = count($item->films);
-// 			} else {
-// 			    $item->films = '';
-// 			}
-			
 			
 		} //end foreach item
 		return $items;

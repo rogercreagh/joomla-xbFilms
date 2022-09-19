@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/people/tmpl/default.php
- * @version 0.9.9.5 30th July 2022
+ * @version 0.9.9.7 14th September 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -185,25 +185,25 @@ $clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
 				<?php endif; ?>
                 <?php if ($this->showcnts) : ?>
     				<td>
-    				<?php if (($this->showlists == 1) && ($item->fcnt>0)) :?>
-    					<span tabindex="<?php echo $item->id; ?>"
-							class="xbpop xbcultpop xbfocus" data-trigger="focus"
-							title data-original-title="Film List" 
-							data-content="<?php echo htmlentities($item->filmlist); ?>"
-						>        				
-    				<?php  endif; ?>
-    				<span class="badge <?php echo ($item->fcnt>0) ? 'flmcnt' : ''?>"><?php echo $item->fcnt;
-    					if ($item->frolecnt > $item->fcnt ) {
-    					    echo ' <span class="xbit xbnorm">('.$item->frolecnt.')</span>'; } ?>
-        			</span><?php if (($this->showlists == 1) && ($item->fcnt>0)) :?></span><?php endif; ?> 
-					<?php if ($item->bcnt>0) echo Text::_('XBCULTURE_FILMS'); ?>       					
-    				<?php if ($this->showlists == 2) :?>
-    					<?php echo $item->filmlist; ?>
-    				<?php endif; ?>
+						<?php if ($item->fcnt>0) :?>
+    					<details>
+    						<summary><span class="xbnit">
+								<?php echo $item->fcnt.' ';
+								    echo $item->fcnt ==1 ? Text::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS'); ?>       					
+    							<?php if ($item->frolecnt > $item->fcnt ) : ?>
+             					    <span class="xbit xbnorm"> (
+             					    	<?php echo $item->frolecnt.' '.Text::_('XBCULTURE_ROLES');?>
+             					    )</span>
+             					<?php endif; ?>
+    						</span></summary>
+    						<?php echo $item->filmlist; ?>    						
+    					</details>
+    					<?php endif; ?>
     				<?php if ($item->bcnt > 0) : ?>
-    						<p class="xbit xb095 xbmt10"><span class="badge bkcnt">
-    							<?php echo $item->bcnt; ?>
-    						</span> <?php echo Text::_('XBCULTURE_BOOKS'); ?></p>
+    						<p class="xbit xb095 xbmt10">
+    							<?php echo Text::_('XBCULTURE_ALSO').' '.$item->bcnt.' '; 
+    						  echo $item->bcnt == 1 ? Text::_('XBCULTURE_BOOK') :Text::_('XBCULTURE_BOOKS'); ?>
+    						  </p>
     					<?php endif; ?>
     				</td>
 				<?php endif; ?>

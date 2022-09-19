@@ -81,7 +81,14 @@ class XbfilmsModelPersons extends JModelList {
             //$query->where('(state IN (0, 1))');
         }
         
+        //filter by nationality
+        $natfilt = $this->getState('filter.nationality');
+        if (!empty($natfilt)) {
+            $query->where('a.nationality = '.$db->quote($natfilt));
+        }
+        
         //Filter by role
+        //TODO this is not filter by role it is by film/book/orphan (status)
         $rolefilt = $this->getState('filter.rolefilt');
         if (empty($rolefilt)) { $rolefilt = 'film'; }
         if ($rolefilt!='all') {
@@ -98,12 +105,6 @@ class XbfilmsModelPersons extends JModelList {
         	} else {
         		$query->where('b.role = '.$db->quote($rolefilt));       		
         	}
-        }
-        
-        //filter by nationality
-        $natfilt = $this->getState('filter.nationality');
-        if (!empty($natfilt)) {
-            $query->where('a.nationality = '.$db->quote($natfilt));
         }
         
         // Filter by category.
