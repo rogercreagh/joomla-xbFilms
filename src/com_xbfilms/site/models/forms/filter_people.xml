@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms site/models/forms/filter_people.xml 0.9.9.6 25th August 2022 -->
+<!-- xbFilms site/models/forms/filter_people.xml 0.9.9.7 21st September 2022 -->
 <form>
     <fields name="filter" addfieldpath="administrator/components/com_xbfilms/models/fields">
         <field name="search" type="text"
@@ -19,8 +19,8 @@
 				<option value="4">Actors &amp; Appearances</option>
 		</field>	
 		<field name="nationality" type="natlist"
-			label="XBFILMS_NATIONALITY_LABEL"
-			description="XBFILMS_NATIONALITY_DESC"
+			label="XBCULTURE_NATIONALITY"
+			description="XBCULTURE_NATIONALITY_DESC"
 			size="40" class="inputbox" maxlength="40"
 			onchange="this.form.submit();"
 			default="" 

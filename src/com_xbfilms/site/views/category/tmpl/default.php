@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/category/tmpl/default.php
- * @version 0.9.9.6 31st August 2022
+ * @version 0.9.9.7 21st September 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -25,7 +25,7 @@ $plink = 'index.php?option=com_xbpeople&view=person'.$itemid.'&id=';
 
 $itemid = XbfilmsHelperRoute::getCharsRoute() ;
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
-$plink = 'index.php?option=com_xbpeople&view=character'.$itemid.'&id=';
+$chlink = 'index.php?option=com_xbpeople&view=character'.$itemid.'&id=';
 
 $itemid = XbfilmsHelperRoute::getReviewsRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
@@ -119,7 +119,7 @@ $show_catdesc = $this->params->get('show_catdesc',1);
     			<?php if ($item->chcnt > 0 ) : ?>
     				<ul>
     				<?php foreach ($item->chars as $i=>$char) { 
-    					echo '<li><a href="'.$clink.$char->pid.'">'.$char->title.'</a></li> ';
+    					echo '<li><a href="'.$chlink.$char->pid.'">'.$char->title.'</a></li> ';
     				} ?>			
     				</ul>
     			<?php else: ?>
