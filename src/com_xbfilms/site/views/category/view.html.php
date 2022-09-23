@@ -26,7 +26,8 @@ class XbfilmsViewCategory extends JViewLegacy {
 			return false;
 		}
 		
-		$this->hide_empty = $this->params->get('hide_empty','','int');
+		$this->hide_empty = $this->params->get('hide_empty',0,'int');
+		$this->show_catpath = $this->params->get('show_catpath',0,'int');
 		
 		$document = $this->document; //Factory::getDocument();
 		$document->setTitle('Category view: '.$this->item->title);

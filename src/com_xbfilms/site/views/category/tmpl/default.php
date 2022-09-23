@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/category/tmpl/default.php
- * @version 0.9.9.7 21st September 2022
+ * @version 0.9.9.8 21st September 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -17,7 +17,7 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 
 $itemid = XbfilmsHelperRoute::getFilmsRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
-$blink = 'index.php?option=com_xbfilms&view=film'.$itemid.'&id=';
+$flink = 'index.php?option=com_xbfilms&view=film'.$itemid.'&id=';
 
 $itemid = XbfilmsHelperRoute::getPeopleRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
@@ -43,19 +43,33 @@ $show_catdesc = $this->params->get('show_catdesc',1);
 ?>
 <div class="row-fluid" style="margin-bottom:20px;">
 	<div class="span3">
-		<h4><?php echo JText::_('XBFILMS_ITEMSCAT'); ?></h4>		
+		<h3 style="padding-top:3px;"><?php echo Text::_('XBCULTURE_CATEGORY'); ?>:</h3>		
 	</div>	
-	<div class="span9">
-          <div class="badge badge-success pull-left"><h3><?php echo $item->title; ?></h3></div>
-          
-		<?php if ((!$this->hide_empty) && (strpos($item->path,'/')!==false)) : ?>
-			<div class="xb11 pull-left" style="padding-top:20px;margin-left:40px;">
-				<i><?php echo JText::_('XBCULTURE_HEIRARCHY_U'); ?>:</i> 
+	<div class="span9">         
+		<?php if ((!$this->show_catpath) && ($item->level>1)) : ?>
+			<div class="xb11 pull-left xbmr10 xbpt17" style="text-align:right;">				
 				<?php  $path = substr($item->path, 0, strrpos($item->path, '/'));
 					$path = str_replace('/', ' - ', $path);
-					echo $path; ?>
+					echo $path.' - '
+                      ; ?>
         	</div>
         <?php endif; ?>
+          <div class="badge badge-success pull-left"><h3><?php echo $item->title; ?></h3></div>
+	</div>	
+
+	<div class="span3">
+		<h3><?php echo Text::_('XBCULTURE_CATEGORY'); ?>:</h3>		
+	</div>	
+	<div class="span9">
+		<?php if ((!$this->show_catpath) && ($item->level>1)) : ?>
+			<div class="xb11 pull-left" style="margin-right:10px; padding-top:17px; text-align:right;">				
+				<?php  $path = substr($item->path, 0, strrpos($item->path, '/'));
+					$path = str_replace('/', ' - ', $path);
+					echo $path.' - '; ?>
+        	</div>
+        <?php endif; ?>
+          <div class="badge badge-success pull-left"><h3><?php echo $item->title; ?></h3></div>
+          
 	</div>	
 </div>
 <?php if (($show_catdesc) && ($item->description != '')) : ?>
@@ -76,7 +90,7 @@ $show_catdesc = $this->params->get('show_catdesc',1);
     			<?php if ($item->bcnt > 0 ) : ?>
     				<ul>
     				<?php foreach ($item->bks as $i=>$bk) { 
-    					echo '<li><a href="'.$blink.$bk->bid.'">'.$bk->title.'</a></li> ';
+    					echo '<li><a href="'.$flink.$bk->bid.'">'.$bk->title.'</a></li> ';
     				} ?>				
     				</ul>
     			<?php else: ?>
@@ -132,7 +146,7 @@ $show_catdesc = $this->params->get('show_catdesc',1);
 <div class="clearfix"></div>
 <p class="xbtc xbmt16">
 	<a href="<?php echo $cclink; ?>" class="btn btn-small">
-		<?php echo JText::_('XBFILMS_CAT_COUNTS'); ?>
+		<?php echo Text::_('XBFILMS_CAT_COUNTS'); ?>
 	</a>
 </p>
 <div class="clearfix"></div>

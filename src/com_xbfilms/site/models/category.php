@@ -41,7 +41,7 @@ class XbfilmsModelCategory extends JModelItem {
 			$id    = is_null($id) ? $this->getState('cat.id') : $id;
 			$db = $this->getDbo();
 			$query = $db->getQuery(true);
-			$query->select('c.id AS id, c.path AS path, c.title AS title, c.description AS description, c.note AS note, c.metadata AS metadata, c.extension AS extension' );
+			$query->select('c.id AS id, c.path AS path, c.title AS title, c.description AS description, c.note AS note, c.metadata AS metadata, c.extension AS extension, c.level AS level' );
 			$query->select('(SELECT COUNT(*) FROM #__xbfilms AS mb WHERE mb.catid = c.id) AS bcnt');
 			$query->select('(SELECT COUNT(*) FROM #__xbpersons AS mp WHERE mp.catid = c.id) AS pcnt');
 			$query->select('(SELECT COUNT(*) FROM #__xbfilmreviews AS mr WHERE mr.catid = c.id) AS rcnt');
