@@ -148,8 +148,8 @@
 			<option value="1">JSHOW</option>
 		</field>	
  		<field name="show_fdates" type="radio"
-			label="Show Film Dates"
-			description="A film has an acquistion date (when it was entered in the catalogue) and a last seen date. For some sites you might not wish to use these fields on the front-end. If you want to use acquisition date, but not read date then simple leave the read dates blank. When sorting by date the latest of both dates are used. NB this does not affect release year which is a property of the film itself."
+			label="Show Seen Dates"
+			description="A film has an acquistion date (when it was entered in the catalogue) and optional first and last seen dates. For some sites you might not wish to use first/last seen on the front-end, for example if you are not using reviews. If seen dates are shown, then any unseen films (null in first and last seen) will not appear in the list when sorted by seen date."
 			class="btn-group btn-group-yesno"
 			default="1"
 			>
@@ -372,37 +372,7 @@
 			<option value="0" >JHIDE</option>
 			<option value="1">JSHOW</option>
 		</field>
-		
- 		<field name="catnote" type="note"
-			label="Category Settings"
-			showon="show_cats:1"
-		/>	
-		<field name="show_catpath" type="radio"
-			label="Show Parents (hierarchy)"
-			description="Show parents (if not level 1) in count and item views. For count view setting can be overridden in menu options"
-			class="btn-group btn-group-yesno"
-			showon="show_cats:1"
-			default="1"
-			>
-			<option value="0" >JHIDE</option>
-			<option value="1">JSHOW</option>
-		</field>
-		
- 		<field name="tagssnote" type="note"
-			label="Tag Settings"
-			showon="show_tags:1"
-		/>	
-		<field name="show_tagpath" type="radio"
-			label="Show Parents (hierarchy)"
-			description="Show parents (if not level 1) in count and item views. For count view setting can be overridden in menu options"
-			class="btn-group btn-group-yesno"
-			showon="show_tags:1"
-			default="1"
-			>
-			<option value="0" >JHIDE</option>
-			<option value="1">JSHOW</option>
-		</field>
-		
+				
 	</fieldset>
 
 		
@@ -553,7 +523,13 @@
 		</field>
  			    		
   		<field name="catlistnote" type="note"
-			label="Category Counts View Options"
+			label="Categories View Options"
+			showon="show_cats:1"
+			class="info"
+		/>	
+  		<field name="nocatlistnote" type="note"
+			label="Categories are disabled for xbFilms Component"
+			showon="show_cats:0"
 			class="info"
 		/>	
 		<field name="show_clist_desc" type="radio"
@@ -561,6 +537,7 @@
 			label="Show Description"
 			description="Show description column"
   			class="btn-group btn-group-yesno"
+			showon="show_cats:1"
 			>
 				<option value="0" >No</option>
 				<option value="1">Yes</option>
@@ -570,10 +547,22 @@
 			label="Show Empty Categories"
 			description="Show categories which have no items"
   			class="btn-group btn-group-yesno"
+			showon="show_cats:1"
 			>
 				<option value="0" >No</option>
 				<option value="1">Yes</option>
 		</field>	
+		<field name="show_catspath" type="radio"
+			label="Show Parents (hierarchy)"
+			description="Show parents (if not level 1) as column before title in list views."
+			class="btn-group btn-group-yesno"
+			showon="show_cats:1"
+			default="1"
+			>
+			<option value="0" >JHIDE</option>
+			<option value="1">JSHOW</option>
+		</field>
+<!-- 
 		<field name="show_cat_parent" type="radio"
 			default="1"
 			label="XBFILMS_SHOW_PARENTS_LABEL"
@@ -584,9 +573,16 @@
 				<option value="0" >No</option>
 				<option value="1">Yes</option>
 		</field>	
+ -->		
  
   		<field name="taglistnote" type="note"
 			label="Tag List View Options"
+			class="info"
+			showon="show_tags:1"
+		/>	
+  		<field name="notaglistnote" type="note"
+			label="Tags are disabled for xbFilms Component"
+			showon="show_tags:0"
 			class="info"
 		/>	
 		<field name="show_tlist_desc" type="radio"
@@ -594,11 +590,23 @@
 			label="Show Description"
 			description="Show description column"
   			class="btn-group btn-group-yesno"
+			showon="show_tags:1"
 			>
 				<option value="0" >No</option>
 				<option value="1">Yes</option>
 		</field>	
-		<field name="show_tag_parent" type="radio"
+		<field name="show_tagspath" type="radio"
+			label="Show Parents (hierarchy)"
+			description="Show parents (if not level 1) as column before title in list view."
+			class="btn-group btn-group-yesno"
+			showon="show_tags:1"
+			default="1"
+			>
+			<option value="0" >JHIDE</option>
+			<option value="1">JSHOW</option>
+		</field>
+<!-- 
+ 		<field name="show_tag_parent" type="radio"
 			default="1"
 			label="XBFILMS_SHOW_PARENTS_LABEL"
 			description="show tag hierarchy - if shown sort will be by parent, then title"
@@ -607,6 +615,7 @@
 				<option value="0" >No</option>
 				<option value="1">Yes</option>
 		</field>	
+ -->
 		
  	</fieldset>
  	        
@@ -676,84 +685,74 @@
 			<option value="1">Show to left of title</option>
 			<option value="2">Show to right of title</option>
 		</field>	
-  		<field name="personnote" type="note"
-			label="Person View Options"
+  		<field name="personcharnote" type="note"
+			label="Person &amp; Character View Options"
+			description="Options for indivdual people and character views are set in the xbPeople Component options"
 			class="info"
 		/>			
-		<field name="person_layout" type="componentlayout"
-	        label="JFIELD_ALT_LAYOUT_LABEL"
-	        description="JFIELD_ALT_COMPONENT_LAYOUT_DESC"
-	       	extension="com_xbfilms" view="person" 
-	    />
-		<field name="show_pimage" type="list"
-	        label="Show Picture"
-	        description="Show picture of person with their name"
-			default="2"
-	    	>
-			<option value="0" >JHIDE</option>
-			<option value="1">Show to left of name</option>
-			<option value="2">Show to right of name</option>
-		</field>       
-
-  		<field name="charnote" type="note"
-			label="Character Options"
-			description="These global options to do with images are common for both real people and characters"
-			class="info"
-		/>			
-		<field name="character_layout" type="componentlayout"
-	        label="JFIELD_ALT_LAYOUT_LABEL"
-	        description="JFIELD_ALT_COMPONENT_LAYOUT_DESC"
-	       	extension="com_xbfilms" view="character" 
-	    />
-		<field name="show_cimage" type="list" 
-	        label="Show Picture"
-	        description="Show picture of character with their name"
-			default="2"
-	    	>
-			<option value="0" >JHIDE</option>
-			<option value="1">Show to left of name</option>
-			<option value="2">Show to right of name</option>
-		</field>       
-
   		<field name="categorynote" type="note"
 			label="Category View Options"
-			description="Options for the Single Category view which lists all the items in a category. For People categories use the view from xbPeople component"
+			description="Options for the Single Category view which lists all the items in a category."
 			class="info"
+			showon="show_cats:1"
 		/>			
-		<field name="category_layout" type="componentlayout"
-	        label="JFIELD_ALT_LAYOUT_LABEL"
-	        description="JFIELD_ALT_COMPONENT_LAYOUT_DESC"
-	       	extension="com_xbfilms" view="fcategory" 
-	    />
+  		<field name="nocatnote" type="note"
+			label="Categories are disabled for xbFilms Component"
+			showon="show_cats:0"
+			class="info"
+		/>	
 		<field name="show_catdesc" type="radio" 
 	        label="Show Description"
 	        description="Show category description under the name and above the lists,"
 			class="btn-group btn-group-yesno"
 	        default="1"
+			showon="show_cats:1"
 	    	>
 	        	<option value="0">JNO</option>
 	        	<option value="1">JYES</option>
 		</field>       
+		<field name="show_catpath" type="radio"
+			label="Show Parents (hierarchy)"
+			description="Show parents (if not level 1) before title."
+			class="btn-group btn-group-yesno"
+			showon="show_cats:1"
+			default="1"
+			>
+			<option value="0" >JHIDE</option>
+			<option value="1">JSHOW</option>
+		</field>
 
   		<field name="tagnote" type="note"
 			label="Tag View Options"
 			description="Options for the Tag view which lists all the items with a given tag."
 			class="info"
+			showon="show_tags:1"
 		/>			
-		<field name="tag_layout" type="componentlayout"
-	        label="JFIELD_ALT_LAYOUT_LABEL"
-	        description="JFIELD_ALT_COMPONENT_LAYOUT_DESC"
-	       	extension="com_xbfilms" view="tag" 
-	    />
+  		<field name="notagnote" type="note"
+			label="Tags are disabled for xbFilms Component"
+			showon="show_cats:0"
+			class="info"
+		/>	
 		<field name="show_tagdesc" type="radio" 
 	        label="Show Description"
 	        description="Show tag description under the name and above the lists,"
 			class="btn-group btn-group-yesno"
 	        default="1"
+			showon="show_tags:1"
 	    	>
 	        	<option value="0">JNO</option>
 	        	<option value="1">JYES</option>
 		</field>       
+		<field name="show_tagpath" type="radio"
+			label="Show Parents (hierarchy)"
+			description="Show parents (if not level 1) as column before title in list view."
+			class="btn-group btn-group-yesno"
+			showon="show_tags:1"
+			default="1"
+			>
+			<option value="0" >JHIDE</option>
+			<option value="1">JSHOW</option>
+		</field>
 
 	</fieldset>
 

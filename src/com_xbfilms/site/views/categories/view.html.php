@@ -35,8 +35,7 @@ class XbfilmsViewCategories extends JViewLegacy {
 		
 //		$this->search_bar = $this->params->get('search_bar','0','int');
 //		$this->show_desc = $this->params->get('show_desc','1','int');
-		$this->show_parent = $this->params->get('show_parent','1','int');
-		$this->show_empty = $this->params->get('show_empty','0','int');
+		$this->show_catspath = $this->params->get('show_catspath','1','int');
 		
 		if (count($errors = $this->get('Errors'))) {
 			Factory::getApplication()->enqueueMessage(implode('<br />', $errors),'error');

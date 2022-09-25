@@ -46,30 +46,18 @@ $show_catdesc = $this->params->get('show_catdesc',1);
 		<h3 style="padding-top:3px;"><?php echo Text::_('XBCULTURE_CATEGORY'); ?>:</h3>		
 	</div>	
 	<div class="span9">         
-		<?php if ((!$this->show_catpath) && ($item->level>1)) : ?>
-			<div class="xb11 pull-left xbmr10 xbpt17" style="text-align:right;">				
+		<?php if (($this->show_catpath) && ($item->level>1)) : ?>
+			<div class="xb11 pull-left xbmr10 xbpt17 xbtr">				
 				<?php  $path = substr($item->path, 0, strrpos($item->path, '/'));
 					$path = str_replace('/', ' - ', $path);
-					echo $path.' - '
-                      ; ?>
+					echo $path.' - ' ; ?>
         	</div>
         <?php endif; ?>
-          <div class="badge badge-success pull-left"><h3><?php echo $item->title; ?></h3></div>
+		<div class="badge badge-success pull-left"><h3><?php echo $item->title; ?></h3></div>
 	</div>	
 
 	<div class="span3">
 		<h3><?php echo Text::_('XBCULTURE_CATEGORY'); ?>:</h3>		
-	</div>	
-	<div class="span9">
-		<?php if ((!$this->show_catpath) && ($item->level>1)) : ?>
-			<div class="xb11 pull-left" style="margin-right:10px; padding-top:17px; text-align:right;">				
-				<?php  $path = substr($item->path, 0, strrpos($item->path, '/'));
-					$path = str_replace('/', ' - ', $path);
-					echo $path.' - '; ?>
-        	</div>
-        <?php endif; ?>
-          <div class="badge badge-success pull-left"><h3><?php echo $item->title; ?></h3></div>
-          
 	</div>	
 </div>
 <?php if (($show_catdesc) && ($item->description != '')) : ?>

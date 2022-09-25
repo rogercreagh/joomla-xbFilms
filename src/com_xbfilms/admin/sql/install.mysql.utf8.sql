@@ -218,6 +218,7 @@ CREATE TABLE IF NOT EXISTS `#__xbfilms` (
   `filmsound` varchar(50) NOT NULL DEFAULT '',
   `ext_links` text,
   `acq_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `first_seen` datetime,
   `last_seen` datetime,
   `catid` int(10) NOT NULL  DEFAULT '0',
   `access` int(10) NOT NULL  DEFAULT '0',
