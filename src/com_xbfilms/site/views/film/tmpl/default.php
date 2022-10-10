@@ -245,7 +245,7 @@ if ($imgok) {
 		<div class="span5">
 			<span class="xbnit"><?php echo  Text::_('XBFILMS_DATE_FIRST_SEEN').': '; ?>
 			</span>
-			<?php echo HtmlHelper::date($item->acq_date , 'M Y') ; ?>
+			<?php echo HtmlHelper::date($item->first_seen , 'D jS M Y') ; ?>
 		</div>
 		<div class="span5">
 	    	<?php if ($item->last_seen) : ?>

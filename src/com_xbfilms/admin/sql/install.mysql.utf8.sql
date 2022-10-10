@@ -1,4 +1,4 @@
-# sql installation file for component xbFilms v0.9.9.3 13th July 2022
+# sql installation file for component xbFilms v0.9.9.8 10th October 2022
 # NB no film data is installed with this file, default categories are created by the installation script
 
 INSERT INTO `#__content_types` (`type_title`, `type_alias`, `content_history_options`, `table`, `field_mappings`, `router`,`rules`) 
@@ -217,9 +217,8 @@ CREATE TABLE IF NOT EXISTS `#__xbfilms` (
   `cam_format` varchar(50) NOT NULL DEFAULT '',
   `filmsound` varchar(50) NOT NULL DEFAULT '',
   `ext_links` text,
-  `acq_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `first_seen` datetime,
-  `last_seen` datetime,
+  `first_seen` DATE NULL DEFAULT NULL,
+  `last_seen` DATE NULL DEFAULT NULL,
   `catid` int(10) NOT NULL  DEFAULT '0',
   `access` int(10) NOT NULL  DEFAULT '0',
   `state` tinyint(3) NOT NULL DEFAULT '0',
@@ -237,6 +236,8 @@ CREATE TABLE IF NOT EXISTS `#__xbfilms` (
   `note` text,
   PRIMARY KEY (`id`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
+
+#  `acq_date` DATE NULL DEFAULT CURRENT_DATE(), #removed before first_seen v0.9.9.8
 
 # CREATE UNIQUE INDEX `filmaliasindex` ON `#__xbfilms` (`alias`);
 

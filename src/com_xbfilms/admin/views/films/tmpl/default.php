@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/films/tmpl/default.php
- * @version 0.9.9.7 8th September 2022
+ * @version 0.9.9.8 10th October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -25,11 +25,11 @@ $userId  = $user->get('id');
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn      = $this->escape(strtolower($this->state->get('list.direction')));
 if (!$listOrder) {
-	$listOrder='sort_date';
+	$listOrder='last_seen';
 	$listDirn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBFILMS_FILMTITLE'), 'rel_year'=>Text::_('XBFILMS_RELYEAR'),
-    'id'=>'id','acq_date'=>Text::_('XBCULTURE_ACQ_DATE'),'sort_date'=>Text::_('XBCULTURE_SORT_DATE'),
+    'id'=>'id','first_seen'=>Text::_('First Seen'),'last_seen'=>Text::_('Last Seen'),
 		'category_title'=>Text::_('XBCULTURE_CATEGORY'),
 		'published'=>Text::_('XBCULTURE_PUBLISHED'),'a.ordering'=>Text::_('XBCULTURE_ORDERING'));
 
@@ -130,9 +130,12 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 					<th class="hidden-phone" style="width:15%;">
 						<?php echo Text::_('XBCULTURE_REVIEWS_U'); ?>
 					</th>
+					<th>
+						<?php echo HTMLHelper::_('searchtools.sort','First','first_seen',$listDirn,$listOrder ).'/'; 
+						echo HTMLHelper::_('searchtools.sort','Last','last_seen',$listDirn,$listOrder ).' seen'; ?>					    
+					</th>
 					<th class="hidden-tablet hidden-phone" style="width:15%;">
-						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_DATE','sort_date',$listDirn,$listOrder ).' ';						    
-						echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; ';						
+						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; ';						
 						echo Text::_( 'XBCULTURE_TAGS_U' ); ?>
 					</th>
 					<th class="nowrap hidden-tablet hidden-phone" style="width:45px;">
@@ -329,11 +332,11 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 						</div>										
 					</td>
 					<td>
-    					<p class="xb09"><?php if($item->last_seen=='') {
-    						echo '<span class="xbnit">(Acq.) '.HtmlHelper::date($item->acq_date , 'd M Y').')</span>';
-    					} else {
-    						echo HtmlHelper::date($item->last_seen , 'd M Y'); 
-    					}?> </p>
+						<?php echo HtmlHelper::date($item->first_seen , 'd M Y'); ?>
+						<br />
+						<?php echo HtmlHelper::date($item->last_seen , 'd M Y'); ?>
+					</td>
+					<td>
 						<p><a class="label label-success" href="<?php echo $cvlink.$item->catid; ?>" 
     							title="<?php echo Text::_( 'XBCULTURE_VIEW_CATEGORY' );?>::<?php echo $item->category_title; ?>">
     								<?php echo $item->category_title; ?>

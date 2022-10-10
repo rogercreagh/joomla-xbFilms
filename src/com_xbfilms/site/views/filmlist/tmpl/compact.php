@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmlist/tmpl/compact.php
- * @version 0.9.9.7 8th September 2022
+ * @version 0.9.9.8 10th October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -22,11 +22,11 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape(strtolower($this->state->get('list.direction')));
 if (!$listOrder) {
-    $listOrder='acq_date';
+    $listOrder='last_seen';
     $orderDrn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'), 'averat'=>'Average Rating', 
-    'acq_date'=>Text::_('XBCULTURE_ACQ_DATE'), 'sort_date'=>Text::_('XBCULTURE_SORT_DATE'), );
+    'first_seen'=>Text::_('First Seen'), 'last_seen'=>Text::_('Last Seen'), );
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
@@ -86,7 +86,8 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
                 <?php endif; ?>
                 <?php if ($this->show_fdates) : ?>
     				<th class="hidden-phone">
-    					<?php echo HTMLHelper::_('searchtools.sort','Seen/Acquired','sort_date',$listDirn,$listOrder ); ?>
+    					<?php echo HTMLHelper::_('searchtools.sort','First','first_seen',$listDirn,$listOrder ).'/'; ?>
+    					<?php echo HTMLHelper::_('searchtools.sort','Last','last_seen',$listDirn,$listOrder ).' seen'; ?>
     				</th>
                 <?php endif; ?>
 			</tr>
@@ -135,11 +136,10 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
     				<?php endif; ?>
     				<?php if ($this->show_fdates ) : ?>   				
 					<td class="hidden-phone">
-        					<p><?php if($item->last_seen=='') {
-        						echo '<span class="xbnit">(Acq.)'.HtmlHelper::date($item->acq_date , 'M Y').'</span>';
-        					} else {
-        						echo HtmlHelper::date($item->last_seen , 'd M Y'); 
-        					}?> </p>
+        					<p><?php echo HtmlHelper::date($item->first_seen , 'D jS M Y'); ?>
+        						<br />
+        					<?php echo HtmlHelper::date($item->last_seen , 'D jS M Y'); 
+        					?> </p>
     					</td>
     				<?php endif; ?>
 				</tr>

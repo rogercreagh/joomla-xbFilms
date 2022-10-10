@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmlist/tmpl/onecol.php
- * @version 0.9.9.7 8th September 2022
+ * @version 0.9.9.8 10th October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -23,11 +23,11 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape(strtolower($this->state->get('list.direction')));
 if (!$listOrder) {
-    $listOrder='sort_date';
+    $listOrder='last_seen';
     $orderDrn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'pubyear'=>Text::_('XBFILMS_YEARPUB'), 'averat'=>Text::_('XBCULTURE_AVERAGE_RATING'), 
-    'acq_date'=>Text::_('XBCULTURE_ACQ_DATE'),'sort_date'=>Text::_('XBCULTURE_SORT_DATE'), 'category_title'=>Text::_('XBCULTURE_CATEGORY'));
+    'first_seen'=>Text::_('First Seen'),'last_seen'=>Text::_('Last Seen'), 'category_title'=>Text::_('XBCULTURE_CATEGORY'));
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
@@ -88,8 +88,10 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 				<th>
 					<?php echo HtmlHelper::_('searchtools.sort','XBCULTURE_TITLE','title',$listDirn,$listOrder).				
     						', '.Text::_('XBCULTURE_DIRECTOR').', '.
-    						HtmlHelper::_('searchtools.sort','RelYear','rel_year',$listDirn,$listOrder );
+    						HtmlHelper::_('searchtools.sort','RelYear','rel_year',$listDirn,$listOrder ).', ';
 					?>
+					<?php echo HtmlHelper::_('searchtools.sort','First Seen','first_seen',$listDirn,$listOrder).', ';
+					   echo HtmlHelper::_('searchtools.sort','Last Seen','last_seen',$listDirn,$listOrder); ?>
 				</th>					
 		<tbody>
 			<?php foreach ($this->items as $i => $item) : ?>

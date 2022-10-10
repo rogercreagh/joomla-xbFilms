@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/film.php
- * @version 0.9.9.7 8th September 2022
+ * @version 0.9.9.8 10th October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -36,7 +36,7 @@ class XbfilmsModelFilm extends JModelItem {
 				a.summary AS summary, a.synopsis AS synopsis, a.setting AS setting, a.poster_img AS poster_img, a.rel_year AS rel_year,
                 a.orig_lang AS orig_lang, a.studio AS studio, a.country AS country, a.runtime AS runtime, 
                 a.filmcolour, a.aspect_ratio, a.cam_format, a.filmsound,
-				a.ext_links AS ext_links, a.acq_date AS acq_date, a.last_seen AS last_seen,
+				a.ext_links AS ext_links, a.first_seen AS first_seen, a.last_seen AS last_seen,
 				a.state AS published, a.catid AS catid, a.params AS params, a.metadata AS metadata ');
 			$query->from('#__xbfilms AS a');
 			$query->select('(SELECT COUNT(DISTINCT(fp.person_id)) FROM #__xbfilmperson AS fp WHERE fp.film_id = a.id) AS pcnt');

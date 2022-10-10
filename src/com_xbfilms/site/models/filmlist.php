@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/filmlist.php
- * @version 0.9.9.7 8th September 2022
+ * @version 0.9.9.8 10th October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -19,7 +19,7 @@ class XbfilmsModelFilmlist extends JModelList {
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array ('title', 'a.title',
 					'rel_year','a.rel_year',
-					'averat', 'sort_date', 'last_seen', 'a.last_seen',					
+					'averat', 'last_seen', 'a.last_seen',					
 					'catid', 'a.catid', 'category_id',
 					'category_title','tagfilt' );
 		}
@@ -57,7 +57,7 @@ class XbfilmsModelFilmlist extends JModelList {
 		$query->select('a.id AS id, a.title AS title, a.subtitle AS subtitle, a.alias AS alias,
             a.summary AS summary, a.rel_year AS rel_year, a.catid AS catid, 
             a.poster_img AS poster_img, a.synopsis AS synopsis, a.state AS published,
-            a.created AS created,  a.acq_date AS acq_date, a.last_seen AS last_seen,
+            a.created AS created,  a.first_seen AS first_seen, a.last_seen AS last_seen,
             a.created_by_alias AS created_by_alias,
             a.ordering AS ordering, a.params AS params'); 
             $query->from('#__xbfilms AS a')
@@ -67,7 +67,7 @@ class XbfilmsModelFilmlist extends JModelList {
             $query->join('LEFT', '#__categories AS c ON c.id = a.catid');
             
             $query->select('(SELECT AVG(br.rating) FROM #__xbfilmreviews AS br WHERE br.film_id=a.id) AS averat');
-            $query->select('GREATEST(a.acq_date, COALESCE(a.last_seen, 0)) AS sort_date');
+//            $query->select('GREATEST(a.acq_date, COALESCE(a.last_seen, 0)) AS sort_date');
             
             // Filter by published state, we only show published items in front end. Both item and its category must be published.
             $query->where('a.state = 1');
@@ -192,7 +192,7 @@ class XbfilmsModelFilmlist extends JModelList {
             
             
             // Add the list ordering clause.
-            $orderCol       = $this->state->get('list.ordering', 'sort_date');
+            $orderCol       = $this->state->get('list.ordering', 'last_seen');
             $orderDirn      = $this->state->get('list.direction', 'DESC');
             switch($orderCol) {
             	case 'a.ordering' :

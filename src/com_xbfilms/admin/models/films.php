@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/films.php
- * @version 0.9.9.7 8th September 2022
+ * @version 0.9.9.8 10th October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -23,13 +23,13 @@ class XbfilmsModelFilms extends JModelList
         		'id', 'a.id', 'title', 'a.title',
         		'ordering','a.ordering', 'category_title', 'c.title',
         		'catid', 'a.catid', 'category_id', 'tagfilt', 'taglogic',
-        		'acq_date', 'a.acq_date', 'sort_date', 'a.sort_date',
+        		'first_seen', 'a.first_seen', 'last_seen', 'a.last_seen',
         		'published','a.state', 'rel_year','a.rel_year');
         }
         parent::__construct($config);
     }
 
-    protected function populateState($ordering = 'acq_date', $direction = 'desc') {
+    protected function populateState($ordering = 'last_seen', $direction = 'desc') {
         $app = Factory::getApplication();
         
         // Adjust the context to support modal layouts.
@@ -75,7 +75,7 @@ class XbfilmsModelFilms extends JModelList
         $query->select('a.id AS id, a.title AS title, a.subtitle AS subtitle, a.alias AS alias, 
             a.summary AS summary, a.rel_year AS rel_year, a.catid AS catid, 
             a.poster_img AS poster_img, a.synopsis AS synopsis, a.state AS published, 
-            a.created AS created, a.created_by AS created_by, a.acq_date AS acq_date, a.last_seen AS last_seen,
+            a.created AS created, a.created_by AS created_by, a.first_seen AS first_seen, a.last_seen AS last_seen,
             a.created_by_alias AS created_by_alias, a.ext_links AS ext_links,
             a.checked_out AS checked_out, a.checked_out_time AS checked_out_time, 
             a.metadata AS metadata, a.ordering AS ordering, a.params AS params, a.note AS note');
@@ -90,7 +90,7 @@ class XbfilmsModelFilms extends JModelList
         $query->select('(SELECT COUNT(*) FROM #__xbfilmreviews AS fr WHERE fr.film_id=a.id) AS revcnt');
         $query->select('(SELECT AVG(fr.rating) FROM #__xbfilmreviews AS fr WHERE fr.film_id=a.id) AS averat');
 //        $query->select('(SELECT MAX(fr.rev_date) FROM #__xbfilmreviews AS fr WHERE fr.film_id=a.id) AS lastseen');
-        $query->select('GREATEST(a.acq_date, COALESCE(a.last_seen, 0)) AS sort_date');
+//        $query->select('GREATEST(a.acq_date, COALESCE(a.last_seen, 0)) AS sort_date');
         
 		// Filter by published state
         $published = $this->getState('filter.published');
@@ -195,7 +195,7 @@ class XbfilmsModelFilms extends JModelList
         } //endif tagfilt
         
         // Add the list ordering clause.
-        $orderCol       = $this->state->get('list.ordering', 'sort_date');
+        $orderCol       = $this->state->get('list.ordering', 'last_seen');
         $orderDirn      = $this->state->get('list.direction', 'DESC');
         if ($orderCol == 'a.ordering' || $orderCol == 'a.catid') {
                 $orderCol = 'category_title '.$orderDirn.', a.ordering';  

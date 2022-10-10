@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/film.php
- * @version 0.9.9.6 19th August 2022
+ * @version 0.9.9.8 10th October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -104,15 +104,15 @@ class XbfilmsModelFilm extends JModelAdmin {
             $table->alias = ApplicationHelper::stringURLSafe($table->title);
         }
         // Set the values
-        if (empty($table->acq_date)) {
-            //if there are reviews set acq_date to the latest seen date
-            if (!empty($table->last_seen)) {
-                $table->acq_date = $table->last_seen;
-            } else {
-                //default to today
-                $table->acq_date = $date->toSql();
-            }
-        }
+//         if (empty($table->acq_date)) {
+//             //if there are reviews set acq_date to the latest seen date
+//             if (!empty($table->last_seen)) {
+//                 $table->acq_date = $table->last_seen;
+//             } else {
+//                 //default to today
+//                 $table->acq_date = $date->toSql();
+//             }
+//         }
 //         if (empty($table->last_seen)) {
 //             //if there are reviews do we want to force a seen date??? - this will, perhaps make an option
 //             if ($table->id>0) { //we must have already saved and have an id
@@ -282,7 +282,7 @@ class XbfilmsModelFilm extends JModelAdmin {
         	    }
         	    $qry = 'INSERT INTO '.$db->quoteName('#__xbfilmreviews').' (title, alias, film_id, catid, reviewer, rating, rev_date, created, created_by, state ) ';
         	    $qry .= 'VALUES ('.$db->quote($rtitle).','.$db->quote($ralias).','.$fid.','.$catid.','.$db->quote($reviewer).','.
-          	    $data['quick_rating'].','.$db->quote($data['acq_date']).','.$db->quote($date->toSql()).','.$db->quote($data['created_by']).',1)';
+          	    $data['quick_rating'].','.$db->quote($data['last_seen']).','.$db->quote($date->toSql()).','.$db->quote($data['created_by']).',1)';
         	    $db->setQuery($qry);
         	    $db->execute();
         	}        	       	

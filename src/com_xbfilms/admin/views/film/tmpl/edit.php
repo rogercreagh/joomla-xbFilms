@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/film/tmpl/edit.php
- * @version 0.9.9.6 31st August 2022
+ * @version 0.9.9.8 10th October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -97,6 +97,14 @@ $document->addStyleDeclaration($style);
 		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'details', Text::_('XBCULTURE_DETAILS')); ?>
 		<div class="row-fluid">
     		<div class="span6">
+    			<div class="row_fluid">
+    				<div class="span6">
+                 		<?php echo $this->form->renderField('first_seen'); ?>
+    				</div>
+    				<div class="span6">
+    					<?php echo $this->form->renderField('last_seen'); ?>
+    				</div>
+    			</div>
           		<h4>Content</h4>
           		<div class="form-horizontal">
          			<?php echo $this->form->renderField('setting'); ?>
@@ -106,8 +114,6 @@ $document->addStyleDeclaration($style);
     		</div>
     		<div class="span3 form-vertical">
           		<h4>Production Info</h4>
-         		<?php echo $this->form->renderField('acq_date'); ?>
-         		<?php echo $this->form->renderField('last_seen'); ?>
         		<?php echo $this->form->renderField('rel_year'); ?>
          		<?php echo $this->form->renderField('runtime'); ?>
          		<?php echo $this->form->renderField('country'); ?>
@@ -122,6 +128,7 @@ $document->addStyleDeclaration($style);
  				<fieldset class="form-vertical">
            			<?php echo $this->form->renderField('poster_img'); ?>
  				</fieldset>
+ 				<h4>Status, Category &amp; Tags</h4>
 				<?php echo LayoutHelper::render('joomla.edit.global', $this); ?>
 			</div>					
 		</div>	
