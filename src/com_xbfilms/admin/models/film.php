@@ -243,16 +243,27 @@ class XbfilmsModelFilm extends JModelAdmin {
         if (parent::save($data)) {
         	$fid = $this->getState('film.id');
         	// set nulls for empty year and last_read (otherwise empty value defaults to 0000-00-00 00:00:00 which is invalid in latest myql strict mode)
-        	if (($data['last_seen']=='') || ($data['rel_year']=='')){
+        	if (($data['last_seen']=='') || ($data['first_seen']=='') || ($data['rel_year']=='')){
         	    $db = $this->getDbo();
         	    $query= $db->getQuery(true);
-        	    $query = 'UPDATE `#__xbfilms`  AS a SET ';
-        	    $query .= ($data['rel_year']=='') ? '`rel_year` = NULL ' : '';
-        	    $query .= (($data['last_seen']=='') && ($data['rel_year']=='')) ? ',' : '';
-        	    $query .= ($data['last_seen']=='')? '`last_seen` =  NULL ' : '';
-        	    $query .= 'WHERE a.id  ='.$fid.' ';
-        	    $db->setQuery($query);
-        	    $db->execute();
+        	    if ($data['rel_year']=='') {
+        	        $query = 'UPDATE `#__xbfilms`  AS a SET `rel_year` = NULL ';
+        	        $query .= 'WHERE a.id  ='.$fid.' ';
+        	        $db->setQuery($query);
+        	        $db->execute();
+        	    }
+        	    if ($data['last_seen']=='') {
+        	        $query = 'UPDATE `#__xbfilms`  AS a SET `last_seen` = NULL ';
+        	        $query .= 'WHERE a.id  ='.$fid.' ';
+        	        $db->setQuery($query);
+        	        $db->execute();
+        	    }
+        	    if ($data['first_seen']=='') {
+        	        $query = 'UPDATE `#__xbfilms`  AS a SET `first_seen` = NULL ';
+        	        $query .= 'WHERE a.id  ='.$fid.' ';
+        	        $db->setQuery($query);
+        	        $db->execute();
+        	    }
         	}
         	$this->storeFilmPersons($fid,'director', $data['directorlist']);
         	$this->storeFilmPersons($fid,'producer', $data['producerlist']);

@@ -197,12 +197,14 @@ class XbfilmsModelFilms extends JModelList
         // Add the list ordering clause.
         $orderCol       = $this->state->get('list.ordering', 'last_seen');
         $orderDirn      = $this->state->get('list.direction', 'DESC');
-        if ($orderCol == 'a.ordering' || $orderCol == 'a.catid') {
+        if (($orderCol == 'last_seen') || ($orderCol == 'first_seen')) {
+            $query->order('CASE WHEN '.$orderCol.' IS NULL THEN 1 ELSE 0 END, '.$orderCol.' '.$orderDirn);
+        } else {
+            if ($orderCol == 'a.ordering' || $orderCol == 'a.catid') {
                 $orderCol = 'category_title '.$orderDirn.', a.ordering';  
+            }
+            $query->order($db->escape($orderCol.' '.$orderDirn));
         }
-
-        $query->order($db->escape($orderCol.' '.$orderDirn));
-
 		$query->group('a.id');
         return $query;
     }

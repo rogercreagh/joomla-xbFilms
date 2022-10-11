@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms config.xml v0.9.9.4 28th July 2022 -->
+<!-- xbFilms config.xml v0.9.9.8 11th October 2022 -->
 <config>
 <!-- GENERAL TAB -->				
 	<fieldset name="general"
@@ -149,7 +149,7 @@
 		</field>	
  		<field name="show_fdates" type="radio"
 			label="Show Seen Dates"
-			description="A film has an acquistion date (when it was entered in the catalogue) and optional first and last seen dates. For some sites you might not wish to use first/last seen on the front-end, for example if you are not using reviews. If seen dates are shown, then any unseen films (null in first and last seen) will not appear in the list when sorted by seen date."
+			description="A film has first and last seen dates. For some sites you might not wish to use first/last seen on the front-end, for example if you are not using reviews. If seen dates are shown, then any unseen films (null in first and last seen) will not appear in the list when sorted by seen date."
 			class="btn-group btn-group-yesno"
 			default="1"
 			>
@@ -654,14 +654,15 @@
 			<option value="2">Show to right of title</option>
 		</field>	
  		<field name="show_frevs" type="list"
-			label="Show Ratings/Reviews"
-			description="Show rating &amp; reviews. Show rating only will make review details inaccessible from this page."
+			label="Show Reviews"
+			description="Show reviews as title and stars or full text"
 			default="1"
 			showon="show_revs:1"
 			>
 			<option value="0" >JHIDE</option>
-			<option value="1">Rating only</option>
-			<option value="2">Show Ratings and Reviews</option>
+			<option value="1">Ratings only</option>
+			<option value="2">Summary</option>
+			<option value="3">Full Reviews</option>
 		</field>	
 	    
   		<field name="revnote" type="note"

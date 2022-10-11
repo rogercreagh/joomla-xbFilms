@@ -200,30 +200,48 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
     						   <i><?php  echo ($this->show_rev == 1)? Text::_( 'XBCULTURE_NO_RATING' ) : Text::_( 'XBCULTURE_NO_REVIEW' ); ?></i><br />
     						<?php else : ?> 
 	                        	<?php $stars = (round(($item->averat)*2)/2); ?>
-	                            <div class="xbstar">
-								<?php if (($this->zero_rating) && ($stars==0)) : ?>
-								    <span class="<?php echo $this->zero_class; ?>" style="color:red;"></span>
-								<?php else : ?>
-	                                <?php echo str_repeat('<i class="'.$this->star_class.'"></i>',intval($item->averat)); ?>
-	                                <?php if (($item->averat - floor($item->averat))>0) : ?>
-	                                    <i class="<?php echo $this->halfstar_class; ?>"></i>
-	                                    <span style="color:darkgray;"> (<?php echo round($item->averat,1); ?>)</span>                                   
-	                                <?php  endif; ?> 
-	                             <?php endif; ?>                        
+	                            <div class="xbstar
+    	                            <?php if ($item->revcnt>1) : ?>
+    	                            	 xbmb8 xbbb1">Average
+                              		<?php else: ?>
+                                      ">
+    	                            <?php endif; ?>
+    								<?php if (($this->zero_rating) && ($stars==0)) : ?>
+    								    <span class="<?php echo $this->zero_class; ?>" style="color:red;"></span>
+    								<?php else : ?>
+    	                                <?php echo str_repeat('<i class="'.$this->star_class.'"></i>',intval($item->averat)); ?>
+    	                                <?php if (($item->averat - floor($item->averat))>0) : ?>
+    	                                    <i class="<?php echo $this->halfstar_class; ?>"></i>
+    	                                    <span style="color:darkgray;"> (<?php echo round($item->averat,1); ?>)</span>                                   
+    	                                <?php  endif; ?> 
+    	                             <?php endif; ?>                        
 	                            </div>
      							<?php if ($this->show_rev == 2) : ?>
                                     <?php foreach ($item->reviews as $rev) : ?>
-                                    	<?php $poptip = (empty($rev->summary)) ? 'hasTooltip' : 'hasPopover'; ?> 
-										<div class="<?php echo $poptip; ?> xbmb8 xb09"  title 
-											data-content="<?php echo htmlentities($rev->summary); ?>"
+                                    	<?php $summary = $rev->summary; 
+                                    	if (empty($summary)) {
+                                    	    $summary = XbcultureHelper::makeSummaryText($rev->review,0);
+                                    	}
+                                    	if (empty($summary)) {
+                                    	    $summary = '<i>Rating only, no review text</i>';
+                                    	}
+                                    	?>
+										<div class="hasPopover xbmb8 xb09"  title 
+											data-content="<?php echo htmlentities($summary); ?>"
 											data-original-title="<?php echo htmlentities($rev->title); ?>" 
                                 		>
     										<?php if ($item->revcnt>1) : ?>
-    											<?php echo $rev->rating;?><span class="xbstar"><i class="<?php echo $this->star_class; ?>"></i></span> 
-    			                            <?php endif; ?>
+                                            	<?php if($rev->rating == 0) {
+                                                	echo '<span class="'.$this->zero_class.'" style="color:red;"></span>';
+                                                } else {
+                                                	echo str_repeat('<i class="'.$this->star_class.'"></i>',$rev->rating);
+                                                } 
+                                            	echo '<br />';?>
+                                                
+     			                            <?php endif; ?>
     			                            <a href="<?php echo Route::_($rlink.$rev->id); ?>">
-	    	                                	<i>by</i> <?php echo $rev->reviewer; ?> 
-	    	                                	<i>on</i> <?php  echo HtmlHelper::date($rev->rev_date , 'd M Y'); ?>
+	    	                                	 <?php echo $rev->reviewer; ?> 
+	    	                                	 <?php echo HtmlHelper::date($rev->rev_date , 'd M y'); ?>
     			                            </a>
         								</div>
         							<?php endforeach; ?> 
@@ -233,9 +251,13 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
     				<?php endif; ?>
                    <?php if ($this->show_fdates) : ?>
         				<td>
-        					<p><?php echo HtmlHelper::date($item->first_seen , 'D jS M Y');
-        					   echo '<br />';
-        						echo HtmlHelper::date($item->last_seen , 'D jS M Y'); 
+        					<p><?php if($item->first_seen) {
+						          echo HtmlHelper::date($item->first_seen , 'D j M Y');
+        					   }
+    					       echo '<br />';
+        					   if(($item->last_seen) && ($item->last_seen != $item->first_seen)) {
+        					       echo HtmlHelper::date($item->last_seen , 'D j M Y'); 
+        					   }
         					?> </p>
          				</td>
      				<?php endif; ?>

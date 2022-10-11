@@ -287,37 +287,37 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
                             <i><?php echo Text::_('XBFILMS_NOREVIEW'); ?></i><br /> 
 						<?php else: ?>
                         	<?php $stars = (round(($item->averat)*2)/2); ?>
-                            <div>
-							<?php if (($this->zero_rating) && ($stars==0)) : ?>
-							    <span class="<?php echo $this->zero_class; ?> xbzero16"></span>
-							<?php else : ?>
-                                <span style="font-size:10px;color:#edc500;">
-                                <?php echo str_repeat('<i class="'.$this->star_class.'"></i>',intval($item->averat)); ?>
-                                <?php if (($item->averat - floor($item->averat))>0) : ?>
-                                    <i class="<?php echo $this->halfstar_class; ?>"></i>
-                                    </span> <span style="color:darkgray;">(<?php echo round($item->averat,1); ?>)                                  
-                                <?php  endif; ?> 
-                                </span> 
-                             <?php endif; ?>                        
-                            </div>
+                           	<?php if ($item->revcnt>1) : ?>
+                                <div class="xbbb1">Average: 
+        							<?php if (($this->zero_rating) && ($stars==0)) : ?>
+        							    <span class="<?php echo $this->zero_class; ?> xbzero16"></span>
+        							<?php else : ?>
+                                        <span style="font-size:10px;color:#edc500;">
+                                        <?php echo str_repeat('<i class="'.$this->star_class.'"></i>',intval($item->averat)); ?>
+                                        <?php if (($item->averat - floor($item->averat))>0) : ?>
+                                            <i class="<?php echo $this->halfstar_class; ?>"></i>
+                                            </span> <span style="color:darkgray;">(<?php echo round($item->averat,1); ?>)                                  
+                                        <?php  endif; ?> 
+                                        </span> 
+                                     <?php endif; ?>                        
+                                </div>
+                            <?php endif; ?>                        
 							<?php foreach ($item->reviews as $rev) : ?>
 								<div class="xbbb1">
-	                              	<?php if ($item->revcnt>1) : ?>
-										<span>
-											<?php if (($this->zero_rating) && ($rev->rating==0)) : ?>
-												<i class="<?php echo $this->zero_class; ?>"></i>
-											<?php else : ?>
-										 		<?php echo $rev->rating;?><i class="<?php echo $this->star_class; ?>" ></i> 
-										 	<?php endif; ?>
-										 </span>
-	                                <?php endif; ?>
+									<span>
+										<?php if (($this->zero_rating) && ($rev->rating==0)) : ?>
+											<i class="<?php echo $this->zero_class; ?>"></i>
+										<?php else : ?>
+										 	<?php echo $rev->rating;?><i class="<?php echo $this->star_class; ?>" ></i> 
+										 <?php endif; ?>
+									</span>
 									<a href="<?php echo Route::_($rvlink.$rev->id);?>">
 	    								<span class="xbnit"><?php echo Text::_('XBCULTURE_BY').':';?>
-	    								<?php if ($rev->reviewer) {
-	    								    echo $rev->reviewer;
-	    								} else {
-	    								    echo Factory::getUser($rev->created_by)->name;
-	    								} ?>
+    	    								<?php if ($rev->reviewer) {
+    	    								    echo $rev->reviewer;
+    	    								} else {
+    	    								    echo Factory::getUser($rev->created_by)->name;
+    	    								} ?>
 	    								</span>
 	    								<span class="xb09"> <?php echo HtmlHelper::date($rev->rev_date , 'd M Y'); ?></span>
 									</a>
@@ -331,10 +331,13 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 							</a>
 						</div>										
 					</td>
-					<td>
-						<?php echo HtmlHelper::date($item->first_seen , 'd M Y'); ?>
+					<td><?php if($item->first_seen) {
+						  echo HtmlHelper::date($item->first_seen , 'd M Y');                      
+                        } ?>
 						<br />
-						<?php echo HtmlHelper::date($item->last_seen , 'd M Y'); ?>
+						<?php  if(($item->last_seen) && ($item->last_seen != $item->first_seen)) {
+						  echo HtmlHelper::date($item->last_seen , 'd M Y'); 
+                        } ?>
 					</td>
 					<td>
 						<p><a class="label label-success" href="<?php echo $cvlink.$item->catid; ?>" 

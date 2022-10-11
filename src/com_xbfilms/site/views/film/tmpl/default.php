@@ -304,20 +304,18 @@ if ($imgok) {
     			<?php foreach ($item->reviews as $rev) : ?>
                 	<div class="xbrevlist ">
                 		<div class="xbbox xbboxmag">			
-                			<?php if ($this->show_frevs>0) : ?>
-                				<div class="xbstar" style="padding-bottom:5px;">
-                					<?php if (($this->zero_rating) && ($rev->rating==0)) { ?>
-                						<span class="<?php echo $this->zero_class; ?>" style="color:red;"></span>
-                					<?php } else {
-                						echo str_repeat('<i class="'.$this->star_class.'"></i>',$rev->rating);
-                					}?>
-                				</div>
-                			<?php endif; ?>
-                			<?php if ($this->show_frevs==2) : ?>
-                				<?php if (!empty($rev->title) && ((!empty($rev->summary)) || (!empty($rev->review)) )) : ?>
-                					<p><span class="xbtitle"><?php echo $rev->title; ?></span></p>				
-                				<?php endif; ?>
-                			<?php endif; ?>
+            				<?php if ((($rev->summary=='')) && (($rev->review=='')))  : ?>
+            					<p><span class="xbtitle"><?php echo $rev->title; ?></span></p>	
+                            <?php else : ?>
+                              	<p><i>Rating only, no text</i></p>
+            				<?php endif; ?>
+            				<div class="xbstar" style="padding-bottom:5px;">
+            					<?php if (($this->zero_rating) && ($rev->rating==0)) { ?>
+            						<span class="<?php echo $this->zero_class; ?>" style="color:red;"></span>
+            					<?php } else {
+            						echo str_repeat('<i class="'.$this->star_class.'"></i>',$rev->rating);
+            					}?>
+            				</div>
                 			<p>
                 				<?php echo ' by '.$rev->reviewer;
                 					echo ' on '.HtmlHelper::date($rev->rev_date , 'D jS M Y').' ';
@@ -325,21 +323,33 @@ if ($imgok) {
                 					if ($rev->subtitled >0) { echo ' ('.Text::_('XBFILMS_SUBTITLED').')'; } ?>
                 			</p>
                 			<?php if ($this->show_frevs==2) : ?>
+                				<?php if (empty($rev->summary)) {
+                					if (empty($rev->review)) {
+                						echo '<span class="xbnit">'.Text::_('XBFILMS_NO_REV_TEXT').'</span>';
+                					} else {
+                					    echo XbcultureHelper::makeSummaryText($rev->review,0);
+                					}
+                				} else { 
+                					echo $rev->summary;
+                				}  ?>
+                				
+                			<?php endif; ?>
+                			<?php if ($this->show_frevs==3) : ?>
                 				<?php if (empty($rev->review)) {
                 					if (empty($rev->summary)) {
                 						echo '<span class="xbnit">'.Text::_('XBFILMS_NO_REV_TEXT').'</span>';
                 					} else {
-                						echo $rev->summary;
+                					    echo $rev->review;
                 					}
-                				} else { //summary doesn't get shown here if there is a review - OK????
-                					echo $rev->review;
+                				} else { 
+                					echo $rev->summary;
                 				}  ?>
-                				<?php //TODO extlinks?>
+                				
                 			<?php endif; ?>
                 		</div>
-                        <div class="row-fluid">
+                        <div>
                  			<?php if ($this->show_rcat) : ?>       
-                 		       	<div class="span4">
+                 		       	<div class="row-fluid">
                 					<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBFILMS_REV_CAT'); ?></div>
                 					<div class="pull-left">
                     					<?php if($this->show_rcat==2) : ?>
@@ -352,7 +362,7 @@ if ($imgok) {
                                 </div>
                             <?php endif; ?>
                   			<?php if (($this->show_rtags) && ($rev->tagcnt>0)) : ?>       
-                            	<div class="span<?php echo ($this->show_rcat>0) ? '8' : '12'; ?>">
+                            	<div class="row-fluid">
                 					<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBFILMS_CAPTAGS'); ?>
                 					</div>
                 					<div class="pull-left">	                	
