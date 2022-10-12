@@ -100,24 +100,28 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 					<td>
 						<h3>
 							<a href="<?php echo Route::_(XbfilmsHelperRoute::getFilmLink($item->id)) ;?>" >
-								<b><?php echo $this->escape($item->title); ?></b></a>
-						<?php if (!empty($item->subtitle)) :?>
-                        	<br /><span class="xb08" style="padding-left:15px;"><?php echo $this->escape($item->subtitle); ?></span>
-                        <?php endif; ?>
+								<b><?php echo $this->escape($item->title); ?></b>
+							</a>
+    						<?php if (!empty($item->subtitle)) :?>
+                            	<br /><span class="xb08" style="padding-left:15px;"><?php echo $this->escape($item->subtitle); ?></span>
+                            <?php endif; ?>
 						</h3>
+						<table>
+						<tr>
                   		<?php if($this->show_pic) : ?>
-                          <div class="pull-left" style="width:90px;margin-right:20px;">
-    						<?php  $src = trim($item->poster_img);
+                  			<td style="width:100px;padding-right:20px;">
+    							<?php  $src = trim($item->poster_img);
     							if ((!$src=='') && (file_exists(JPATH_ROOT.'/'.$src))) : 
     								$src = Uri::root().$src; 
-    								$tip = '<img src=\''.$src.'\' style=\'max-width:250px;\' />'; 
-    								?>
-    								<img class="img-polaroid hasTooltip" title="" 
-    									data-original-title="<?php echo $tip; ?> data-placement="right"
-    									src="<?php echo $src; ?>" border="0" alt="" />							                          
-    	                     <?php  endif; ?>
-                          </div>   
+    								$tip = '<img src=\''.$src.'\' style=\'max-width:250px;\' />'; ?>
+    								<img class="img-polaroid hasPopover" title="" 
+    									data-original-title="" data-content="<?php echo $tip; ?> data-placement="right"
+    									src="<?php echo $src; ?>" border="0" alt="" 
+    								/>
+    	                  		<?php  endif; ?>
+                          </td>   
                         <?php endif; ?>
+                        <td>
 						<p>
                         	<?php if ($item->dircnt==0) {
                         		echo '<span class="xbnit">'.Text::_('XBFILMS_NODIRECTOR').'</span>';
@@ -133,12 +137,12 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 							<span class="icon-calendar"></span>&nbsp;<span class="xbnit">
 								<?php echo Text::_('XBFILMS_CAPRELEASED'); ?>
 							</span>
-							<?php if($item->rel_year > 0) { echo ': '.$item->rel_year; }?>	
+							<?php if($item->rel_year > 0) { echo ': '.$item->rel_year; } else { echo '<i>'.Text::_('uknown').'</i>';}?>	
 							<br />
 							<span class="icon-screen"></span>&nbsp;
                             <?php if($this->show_sum) : ?>
     							<?php if (!empty($item->summary)) : ?>
-    								<?php echo $item->summary; ?>
+    								<?php echo '<i>'.Text::_('Summary').'</i>: '.$item->summary; ?>
         						<?php else : ?>
         							<span class="xbnit">
         							<?php if (!empty($item->synopsis)) : ?>
@@ -158,7 +162,32 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
                                      </span>
         						<?php endif; ?>
                         	<?php endif; ?>
-							<br />						
+							<br />	
+							<?php if($this->show_rev) : ?>
+								<span class="icon-pencil-2"></span> &nbsp;
+								<?php if ($item->revcnt==0) : ?>
+									<i><?php echo Text::_('No reviews available'); ?></i>
+								<?php else : ?>
+									<i>
+								    <?php if($item->revcnt==1) {
+								        echo $item->revcnt.' '.Text::_('review with rating');
+								    } else {
+								        echo $item->revcnt.' '.Text::_('reviews, average rating');
+								    } ?>
+									</i> &nbsp;
+								    <?php $stars = (round(($item->averat)*2)/2); 
+								    if (($this->zero_rating) && ($stars==0)) : ?>
+    								    <span class="<?php echo $this->zero_class; ?>" style="color:red;"></span>
+    								<?php else : 
+    								    echo str_repeat('<i class="'.$this->star_class.'"></i>',intval($item->averat)); 
+    								    if (($item->averat - floor($item->averat))>0) : ?>
+    	                                    <i class="<?php echo $this->halfstar_class; ?>"></i>
+    	                                    <span style="color:darkgray;"> (<?php echo round($item->averat,1); ?>)</span>                                   
+    	                                <?php  endif; ?> 
+    	                             <?php endif; ?>                        								    
+								<?php endif; ?>
+								<br />
+							<?php endif; ?>					
 		                    <?php if(($this->showcat) || ($this->showtags)) : ?>
          						<?php if($this->showcat) : ?>	
 		     						<span class="icon-folder"></span> &nbsp;	
@@ -175,7 +204,21 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
             						echo $tagLayout->render($item->tags); ?>
         						<?php endif; ?>
 	                		<?php endif; ?>
+	                		<?php if ($this->show_fdates) : ?>       				
+        						<br />
+        						<?php if($item->first_seen) {
+						          echo '<span class="icon-eye"></span> &nbsp;<i>'.Text::_('First seen').'</i>: '.HtmlHelper::date($item->first_seen , 'D jS M Y'); 
+								}
+        					   if(($item->last_seen) && ($item->last_seen != $item->first_seen)) {
+        					       echo ' -&nbsp;<i>'.Text::_('Last seen').'</i>: '.HtmlHelper::date($item->last_seen , 'D jS M Y'); 
+        					   }
+        					   if((!$item->last_seen) && (!$item->first_seen)) {
+        					       echo '<i>'.Text::_('not yet seen').'</i>';
+        					   }
+        					?>
+							<?php endif; ?>
 	                	</p>
+						</td></tr></table>
 					</td>
 				</tr>
 				<?php endforeach;?>

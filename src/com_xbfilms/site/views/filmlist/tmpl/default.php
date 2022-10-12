@@ -139,7 +139,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 								$src = Uri::root().$src;
 								$tip = '<img src=\''.$src.'\' style=\'width:400px;\' />';
 								?>
-								<img class="img-polaroid hasTooltip xbimgthumb" title="" 
+								<img class="img-polaroid hasPopover xbimgthumb" title="" 
 									data-original-title="<?php echo $tip; ?>" data-placement="right"
 									src="<?php echo $src; ?>"
 									border="0" alt="" />							                          
