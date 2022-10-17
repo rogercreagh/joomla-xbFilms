@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmlist/tmpl/onecol.php
- * @version 0.9.9.8 10th October 2022
+ * @version 0.9.9.8 13th October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -82,7 +82,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 					</div>
 				<?php else : ?>
 
-	<table class="table table-striped table-hover" style="table-layout:fixed;" id="xbfilmlist">	
+	<table class="table table-hover" style="table-layout:fixed;" id="xbfilmlist">	
 		<thead>
 			<tr>
 				<th>
@@ -96,7 +96,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 		<tbody>
 			<?php foreach ($this->items as $i => $item) : ?>
 				<?php $reviews = ''; ?>
-				<tr class="row<?php echo $i % 2; ?>">	
+				<tr class="xbrow<?php echo $i % 2; ?>">	
 					<td>
 						<h3>
 							<a href="<?php echo Route::_(XbfilmsHelperRoute::getFilmLink($item->id)) ;?>" >
@@ -107,7 +107,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
                             <?php endif; ?>
 						</h3>
 						<table>
-						<tr>
+						<tr class="xbrow<?php echo $i % 2; ?>">
                   		<?php if($this->show_pic) : ?>
                   			<td style="width:100px;padding-right:20px;">
     							<?php  $src = trim($item->poster_img);
@@ -122,7 +122,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
                           </td>   
                         <?php endif; ?>
                         <td>
-						<p>
+						<p><span class="<?php echo ($item->dircnt>1) ? 'icon-users' : 'icon-user'; ?>"></span>&nbsp;
                         	<?php if ($item->dircnt==0) {
                         		echo '<span class="xbnit">'.Text::_('XBFILMS_NODIRECTOR').'</span>';
                         	} else { ?> 
@@ -131,9 +131,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 	                        	</span>: 
                         		<?php echo $item->dirlist; 
                         	} ?>                          	
-						</p>
-						
-						<p>
+							<br />
 							<span class="icon-calendar"></span>&nbsp;<span class="xbnit">
 								<?php echo Text::_('XBFILMS_CAPRELEASED'); ?>
 							</span>

@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/fcategory/tmpl/edit.php
- * @version 0.9.9.6 31st August 2022
+ * @version 0.9.9.8 17th October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -10,6 +10,7 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 $item = $this->item;
 $celink = 'index.php?option=com_categories&task=category.edit&id=';
@@ -27,34 +28,32 @@ $xblink = 'index.php?option=com_xbfilms';
 		<form action="index.php?option=com_xbfilms&view=fcategory" method="post" id="adminForm" name="adminForm">
 		<div class="row-fluid xbmb8">
 			<div class= "span3">
-				  <h3><?php echo JText::_('XBFILMS_CAT_ITEMS'); ?></h3>
+				  <h3><?php echo Text::_('XBFILMS_CAT_ITEMS'); ?></h3>
 			</div>
 			<div class= "span5">
+    			<div class="xb11 pull-left xbit xbpt17 xbgrey xbmr20">   				 
+    				<?php  $path = substr($item->path, 0, strrpos($item->path, '/'));
+    					$path = str_replace('/', ' - ', $path);
+    					echo 'root - '.$path; ?>
+            	</div>
 				<a href="<?php echo $celink.$item->id; ?>" class="badge badge-success">
 					<h2><?php echo $item->title; ?></h2>
 				</a></div>
             <div class="span2">
-                <p><?php echo '<i>'.JText::_('XBCULTURE_ALIAS').'</i>: '.$item->alias; ?></p>
+                <p><?php echo '<i>'.Text::_('XBCULTURE_ALIAS').'</i>: '.$item->alias; ?></p>
             </div>
 			<div class= "span2">
-				<p><?php echo '<i>'.JText::_('JGRID_HEADING_ID').'</i>: '.$item->id; ?></p>
+				<p><?php echo '<i>'.Text::_('JGRID_HEADING_ID').'</i>: '.$item->id; ?></p>
  			</div>
 		</div>
 		<div class="row-fluid xbmb8">
 			<div class= "span6">
-					<p class="xb11">
-						<i><?php JText::_('XBCULTURE_CATEGORY').' '.JText::_('XBCULTURE_HEIRARCHY'); ?></i> 
-						<?php $path = str_replace('/', ' - ', $item->path);
-						echo 'root - '.$path; ?>
-					</p>
-			</div>
-			<div class= "span6">
-				<p><i><?php Jtext::_('XBCULTURE_ADMIN_NOTE'); ?>:</i>  <?php echo $item->note; ?></p>
+				<p><i><?php Text::_('XBCULTURE_ADMIN_NOTE'); ?>:</i>  <?php echo $item->note; ?></p>
 			</div>
 		</div>
 		<div class="row-fluid xbmb8">
 			<div class= "span2">
-				<p><i><?php echo JText::_('XBCULTURE_DESCRIPTION'); ?>:</i></p>
+				<p><i><?php echo Text::_('XBCULTURE_DESCRIPTION'); ?>:</i></p>
 			</div>
    			<div class="span10">
 			<?php if ($item->description != '') : ?>
@@ -62,14 +61,14 @@ $xblink = 'index.php?option=com_xbfilms';
     				<?php echo $item->description; ?>
     			</div>
     		<?php else: ?>
-    			<p><i><?php echo JText::_('XBCULTURE_NO_DESCRIPTION'); ?></i></p>
+    			<p><i><?php echo Text::_('XBCULTURE_NO_DESCRIPTION'); ?></i></p>
 			<?php endif; ?>
 			</div>
 		</div>
 		<div class="row-fluid">
 			<div class= "span6">
 				<div class="xbbox xbboxcyan">
-					<p><?php echo $item->bcnt.' '.JText::_('XBFILMS_FILMS_IN_CAT'); ?>  <span class="label label-success"><?php echo $item->title; ?></span></p>
+					<p><?php echo $item->bcnt.' '.Text::_('XBFILMS_FILMS_IN_CAT'); ?>  <span class="label label-success"><?php echo $item->title; ?></span></p>
 					<?php if ($item->bcnt > 0 ) : ?>
 						<ul>
 						<?php foreach ($item->bks as $i=>$bk) { 
@@ -79,7 +78,7 @@ $xblink = 'index.php?option=com_xbfilms';
 					<?php endif; ?>
 				</div>
 				<div class="xbbox xbboxmag">
-					<p><?php echo $item->rcnt.' '.JText::_('XBCULTURE_REVIEWS_IN_CAT'); ?>  <span class="label label-success"><?php echo $item->title; ?></span></p>
+					<p><?php echo $item->rcnt.' '.Text::_('XBCULTURE_REVIEWS_IN_CAT'); ?>  <span class="label label-success"><?php echo $item->title; ?></span></p>
 					<?php if ($item->rcnt > 0 ) : ?>
 						<ul>
 						<?php foreach ($item->revs as $i=>$rev) { 
@@ -91,7 +90,7 @@ $xblink = 'index.php?option=com_xbfilms';
 			</div>
 			<div class= "span6">
 				<div class="xbbox xbboxgrn">
-					<p><?php echo $item->pcnt.' '.JText::_('XBCULTURE_PEOPLE_IN_CAT'); ?>  <span class="label label-success"><?php echo $item->title; ?></span></p>
+					<p><?php echo $item->pcnt.' '.Text::_('XBCULTURE_PEOPLE_IN_CAT'); ?>  <span class="label label-success"><?php echo $item->title; ?></span></p>
 					<?php if ($item->pcnt > 0 ) : ?>
 						<ul>
 						<?php foreach ($item->people as $i=>$per) { 
@@ -101,7 +100,7 @@ $xblink = 'index.php?option=com_xbfilms';
 					<?php endif; ?>
 				</div>
 				<div class="xbbox xbboxgrey">
-					<p><?php echo $item->chcnt.' '.JText::_('XBCULTURE_CHARS_IN_CAT'); ?>  <span class="label label-success"><?php echo $item->title; ?></span></p>
+					<p><?php echo $item->chcnt.' '.Text::_('XBCULTURE_CHARS_IN_CAT'); ?>  <span class="label label-success"><?php echo $item->title; ?></span></p>
 					<?php if ($item->chcnt > 0 ) : ?>
 						<ul>
 						<?php foreach ($item->chars as $i=>$char) { 
@@ -120,7 +119,7 @@ $xblink = 'index.php?option=com_xbfilms';
 </div>
 <center>
 		<a href="<?php echo $xblink; ?>&view=fcategories" class="btn btn-small">
-			<?php echo JText::_('XBFILMS_CAT_LIST'); ?></a>
+			<?php echo Text::_('XBFILMS_CAT_LIST'); ?></a>
 		</center>
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbFilms');?></p>

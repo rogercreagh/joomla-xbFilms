@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/tag/tmpl/default.php
- * @version 0.5.5 24th March 2021
+ * @version 0.9.9.8 17th October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -110,7 +110,7 @@ $tclink = $xblink.'tags' . $itemid;
 			<p><?php echo $item->chcnt; ?> characters tagged</p>
 			<?php if ($item->chcnt > 0 ) : ?>
 				<ul>
-				<?php foreach ($item->characters as $i=>$per) { 
+				<?php foreach ($item->chars as $i=>$per) { 
 					echo '<li><a href="'.Route::_($chlink.$per->pid).'">'.$per->title.'</a></li> ';
 				} ?>				
 				</ul>
@@ -128,6 +128,7 @@ $tclink = $xblink.'tags' . $itemid;
 				<?php $thiscomp=''; $firstcomp=true; $thisview = ''; $firstview=true; 
 				foreach ($item->others as $i=>$oth) {
 					$comp = substr($oth->type_alias, 0,strpos($oth->type_alias, '.'));
+					$view = substr($oth->type_alias,strpos($oth->type_alias, '.')+1);
 					if (($view=='review') && ($comp == 'com_xbbooks')) {
 					    $view = 'bookreview';
 					}
