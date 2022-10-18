@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/filmlist.php
- * @version 0.9.9.8 10th October 2022
+ * @version 0.9.9.8 17th October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -18,7 +18,7 @@ class XbfilmsModelFilmlist extends JModelList {
 	public function __construct($config = array()) {
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array ('title', 'a.title',
-					'rel_year','a.rel_year',
+					'rel_year','a.rel_year', 'first_seen', 'a.first_seen',
 					'averat', 'last_seen', 'a.last_seen',					
 					'catid', 'a.catid', 'category_id',
 					'category_title','tagfilt' );
@@ -195,6 +195,10 @@ class XbfilmsModelFilmlist extends JModelList {
             $orderCol       = $this->state->get('list.ordering', 'last_seen');
             $orderDirn      = $this->state->get('list.direction', 'DESC');
             switch($orderCol) {
+                case 'last_seen' :
+                case 'first_seen' :
+                    $query->order('CASE WHEN '.$orderCol.' IS NULL THEN 1 ELSE 0 END, '.$orderCol.' '.$orderDirn.', title');
+                    break;
             	case 'a.ordering' :
             	case 'a.catid' :
             		//needs a menu option to set orderCol to ordering. Also menu option to alllow user to reorder on table

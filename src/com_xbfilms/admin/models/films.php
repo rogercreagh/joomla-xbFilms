@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/films.php
- * @version 0.9.9.8 10th October 2022
+ * @version 0.9.9.8 18th October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -203,7 +203,7 @@ class XbfilmsModelFilms extends JModelList
             if ($orderCol == 'a.ordering' || $orderCol == 'a.catid') {
                 $orderCol = 'category_title '.$orderDirn.', a.ordering';  
             }
-            $query->order($db->escape($orderCol.' '.$orderDirn));
+            $query->order($db->escape($orderCol.' '.$orderDirn.', title'));
         }
 		$query->group('a.id');
         return $query;
