@@ -69,10 +69,10 @@ class XbfilmsModelImportexport extends JModelAdmin {
         }
         $expcat = '';
         if (($export['exptables']=='xbpersons') || ($export['exptables']=='xbcharacters')) {
-        	$expcat = ($export['exppcat'] >0 )? '-'.XbfilmsHelper::getCat($export['exppcat'])->title: '';
+        	$expcat = ($export['exppcat'] >0 )? '-'.XbcultureHelper::getCat($export['exppcat'])->title: '';
         	
         } elseif (($export['exptables']=='xbfilms') || ($export['exptables']=='xbfilmreviews')) {
-        	$expcat = ($export['expcat'] >0 )? '-'.XbfilmsHelper::getCat($export['expcat'])->title: '';
+        	$expcat = ($export['expcat'] >0 )? '-'.XbcultureHelper::getCat($export['expcat'])->title: '';
         }
         return $export['exptables'].$expcat;
     }

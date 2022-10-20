@@ -151,7 +151,12 @@ class XbfilmsModelCharacters extends JModelList {
                         for ($i = 0; $i < count($tagfilt); $i++) {
                             $conds[] = $tagfilt[$i].' IN '.$subquery;
                         }
-                        $query->extendWhere('AND', $conds, 'OR');
+                        if (count($tagfilt)==1) {
+                            $query->where($tagfilt[0].' IN '.$subquery);
+                        } else {
+                            $query->where('1=1'); //fudge to ensure there is a where clause to extend
+                            $query->extendWhere('AND', $conds, 'OR');
+                        }
                         break;
                 }
             } //endif tagfilt

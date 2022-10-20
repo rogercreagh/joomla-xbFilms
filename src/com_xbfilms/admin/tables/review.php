@@ -89,7 +89,7 @@ class XbfilmsTableReview extends Table
         	}
         	if ($defcat>0) {
         		$this->catid = $defcat;
-        		Factory::getApplication()->enqueueMessage(JText::_('XBCULTURE_CATEGORY_DEFAULT_SET').' ('.XbfilmsHelper::getCat($this->catid)->title.')');
+        		Factory::getApplication()->enqueueMessage(JText::_('XBCULTURE_CATEGORY_DEFAULT_SET').' ('.XbcultureHelper::getCat($this->catid)->title.')');
         	} else {
         		// this shouldn't happen unless uncategorised has been deleted
         		$this->setError(JText::_('XBCULTURE_CATEGORY_MISSING'));

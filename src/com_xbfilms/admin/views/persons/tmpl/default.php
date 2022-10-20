@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/people/tmpl/default.php
- * @version 0.9.9.7 4th September 2022
+ * @version 0.9.9.8 19th October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -259,7 +259,7 @@ $bplink = 'index.php?option=com_xbpeople&view=person&layout=edit&id=';
 						<?php if ($item->dircnt>0) : ?>
                           <details>
                           	<summary><span class="xbnit">
- 								<?php echo Text::_('XBFILMS_DIRECTOR_OF').' '.$item->dircnt.' ';
+ 								<?php echo Text::_('XBCULTURE_DIRECTOR_OF').' '.$item->dircnt.' ';
                                 echo ($item->dircnt==1)?Text ::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS');   ?>
                             </span></summary>
  							<?php echo $item->dirlist; ?>
@@ -268,7 +268,7 @@ $bplink = 'index.php?option=com_xbpeople&view=person&layout=edit&id=';
 						<?php if ($item->prodcnt>0) : ?>
                           <details>
                           	<summary><span class="xbnit">
- 								<?php echo Text::_('XBFILMS_PRODUCER_OF').' '.$item->prodcnt.' ';
+ 								<?php echo Text::_('XBCULTURE_PRODUCER_OF').' '.$item->prodcnt.' ';
                                 echo ($item->prodcnt==1)? Text::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS');   ?>
                             </span></summary>
 							<?php echo $item->prodlist; ?>
@@ -277,7 +277,7 @@ $bplink = 'index.php?option=com_xbpeople&view=person&layout=edit&id=';
 						<?php if ($item->crewcnt>0) : ?>
                           <details>
                           	<summary><span class="xbnit">
- 								<?php echo Text::_('XBCULTURE_CREW').' '.$item->crewcnt.' ';
+ 								<?php echo Text::_('XBCULTURE_CREW_ON').' '.$item->crewcnt.' ';
  								echo ($item->crewcnt==1)? Text::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS');   ?>
                             </span></summary>
 							<?php echo $item->crewlist; ?>
@@ -286,7 +286,7 @@ $bplink = 'index.php?option=com_xbpeople&view=person&layout=edit&id=';
 						<?php if ($item->castcnt>0) : ?>
                           <details>
                           	<summary><span class="xbnit">
- 								<?php echo Text::_('XBFILMS_ACTOR_IN').' '.$item->castcnt.' ';
+ 								<?php echo Text::_('XBCULTURE_ACTOR_IN').' '.$item->castcnt.' ';
  								echo ($item->castcnt==1)? Text::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS');   ?>
                             </span></summary>
 							<?php echo $item->castlist; ?>
@@ -295,7 +295,7 @@ $bplink = 'index.php?option=com_xbpeople&view=person&layout=edit&id=';
 						<?php if ($item->appcnt>0) : ?>
                           <details>
                           	<summary><span class="xbnit">
- 								<?php echo Text::_('XBFILMS_SUBJECT_CAMEO').' '.$item->appcnt.' ';
+ 								<?php echo Text::_('XBCULTURE_SUBJECT_CAMEO').' '.$item->appcnt.' ';
  								echo ($item->appcnt==1)? Text::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS');   ?>
                             </span></summary>
 							<?php echo $item->applist; ?>
@@ -317,18 +317,8 @@ $bplink = 'index.php?option=com_xbpeople&view=person&layout=edit&id=';
 						</a></p>						
 						<?php endif; ?>
 						<ul class="inline">
-						<?php foreach ($item->booktags as $t) : ?>
-							<li><a href="<?php echo $tvlink.$t->id; ?>" class="label label-info">
-								<?php echo $t->title; ?></a>
-							</li>													
-						<?php endforeach; ?>
 						<?php foreach ($item->persontags as $t) : ?>
 							<li><a href="<?php echo $tvlink.$t->id; ?>" class="label percnt">
-								<?php echo $t->title; ?></a>
-							</li>													
-						<?php endforeach; ?>
-						<?php foreach ($item->filmtags as $t) : ?>
-							<li><a href="<?php echo $tvlink.$t->id; ?>" class="label flmcnt">
 								<?php echo $t->title; ?></a>
 							</li>													
 						<?php endforeach; ?>

@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/reviews.php
- * @version 0.9.9.6 25th August 2022
+ * @version 0.9.9.8 20th October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -137,7 +137,12 @@ class XbfilmsModelReviews extends JModelList {
                     for ($i = 0; $i < count($tagfilt); $i++) {
                         $conds[] = $tagfilt[$i].' IN '.$subquery;
                     }
-                    $query->extendWhere('AND', $conds, 'OR');
+                    if (count($tagfilt)==1) {
+                        $query->where($tagfilt[0].' IN '.$subquery);
+                    } else {
+                        $query->where('1=1'); //fudge to ensure there is a where clause to extend
+                        $query->extendWhere('AND', $conds, 'OR');
+                    }
                     break;
             }
         } //endif tagfilt

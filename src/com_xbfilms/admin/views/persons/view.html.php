@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/persons/view.html.php
- * @version 0.9.6.f 11th January 2022
+ * @version 0.9.9.8 19th October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -10,7 +10,6 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
-use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Layout\FileLayout;
@@ -29,7 +28,7 @@ class XbfilmsViewPersons extends JViewLegacy {
         $this->searchTitle = $this->state->get('filter.search');
         $this->catid 		= $this->state->get('catid');
         if ($this->catid>0) {
-            $this->cat 		= XbfilmsHelper::getCat($this->catid);
+            $this->cat 		= XbcultureHelper::getCat($this->catid);
         }
                
         $this->xbpeople_ok = Factory::getSession()->get('xbpeople_ok');

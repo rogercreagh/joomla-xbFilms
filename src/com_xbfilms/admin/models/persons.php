@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/persons.php
- * @version 0.9.9.7 9th September 2022
+ * @version 0.9.9.8 20th October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -88,7 +88,6 @@ class XbfilmsModelPersons extends JModelList {
         }
         
         //Filter by role
-        //TODO this is not filter by role it is by film/book/orphan (status)
         $rolefilt = $this->getState('filter.rolefilt');
         if (empty($rolefilt)) { $rolefilt = 'film'; }
         if ($rolefilt!='all') {
@@ -131,13 +130,15 @@ class XbfilmsModelPersons extends JModelList {
         	$taglogic = $this->getState('filter.taglogic');  //0=ANY 1=ALL 2= None
         }
         
-        if (($taglogic === '2') && (empty($tagfilt))) {
-        	//if if we select tagged=excl and no tags specified then only show untagged items
-        	$subQuery = '(SELECT content_item_id FROM #__contentitem_tag_map
+        if (empty($tagfilt)) {
+            $subQuery = '(SELECT content_item_id FROM #__contentitem_tag_map
  					WHERE type_alias LIKE '.$db->quote('com_xb%.person').')';
-        	$query->where('a.id NOT IN '.$subQuery);
-        }
-        if ($tagfilt && is_array($tagfilt)) {
+            if ($taglogic === '1') {
+                $query->where('a.id NOT IN '.$subQuery);
+            } elseif ($taglogic === '2') {
+                $query->where('a.id IN '.$subQuery);
+            }
+        } else {
             $tagfilt = ArrayHelper::toInteger($tagfilt);
             $subquery = '(SELECT tmap.tag_id AS tlist FROM #__contentitem_tag_map AS tmap
                 WHERE tmap.type_alias = '.$db->quote('com_xbpeople.person').'
@@ -154,11 +155,16 @@ class XbfilmsModelPersons extends JModelList {
                     }
                     break;
                 default: //any
-                    $conds = array();
-                    for ($i = 0; $i < count($tagfilt); $i++) {
-                        $conds[] = $tagfilt[$i].' IN '.$subquery;
+                    if (count($tagfilt)==1) {
+                        $query->where($tagfilt[0].' IN '.$subquery);
+                    } else {
+                        $conds = array();
+                        for ($i = 0; $i < count($tagfilt); $i++) {
+                            $conds[] = $tagfilt[$i].' IN '.$subquery;
+                        }
+                        $query->where('1=1'); //bodge to ensure there is a where clause to extend
+                        $query->extendWhere('AND', $conds, 'OR');
                     }
-                    $query->extendWhere('AND', $conds, 'OR');
                     break;
             }
         } //end if $tagfilt
@@ -213,8 +219,8 @@ class XbfilmsModelPersons extends JModelList {
 				$item->ext_links_list = trim($item->ext_links_list,', ');
 	        } //end if is_object
 	        $item->persontags = $tagsHelper->getItemTags('com_xbpeople.person' , $item->id);
-	        $item->filmtags = $tagsHelper->getItemTags('com_xbfilms.person' , $item->id);
-	        $item->booktags = $tagsHelper->getItemTags('com_xbbooks.person' , $item->id);
+//	        $item->filmtags = $tagsHelper->getItemTags('com_xbfilms.person' , $item->id);
+//	        $item->booktags = $tagsHelper->getItemTags('com_xbbooks.person' , $item->id);
         } //end foreach item
 	        return $items;
     }

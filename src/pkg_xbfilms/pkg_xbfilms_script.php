@@ -2,7 +2,7 @@
 /**
  * @package xbFilms-Package
  * @filesource pkg_xbfilms_script.php
- * @version 0.9.8.4 26th May January 2022
+ * @version 0.9.8.8 19th October 2022
  * @desc install, upgrade and uninstall actions
  * @author Roger C-O
  * @copyright (C) Roger Creagh-Osborne, 2019

@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/helpers/xbfilms.php
- * @version 0.9.9.6 31st August 2022
+ * @version 0.9.9.8 19th October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -155,16 +155,6 @@ class XbfilmsHelper extends ContentHelper
             ->where('id = '. (int) $id);
         $db->setQuery($query);
         return $db->loadResult();       
-    }
-    
-    public static function getCat($catid) {
-    	$db = Factory::getDBO();
-    	$query = $db->getQuery(true);
-    	$query->select('a.title, a.description')
-    	->from('#__categories AS a ')
-    	->where('a.id = '.$catid);
-    	$db->setQuery($query);
-    	return $db->loadObjectList()[0];
     }
     
     public static function getIdFromAlias($table,$alias, $ext = 'com_xbfilms') {

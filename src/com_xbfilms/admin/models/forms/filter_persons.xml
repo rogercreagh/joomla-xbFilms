@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms admin/models/forms/filter_persons.xml v0.9.9.7 21st September 2022 -->
+<!-- xbFilms admin/models/forms/filter_persons.xml v0.9.9.8 19th October 2022 -->
 <form>
 	<fields name="filter"  addfieldpath="administrator/components/com_xbfilms/models/fields">
 		<field
@@ -20,13 +20,13 @@
 			<option value="">JOPTION_SELECT_PUBLISHED</option>
 		</field>
 		<field name="rolefilt" type="list"
-			label="Filter by role"
-			description="Does this show?"
+			label="XBCULTURE_ROLE_FILTER_LABEL"
+			description="XBCULTURE_ROLE_FILTER_DESC"
 			default="film"
 			onchange="this.form.submit();"			
 		>
-			<option value="all">XBFILMS_ALLPEOPLE</option>
-			<option value="film">XBFILMS_FILMPEOPLE</option>
+			<option value="all">XBCULTURE_ALL_PEOPLE</option>
+			<option value="film">XBCULTURE_ALL_FILMROLES</option>
 			<option value="director">XBCULTURE_DIRECTORS</option>
 			<option value="producer">XBCULTURE_PRODUCERS</option>
 			<option value="crew">XBCULTURE_CREW</option>
@@ -42,7 +42,7 @@
 			onchange="this.form.submit();"
 			default="" 
 		>
-			<option value="">- Nationality Filter -</option>
+			<option value="">XBCULTURE_NAT_FILTER</option>
 		</field>	
 			
 		<field
