@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/people.php
- * @version 0.9.9.8 20th October 2022
+ * @version 0.9.9.8 21st October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -167,43 +167,45 @@ class XbfilmsModelPeople extends JModelList {
 			$taglogic = $this->getState('filter.taglogic'); //1=AND otherwise OR
 		}
             
-		if (($taglogic === '2') && (empty($tagfilt))) {
-		    //if if we select tagged=excl and no tags specified then only show untagged items
+		if (empty($tagfilt)) {
 		    $subQuery = '(SELECT content_item_id FROM #__contentitem_tag_map
- 					WHERE type_alias = '.$db->quote('com_xbpeople.person').')';
-		    $query->where('a.id NOT IN '.$subQuery);
-		}
-		if ($tagfilt && is_array($tagfilt)) {
-        	$tagfilt = ArrayHelper::toInteger($tagfilt);    
-        	$subquery = '(SELECT tmap.tag_id AS tlist FROM #__contentitem_tag_map AS tmap 
-                WHERE tmap.type_alias = '.$db->quote('com_xbpeople.person').' 
+ 					WHERE type_alias LIKE '.$db->quote('com_xbpeople.person').')';
+		    if ($taglogic === '1') {
+		        $query->where('a.id NOT IN '.$subQuery);
+		    } elseif ($taglogic === '2') {
+		        $query->where('a.id IN '.$subQuery);
+		    }
+		} else {
+		    $tagfilt = ArrayHelper::toInteger($tagfilt);
+		    $subquery = '(SELECT tmap.tag_id AS tlist FROM #__contentitem_tag_map AS tmap
+                WHERE tmap.type_alias = '.$db->quote('com_xbpeople.person').'
                 AND tmap.content_item_id = a.id)';
-        	switch ($taglogic) {
-        	    case 1: //all
-        	        for ($i = 0; $i < count($tagfilt); $i++) {
-        	            $query->where($tagfilt[$i].' IN '.$subquery);
-        	        }
-        	    break;
-        	    case 2: //none
-        	        for ($i = 0; $i < count($tagfilt); $i++) {
-        	            $query->where($tagfilt[$i].' NOT IN '.$subquery);
-        	        }
-        	        break;
-        	    default: //any
-        	        $conds = array();
-        	        for ($i = 0; $i < count($tagfilt); $i++) {
-        	            $conds[] = $tagfilt[$i].' IN '.$subquery;
-        	        }
-        	        if (count($tagfilt)==1) {
-        	            $query->where($tagfilt[0].' IN '.$subquery);
-        	        } else {
-        	            $query->where('1=1'); //fudge to ensure there is a where clause to extend
-        	            $query->extendWhere('AND', $conds, 'OR');
-        	        }
-        	        break;
-        	}
+		    switch ($taglogic) {
+		        case 1: //all
+		            for ($i = 0; $i < count($tagfilt); $i++) {
+		                $query->where($tagfilt[$i].' IN '.$subquery);
+		            }
+		            break;
+		        case 2: //none
+		            for ($i = 0; $i < count($tagfilt); $i++) {
+		                $query->where($tagfilt[$i].' NOT IN '.$subquery);
+		            }
+		            break;
+		        default: //any
+		            if (count($tagfilt)==1) {
+		                $query->where($tagfilt[0].' IN '.$subquery);
+		            } else {
+		                $tagIds = implode(',', $tagfilt);
+		                if ($tagIds) {
+		                    $subQueryAny = '(SELECT DISTINCT content_item_id FROM #__contentitem_tag_map
+                                WHERE tag_id IN ('.$tagIds.') AND type_alias = '.$db->quote('com_xbpeople.person').')';
+		                    $query->innerJoin('(' . (string) $subQueryAny . ') AS tagmap ON tagmap.content_item_id = a.id');
+		                }
+		            }
+		            break;
+		    }
 		} //end if $tagfilt
-            	
+		
 		// Add the list ordering clause.
 		$orderCol       = $this->state->get('list.ordering', 'lastname');
 		$orderDirn      = $this->state->get('list.direction', 'ASC');
