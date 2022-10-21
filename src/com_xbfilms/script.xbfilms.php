@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource script.xbfilms.php
- * @version 0.9.8.4 26th May 2022
+ * @version 0.9.8.8 21st October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html 
@@ -88,7 +88,7 @@ class com_xbfilmsInstallerScript
     
     function update($parent) {
     	$message = '<br />Visit the <a href="index.php?option=com_xbfilms&view=dashboard" class="btn btn-small btn-info">';
-    	$message .= 'xbFilms Control Panel</a> page for overview of status.</p>';
+    	$message .= 'xbFilms Dashboard</a> page for overview of status.</p>';
     	$message .= '<br />For ChangeLog see <a href="http://crosborne.co.uk/xbfilms/changelog" target="_blank">
             www.crosborne.co.uk/xbfilms/changelog</a></p>';
     	Factory::getApplication()->enqueueMessage($message,'Message');
@@ -192,7 +192,7 @@ class com_xbfilmsInstallerScript
 	        echo '<h3>xbFilms Component installed</h3>';
 	        echo '<p>version '.$parent->get('manifest')->version.' '.$parent->get('manifest')->creationDate.'<br />';
 	        echo '<p>For help and information see <a href="https://crosborne.co.uk/xbfilms/doc" target="_blank">
-	            www.crosborne.co.uk/xbfilms/doc</a> or use Help button in xbFilms Control Panel</p>';
+	            www.crosborne.co.uk/xbfilms/doc</a> or use Help button in xbFilms Dashboard</p>';
 	        echo '<h4>Next steps</h4>';
 	        if (!$xbpeople) {
 	        	echo '<h4 style="color:red;margin-left:30px;">You must (re-)install xbPeople component before you can use xbFilms or any other xbCulture component';
