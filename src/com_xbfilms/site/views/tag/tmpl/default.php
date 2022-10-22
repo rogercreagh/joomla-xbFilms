@@ -43,9 +43,8 @@ $tclink = $xblink.'tags' . $itemid;
 	<div class="span3">
 		<h4><?php echo JText::_('XBFILMS_ITEMSTAGGED').': '; ?></h4>		
 	</div>	
-	<div class="span9">
-		
-		<?php if ((!$this->hide_empty) && (strpos($item->path,'/')!==false)) : ?>
+	<div class="span9">		
+		<?php if (($this->show_tagpath) && (strpos($item->path,'/')!==false)) : ?>
 			<div class="xb11 pull-left xbpt17 xbmr20 xbit xbgrey" >
 				<?php  $path = substr($item->path, 0, strrpos($item->path, '/'));
 					$path = str_replace('/', ' - ', $path);

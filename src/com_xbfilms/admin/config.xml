@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms config.xml v0.9.9.8 11th October 2022 -->
+<!-- xbFilms config.xml v0.9.9.8 22nd October 2022 -->
 <config>
 <!-- GENERAL TAB -->				
 	<fieldset name="general"
@@ -423,6 +423,7 @@
 			label="Rating &amp; Review Column"
 			description="Show rating &amp; reviews column by default - can override in menu options. If you are not using reviews you can hide them here and in the film details. See also the separate setting for the individual film display"
 			default="2"
+			showon="show_revs:1"
 			>
 			<option value="0" >JHIDE</option>
 			<option value="1">Show Average Rating only</option>
@@ -562,18 +563,6 @@
 			<option value="0" >JHIDE</option>
 			<option value="1">JSHOW</option>
 		</field>
-<!-- 
-		<field name="show_cat_parent" type="radio"
-			default="1"
-			label="XBFILMS_SHOW_PARENTS_LABEL"
-			description="Show category hierarchy - requires showing empty categories, sort will be by parent then title"
-  			class="btn-group btn-group-yesno"
-  			showon="show_clist_empty:1"
-			>
-				<option value="0" >No</option>
-				<option value="1">Yes</option>
-		</field>	
- -->		
  
   		<field name="taglistnote" type="note"
 			label="Tag List View Options"
@@ -605,17 +594,6 @@
 			<option value="0" >JHIDE</option>
 			<option value="1">JSHOW</option>
 		</field>
-<!-- 
- 		<field name="show_tag_parent" type="radio"
-			default="1"
-			label="XBFILMS_SHOW_PARENTS_LABEL"
-			description="show tag hierarchy - if shown sort will be by parent, then title"
-  			class="btn-group btn-group-yesno"
-			>
-				<option value="0" >No</option>
-				<option value="1">Yes</option>
-		</field>	
- -->
 		
  	</fieldset>
  	        
@@ -675,6 +653,7 @@
 	        label="JFIELD_ALT_LAYOUT_LABEL"
 	        description="JFIELD_ALT_COMPONENT_LAYOUT_DESC"
 	       	extension="com_xbfilms" view="filmreview" 
+			showon="show_revs:1"
 	    />
  		<field name="show_rimage" type="list"
 			label="Show Image"
@@ -794,6 +773,11 @@
 			 showon="use_xbcss:2"
 			class="info"
 		/>	
+		<field name="popcolour" type="color"
+			label="XBCULTURE_CONFIG_POP_COLOUR_LABEL"
+			description="XBCULTURE_CONFIG_POP_COLOUR_DESC" 
+			default="#822000"
+		/>
 		<field name="extlinksnote" type="note"
 			label="XBCULTURE_CONFIG_NEWTAB_HINT_NOTE_LABEL"
 			description="XBCULTURE_CONFIG_NEWTAB_HINT_NOTE_DESC"
