@@ -269,7 +269,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
                             } ?>
                             <br />
                             <?php if ($item->charcnt>0) {
-                                $item->charcnt.' '.lcfirst(Text::_($item->charcnt==1 ? 'XBCULTURE_CHARACTER' :'XBCULTURE_CHARACTERS'));
+                                echo $item->charcnt.' '.lcfirst(Text::_($item->charcnt==1 ? 'XBCULTURE_CHARACTER' :'XBCULTURE_CHARACTERS'));
                             } else {
                                 echo Text::_('XBCULTURE_NO_CHARS_LISTED');
                             } ?>
