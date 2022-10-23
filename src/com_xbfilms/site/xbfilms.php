@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/xbfilms.php
- * @version 0.9.9.4 28th July 2022
+ * @version 0.9.9.8 21st October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -25,7 +25,7 @@ $document = Factory::getDocument();
 HTMLHelper::_('bootstrap.framework');
 $document->addScript('media/com_xbpeople/js/xbculture.js');
 // Require helper files
-JLoader::register('XbfilmsHelper', JPATH_COMPONENT . '/helpers/xbfilms.php');
+//JLoader::register('XbfilmsHelper', JPATH_COMPONENT . '/helpers/xbfilms.php');
 JLoader::register('XbfilmsGeneral', JPATH_COMPONENT_ADMINISTRATOR . '/helpers/xbfilmsgeneral.php');
 JLoader::register('XbcultureHelper', JPATH_ADMINISTRATOR . '/components/com_xbpeople/helpers/xbculture.php');
 
@@ -40,7 +40,7 @@ if ($usexbcss<2) {
             $cssFile = $altcss;
         }
     }
-    $document->addStyleSheet($cssFile);
+    $document->addStyleSheet($cssFile,array('version'=>'auto'));
     $popcolour = $params->get('popcolour','');
     if ($popcolour != '') {
         $stylestr = XbcultureHelper::popstylecolours($popcolour);
@@ -62,7 +62,7 @@ Factory::getSession()->set('xbfilms_ok',true);
 //detect related components and set session flag
 XbcultureHelper::checkComponent('com_xbpeople');
 XbcultureHelper::checkComponent('com_xbbooks');
-XbcultureHelper::checkComponent('com_xblive');
+XbcultureHelper::checkComponent('com_xbevents');
 
 // Get an instance of the controller
 $controller = BaseController::getInstance('Xbfilms');

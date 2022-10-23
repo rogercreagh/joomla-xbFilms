@@ -41,7 +41,7 @@
 		<field name="seenfilt"
 			type="list"
 			default="0"
-			label="Seen?unseen films"
+			label="Seen/unseen films"
 			description="Show all films or only those seen or those not-yet seen"
   			class="btn-group btn-small radiotop"
 			onchange="this.form.submit();"
@@ -53,14 +53,14 @@
 		<field
 			name="category_id"
 			type="catsubtree"
-			label="XBFILMS_FILTER_CATEGORY_LBL"
+			label="XBCULTURE_CATFILT_LABEL"
 			extension="com_xbfilms"
 			itemtype="film"
 			published="1"
-			description="XBFILMS_FILTER_CATEGORY_DESC"
+			description="XBCULTURE_CATFILT_DESC"
 			onchange="this.form.submit();"
 			>
-			<option value="">JOPTION_SELECT_CATEGORY</option>
+			<option value="">XBCULTURE_ALL_CATS</option>
 		</field>
 		<field name="subcats"
 			type="radio"

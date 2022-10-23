@@ -51,18 +51,7 @@ class XbfilmsViewCharacters extends JViewLegacy {
 		
 		$this->showccnts = $this->params->get('showccnts',1);
 		$this->showclists = ($this->showccnts == 1) ? $this->params->get('showclists',1) : 0;
-		
-		foreach ($this->items as $char) {
-		    $char->filmlist = '';
-		    if ($char->fcnt > 0) {
-		        $char->filmlist = '<ul class="xbdetails">';
-		        foreach ($char->films as $film) {
-		            $char->filmlist .= $film->listitem;
-		        }
-		        $char->filmlist .= '</ul>';
-		    }
-		}
-		
+				
 		if (count($errors = $this->get('Errors'))) {
 			Factory::getApplication()->enqueueMessage(implode('<br />', $errors),'error');
 			return false;

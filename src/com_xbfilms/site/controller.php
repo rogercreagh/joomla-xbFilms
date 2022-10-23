@@ -9,10 +9,13 @@
  ******/
 defined('_JEXEC') or die;
 
-class XbfilmsController extends JControllerLegacy
+use Joomla\CMS\MVC\Controller\BaseController;
+
+
+class XbfilmsController extends BaseController
 {
 	public function display ($cachable = false, $urlparms = false){
-	    require_once JPATH_COMPONENT.'/helpers/xbfilms.php';
+//	    require_once JPATH_COMPONENT.'/helpers/xbfilms.php';
 	    require_once JPATH_COMPONENT_ADMINISTRATOR.'/helpers/xbfilmsgeneral.php';
 	    require_once JPATH_ADMINISTRATOR . '/components/com_xbpeople/helpers/xbculture.php';
 	    

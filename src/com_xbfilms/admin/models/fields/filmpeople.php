@@ -28,20 +28,43 @@ class JFormFieldFilmpeople extends JFormFieldList {
         
     	$params = ComponentHelper::getParams('com_xbfilms');
     	$people_sort = $params->get('people_sort');
-    	$names = ($people_sort == 0) ? 'firstname, " ", lastname' : 'lastname, ", ", firstname';
+    	$select = ($people_sort == 0) ? 'CONCAT(firstname, " ", lastname) AS text' : 'CONCAT(lastname, ", ", firstname ) AS text';
+    	//poss param to show state " (", state, ")"
+    	$options = array();
+    	
+    	$db = Factory::getDbo();
+    	$query  = $db->getQuery(true);
+    	
+    	$query->select('DISTINCT p.id As value')
+    	->select($select)
+    	->from('#__xbpersons AS p')
+    	->join('LEFT', '#__xbfilmperson AS fp ON fp.person_id = p.id')
+    	->where('fp.id IS NOT NULL')
+    	->where('state = 1')
+    	->order('text');
+    	// Get the options.
+    	$db->setQuery($query);
+    	$options = $db->loadObjectList();
+    	// Merge any additional options in the XML definition.
+    	$options = array_merge(parent::getOptions(), $options);
+    	return $options;
+    	
+    	
+    	
+//     	$names = ($people_sort == 0) ? 'firstname, " ", lastname' : 'lastname, ", ", firstname';
         
-        $db = Factory::getDbo();
-        $query  = $db->getQuery(true);       
-        $query->select('DISTINCT a.id As value')
-        	->select('CONCAT('.$names.') AS text')
-	        ->from('#__xbfilmperson AS fp')
-	        ->join('LEFT','#__xbpersons AS a ON a.id = fp.person_id')
-	        ->where('a.state = 1')
-	        ->order('text ASC');
-        $db->setQuery($query);
-        $options = $db->loadObjectList();
-        // Merge any additional options in the XML definition.
-        $options = array_merge(parent::getOptions(), $options);
-        return $options;
+//         $db = Factory::getDbo();
+//         $query  = $db->getQuery(true);       
+//         $query->select('DISTINCT a.id As value')
+//         	->select('CONCAT('.$names.') AS text')
+// 	        ->from('#__xbfilmperson AS fp')
+// 	        ->join('LEFT','#__xbpersons AS a ON a.id = fp.person_id')
+// 	        ->where('a.state = 1')
+// 	        ->order('text ASC');
+//         $db->setQuery($query);
+//         $options = $db->loadObjectList();
+//         // Merge any additional options in the XML definition.
+//         $options = array_merge(parent::getOptions(), $options);
+//         return $options;
     }
 }

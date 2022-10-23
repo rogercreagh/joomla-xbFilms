@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/characters.php
- * @version 0.9.9.8 21st October 2022
+ * @version 0.9.9.8 23rd October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -15,13 +15,15 @@ use Joomla\CMS\Helper\TagsHelper;
 
 class XbfilmsModelCharacters extends JModelList {
 	
-	public function __construct($config = array()) {
+    protected $xbbooksStatus;
+    
+    public function __construct($config = array()) {
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array ('name', 'category_title','c.title',
 					'catid', 'a.catid', 'category_id', 'tagfilt', 'fcnt'
 			);
 		}
-		$this->xbbooksStatus = Factory::getSession()->get('com_xbbooks',false);
+		$this->xbbooksStatus = Factory::getSession()->get('xbbooks_ok',false);
 		parent::__construct($config);
 	}
 
@@ -58,13 +60,22 @@ class XbfilmsModelCharacters extends JModelList {
             a.image AS image, a.description AS description, a.state AS published,
             a.created AS created, a.created_by_alias AS created_by_alias,
             a.ordering AS ordering, a.params AS params, a.note AS note');
-            $query->from('#__xbcharacters AS a')
-            	->join('LEFT OUTER',$db->quoteName('#__xbfilmcharacter', 'p') . ' ON ' .$db->quoteName('a.id') . ' = ' . $db->quoteName('p.char_id'))
-            	->where('p.film_id IS NOT NULL');
-            $query->select('COUNT(DISTINCT p.film_id) AS fcnt');
-            $query->join('LEFT', '#__categories AS c ON c.id = a.catid');
-            $query->select('c.title AS category_title');
+        $query->from('#__xbcharacters AS a');
+        $query->select('(SELECT COUNT(DISTINCT(fc.film_id)) FROM #__xbfilmcharacter AS fc WHERE fc.char_id = a.id) AS fcnt');
+        if ($this->xbbooksStatus) $query->select('(SELECT COUNT(DISTINCT(bc.book_id)) FROM #__xbbookcharacter AS bc WHERE bc.char_id = a.id) AS bcnt');
+        
+        //only get film chars
+        $query->join('INNER','#__xbfilmcharacter AS fp ON fp.char_id = a.id');
+        
             
+            
+ //           	->join('LEFT OUTER',$db->quoteName('#__xbfilmcharacter', 'p') . ' ON ' .$db->quoteName('a.id') . ' = ' . $db->quoteName('p.char_id'))
+ //           	->where('p.film_id IS NOT NULL');
+//            $query->select('COUNT(DISTINCT p.film_id) AS fcnt');
+
+       $query->select('c.title AS category_title');
+       $query->join('LEFT', '#__categories AS c ON c.id = a.catid');
+             
             // Filter by published state, we only show published items in the front-end. Both item and its category must be published.
             $query->where('a.state = 1');
             $query->where('c.published = 1');
@@ -188,40 +199,29 @@ class XbfilmsModelCharacters extends JModelList {
 		$items  = parent::getItems();
 		$tagsHelper = new TagsHelper;
 		
-		$app = Factory::getApplication();
 		$peep = array();
-		for ($i = 0; $i < count($items); $i++) {
-			$peep[$i] = $items[$i]->id;
-		}
-		$app->setUserState('characters.sortorder', $peep);
-		
-		foreach ($items as $i=>$item) {
-			//get films by role if they are being displayed...
-		    $item->films = ($item->fcnt>0) ? XbcultureHelper::getCharFilms($item->id) : ''; 
-		    
-		    $item->bcnt = 0;
-		    if ($this->xbbooksStatus) {
-		        $db    = Factory::getDbo();
-		        $query = $db->getQuery(true);
-		        $query->select('COUNT(DISTINCT book_id) AS bcnt')->from('#__xbbookcharacter');
-		        $query->where('person_id = '.$db->quote($item->id));
-		        $db->setQuery($query);
-		        $item->bcnt = $db->loadResult();
-		    }
-		    
-		    //  XbfilmsHelper::getCharacterFilmsArray($item->id);
-//			$item->ccnt = count($item->films);
-			
-// 			//makedirectoreditor/char lists
-// 			if ($item->ccnt == 0){
-// 				$item->clist = '';
-// 			} else {
-// 				$item->clist = XbfilmsGeneral::makeLinkedNameList($item->films,'',', ',true);
-// 			}
-			
-			$item->tags = $tagsHelper->getItemTags('com_xbpeople.character' , $item->id);
-			
-		} //end foreach item
+		if ($items) {
+    		for ($i = 0; $i < count($items); $i++) {
+    			$peep[$i] = $items[$i]->id;
+    		}
+    		Factory::getApplication()->setUserState('characters.sortorder', $peep);
+    		
+    		foreach ($items as $i=>$item) {
+    			//get films 
+    		    if ($item->fcnt>0) {
+    		      $item->films = XbcultureHelper::getCharFilms($item->id); 
+    		      $item->filmlist = '<ul class="xblist">';
+    		      foreach ($item->films as $film) {
+    		          $item->filmlist .= $film->listitem;
+    		      }
+    		      $item->filmlist .= '</ul>';
+    		    } else {
+    		        $item->films = '';
+    		        $item->filmlist = '';
+    		    }
+    			$item->tags = $tagsHelper->getItemTags('com_xbpeople.character' , $item->id);
+    		} //end foreach item		        			
+		} //end if items
 		return $items;
 	}
 		
