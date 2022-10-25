@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/dashboard/tmpl/default.php
- * @version 0.9.9.6 19th August 2022
+ * @version 0.9.9.8 25th October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -438,83 +438,128 @@ if (!$this->xbpeople_ok) : ?>
     				</div>
     <?php endif; ?>
     			</div>
-    			<div class="xbbox xbboxgrey">
-    				<h2 class="xbtitle">
-    					<span class="badge badge-info pull-right"><?php echo ($this->tags['tagcnts']['bkcnt'] + $this->tags['tagcnts']['percnt']  + $this->tags['tagcnts']['revcnt']) ; ?></span> 
-    					<?php echo Text::_('XBCULTURE_TAGGED_ITEMS'); ?>
-    				</h2>
+     			<div class="xbbox xbboxgrey">
+    				<div class="row-fluid"><div class="span12">
+    					<h2 class="xbtitle"><?php echo Text::_('xbFilms number of items tagged'); ?>
+    						<span class="pull-right">
+    							<span class="xbnit xbmr10 xb09"><?php echo Text::_('XBCULTURE_TOTAL'); ?>: </span>
+            					<span class="badge badge-info" style="border: blue solid 1px;"><?php echo ($this->tags['filmscnt']  + $this->tags['revscnt']) ; ?></span> 
+    						</span>
+    					</h2>
+    				</div></div>
     				<div class="row-striped">
+    					<h4>Items tagged per type</h4>
     					<div class="row-fluid">
-                          <?php echo 'Films: ';
-    						echo '<span class="bkcnt badge  pull-right">'.$this->tags['tagcnts']['bkcnt'].'</span>'; ?>
-                        </div>  
-                        <div class="row-fluid">
-                          <?php echo 'People: ';
-    						echo '<span class="percnt badge pull-right">'.$this->tags['tagcnts']['percnt'].'</span>'; ?>
-                        </div>  
-                        <div class="row-fluid">
-                          <?php echo 'Reviews: ';
-    						echo '<span class="revcnt badge pull-right">'.$this->tags['tagcnts']['revcnt'].'</span>'; ?>
-                        </div>  
-                     </div>
-    				 <h2 class="xbtitle">Tag counts <span class="xb09 xbnorm"><i>(films:reviews:people)</i></span></h2>
-                  <div class="row-fluid">
-                     <div class="row-striped">
+    						<div class="span8"><?php echo Text::_('Films'); ?>:
+    						</div>
+    						<div class="span4">
+    							<span class="flmcnt badge  pull-right"><?php echo $this->tags['filmscnt']; ?></span>
+    						</div>
+    					</div>
     					<div class="row-fluid">
-    						<?php echo $this->taglist; ?>
-                       </div>
-                     </div>
+    						<div class="span8"><?php echo Text::_('Film Reviews'); ?>:
+    						</div>
+    						<div class="span4">
+    							<span class="revcnt badge  pull-right"><?php echo $this->tags['revscnt']; ?></span>
+    						</div>
+    					</div>
+    					<div class="row-fluid">
+    						<div class="span8"><?php echo Text::_('People'); ?>:
+    						</div>
+    						<div class="span4">
+    							<span class="percnt badge  pull-right"><?php echo $this->tags['filmper']; ?></span>
+    						</div>
+    					</div>
+    					<div class="row-fluid">
+    						<div class="span8"><?php echo Text::_('Characters'); ?>:
+    						</div>
+    						<div class="span4">
+    							<span class="chcnt badge  pull-right"><?php echo $this->tags['filmchar']; ?></span>
+    						</div>
+    					</div>
+    				</div>
+     				<hr style="margin: 8px 0;" />
+     				<div class="row-striped">
+     					<h4>Tags used per type</h4>
+    					<div class="row-fluid">
+    						<div class="span8"><?php echo Text::_('Films'); ?>:
+    						</div>
+    						<div class="span4">
+    							<span class="flmcnt badge  pull-right"><?php echo $this->tags['filmtags']; ?></span>
+    						</div>
+    					</div>
+    					<div class="row-fluid">
+    						<div class="span8"><?php echo Text::_('Film Reviews'); ?>:
+    						</div>
+    						<div class="span4">
+    							<span class="revcnt badge  pull-right"><?php echo $this->tags['revtags']; ?></span>
+    						</div>
+    					</div>
+    					<div class="row-fluid">
+    						<div class="span8"><?php echo Text::_('People'); ?>:
+    						</div>
+    						<div class="span4">
+    							<span class="percnt badge  pull-right"><?php echo $this->tags['filmpertags']; ?></span>
+    						</div>
+    					</div>
+    					<div class="row-fluid">
+    						<div class="span8"><?php echo Text::_('Characters'); ?>:
+    						</div>
+    						<div class="span4">
+    							<span class="chcnt badge  pull-right"><?php echo $this->tags['filmchartags']; ?></span>
+    						</div>
+    					</div>
+    				</div>
     			</div>
     		</div>
-    	</div>
-    		<div class="span2">
+        	<div class="span2">
         		<div class="xbbox xbboxwht">
     				<h4><?php echo Text::_('XBCULTURE_CONFIG_OPTIONS'); ?></h4>
-					<p>
-						<?php echo ($this->killdata) ? '<b>Uninstall deletes all book data</b>' : 'Data not deleted on unistall'; ?>
-					</p>
-	        			<p>
-		        		<?php echo '<b>'.Text::_('XBCULTURE_CATEGORIES_U').'</b><br />';
-		        		if (($this->show_cat==0) || 
-		        		    (($this->show_filmcat==0) && ($this->show_revcat==0) && ($this->show_percat==0))) {
-		        		    echo '<i>'.Text::_('XBCULTURE_CATS_HIDDEN_ALL').'</i>';
-		        		} else {
-		        		    echo Text::_('XBCULTURE_SHOW_FOR').' ';
-		        		    echo ($this->show_filmcat) ? Text::_('XBCULTURE_FILMS').' ' : '';
-		        		    echo ($this->show_revcat) ? Text::_('XBCULTURE_REVIEWS').' ' : '';
-		        		    echo ($this->show_percat) ? Text::_('XBCULTURE_PEOPLE').' ' : '';
-		        		}
-		        		?>
-		        		</p>
-		        		<p>
-		        		<?php echo '<b>'.Text::_('XBCULTURE_TAGS_U').'</b><br />';
-		        		if (($this->show_tags==0) || 
-		        		    (($this->show_filmtags==0) && ($this->show_revtags==0) && ($this->show_pertags==0))) {
-		        		    echo '<i>'.Text::_('XBCULTURE_TAGS_HIDDEN_ALL').'</i>';
-		        		} else {
-		        		    echo Text::_('XBCULTURE_SHOW_FOR').' ';
-		        		    echo ($this->show_filmtags) ? Text::_('XBCULTURE_FILMS').' ' : '';
-		        		    echo ($this->show_revtags) ? Text::_('XBCULTURE_REVIEWS').' ' : '';
-		        		    echo ($this->show_pertags) ? Text::_('XBCULTURE_PEOPLE').' ' : '';
-		        		}
-		        		?>
-		        		</p>
-		        		<p>
-		        		<?php echo '<b>'.Text::_('XBCULTURE_ALLOW_SEARCH').': </b>';
-		        		    echo ($this->show_search==0)? Text::_('JNO') : Text::_('JYES'); ?>
-		        		</p>
-		        		<p>
-		        		<?php echo '<b>'.Text::_('XBCULTURE_HIDE_EMPTY_FIELDS').': </b>';
-		        		    echo ($this->hide_empty==0)? Text::_('JNO') : Text::_('JYES'); ?>
-		        		</p>    		        		
-		        		<p>
-		        		<?php echo '<b>'.Text::_('XBCULTURE_IMAGE_FOLDERS').'</b><br />';
+    				<p>
+    					<?php echo ($this->killdata) ? '<b>Uninstall deletes all book data</b>' : 'Data not deleted on unistall'; ?>
+    				</p>
+            			<p>
+    	        		<?php echo '<b>'.Text::_('XBCULTURE_CATEGORIES_U').'</b><br />';
+    	        		if (($this->show_cat==0) || 
+    	        		    (($this->show_filmcat==0) && ($this->show_revcat==0) && ($this->show_percat==0))) {
+    	        		    echo '<i>'.Text::_('XBCULTURE_CATS_HIDDEN_ALL').'</i>';
+    	        		} else {
+    	        		    echo Text::_('XBCULTURE_SHOW_FOR').' ';
+    	        		    echo ($this->show_filmcat) ? Text::_('XBCULTURE_FILMS').' ' : '';
+    	        		    echo ($this->show_revcat) ? Text::_('XBCULTURE_REVIEWS').' ' : '';
+    	        		    echo ($this->show_percat) ? Text::_('XBCULTURE_PEOPLE').' ' : '';
+    	        		}
+    	        		?>
+    	        		</p>
+    	        		<p>
+    	        		<?php echo '<b>'.Text::_('XBCULTURE_TAGS_U').'</b><br />';
+    	        		if (($this->show_tags==0) || 
+    	        		    (($this->show_filmtags==0) && ($this->show_revtags==0) && ($this->show_pertags==0))) {
+    	        		    echo '<i>'.Text::_('XBCULTURE_TAGS_HIDDEN_ALL').'</i>';
+    	        		} else {
+    	        		    echo Text::_('XBCULTURE_SHOW_FOR').' ';
+    	        		    echo ($this->show_filmtags) ? Text::_('XBCULTURE_FILMS').' ' : '';
+    	        		    echo ($this->show_revtags) ? Text::_('XBCULTURE_REVIEWS').' ' : '';
+    	        		    echo ($this->show_pertags) ? Text::_('XBCULTURE_PEOPLE').' ' : '';
+    	        		}
+    	        		?>
+    	        		</p>
+    	        		<p>
+    	        		<?php echo '<b>'.Text::_('XBCULTURE_ALLOW_SEARCH').': </b>';
+    	        		    echo ($this->show_search==0)? Text::_('JNO') : Text::_('JYES'); ?>
+    	        		</p>
+    	        		<p>
+    	        		<?php echo '<b>'.Text::_('XBCULTURE_HIDE_EMPTY_FIELDS').': </b>';
+    	        		    echo ($this->hide_empty==0)? Text::_('JNO') : Text::_('JYES'); ?>
+    	        		</p>    		        		
+    	        		<p>
+    	        		<?php echo '<b>'.Text::_('XBCULTURE_IMAGE_FOLDERS').'</b><br />';
     		        		echo Text::_('XBCULTURE_FILM_POSTERS').': <code>'.$this->posters.'</code><br />';
     		        		echo Text::_('XBCULTURE_PORTRAITS').': <code>'.$this->portraits.'</code> ';
-		        		?>	
-		        		</p>
-		        		<p>
-		        		<?php echo '<b>'.Text::_('XBCULTURE_SHOW_COVERS').'</b><br />'; 
+    	        		?>	
+    	        		</p>
+    	        		<p>
+    	        		<?php echo '<b>'.Text::_('XBCULTURE_SHOW_COVERS').'</b><br />'; 
     		        		echo Text::_('XBCULTURE_IN_LISTS').': ';
     		        		echo ($this->show_filmlist_posters==0)? Text::_('JNO') : Text::_('JYES');
     		        		echo '<br />';
@@ -523,19 +568,19 @@ if (!$this->xbpeople_ok) : ?>
     		        		echo '<br />';
     		        		echo Text::_('XBCULTURE_IN_REVIEWS').': ';
     		        		echo ($this->show_review_poster==0)? Text::_('JNO') : Text::_('JYES');
-		        		?>	        		
-		        		</p>
-		        		<p>
-		        		<?php echo '<b>'.Text::_('XBCULTURE_SHOW_PORTRAITS').'</b><br />'; 
+    	        		?>	        		
+    	        		</p>
+    	        		<p>
+    	        		<?php echo '<b>'.Text::_('XBCULTURE_SHOW_PORTRAITS').'</b><br />'; 
     		        		echo Text::_('XBCULTURE_IN_LISTS').': ';
     		        		echo ($this->show_people_portraits==0)? Text::_('JNO') : Text::_('JYES');
     		        		echo '<br />';
     		        		echo Text::_('XBCULTURE_IN_PEOPLE').': ';
     		        		echo ($this->show_person_portrait==0)? Text::_('JNO') : Text::_('JYES');
-		        		?>	        		
-		        		</p>
-		        		<p>
-		        		<?php echo '<b>'.Text::_('XBCULTURE_RATINGS_REVIEWS').'</b><br />'; 
+    	        		?>	        		
+    	        		</p>
+    	        		<p>
+    	        		<?php echo '<b>'.Text::_('XBCULTURE_RATINGS_REVIEWS').'</b><br />'; 
     		        		echo Text::_('XBCULTURE_ALLOW_ZERO').': ';
     		        		echo ($this->zero_rating==0)? Text::_('JNO') : Text::_('JYES').', <i>icon: </i> <i class="'.$this->zero_class.'"></i>';
     		        		echo '<br />';
@@ -544,15 +589,15 @@ if (!$this->xbpeople_ok) : ?>
     		        		echo '<br />';
     		        		echo Text::_('XBCULTURE_SHOW_BOOK_REVIEWS').' ';
     		        		echo ($this->show_film_review==0)? Text::_('JNO') : Text::_('JYES'); ?>
-		        		</p>
-        		</div>    		
-    		</div>
-    	</div>
-
+    	        		</p>
+            		</div>    		
+        		</div>
+        	</div>
+		</div>
 	</div>
 	<input type="hidden" name="task" value="" />
 	<?php echo HtmlHelper::_('form.token'); ?>
-	</div>
+	
 </form>
 
 <div class="clearfix"></div>

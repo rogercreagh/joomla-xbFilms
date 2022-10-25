@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/dashboard.php
- * @version 0.9.0 7th April 2021
+ * @version 0.9.9.8 25th October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -138,66 +138,84 @@ class XbfilmsModelDashboard extends JModelList {
     }
     
     public function getTagcnts() {
-    	$result = array('tagcnts' => array('bkcnt' =>0, 'percnt' => 0, 'charcnt' => 0, 'revcnt' => 0), 'tags' => array(), 'taglist' => '' );
-    	$db = $this->getDbo();
-    	$query =$db->getQuery(true);
-    	//first we get the total number of each type of item with one or more tags
-    	$query->select('type_alias,core_content_id, COUNT(*) AS numtags')
-    	->from('#__contentitem_tag_map')
-    	->where('type_alias LIKE '.$db->quote('com_xbfilms%'))
-    	->group('core_content_id, type_alias');
-    	//not checking that tag is published, not using numtags at this stage - poss in future
-    	$db->setQuery($query);
-    	$db->execute();
-    	$items = $db->loadObjectList();
-    	foreach ($items as $it) {
-    	    switch ($it->type_alias) {
-    	        case 'com_xbfilms.film' :
-    	            $result['tagcnts']['bkcnt'] ++;
-    	            break;
-    	        case 'com_xbpeople.person':
-    	            $result['tagcnts']['percnt'] ++;
-    	            break;
-    	        case 'com_xbpeople.character':
-    	            $result['tagcnts']['charcnt'] ++;
-    	            break;
-    	        case 'com_xbfilms.review':
-    	            $result['tagcnts']['revcnt'] ++;
-    	            break;
-    	    }
-    	}
-    	//now we get the number of each type of item assigned to each tag
-    	$query->clear();
-    	$query->select('type_alias,t.id, t.title AS tagname ,COUNT(*) AS tagcnt')
-    	->from('#__contentitem_tag_map')
-    	->join('LEFT', '#__tags AS t ON t.id = tag_id')
-    	->where('type_alias LIKE '.$db->quote('%xbfilms%'))
-    	->where('t.published = 1') //only published tags
-    	->group('type_alias, tagname');
-    	$db->setQuery($query);
-    	$db->execute();
-    	$tags = $db->loadObjectList();
-    	foreach ($tags as $k=>$t) {
-    	    if (!key_exists($t->tagname, $result['tags'])) {
-    	        $result['tags'][$t->tagname]=array('id' => $t->id, 'tbcnt' =>0, 'tpcnt' => 0, 'tccnt' => 0, 'trcnt' => 0, 'tagcnt'=>0);
-    	    }
-    	    $result['tags'][$t->tagname]['tagcnt'] += $t->tagcnt;
-    	    switch ($t->type_alias) {
-    	        case 'com_xbfilms.film' :
-    	            $result['tags'][$t->tagname]['tbcnt'] += $t->tagcnt;
-    	            break;
-    	        case 'com_xbpeople.person':
-    	            $result['tags'][$t->tagname]['tpcnt'] += $t->tagcnt;
-    	            break;
-    	        case 'com_xbpeople.character':
-    	            $result['tags'][$t->tagname]['tccnt'] += $t->tagcnt;
-    	            break;
-    	        case 'com_xbfilms.review':
-    	            $result['tags'][$t->tagname]['trcnt'] += $t->tagcnt;
-    	            break;
-    	    }
-    	}
-    	return $result;
+        //we need number of films tagged, number of reviews tagged, number of tags used for films, number of tags used for reviews
+        // people tagged, chars tagged, people tags, char tags
+        $result = array('filmscnt' => 0, 'revscnt' =>0, 'filmtags' => 0, 'revtags' => 0,
+            'filmper' => 0, 'filmchar' => 0, 'filmpertags' => 0, 'filmchartags' => 0 );
+        
+        $result['filmscnt'] = XbcultureHelper::getTagtypeItemCnt('com_xbfilms.film','');
+        $result['revscnt'] = XbcultureHelper::getTagtypeItemCnt('com_xbfilms.review','');
+        $result['filmtags']= XbcultureHelper::getTagtypeTagCnt('com_xbfilms.film','');
+        $result['revtags']= XbcultureHelper::getTagtypeTagCnt('com_xbfilms.review','');
+        $result['filmper'] = XbcultureHelper::getTagtypeItemCnt('com_xbpeople.person','film');
+        $result['filmchar'] = XbcultureHelper::getTagtypeItemCnt('com_xbpeople.character','film');
+        $result['filmpertags']= XbcultureHelper::getTagtypeTagCnt('com_xbpeople.person','film');
+        $result['filmchartags']= XbcultureHelper::getTagtypeTagCnt('com_xbpeople.character','film');
+        return $result;
+        
+        
+        
+        
+//     	$result = array('tagcnts' => array('bkcnt' =>0, 'percnt' => 0, 'charcnt' => 0, 'revcnt' => 0), 'tags' => array(), 'taglist' => '' );
+//     	$db = $this->getDbo();
+//     	$query =$db->getQuery(true);
+//     	//first we get the total number of each type of item with one or more tags
+//     	$query->select('type_alias,core_content_id, COUNT(*) AS numtags')
+//     	->from('#__contentitem_tag_map')
+//     	->where('type_alias LIKE '.$db->quote('com_xbfilms%'))
+//     	->group('core_content_id, type_alias');
+//     	//not checking that tag is published, not using numtags at this stage - poss in future
+//     	$db->setQuery($query);
+//     	$db->execute();
+//     	$items = $db->loadObjectList();
+//     	foreach ($items as $it) {
+//     	    switch ($it->type_alias) {
+//     	        case 'com_xbfilms.film' :
+//     	            $result['tagcnts']['bkcnt'] ++;
+//     	            break;
+//     	        case 'com_xbpeople.person':
+//     	            $result['tagcnts']['percnt'] ++;
+//     	            break;
+//     	        case 'com_xbpeople.character':
+//     	            $result['tagcnts']['charcnt'] ++;
+//     	            break;
+//     	        case 'com_xbfilms.review':
+//     	            $result['tagcnts']['revcnt'] ++;
+//     	            break;
+//     	    }
+//     	}
+//     	//now we get the number of each type of item assigned to each tag
+//     	$query->clear();
+//     	$query->select('type_alias,t.id, t.title AS tagname ,COUNT(*) AS tagcnt')
+//     	->from('#__contentitem_tag_map')
+//     	->join('LEFT', '#__tags AS t ON t.id = tag_id')
+//     	->where('type_alias LIKE '.$db->quote('%xbfilms%'))
+//     	->where('t.published = 1') //only published tags
+//     	->group('type_alias, tagname');
+//     	$db->setQuery($query);
+//     	$db->execute();
+//     	$tags = $db->loadObjectList();
+//     	foreach ($tags as $k=>$t) {
+//     	    if (!key_exists($t->tagname, $result['tags'])) {
+//     	        $result['tags'][$t->tagname]=array('id' => $t->id, 'tbcnt' =>0, 'tpcnt' => 0, 'tccnt' => 0, 'trcnt' => 0, 'tagcnt'=>0);
+//     	    }
+//     	    $result['tags'][$t->tagname]['tagcnt'] += $t->tagcnt;
+//     	    switch ($t->type_alias) {
+//     	        case 'com_xbfilms.film' :
+//     	            $result['tags'][$t->tagname]['tbcnt'] += $t->tagcnt;
+//     	            break;
+//     	        case 'com_xbpeople.person':
+//     	            $result['tags'][$t->tagname]['tpcnt'] += $t->tagcnt;
+//     	            break;
+//     	        case 'com_xbpeople.character':
+//     	            $result['tags'][$t->tagname]['tccnt'] += $t->tagcnt;
+//     	            break;
+//     	        case 'com_xbfilms.review':
+//     	            $result['tags'][$t->tagname]['trcnt'] += $t->tagcnt;
+//     	            break;
+//     	    }
+//     	}
+//     	return $result;
     }
     
     /**
