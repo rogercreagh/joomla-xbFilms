@@ -35,7 +35,7 @@ class XbfilmsModelFilm extends JModelItem {
 			$query->select('a.id AS id, a.title AS title, a.subtitle AS subtitle, 
 				a.summary AS summary, a.synopsis AS synopsis, a.setting AS setting, a.poster_img AS poster_img, a.rel_year AS rel_year,
                 a.orig_lang AS orig_lang, a.studio AS studio, a.country AS country, a.runtime AS runtime, 
-                a.filmcolour, a.aspect_ratio, a.cam_format, a.filmsound,
+                a.filmcolour, a.aspect_ratio, a.cam_format, a.filmsound, a.tech_notes,
 				a.ext_links AS ext_links, a.first_seen AS first_seen, a.last_seen AS last_seen,
 				a.state AS published, a.catid AS catid, a.params AS params, a.metadata AS metadata ');
 			$query->from('#__xbfilms AS a');

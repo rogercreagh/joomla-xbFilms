@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/film/tmpl/default.php
- * @version 0.9.9.9 31st October 2022
+ * @version 0.9.9.9 1st November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -174,6 +174,13 @@ if ($imgok) {
 				<?php echo $item->cam_format; ?>
 			</p>
      	<?php endif; ?>	
+    	<?php if ((!$item->tech_notes=='') || (!$hide_empty)) : ?>
+			<p><span class="xbnit xbpr10">
+ 				<?php echo Text::_('Tech Notes').': '; ?>
+ 				</span>
+				<?php echo $item->tech_notes; ?>
+			</p>
+     	<?php endif; ?>
 	</div>
 </div>
 <hr />
