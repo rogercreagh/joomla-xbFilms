@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/filmlist.php
- * @version 0.9.9.8 21st October 2022
+ * @version 0.9.9.9 1st November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -150,6 +150,9 @@ class XbfilmsModelFilmlist extends JModelList {
                 $tagfilt = $this->getState('params')['menu_tag'];
                 $taglogic = $this->getState('params')['menu_taglogic']; //1=AND otherwise OR
             }
+            if ((!is_array($tagfilt)) && (!empty($tagfilt))) {
+                $tagfilt = array($tagfilt);
+            }
             
             if (($searchbar==1) && (empty($tagfilt))) { 	//look for menu options
                 //look for filter options and ignore menu options
@@ -218,7 +221,8 @@ class XbfilmsModelFilmlist extends JModelList {
             		break;
             }
             
-            $query->group('a.id');            
+            $query->group('a.id');      
+            
             return $query;
 	}
 	
