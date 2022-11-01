@@ -132,6 +132,19 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
                         		<?php echo $item->dirlist; 
                         	} ?>                          	
 							<br />
+							<?php if ($item->prodcnt >0 ) : ?>
+	                        	<span class="xbnit">
+	                        		<?php echo $item->prodcnt>1 ? Text::_('XBCULTURE_PRODUCERS') : Text::_('XBCULTURE_PRODUCER' ); ?>
+	                        	</span>: 
+                        		<?php echo $item->prodlist; ?>
+                        	<br />
+							<?php endif; ?>
+							<?php $othcnt = $item->crewcnt + $item->castcnt + $item->subjcnt;
+							if ($othcnt>0) : ?>
+								<span class="icon-users"></span>&nbsp;
+								<span class="xbnit"><?php echo $othcnt; ?> other people listed.</span>
+								<br />
+							<?php endif; ?>	
 							<span class="icon-calendar"></span>&nbsp;<span class="xbnit">
 								<?php echo Text::_('XBFILMS_CAPRELEASED'); ?>
 							</span>
