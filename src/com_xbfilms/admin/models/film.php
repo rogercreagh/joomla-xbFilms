@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/film.php
- * @version 0.9.9.8 10th October 2022
+ * @version 0.9.9.9 1st November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -238,33 +238,38 @@ class XbfilmsModelFilm extends JModelAdmin {
             // standard Joomla practice is to set the new copy record as unpublished
             $data['published'] = 0;
         }
-        // allow nulls for year (therwise empty value defaults to 0)
-//        if ($data['rel_year']=='') { $data['rel_year'] = NULL; }
+        //if only first_seen or last_seen is set then copy to other one
+        if (($data['first_seen']=='') && ($data['last_seen']!='')) {
+            $data['first_seen']=$data['last_seen'];
+        }
+        if (($data['last_seen']=='') && ($data['first_seen']!='')) {
+            $data['last_seen']=$data['first_seen'];
+        }
         if (parent::save($data)) {
         	$fid = $this->getState('film.id');
-        	// set nulls for empty year and last_read (otherwise empty value defaults to 0000-00-00 00:00:00 which is invalid in latest myql strict mode)
-        	if (($data['last_seen']=='') || ($data['first_seen']=='') || ($data['rel_year']=='')){
-        	    $db = $this->getDbo();
-        	    $query= $db->getQuery(true);
-        	    if ($data['rel_year']=='') {
-        	        $query = 'UPDATE `#__xbfilms`  AS a SET `rel_year` = NULL ';
-        	        $query .= 'WHERE a.id  ='.$fid.' ';
-        	        $db->setQuery($query);
-        	        $db->execute();
-        	    }
-        	    if ($data['last_seen']=='') {
-        	        $query = 'UPDATE `#__xbfilms`  AS a SET `last_seen` = NULL ';
-        	        $query .= 'WHERE a.id  ='.$fid.' ';
-        	        $db->setQuery($query);
-        	        $db->execute();
-        	    }
-        	    if ($data['first_seen']=='') {
-        	        $query = 'UPDATE `#__xbfilms`  AS a SET `first_seen` = NULL ';
-        	        $query .= 'WHERE a.id  ='.$fid.' ';
-        	        $db->setQuery($query);
-        	        $db->execute();
-        	    }
-        	}
+    	    $db = $this->getDbo();
+        	// set nulls for empty year first_read & last_read (otherwise empty value defaults to 0000-00-00 00:00:00 which is invalid in latest myql strict mode)
+    	    if ($data['rel_year']=='') {
+    	        $query= $db->getQuery(true);
+    	        $query = 'UPDATE `#__xbfilms`  AS a SET `rel_year` = NULL ';
+    	        $query .= 'WHERE a.id  ='.$fid.' ';
+    	        $db->setQuery($query);
+    	        $db->execute();
+    	    }
+    	    if ($data['last_seen']=='') {
+    	        $query= $db->getQuery(true);
+    	        $query = 'UPDATE `#__xbfilms`  AS a SET `last_seen` = NULL ';
+    	        $query .= 'WHERE a.id  ='.$fid.' ';
+    	        $db->setQuery($query);
+    	        $db->execute();
+    	    }
+    	    if ($data['first_seen']=='') {
+    	        $query= $db->getQuery(true);
+    	        $query = 'UPDATE `#__xbfilms`  AS a SET `first_seen` = NULL ';
+    	        $query .= 'WHERE a.id  ='.$fid.' ';
+    	        $db->setQuery($query);
+    	        $db->execute();
+    	    }
         	$this->storeFilmPersons($fid,'director', $data['directorlist']);
         	$this->storeFilmPersons($fid,'producer', $data['producerlist']);
         	$this->storeFilmPersons($fid,'crew', $data['crewlist']);
@@ -275,7 +280,6 @@ class XbfilmsModelFilm extends JModelAdmin {
         	if ($data['quick_rating'] !='')  {
         		$params = ComponentHelper::getParams('com_xbfilms');
         		$date = Factory::getDate();
-        	    $db = $this->getDbo();
         	    //need to create a title (unique from rev cnt), alias, filmid, catid (uncategorised), reviewer
         	    $query= $db->getQuery(true);
         	    $query->select('COUNT(r.id) as revcnt')->from('#__xbfilmreviews AS r')

@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/film/tmpl/default.php
- * @version 0.9.9.7 8th September 2022
+ * @version 0.9.9.9 31st October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -245,13 +245,15 @@ if ($imgok) {
 		<div class="span5">
 			<span class="xbnit"><?php echo  Text::_('XBFILMS_DATE_FIRST_SEEN').': '; ?>
 			</span>
-			<?php echo HtmlHelper::date($item->first_seen , 'D jS M Y') ; ?>
+			<?php $datefmt = xbCultureHelper::getDateFmt($item->first_seen, 'D jS M Y');
+			echo HtmlHelper::date($item->first_seen , $datefmt) ; ?>
 		</div>
 		<div class="span5">
 	    	<?php if ($item->last_seen) : ?>
 	    		<span class="xbnit"><?php echo  Text::_('XBFILMS_DATE_LAST_SEEN').': '; ?>
 	    		</span>
-	    		<?php echo HtmlHelper::date($item->last_seen , 'D jS M Y') ; ?>
+	    		<?php $datefmt = xbCultureHelper::getDateFmt($item->last_seen, 'D jS M Y');
+	    		echo HtmlHelper::date($item->last_seen , $datefmt) ; ?>
     		<?php endif; ?>
 		</div>
 		<div class="span1"></div>

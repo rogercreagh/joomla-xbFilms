@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms admin/models/forms/film.xml v0.9.9.8 10th October 2022 -->
+<!-- xbFilms admin/models/forms/film.xml v0.9.9.9 1st November 2022 -->
 <form>
 
 	<fieldset addfieldpath="/administrator/components/com_xbfilms/models/fields">
@@ -79,12 +79,15 @@
 			size="4"
 		/>
 		
-		<field name="filmcolour" type="filmcolour"
-			label="Colour" description="Black &amp; White, Colour, Sepia, Technicolor,..you can add your own options."
+		<field name="filmcolour" type="list"
+			label="Colour" description="Black &amp; White, Colour, Sepia, Technicolor."
 			class="inputbox" maxlength="49" 
 		>
 			<option value="Black and White">Black &amp; White</option>
 			<option value="Colour">Colour</option>
+			<option value="Technicolor">Technicolor</option>
+			<option value="Colour and B&amp;W">Colour and B&amp;W scenes</option>
+			<option value="Sepia">Sepia/single colour</option>
 		</field>
 		
 		<field name="aspect_ratio" type="aspectratio"
@@ -95,27 +98,42 @@
 			<option value="Widescreen">Widescreen (generic)</option>
 		</field>
 		
-		<field name="cam_format" type="camera"
-			label="Camera type" description="Film or video, animation, etc"
+<!-- delete field type cam_format -->
+		<field name="cam_format" type="combo"
+			label="Camera format" description="Film or video, animation, etc"
 			class="inputbox" maxlength="49" 
 		>
 			<option value="">unknown</option>
+			<option value="8mm">8mm</option>
+			<option value="16mm">16mm</option>
+			<option value="35mm">35mm</option>
+			<option value="70mm">70mm</option>
+			<option value="Digital">Digital</option>
+			<option value="Analogue video">Analogue video</option>			
+			<option value="">mixed</option>
 		</field>
                 
-		<field name="filmsound" type="filmsound"
+		<field name="tech_notes" type="textarea"
+			label="Technology" description="Other notable technical details - animation, rotoscoped, camera/lens type, colour process, widescreen process, 3D, etc"
+			class="inputbox" rows="3" cols="30" 
+		>
+			<option value="">- nothing special -</option>
+		</field>
+<!-- delete field type filmsound -->                
+		<field name="filmsound" type="combo"
 			label="Sound" description="Silent, Musical and effects accompaniment or with human speech"
+			default="Mono"
 			class="inputbox" maxlength="49" 
 		>
-			<option value="">unknown</option>
+			<option value="Silent">Silent</option>
+			<option value="Mono">Mono</option>
+			<option value="Stereo">Stereo</option>
+			<option value="Surround">Surround</option>
+			<option value="Music only">Music only</option>
+			<option value="Voice-over only">Voice-over only</option>
+			<option value="fx only">fx only</option>
 		</field>
-<!-- 
-		<field name="acq_date" type="calendar"
-			label="XBFILMS_DATE_ADDED_LABEL" description="XBFILMS_DATE_ADDED_DESC"
-			class="inputbox" size="20" format="%Y-%m-%d 0:0:0" filter="user_utc"
-			showtime="false" translateformat="true" 
-			required="false"
-		/>
- -->					
+
 		<field name="first_seen" type="calendar"
 			label="First Seen" description="Date film was first seen"
 			class="inputbox" size="20" format="%Y-%m-%d 0:0:0" filter="user_utc"

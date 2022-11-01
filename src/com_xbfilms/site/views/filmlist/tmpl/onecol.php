@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmlist/tmpl/onecol.php
- * @version 0.9.9.8 13th October 2022
+ * @version 0.9.9.9 31st October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -205,10 +205,12 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 	                		<?php if ($this->show_fdates) : ?>       				
         						<br />
         						<?php if($item->first_seen) {
-						          echo '<span class="icon-eye"></span> &nbsp;<i>'.Text::_('First seen').'</i>: '.HtmlHelper::date($item->first_seen , 'D jS M Y'); 
+        						    $datefmt = xbCultureHelper::getDateFmt($item->first_seen, 'D jS M Y');
+        						    echo '<span class="icon-eye"></span> &nbsp;<i>'.Text::_('First seen').'</i>: '.HtmlHelper::date($item->first_seen , $datefmt); 
 								}
         					   if(($item->last_seen) && ($item->last_seen != $item->first_seen)) {
-        					       echo ' -&nbsp;<i>'.Text::_('Last seen').'</i>: '.HtmlHelper::date($item->last_seen , 'D jS M Y'); 
+        					       $datefmt = xbCultureHelper::getDateFmt($item->last_seen, 'D jS M Y');
+        					       echo ' -&nbsp;<i>'.Text::_('Last seen').'</i>: '.HtmlHelper::date($item->last_seen , $datefmt); 
         					   }
         					   if((!$item->last_seen) && (!$item->first_seen)) {
         					       echo '<i>'.Text::_('not yet seen').'</i>';

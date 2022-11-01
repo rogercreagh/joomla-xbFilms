@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmlist/tmpl/default.php
- * @version 0.9.9.8 10th October 2022
+ * @version 0.9.9.9 31st October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -219,7 +219,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
      							<?php if ($this->show_rev == 2) : ?>
                                     <?php foreach ($item->reviews as $rev) : ?>
                                     	<?php $summary = $rev->summary; 
-                                    	if (empty($summary)) {
+                                    	if ((empty($summary) && ($rev->review))) {
                                     	    $summary = XbcultureHelper::makeSummaryText($rev->review,0);
                                     	}
                                     	if (empty($summary)) {
@@ -252,13 +252,15 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
                    <?php if ($this->show_fdates) : ?>
         				<td>
         					<p><?php if($item->first_seen) {
-						          echo HtmlHelper::date($item->first_seen , 'D j M Y');
-        					   }
-    					       echo '<br />';
-        					   if(($item->last_seen) && ($item->last_seen != $item->first_seen)) {
-        					       echo HtmlHelper::date($item->last_seen , 'D j M Y'); 
-        					   }
-        					?> </p>
+        					    //if more earlier than say 2010 then if day is 01 display month-year if day-mon is 01-01 only display year
+        					    $datefmt = xbCultureHelper::getDateFmt($item->first_seen);
+						        echo HtmlHelper::date($item->first_seen , $datefmt);
+        					}
+    					    echo '<br />';
+        					if(($item->last_seen) && ($item->last_seen != $item->first_seen)) {
+        					    $datefmt = xbCultureHelper::getDateFmt($item->last_seen);
+        					   echo HtmlHelper::date($item->last_seen , $datefmt); 
+        					} ?> </p>
          				</td>
      				<?php endif; ?>
     				<?php if($this->showcat || $this->showtags) : ?>

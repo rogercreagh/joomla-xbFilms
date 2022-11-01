@@ -516,7 +516,7 @@ if (!$this->xbpeople_ok) : ?>
         		<div class="xbbox xbboxwht">
     				<h4><?php echo Text::_('XBCULTURE_CONFIG_OPTIONS'); ?></h4>
     				<p>
-    					<?php echo ($this->killdata) ? '<b>Uninstall deletes all book data</b>' : 'Data not deleted on unistall'; ?>
+    					<?php echo ($this->killdata) ? '<b>Uninstall deletes all film data</b>' : 'Data not deleted on unistall'; ?>
     				</p>
             			<p>
     	        		<?php echo '<b>'.Text::_('XBCULTURE_CATEGORIES_U').'</b><br />';

@@ -216,6 +216,7 @@ CREATE TABLE IF NOT EXISTS `#__xbfilms` (
   `aspect_ratio` varchar(50) NOT NULL DEFAULT '',
   `cam_format` varchar(50) NOT NULL DEFAULT '',
   `filmsound` varchar(50) NOT NULL DEFAULT '',
+  `tech_notes` varchar(255) NOT NULL DEFAULT '',
   `ext_links` text,
   `first_seen` DATE NULL DEFAULT NULL,
   `last_seen` DATE NULL DEFAULT NULL,

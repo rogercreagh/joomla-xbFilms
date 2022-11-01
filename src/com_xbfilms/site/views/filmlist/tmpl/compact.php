@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmlist/tmpl/compact.php
- * @version 0.9.9.8 11th October 2022
+ * @version 0.9.9.9 31st October 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -137,11 +137,13 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
     				<?php if ($this->show_fdates ) : ?>   				
 						<td class="hidden-phone">
         					<p><?php if($item->first_seen) {
-						          echo HtmlHelper::date($item->first_seen , 'j M y');
-        					   }
-    					       echo ' - ';
+        					    $datefmt = xbCultureHelper::getDateFmt($item->first_seen,'j M y');
+        					    echo HtmlHelper::date($item->first_seen , $datefmt);
+        					}
         					   if(($item->last_seen) && ($item->last_seen != $item->first_seen)) {
-        					       echo HtmlHelper::date($item->last_seen , 'j M y'); 
+        					       echo ' - ';
+        					       $datefmt = xbCultureHelper::getDateFmt($item->last_seen);
+        					       echo HtmlHelper::date($item->last_seen , $datefmt);
         					   }
         					?> </p>
    					</td>

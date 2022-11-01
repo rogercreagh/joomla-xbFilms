@@ -123,6 +123,7 @@ $document->addStyleDeclaration($style);
          		<?php echo $this->form->renderField('aspect_ratio'); ?>
          		<?php echo $this->form->renderField('cam_format'); ?>
          		<?php echo $this->form->renderField('filmsound'); ?>
+         		<?php echo $this->form->renderField('tech_notes'); ?>
    			</div>
 			<div class="span3">
  				<fieldset class="form-vertical">
