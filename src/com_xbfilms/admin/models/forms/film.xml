@@ -90,16 +90,32 @@
 			<option value="Sepia">Sepia/single colour</option>
 		</field>
 		
-		<field name="aspect_ratio" type="aspectratio"
+		<field name="aspect_ratio" type="list"
 			label="Aspect Ratio" description="The screen aspect ratio. Most common for films will be 1.37 Academy for older films and 1.85 for newer widescreen movies. 4:3 is standard TV and 16:9 is widescreen/HD TV. See Help for more complete list"
 			class="inputbox" maxlength="49" 
 		>
-			<option value="Standard">Standard (generic)</option>
-			<option value="Widescreen">Widescreen (generic)</option>
+			<option value="Standard (generic)">Standard (generic)</option>
+			<option value="Widescreen (generic)">Widescreen (generic)</option>
+			<option value="1.19 (Movietone)">1.19 (Movietone)</option>
+			<option value="1.33 (4x3)">1.33 (4x4)</option>
+			<option value="1.37 (Academy)">1.37 (Academy)</option>
+			<option value="1.55 (14x9)">1.55 (14x9)</option>
+			<option value="1.6 (16x10)">1.6 (16x10, 8x5)</option>
+			<option value="1.66 widescreen">1.66 widescreen</option>
+			<option value="1.78 (16x9 HDTV)">1.78 (16x9 HDTV)</option>
+			<option value="1.85 widescreen">1.85 widescreen</option>
+			<option value="2.0 (anamorphic)">2.0 (anamorphic)</option>
+			<option value="2.1 ('18x9')">2.1 ('18x9', actually 18x8.6)</option>
+			<option value="2.35 (anamorphic)">2.35 (anamorphic)</option>
+			<option value="2.37 ('21x9')">2.37 ('21x9', actually 64x27)</option>
+			<option value="2.39 (Bollywood)">2.39 (Bollywood)</option>
+			<option value="Cinemascope (2.35-2.66)">Cinemascope (2.35-2.66)</option>
+			<option value="Mixed">Mixed/Other (see notes)</option>
+			<option value="">unknown</option>
 		</field>
 		
 <!-- delete field type cam_format -->
-		<field name="cam_format" type="combo"
+		<field name="cam_format" type="list"
 			label="Camera format" description="Film or video, animation, etc"
 			class="inputbox" maxlength="49" 
 		>
@@ -120,7 +136,7 @@
 			<option value="">- nothing special -</option>
 		</field>
 <!-- delete field type filmsound -->                
-		<field name="filmsound" type="combo"
+		<field name="filmsound" type="list"
 			label="Sound" description="Silent, Musical and effects accompaniment or with human speech"
 			default="Mono"
 			class="inputbox" maxlength="49" 
