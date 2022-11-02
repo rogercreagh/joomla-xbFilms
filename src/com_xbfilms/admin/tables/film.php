@@ -55,7 +55,7 @@ class XbfilmsTableFilm extends Table
 	        if ($params->get('def_new_filmcat')>0) {
 	            $defcat=$params->get('def_new_filmcat');
 	        } else {
-	            $defcat = XbfilmsHelper::getIdFromAlias('#__categories', 'uncategorised');
+	            $defcat = XbcultureHelper::getIdFromAlias('#__categories', 'uncategorised','com_xbfilms');
 	        }
 	        if ($defcat>0) {
 	            $this->catid = $defcat;

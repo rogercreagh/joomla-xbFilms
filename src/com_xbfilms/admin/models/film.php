@@ -293,7 +293,7 @@ class XbfilmsModelFilm extends JModelAdmin {
         	    if ($params->get('def_new_revcat')>0) {
         	    	$catid=$params->get('def_new_revcat');
         	    } else {
-        	    	$catid = XbfilmsHelper::getIdFromAlias('#__categories', 'uncategorised');
+        	        $catid = XbcultureHelper::getIdFromAlias('#__categories', 'uncategorised','com_xbfilms');
         	    }
         	    $qry = 'INSERT INTO '.$db->quoteName('#__xbfilmreviews').' (title, alias, film_id, catid, reviewer, rating, rev_date, created, created_by, state ) ';
         	    $qry .= 'VALUES ('.$db->quote($rtitle).','.$db->quote($ralias).','.$fid.','.$catid.','.$db->quote($reviewer).','.

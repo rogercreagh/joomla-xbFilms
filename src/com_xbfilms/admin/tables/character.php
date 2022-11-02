@@ -71,7 +71,7 @@ class XbfilmsTableCharacter extends Table
             if ($params->get('def_new_charcat')>0) {
                 $defcat=$params->get('def_new_charcat');
             } else {
-                $defcat = XbfilmsHelper::getIdFromAlias('#__categories', 'uncategorised', 'com_xbpeople');
+                $defcat = XbcultureHelper::getIdFromAlias('#__categories', 'uncategorised', 'com_xbpeople');
             }
             if ($defcat>0) {
                 $this->catid = $defcat;

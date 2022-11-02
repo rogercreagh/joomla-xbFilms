@@ -85,7 +85,7 @@ class XbfilmsTableReview extends Table
         	if ($params->get('def_new_revcat')>0) {
         		$defcat = $params->get('def_new_revcat');
         	} else {
-        		$defcat = XbfilmsHelper::getIdFromAlias('#__categories', 'uncategorised');
+        	    $defcat = XbcultureHelper::getIdFromAlias('#__categories', 'uncategorised','com_xbfilms');
         	}
         	if ($defcat>0) {
         		$this->catid = $defcat;

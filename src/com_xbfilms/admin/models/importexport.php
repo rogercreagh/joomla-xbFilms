@@ -240,8 +240,8 @@ class XbfilmsModelImportexport extends JModelAdmin {
     	$messtype = 'success';
     	$db = Factory::getDbo();
     	//get the id of the sample-film category
-    	$scatid = XbfilmsHelper::getIdFromAlias('#__categories','sample-films');
-    	$pscatid = XbfilmsHelper::getIdFromAlias('#__categories','sample-filmpeople','com_xbpeople');
+    	$scatid = XbcultureHelper::getIdFromAlias('#__categories','sample-films','com_xbfilms');
+    	$pscatid = XbcultureHelper::getIdFromAlias('#__categories','sample-filmpeople','com_xbpeople');
     	if ($scatid==0) {
     		$deletecnts['mess']='No sample-films category found; nothing deleted';
     		Factory::getApplication()->enqueueMessage($deletecnts['mess'],'information');
@@ -392,13 +392,13 @@ class XbfilmsModelImportexport extends JModelAdmin {
 		$query = $db->getQuery(true); 
 		$qcnt = 0;
 		//check that we have an imported category for fallback in case it has been deleted
-		$impcatid = XbfilmsHelper::getIdFromAlias('#__categories','imported');
+		$impcatid = XbcultureHelper::getIdFromAlias('#__categories','imported','com_xbfilms');
 		if (!$impcatid>0) {
 			$wynik = $this->createCat('Imported');
 			//TODO test result ok
 			$impcatid = $wynik['id'];
 		}
-		$imppcatid = XbfilmsHelper::getIdFromAlias('#__categories','imported','comp_xbpeople' );
+		$imppcatid = XbcultureHelper::getIdFromAlias('#__categories','imported','comp_xbpeople' );
 		if (!$imppcatid>0) {
 		    $wynik = $this->createCat('Import.People','imported','com_xbpeople');
 			//TODO test result ok
@@ -441,8 +441,8 @@ class XbfilmsModelImportexport extends JModelAdmin {
 						//filmpersons is a special case, will only work if films and persons have already been added
 	                 	//for filmpersons get alias cols and replace ids with new aliases
 	                 	//if both aliases not found then drop the link
-	                 	$film_id = XbfilmsHelper::getIdFromAlias('#__xbfilms',$qryarr['filmalias']);
-	                 	$per_id = XbfilmsHelper::getIdFromAlias('#__xbpersons',$qryarr['personalias']);
+	                 	$film_id = XbcultureHelper::getIdFromAlias('#__xbfilms',$qryarr['filmalias']);
+	                 	$per_id = XbcultureHelper::getIdFromAlias('#__xbpersons',$qryarr['personalias']);
 	                 	if (($per_id>0) && ($film_id>0) && (!$this->checkFilmPerson($film_id, $per_id))) {
 	                 		$qryarr['film_id'] = $film_id;
 	                 		$qryarr['person_id'] = $per_id;
@@ -467,9 +467,9 @@ class XbfilmsModelImportexport extends JModelAdmin {
 	                	//filmpersons is a special case, will only work if films and persons have already been added
 	                	//for filmpersons get alias cols and replace ids with new aliases
 	                	//if both aliases not found then drop the link
-	                	$film_id = XbfilmsHelper::getIdFromAlias('#__xbfilms',$qryarr['filmalias']);
-	                	$char_id = XbfilmsHelper::getIdFromAlias('#__xbcharacters',$qryarr['characteralias']);
-	                	$actor_id = XbfilmsHelper::getIdFromAlias('#__xbcharacters',$qryarr['actoralias']);
+	                	$film_id = XbcultureHelper::getIdFromAlias('#__xbfilms',$qryarr['filmalias']);
+	                	$char_id = XbcultureHelper::getIdFromAlias('#__xbcharacters',$qryarr['characteralias']);
+	                	$actor_id = XbcultureHelper::getIdFromAlias('#__xbcharacters',$qryarr['actoralias']);
 	                	if (($char_id>0) && ($film_id>0) && (!$this->checkFilmCharacter($film_id, $char_id))) {
 	                		$qryarr['film_id'] = $film_id;
 	                		$qryarr['char_id'] = $char_id;
@@ -510,7 +510,7 @@ class XbfilmsModelImportexport extends JModelAdmin {
 	                         }
 	                    }                     
                         //get alias col (creating if necessary) and check if item already exists
-                     	if (XbfilmsHelper::getIdFromAlias($table,trim($qryarr['alias']))>0) {
+	                    if (XbcultureHelper::getIdFromAlias($table,trim($qryarr['alias'],'com_xbfilms'))>0) {
                      		$importcnts['mess'] .= ' '.$table.':'.$qryarr['alias'].' already existed. Item not imported';
                      		$importcnts['skipcnt'] ++;
                      	} else {  
@@ -560,7 +560,7 @@ class XbfilmsModelImportexport extends JModelAdmin {
                       			} else {
                       				if (key_exists('catalias', $qryarr)) {
                       					$catalias = $qryarr['catalias'];
-                      					$catid = XbfilmsHelper::getIdFromAlias('#__categories',$catalias, true); //$this->$qryarr['catalias']);
+                      					$catid = XbcultureHelper::getIdFromAlias('#__categories',$catalias,'com_xbpeople'); //$this->$qryarr['catalias']);
                       					if ($catid==0) { $catid = $imppcatid; }
                       				} else {
                       					$catid = $imppcatid;
@@ -572,7 +572,7 @@ class XbfilmsModelImportexport extends JModelAdmin {
                       			} else {
                       				if (key_exists('catalias', $qryarr)) {
                       					$catalias = $qryarr['catalias'];
-                      					$catid = XbfilmsHelper::getIdFromAlias('#__categories',$catalias); //$this->$qryarr['catalias']);
+                      					$catid = XbcultureHelper::getIdFromAlias('#__categories',$catalias,'com_xbfilms'); //$this->$qryarr['catalias']);
                       					if ($catid==0) { $catid = $impcatid; }
                       				} else {
                       					$catid = $impcatid;
@@ -583,7 +583,7 @@ class XbfilmsModelImportexport extends JModelAdmin {
                           
                      		if ($table === '#__xbfilmreviews') {
                      			if (key_exists('filmalias', $qryarr)){
-                     				$fid = XbfilmsHelper::getIdFromAlias('#__xbfilms', trim($qryarr['filmalias']),'');
+                     				$fid = XbcultureHelper::getIdFromAlias('#__xbfilms', trim($qryarr['filmalias']),'');
                      				if ($fid>0) {
                      				    $qryarr['film_id'] = $fid;
                      				} else {
@@ -713,7 +713,7 @@ class XbfilmsModelImportexport extends JModelAdmin {
 	    $report = array ('id'=> 0, 'mess'=>'', 'existed'=>false );
 	    //check if alias already exists
 	    if ($alias == '') { $alias = OutputFilter::stringURLSafe($title); }
-	    $cid = XbfilmsHelper::getIdFromAlias('#__categories', $alias, 'com_xbpeople');
+	    $cid = XbcultureHelper::getIdFromAlias('#__categories', $alias, 'com_xbpeople');
 	    if ($cid > 0) {
 	    	$report['msg'] = $qarr['alias'].' already exists. ';
 	    	$report['id'] = $cid;
@@ -1373,7 +1373,7 @@ class XbfilmsModelImportexport extends JModelAdmin {
 					}
 					//check if film already exists
 					if ($filmalias != '') {
-						$filmid = XbfilmsHelper::getIdFromAlias('#__xbfilms', $filmalias);
+						$filmid = XbcultureHelper::getIdFromAlias('#__xbfilms', $filmalias);
 					}
 					if ($filmid>0) {
 						$importcnts['skipcnt'] ++;
@@ -1443,7 +1443,7 @@ class XbfilmsModelImportexport extends JModelAdmin {
 						$personalias = preg_replace('/\s+/', '-', $personalias);						
 					}
 					//check if person already exists
-					$personid = XbfilmsHelper::getIdFromAlias('#__xbpersons', $personalias);
+					$personid = XbcultureHelper::getIdFromAlias('#__xbpersons', $personalias);
 					if ($personid>0) {
 						$importcnts['skipcnt'] ++;
 						$importcnts['mess'] .= $personalias.', ';
@@ -1498,7 +1498,7 @@ class XbfilmsModelImportexport extends JModelAdmin {
 						$characteralias = preg_replace('/\s+/', '-', $characteralias);
 					}
 					//check if character already exists
-					$characterid = XbfilmsHelper::getIdFromAlias('#__xbcharacters', $characteralias);
+					$characterid = XbcultureHelper::getIdFromAlias('#__xbcharacters', $characteralias);
 					if ($characterid>0) {
 						$importcnts['skipcnt'] ++;
 						$importcnts['mess'] .= $characteralias.', ';
@@ -1545,10 +1545,10 @@ class XbfilmsModelImportexport extends JModelAdmin {
 				if ($filmpersoncheck)
 					//check we have a book and person id
 					//book/person id will have been set already if row contains a valid book or person columns
-					$filmid = ($filmid == 0) ? XbfilmsHelper::getIdFromAlias('#__xbfilms', $filmalias) : $filmid;
+					$filmid = ($filmid == 0) ? XbcultureHelper::getIdFromAlias('#__xbfilms', $filmalias) : $filmid;
 					$role = $row['role'];
 					if ($role =='') { $role = 'director'; }
-					$personid = ($personid == 0) ? XbfilmsHelper::getIdFromAlias('#__xbpersons', $row['person_alias']) : $personid;
+					$personid = ($personid == 0) ? XbcultureHelper::getIdFromAlias('#__xbpersons', $row['person_alias']) : $personid;
 					
 					
 					if (($filmid>0) && ($personid>0)) {
@@ -1583,8 +1583,8 @@ class XbfilmsModelImportexport extends JModelAdmin {
 			  if ($filmcharactercheck && ($row['role'] == 'character')) {
 			  	//check we have a film and person id
 			  	//film/person id will have been set already if row contains a valid book or person columns
-			  	$filmid = ($filmid == 0) ? XbfilmsHelper::getIdFromAlias('#__xbfilms', $filmalias) : $filmid;
-			  	$characterid = ($characterid == 0) ? XbfilmsHelper::getIdFromAlias('#__xbcharacters', $row['character_alias']) : $characterid;
+			  	$filmid = ($filmid == 0) ? XbcultureHelper::getIdFromAlias('#__xbfilms', $filmalias) : $filmid;
+			  	$characterid = ($characterid == 0) ? XbcultureHelper::getIdFromAlias('#__xbcharacters', $row['character_alias']) : $characterid;
 			  	
 			  	if (($filmid>0) && ($characterid>0)) {
 			  		$query->clear();
@@ -1631,12 +1631,12 @@ class XbfilmsModelImportexport extends JModelAdmin {
 							$revalias = preg_replace('/\s+/', '-', $revalias);
 						}
 						//check if review already exists
-						$revid = XbfilmsHelper::getIdFromAlias('#__xbfilmreviews', $revalias);
+						$revid = XbcultureHelper::getIdFromAlias('#__xbfilmreviews', $revalias);
 						if ($revid>0) {
 							$importcnts['skipcnt'] ++;
 							$importcnts['mess'] .= $revalias.', ';
 						} else {						
-							$filmid = $filmid>0 ? $filmid : XbfilmsHelper::getIdFromAlias('#__xbfilms', $row['film_alias']);
+							$filmid = $filmid>0 ? $filmid : XbcultureHelper::getIdFromAlias('#__xbfilms', $row['film_alias']);
 							$sqlrev = "INSERT INTO #__xbfilmreviews (title,alias,film_id,summary,review,rev_date,where_seen,subtitled,reviewer,rating,note,catid,state) VALUES ('";
 							$sqlrev .= $rev_title.$qcq;
 							$sqlrev .= $revalias.$qcq;
