@@ -52,8 +52,8 @@ class com_xbfilmsInstallerScript
         $componentXML = Installer::parseXMLInstallFile(Path::clean(JPATH_ADMINISTRATOR . '/components/com_xbfilms/xbfilms.xml'));
     	$message = 'Uninstalling xbFilms component v.'.$componentXML['version'].' '.$componentXML['creationDate'];
     	//are we also clearing data?
-    	$killdata = ComponentHelper::getParams('com_xbfilms')->get('killdata',0);
-    	if ($killdata) {
+    	$savedata = ComponentHelper::getParams('com_xbfilms')->get('savedata',0);
+    	if ($savedata == 0) {
     	    if ($this->uninstalldata()) {
     	        $message .= ' ... xbFilms data tables deleted';
     	    }

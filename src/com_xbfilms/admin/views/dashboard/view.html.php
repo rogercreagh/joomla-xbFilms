@@ -61,7 +61,7 @@ class XbfilmsViewDashboard extends JViewLegacy
 			
 			$params = ComponentHelper::getParams('com_xbfilms');
 			
-			$this->killdata = $params->get('killdata',1);
+			$this->savedata = $params->get('savedata',1);
 			
 			$this->show_sample = $params->get('show_sample');
 			$this->zero_rating = $params->get('zero_rating');

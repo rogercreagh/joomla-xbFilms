@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/controllers/dashboard.php
- * @version 0.9.8.4 25th May 2022
+ * @version 0.9.9.9 2nd November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -59,13 +59,13 @@ class XbfilmsControllerDashboard extends JControllerAdmin {
         $dest = JPATH_COMPONENT_ADMINISTRATOR ."/uploads/". $filename;
         File::copy($src, $dest);  
         
-        $fimpcat = XbfilmsHelper::getIdFromAlias('#__categories', 'imported', 'com_xbfilms');
+        $fimpcat = XbcultureHelper::getIdFromAlias('#__categories', 'imported', 'com_xbfilms');
         //if ($fimpcat==0) $fimpcat=1;
-        $pimpcat = XbfilmsHelper::getIdFromAlias('#__categories', 'imported', 'com_xbpeople');
+        $pimpcat = XbcultureHelper::getIdFromAlias('#__categories', 'imported', 'com_xbpeople');
         //if ($pimpcat==0) $pimpcat=1;
         $dummypost = array('setpub'=>1, 
-        	'impcat'=>XbfilmsHelper::createCategory('sample-films','','com_xbfilms','Sample film data - anything in this category will be deleted when xbFilm Sample Data is removed',$fimpcat),
-            'imppcat'=>XbfilmsHelper::createCategory('sample-filmpeople','','com_xbpeople','Sample film people data - anything in this category will be deleted when xbFilm Sample Data is removed',$pimpcat),
+            'impcat'=>XbcultureHelper::createCategory('sample-films','',$fimpcat,'com_xbfilms','Sample film data - anything in this category will be deleted when xbFilm Sample Data is removed'),
+            'imppcat'=>XbcultureHelper::createCategory('sample-filmpeople','',$pimpcat,'com_xbpeople','Sample film people data - anything in this category will be deleted when xbFilm Sample Data is removed'),
         	'poster_path'=>'/images/xbfilms/samples/films/',
         	'portrait_path'=>'/images/xbfilms/samples/people/', 
         	'reviewer'=>'');

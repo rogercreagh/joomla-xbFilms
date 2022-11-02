@@ -246,9 +246,6 @@ class XbfilmsModelFilmlist extends JModelList {
 			$item->crewcnt = count(array_keys($roles, 'crew'));
 			$item->subjcnt = count(array_keys($roles, 'appearsin'));
 			$item->castcnt = count(array_keys($roles, 'actor'));
-			//			$cnts = array_count_values(array_column($item->people, 'role'));
-// 			$item->dircnt = (key_exists('director',$cnts))? $cnts['director'] : 0;
-// 			$item->prodcnt = (key_exists('producer',$cnts))? $cnts['producer'] : 0;
 			
 			$item->chars = XbfilmsGeneral::getFilmChars($item->id);
 			$item->charcnt = empty($item->chars) ? 0 : count($item->chars);

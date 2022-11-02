@@ -130,12 +130,12 @@ class XbfilmsHelper extends ContentHelper
 					);
 			
 			JHtmlSidebar::addEntry(
-					Text::_('XBCULTURE_FILMS'),
+					Text::_('XBFILMS_XBFILMS'),
 					'index.php?option=com_xbfilms&view=films',
 					$vName == 'films'
 					);
 			JHtmlSidebar::addEntry(
-					Text::_('XBCULTURE_REVIEWS_U'),
+					Text::_('XBFILMS_XBFILM_REVIEWS'),
 					'index.php?option=com_xbfilms&view=reviews',
 					$vName == 'reviews'
 					);
@@ -155,21 +155,6 @@ class XbfilmsHelper extends ContentHelper
             ->where('id = '. (int) $id);
         $db->setQuery($query);
         return $db->loadResult();       
-    }
-    
-    public static function getIdFromAlias($table,$alias, $ext = 'com_xbfilms') {
-        $alias = trim($alias,"' ");
-        $table = trim($table,"' ");
-        $db = Factory::getDBO();
-        $query = $db->getQuery(true);
-        $query->select('id')->from($db->quoteName($table))->where($db->quoteName('alias')." = ".$db->quote($alias));
-        if ($table === '#__categories') {
-        	$query->where($db->quoteName('extension')." = ".$db->quote($ext));
-        }
-        $db->setQuery($query);
-        $res =0;
-        $res = $db->loadResult();
-        return $res;
     }
     
     public function getColCounts($srcarr,$col) {
@@ -197,57 +182,6 @@ class XbfilmsHelper extends ContentHelper
         return $cnt;
     }
         
-    /**
-     * @name createCategory()
-     * @desc creates a new category if it doesn't exist, returns id of category
-     * NB passing a name and no alias will check for alias based on name.
-     * @param (string) $name for category
-     * @param string $alias - usually lowercase name with hyphens for spaces, must be unique, will be created from name if not supplied
-     * @param string $ext - the extension owning the category
-     * @param string $desc - optional description
-     * @param number $parentid - id of parent category (defaults to root
-     * @return integer - id of new or existing category, or false if error. Error message is enqueued 
-     */
-    public static function createCategory($name, $alias='', $ext='com_xbfilms', $desc='', $parentid = 0) {
-    	if ($alias=='') {
-    		//create alias from name
-    		$alias = OutputFilter::stringURLSafe(strtolower($name));
-    	}
-    	//check category doesn't already exist
-    	$db = Factory::getDbo();
-    	$query = $db->getQuery(true);
-    	$query->select('id')->from($db->quoteName('#__categories'))->where($db->quoteName('alias')." = ".$db->quote($alias));
-    	$query->where($db->quoteName('extension')." = ".$db->quote($ext));
-    	$db->setQuery($query);
-    	$id =0;
-    	$res = $db->loadResult();
-    	if ($res>0) {
-    		return $res;
-    	}
-    	//get category model
-    	$basePath = JPATH_ADMINISTRATOR.'/components/com_categories';
-    	require_once $basePath.'/models/category.php';
-    	$config  = array('table_path' => $basePath.'/tables');
-    	//setup data for new category
-    	$category_model = new CategoriesModelCategory($config);
-    	$category_data['id'] = 0;
-    	$category_data['parent_id'] = $parentid;
-    	$category_data['published'] = 1;
-    	$category_data['language'] = '*';
-    	$category_data['params'] = array('category_layout' => '','image' => '');
-    	$category_data['metadata'] = array('author' => '','robots' => '');
-    	$category_data['extension'] = $ext;
-    	$category_data['title'] = $name;
-    	$category_data['alias'] = $alias;
-    	$category_data['description'] = $desc;
-    	if(!$category_model->save($category_data)){
-    		Factory::getApplication()->enqueueMessage('Error creating category: '.$category_model->getError(), 'error');
-    		return false;
-    	}
-    	$id = $category_model->getItem()->id;
-    	return $id;
-    }
-
     public static function checkPersonExists($firstname, $lastname) {
     	$db = Factory::getDbo();
     	$query = $db->getQuery(true);

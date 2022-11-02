@@ -142,7 +142,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 							<?php $othcnt = $item->crewcnt + $item->castcnt + $item->subjcnt;
 							if ($othcnt>0) : ?>
 								<span class="icon-users"></span>&nbsp;
-								<span class="xbnit"><?php echo $othcnt; ?> other people listed.</span>
+								<span class="xbnit"><?php echo $othcnt.' '.Text::_('other people listed'); ?></span>
 								<br />
 							<?php endif; ?>	
 							<span class="icon-calendar"></span>&nbsp;<span class="xbnit">
