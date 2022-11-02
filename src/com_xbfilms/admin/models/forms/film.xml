@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms admin/models/forms/film.xml v0.9.9.9 1st November 2022 -->
+<!-- xbFilms admin/models/forms/film.xml v0.9.9.9 2nd November 2022 -->
 <form>
 
 	<fieldset addfieldpath="/administrator/components/com_xbfilms/models/fields">
@@ -81,18 +81,21 @@
 		
 		<field name="filmcolour" type="list"
 			label="Colour" description="Black &amp; White, Colour, Sepia, Technicolor."
-			class="inputbox" maxlength="49" 
+			default=""
+			class="inputbox" 
 		>
 			<option value="Black and White">Black &amp; White</option>
 			<option value="Colour">Colour</option>
 			<option value="Technicolor">Technicolor</option>
 			<option value="Colour and B&amp;W">Colour and B&amp;W scenes</option>
 			<option value="Sepia">Sepia/single colour</option>
+			<option value="">unknown</option>
 		</field>
 		
 		<field name="aspect_ratio" type="list"
 			label="Aspect Ratio" description="The screen aspect ratio. Most common for films will be 1.37 Academy for older films and 1.85 for newer widescreen movies. 4:3 is standard TV and 16:9 is widescreen/HD TV. See Help for more complete list"
-			class="inputbox" maxlength="49" 
+			class="inputbox" 
+			default=""
 		>
 			<option value="Standard (generic)">Standard (generic)</option>
 			<option value="Widescreen (generic)">Widescreen (generic)</option>
@@ -114,10 +117,10 @@
 			<option value="">unknown</option>
 		</field>
 		
-<!-- delete field type cam_format -->
 		<field name="cam_format" type="list"
 			label="Camera format" description="Film or video, animation, etc"
-			class="inputbox" maxlength="49" 
+			class="inputbox" 
+			default=""
 		>
 			<option value="">unknown</option>
 			<option value="8mm">8mm</option>
@@ -135,10 +138,10 @@
 		>
 			<option value="">- nothing special -</option>
 		</field>
-<!-- delete field type filmsound -->                
+
 		<field name="filmsound" type="list"
 			label="Sound" description="Silent, Musical and effects accompaniment or with human speech"
-			default="Mono"
+			default=""
 			class="inputbox" maxlength="49" 
 		>
 			<option value="Silent">Silent</option>
@@ -148,6 +151,7 @@
 			<option value="Music only">Music only</option>
 			<option value="Voice-over only">Voice-over only</option>
 			<option value="fx only">fx only</option>
+			<option value="">unknown</option>
 		</field>
 
 		<field name="first_seen" type="calendar"

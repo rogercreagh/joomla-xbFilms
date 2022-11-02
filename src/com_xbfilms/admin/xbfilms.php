@@ -22,7 +22,10 @@ if (!Factory::getUser()->authorise('core.manage', 'com_xbfilms')) {
 
 $document = Factory::getDocument();
 //add the component, xbculture and fontawesome css
-$params = ComponentHelper::getParams('com_xbfilm');
+$params = ComponentHelper::getParams('com_xbfilms');
+if ($params->get('killdata','notset')=='notset') {
+    Factory::getApplication()->enqueueMessage('You don\'t seem to have set the options yet.Please click the Options button (top right on the Dashboard toolbar) and check and Save the defaults before proceeding','Error');
+}
 $usexbcss = $params->get('use_xbcss',1);
 if ($usexbcss<2) {
     $cssFile = Uri::root(true)."/media/com_xbpeople/css/xbculture.css";

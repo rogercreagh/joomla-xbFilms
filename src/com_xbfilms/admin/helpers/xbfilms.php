@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/helpers/xbfilms.php
- * @version 0.9.9.8 19th October 2022
+ * @version 0.9.9.9 2nd November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -197,7 +197,18 @@ class XbfilmsHelper extends ContentHelper
         return $cnt;
     }
         
-    public static function createCategory($name, $alias='', $ext='com_xbfilms', $desc='') {
+    /**
+     * @name createCategory()
+     * @desc creates a new category if it doesn't exist, returns id of category
+     * NB passing a name and no alias will check for alias based on name.
+     * @param (string) $name for category
+     * @param string $alias - usually lowercase name with hyphens for spaces, must be unique, will be created from name if not supplied
+     * @param string $ext - the extension owning the category
+     * @param string $desc - optional description
+     * @param number $parentid - id of parent category (defaults to root
+     * @return integer - id of new or existing category, or false if error. Error message is enqueued 
+     */
+    public static function createCategory($name, $alias='', $ext='com_xbfilms', $desc='', $parentid = 0) {
     	if ($alias=='') {
     		//create alias from name
     		$alias = OutputFilter::stringURLSafe(strtolower($name));
@@ -220,7 +231,7 @@ class XbfilmsHelper extends ContentHelper
     	//setup data for new category
     	$category_model = new CategoriesModelCategory($config);
     	$category_data['id'] = 0;
-    	$category_data['parent_id'] = 0;
+    	$category_data['parent_id'] = $parentid;
     	$category_data['published'] = 1;
     	$category_data['language'] = '*';
     	$category_data['params'] = array('category_layout' => '','image' => '');

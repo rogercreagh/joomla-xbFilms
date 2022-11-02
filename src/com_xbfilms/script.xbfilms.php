@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource script.xbfilms.php
- * @version 0.9.8.8 21st October 2022
+ * @version 0.9.9.9 2nd November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html 
@@ -67,7 +67,8 @@ class com_xbfilmsInstallerScript
     	        }
     	    }
     	} else {
-    	    $message .= ' xbFilms data tables and images folder have <b>NOT</b> been deleted.';
+    	    $message .= ' xbFilms data tables and images folder have <b>NOT</b> been deleted. CATEGORIES may be recovered on re-install, but TAG links will be lost although tags have not been deleted.';
+
     	    // allow categories to be recovered with same id
     	    $db = Factory::getDbo();
     	    $db->setQuery(
@@ -80,7 +81,7 @@ class com_xbfilmsInstallerScript
     	        $cnt = $db->getAffectedRows();
     	        
     	        if ($cnt>0) {
-    	            $message .= '<br />'.$cnt.' xbFilms categories renamed as "<b>!</b>com_xbfilms<b>!</b>". They will be recovered on reinstall with original ids.';
+    	            $message .= '<br />'.$cnt.' xbFilms category extensions renamed as "<b>!</b>com_xbfilms<b>!</b>". They will be recovered on reinstall with original ids.';
     	        }
     	}    	
     	$app->enqueueMessage($message,'Info');    	
@@ -124,8 +125,10 @@ class com_xbfilmsInstallerScript
          	$message .= $cnt.' existing xbFilm categories restored. ';
          	// create default categories using category table
          	$cats = array(
-         			array("title"=>"Uncategorised","desc"=>"default fallback category for all xbFilms items"),
-         			array("title"=>"Imported","desc"=>"default category for xbFilms imported data"));
+         		array("title"=>"Uncategorised","desc"=>"default fallback category for all xbFilms items"),
+                array("title"=>"Imported","desc"=>"default category for xbFilms imported data"),
+         	    array("title"=>"Films","desc"=>"default parent category for Films"),
+                array("title"=>"Film Reviews","desc"=>"default parent category for Film Reviews"));
          	$message .= $this->createCategory($cats);
          	
          	$app->enqueueMessage($message,'Info');  

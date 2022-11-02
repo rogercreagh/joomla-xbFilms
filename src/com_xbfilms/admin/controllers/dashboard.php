@@ -11,6 +11,8 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Filesystem\File;
+use Joomla\CMS\Filesystem\Folder;
 
 class XbfilmsControllerDashboard extends JControllerAdmin {
 
@@ -55,10 +57,15 @@ class XbfilmsControllerDashboard extends JControllerAdmin {
         $filename = 'xbfilms-sample-data.sql';
         $src = JPATH_ROOT.'/media/com_xbfilms/samples/'.$filename;
         $dest = JPATH_COMPONENT_ADMINISTRATOR ."/uploads/". $filename;
-        JFile::copy($src, $dest);  
+        File::copy($src, $dest);  
+        
+        $fimpcat = XbfilmsHelper::getIdFromAlias('#__categories', 'imported', 'com_xbfilms');
+        //if ($fimpcat==0) $fimpcat=1;
+        $pimpcat = XbfilmsHelper::getIdFromAlias('#__categories', 'imported', 'com_xbpeople');
+        //if ($pimpcat==0) $pimpcat=1;
         $dummypost = array('setpub'=>1, 
-        	'impcat'=>XbfilmsHelper::createCategory('sample-films','','com_xbfilms','Sample film data - anything in this category will be deleted when xbFilm Sample Data is removed'),
-            'imppcat'=>XbfilmsHelper::createCategory('sample-filmpeople','','com_xbpeople','Sample film people data - anything in this category will be deleted when xbFilm Sample Data is removed'),
+        	'impcat'=>XbfilmsHelper::createCategory('sample-films','','com_xbfilms','Sample film data - anything in this category will be deleted when xbFilm Sample Data is removed',$fimpcat),
+            'imppcat'=>XbfilmsHelper::createCategory('sample-filmpeople','','com_xbpeople','Sample film people data - anything in this category will be deleted when xbFilm Sample Data is removed',$pimpcat),
         	'poster_path'=>'/images/xbfilms/samples/films/',
         	'portrait_path'=>'/images/xbfilms/samples/people/', 
         	'reviewer'=>'');
@@ -81,12 +88,12 @@ class XbfilmsControllerDashboard extends JControllerAdmin {
         	//copy sample images folder to images
         	$src = '/media/com_xbfilms/samples/images/';
         	$dest = '/images/xbfilms/samples';
-        	if (JFolder::exists(JPATH_ROOT.$dest))
+        	if (Folder::exists(JPATH_ROOT.$dest))
         	{
         		$mess .= '<br />'.JText::sprintf('XBCULTURE_SAMPLE_IMAGES_EXIST', $dest) ;
         		$msgtype = 'info';
         	} else {
-        		if (JFolder::copy(JPATH_ROOT.$src,JPATH_ROOT.$dest)){
+        		if (Folder::copy(JPATH_ROOT.$src,JPATH_ROOT.$dest)){
         			$mess .= '<br /> Sample images copied to '.$dest;
         		} else {
         			$mess .= '<br />Warning, problem copying sample images to'.$dest;
