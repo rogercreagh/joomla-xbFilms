@@ -2,8 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/tables/review.php
- * @version 0.9.8.6 1st June 2022
- * @author Roger C-O
+November * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
@@ -71,8 +70,15 @@ class XbfilmsTableReview extends Table
     	//set reviewer if not set (default to current user)
     	if (trim($this->reviewer) == '') {
     		$user = Factory::getUser($this->item->created_by);
-    		$name = ($params->get('rev_auth') == 0) ? $user->name : $user->username;
-    		$this->reviewer = $name;
+    		$this->reviewer = '';
+    		switch ($params->get('rev_auth')) {
+    		    case 1:
+    		        $this->reviewer = $user->name;
+    		        break;
+    		    case 2:
+    		        $this->reviewer = $user->username;
+    		        break;
+    		}
     	}
     	//set date reviewed
     	if ($this->rev_date == '') {
