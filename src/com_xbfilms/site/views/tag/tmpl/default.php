@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/tag/tmpl/default.php
- * @version 0.9.9.8 18th October 2022
+ * @version 0.9.9.9 8th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -119,7 +119,7 @@ $tclink = $xblink.'tags' . $itemid;
 <div class="row-fluid">
 	<div class="span12">
 		<div class="xbbox xbboxgrey xbmh200 xbyscroll">
-			<p><?php echo $item->othercnt; ?> other (not xbFilms) items tagged</p>
+			<p><?php echo $item->othercnt; ?> other (not xbFilms) items tagged with <b><?php echo $item->title; ?></b></p>
 			<?php if ($item->othercnt > 0 ) : ?>
 				<?php $span = intdiv(12, count($item->othcnts)); ?>
 				<div class="row-fluid">
@@ -141,7 +141,7 @@ $tclink = $xblink.'tags' . $itemid;
 					    }
 					    $thiscomp = $comp;
 					    $firstview=true;
-					    echo '<div class="span'.$span.'">'.ucfirst(substr($comp,4)).' ';
+					    echo '<div class="span'.$span.'"><b>'.ucfirst(substr($comp,4)).'</b> ';
 					}
 					if ($newview) {
 					    if ($firstview) {

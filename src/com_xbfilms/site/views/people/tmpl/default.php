@@ -199,7 +199,7 @@ $clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
     						<?php echo $item->filmlist; ?>    						
     					</details>
     					<?php endif; ?>
-    				<?php if ($item->bcnt > 0) : ?>
+	    				<?php if ($item->bcnt > 0) : ?>
     						<p class="xbit xb095 xbmt10">
     							<?php echo Text::_('XBCULTURE_ALSO').' '.$item->bcnt.' '; 
     						  echo $item->bcnt == 1 ? Text::_('XBCULTURE_BOOK') :Text::_('XBCULTURE_BOOKS'); ?>
