@@ -10,12 +10,14 @@
 defined( '_JEXEC' ) or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Language\Text;
 
 class XbfilmsViewFilm extends JViewLegacy {
     
-    protected $form = null;   
+    protected $form = null; 
+    protected $params = '';
     
     public function display($tpl = null) {
 
@@ -23,10 +25,27 @@ class XbfilmsViewFilm extends JViewLegacy {
         $this->item = $this->get('Item');
         $this->canDo = XbfilmsHelper::getActions('com_xbfilms', 'film', $this->item->id);
         
-        $params      = $this->get('State')->get('params');
-        $this->zero_class = $params->get('zero_class','fas fa-thumbs-down');
-        $this->star_class = $params->get('star_class','fa fa-star xbred');
-        $this->halfstar_class = $params->get('halfstar_class');
+        $this->params      = $this->get('State')->get('params');
+        $this->zero_class = $this->params->get('zero_class','fas fa-thumbs-down');
+        $this->star_class = $this->params->get('star_class','fa fa-star xbred');
+        $this->halfstar_class = $this->params->get('halfstar_class');
+        
+        $this->taggroups = $this->params->get('enable_taggroups',0);
+        if ($this->taggroups) {
+            $tagsHelper = new TagsHelper;
+            
+            $this->taggroup1_parent = $this->params->get('taggroups1_parent',0);
+            $taggroup_ids = array();
+            $taggroup_ids[1] = $this->taggroup1_parent;
+            //($this->taggroup1_parent) ? $tagsHelper->getTagNames($this->taggroup1_parent) : '';
+            $this->taggroup2_parent = $this->params->get('taggroups2_parent',0);
+            $taggroup_ids[2] = $this->taggroup2_parent;
+            $this->taggroup3_parent = $this->params->get('taggroups3_parent',0);
+            $taggroup_ids[3] = $this->taggroup3_parent;
+            $this->taggroup4_parent = $this->params->get('taggroups4_parent',0);
+            $taggroup_ids[4] = $this->taggroup4_parent;
+            $this->taggroup_names = $tagsHelper->getTagNames($taggroup_ids);           
+        }
         
         if (count($errors = $this->get('Errors'))) {
         	Factory::getApplication()->enqueueMessage(implode('<br />', $errors),'error');

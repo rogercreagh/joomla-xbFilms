@@ -128,8 +128,14 @@ $document->addStyleDeclaration($style);
 			<div class="span3">
  				<fieldset class="form-vertical">
            			<?php echo $this->form->renderField('poster_img'); ?>
+           			<?php if ($this->taggroups) : ?>
+           				<h4>Tag Groups</h4>
+ 						<?php 
+ 						echo $this->form->renderField('taggroup1'); ?>
+ 					<?php endif; ?>
  				</fieldset>
  				<h4>Status, Category &amp; Tags</h4>
+ 				
 				<?php echo LayoutHelper::render('joomla.edit.global', $this); ?>
 			</div>					
 		</div>	

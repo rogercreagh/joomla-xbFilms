@@ -147,6 +147,46 @@
 			<option value="0" >JHIDE</option>
 			<option value="1">JSHOW</option>
 		</field>	
+		<field name="taggrpsnote" type="note"
+			label="Tag Groups"
+			description="A tag group provides a way to limit or force tag selection to children of a parent tag. Up to four groups can be defined. On edit views additional tag selectors will appear for each defined group in adition to the standard tags selector. The group selectors will only allow and show ags that are children of their parent tag"
+		/>	
+		
+ 		<field name="enable_taggroups" type="radio"
+			label="Organise tags in groups"
+			description="This will allow you to define up to four tag groups, each with a sparate parent tag."
+			class="btn-group btn-group-yesno"
+			showon="show_tags:1"
+			default="0"
+			>
+			<option value="0" >JHIDE</option>
+			<option value="1">JSHOW</option>
+		</field>	
+		<field name="taggroup1_parent" type="tag"
+			mode="nested" published="1"
+			label="Tag Group 1 Parent" description="Select tag to be the parent for tag selection. Only children of this tag will be offered for selection. The group name and description will be the title and description of the parent tag. The parent tag is not available for selection in the group list."
+			multiple="false"
+			showon="show_tags:1[AND]enable_taggroups:1"
+		/>
+		<field name="taggroup2_parent" type="tag"
+			mode="nested" published="1"
+			label="Tag Group 2 Parent" description="Select tag to be the parent for tag selection. Only children of this tag will be offered for selection. The group name and description will be the title and description of the parent tag. The parent tag is not available for selection in the group list."
+			multiple="false"
+			showon="show_tags:1[AND]enable_taggroups:1"
+		/>
+		<field name="taggroup3_parent" type="tag"
+			mode="nested" published="1"
+			label="Tag Group 3 Parent" description="Select tag to be the parent for tag selection. Only children of this tag will be offered for selection. The group name and description will be the title and description of the parent tag. The parent tag is not available for selection in the group list."
+			multiple="false"
+			showon="show_tags:1[AND]enable_taggroups:1"
+		/>
+		<field name="taggroup4_parent" type="tag"
+			mode="nested" published="1"
+			label="Tag Group 4 Parent" description="Select tag to be the parent for tag selection. Only children of this tag will be offered for selection. The group name and description will be the title and description of the parent tag. The parent tag is not available for selection in the group list."
+			multiple="false"
+			showon="show_tags:1[AND]enable_taggroups:1"
+		/>
+		
  		<field name="show_fdates" type="radio"
 			label="Show Seen Dates"
 			description="A film has first and last seen dates. For some sites you might not wish to use first/last seen on the front-end, for example if you are not using reviews. If seen dates are shown, then any unseen films (null in first and last seen) will not appear in the list when sorted by seen date."

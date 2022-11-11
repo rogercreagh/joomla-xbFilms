@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms admin/models/forms/film.xml v0.9.9.9 2nd November 2022 -->
+<!-- xbFilms admin/models/forms/film.xml v0.9.10.0 10th November 2022 -->
 <form>
 
-	<fieldset addfieldpath="/administrator/components/com_xbfilms/models/fields">
+	<fieldset addfieldpath="/administrator/components/com_xbpeople/models/fields">
 
 		<field 
 			name="id"  type="number" 
@@ -191,6 +191,11 @@
 
 		<field name="tags" type="tag"
 			label="JTAG" description="JTAG_DESC"
+			multiple="true"
+		/>
+		<field name="genre" type="childtags"
+			label="Genres" description="Select one or more genre tags for the film"
+			component="com_xbfilms" tagoption="genre_parent"
 			multiple="true"
 		/>
 

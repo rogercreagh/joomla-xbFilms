@@ -87,7 +87,19 @@ class XbfilmsModelFilm extends JModelAdmin {
 	        $data->castlist=$castlist;
 	        $data->charlist=$this->getFilmCharlist();
         }
-             
+
+        //need to extract any genre tags and poke them into $data->genre
+        //ie filter tag list (comma sep string) by parent
+        // get genre_parent and if set
+        //         		
+        $tagsHelper = new TagsHelper;
+        $params = ComponentHelper::getParams('com_xbfilms');
+        $genre_parent = $params->get('genre_parent','');
+        if ($genre_parent) {
+            $genretags = $tagsHelper->getTagTreeArray($genre_parent);
+            $data->genre = array_intersect($genretags, explode(',', $data->tags));
+        }
+        
         return $data;
     }
     
@@ -238,6 +250,11 @@ class XbfilmsModelFilm extends JModelAdmin {
             // standard Joomla practice is to set the new copy record as unpublished
             $data['published'] = 0;
         }
+        //mrege genres, types, themes, collections into tags
+        if ($data['genre']) {
+            $data['tags'] = array_unique(array_merge($data['tags'],$data['genre']));           
+        }
+        
         //if only first_seen or last_seen is set then copy to other one
         if (($data['first_seen']=='') && ($data['last_seen']!='')) {
             $data['first_seen']=$data['last_seen'];
