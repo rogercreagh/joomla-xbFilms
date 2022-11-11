@@ -196,25 +196,21 @@
 		<field name="taggroup1" type="childtags"
 			label="Taggroup1" description="Description to be taken from parent tag"
 			parent_definition="com_xbfilms.taggroup1_parent"
-			component="com_xbfilms" tagoption="taggroup1_parent"
 			multiple="true"
 		/>
 		<field name="taggroup2" type="childtags"
 			label="Taggroup2" description="Description to be taken from parent tag"
 			parent_definition="com_xbfilms.taggroup2_parent"
-			component="com_xbfilms" tagoption="taggroup2_parent"
 			multiple="true"
 		/>
 		<field name="taggroup3" type="childtags"
 			label="Taggroup3" description="Description to be taken from parent tag"
-			parent_definition="com_xbfilms.taggroup1_parent"
-			component="com_xbfilms" tagoption="taggroup3_parent"
+			parent_definition="com_xbfilms.taggroup3_parent"
 			multiple="true"
 		/>
 		<field name="taggroup4" type="childtags"
 			label="Taggroup4" description="Description to be taken from parent tag"
 			parent_definition="com_xbfilms.taggroup4_parent"
-			component="com_xbfilms" tagoption="taggroup4_parent"
 			multiple="true"
 		/>
 
