@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/film.php
- * @version 0.9.9.9 1st November 2022
+ * @version 0.9.10.0 11th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -94,10 +94,25 @@ class XbfilmsModelFilm extends JModelAdmin {
         //         		
         $tagsHelper = new TagsHelper;
         $params = ComponentHelper::getParams('com_xbfilms');
-        $genre_parent = $params->get('genre_parent','');
-        if ($genre_parent) {
-            $genretags = $tagsHelper->getTagTreeArray($genre_parent);
-            $data->genre = array_intersect($genretags, explode(',', $data->tags));
+        $taggroup1_parent = $params->get('taggroup1_parent','');
+        if ($taggroup1_parent) {
+            $taggroup1_tags = $tagsHelper->getTagTreeArray($taggroup1_parent);
+            $data->taggroup1 = array_intersect($taggroup1_tags, explode(',', $data->tags));
+        }
+        $taggroup2_parent = $params->get('taggroup2_parent','');
+        if ($taggroup2_parent) {
+            $taggroup2_tags = $tagsHelper->getTagTreeArray($taggroup2_parent);
+            $data->taggroup2 = array_intersect($taggroup2_tags, explode(',', $data->tags));
+        }
+        $taggroup3_parent = $params->get('taggroup3_parent','');
+        if ($taggroup3_parent) {
+            $taggroup3_tags = $tagsHelper->getTagTreeArray($taggroup3_parent);
+            $data->taggroup3 = array_intersect($taggroup3_tags, explode(',', $data->tags));
+        }
+        $taggroup4_parent = $params->get('taggroup4_parent','');
+        if ($taggroup4_parent) {
+            $taggroup4_tags = $tagsHelper->getTagTreeArray($taggroup4_parent);
+            $data->taggroup4 = array_intersect($taggroup4_tags, explode(',', $data->tags));
         }
         
         return $data;
@@ -251,8 +266,17 @@ class XbfilmsModelFilm extends JModelAdmin {
             $data['published'] = 0;
         }
         //mrege genres, types, themes, collections into tags
-        if ($data['genre']) {
-            $data['tags'] = array_unique(array_merge($data['tags'],$data['genre']));           
+        if ($data['taggroup1']) {
+            $data['tags'] = array_unique(array_merge($data['tags'],$data['taggroup1']));
+        }
+        if ($data['taggroup2']) {
+            $data['tags'] = array_unique(array_merge($data['tags'],$data['taggroup2']));
+        }
+        if ($data['taggroup3']) {
+            $data['tags'] = array_unique(array_merge($data['tags'],$data['taggroup3']));
+        }
+        if ($data['taggroup4']) {
+            $data['tags'] = array_unique(array_merge($data['tags'],$data['taggroup4']));
         }
         
         //if only first_seen or last_seen is set then copy to other one

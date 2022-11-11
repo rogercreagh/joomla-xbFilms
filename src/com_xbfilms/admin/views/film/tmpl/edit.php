@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/film/tmpl/edit.php
- * @version 0.9.9.8 10th October 2022
+ * @version 0.9.10.0 11th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -130,12 +130,30 @@ $document->addStyleDeclaration($style);
            			<?php echo $this->form->renderField('poster_img'); ?>
            			<?php if ($this->taggroups) : ?>
            				<h4>Tag Groups</h4>
- 						<?php 
- 						echo $this->form->renderField('taggroup1'); ?>
+ 						<?php if ($this->taggroup1_parent) {
+ 						    $this->form->setFieldAttribute('taggroup1','label',$this->taggroupinfo[$this->taggroup1_parent]['title']);
+ 						    $this->form->setFieldAttribute('taggroup1','description',$this->taggroupinfo[$this->taggroup1_parent]['description']);
+      						echo $this->form->renderField('taggroup1'); 
+						} ?>
+ 						<?php if ($this->taggroup2_parent) {
+ 						    $this->form->setFieldAttribute('taggroup2','label',$this->taggroupinfo[$this->taggroup2_parent]['title']);
+ 						    $this->form->setFieldAttribute('taggroup2','description',$this->taggroupinfo[$this->taggroup2_parent]['description']);
+      						echo $this->form->renderField('taggroup2'); 
+						} ?>
+ 						<?php if ($this->taggroup3_parent) {
+ 						    $this->form->setFieldAttribute('taggroup3','label',$this->taggroupinfo[$this->taggroup3_parent]['title']);
+ 						    $this->form->setFieldAttribute('taggroup3','description',$this->taggroupinfo[$this->taggroup3_parent]['description']);
+      						echo $this->form->renderField('taggroup3'); 
+						} ?>
+ 						<?php if ($this->taggroup4_parent) {
+ 						    $this->form->setFieldAttribute('taggroup4','label',$this->taggroupinfo[$this->taggroup4_parent]['title']);
+ 						    $this->form->setFieldAttribute('taggroup4','description',$this->taggroupinfo[$this->taggroup4_parent]['description']);
+      						echo $this->form->renderField('taggroup4'); 
+						} ?>
  					<?php endif; ?>
  				</fieldset>
- 				<h4>Status, Category &amp; Tags</h4>
  				
+ 				<h4>Status, Category &amp; Tags</h4> 				
 				<?php echo LayoutHelper::render('joomla.edit.global', $this); ?>
 			</div>					
 		</div>	

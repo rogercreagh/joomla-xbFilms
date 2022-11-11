@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms admin/models/forms/film.xml v0.9.10.0 10th November 2022 -->
+<!-- xbFilms admin/models/forms/film.xml v0.9.10.0 11th November 2022 -->
 <form>
 
 	<fieldset addfieldpath="/administrator/components/com_xbpeople/models/fields">
@@ -193,9 +193,28 @@
 			label="JTAG" description="JTAG_DESC"
 			multiple="true"
 		/>
-		<field name="genre" type="childtags"
-			label="Genres" description="Select one or more genre tags for the film"
-			component="com_xbfilms" tagoption="genre_parent"
+		<field name="taggroup1" type="childtags"
+			label="Taggroup1" description="Description to be taken from parent tag"
+			parent_definition="com_xbfilms.taggroup1_parent"
+			component="com_xbfilms" tagoption="taggroup1_parent"
+			multiple="true"
+		/>
+		<field name="taggroup2" type="childtags"
+			label="Taggroup2" description="Description to be taken from parent tag"
+			parent_definition="com_xbfilms.taggroup2_parent"
+			component="com_xbfilms" tagoption="taggroup2_parent"
+			multiple="true"
+		/>
+		<field name="taggroup3" type="childtags"
+			label="Taggroup3" description="Description to be taken from parent tag"
+			parent_definition="com_xbfilms.taggroup1_parent"
+			component="com_xbfilms" tagoption="taggroup3_parent"
+			multiple="true"
+		/>
+		<field name="taggroup4" type="childtags"
+			label="Taggroup4" description="Description to be taken from parent tag"
+			parent_definition="com_xbfilms.taggroup4_parent"
+			component="com_xbfilms" tagoption="taggroup4_parent"
 			multiple="true"
 		/>
 

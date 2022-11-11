@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/film/view.html.php
- * @version 0.9.3 12th April 2021
+ * @version 0.9.10.0 11th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -32,19 +32,25 @@ class XbfilmsViewFilm extends JViewLegacy {
         
         $this->taggroups = $this->params->get('enable_taggroups',0);
         if ($this->taggroups) {
-            $tagsHelper = new TagsHelper;
+//            $tagsHelper = new TagsHelper;
             
-            $this->taggroup1_parent = $this->params->get('taggroups1_parent',0);
             $taggroup_ids = array();
-            $taggroup_ids[1] = $this->taggroup1_parent;
+            $this->taggroup1_parent = $this->params->get('taggroup1_parent',0);
+            if ($this->taggroup1_parent) $taggroup_ids[] = $this->taggroup1_parent;
             //($this->taggroup1_parent) ? $tagsHelper->getTagNames($this->taggroup1_parent) : '';
-            $this->taggroup2_parent = $this->params->get('taggroups2_parent',0);
-            $taggroup_ids[2] = $this->taggroup2_parent;
-            $this->taggroup3_parent = $this->params->get('taggroups3_parent',0);
-            $taggroup_ids[3] = $this->taggroup3_parent;
-            $this->taggroup4_parent = $this->params->get('taggroups4_parent',0);
-            $taggroup_ids[4] = $this->taggroup4_parent;
-            $this->taggroup_names = $tagsHelper->getTagNames($taggroup_ids);           
+            $this->taggroup2_parent = $this->params->get('taggroup2_parent',0);
+            if ($this->taggroup2_parent) $taggroup_ids[] = $this->taggroup2_parent;
+            $this->taggroup3_parent = $this->params->get('taggroup3_parent',0);
+            if ($this->taggroup3_parent) $taggroup_ids[] = $this->taggroup3_parent;
+            $this->taggroup4_parent = $this->params->get('taggroup4_parent',0);
+            if ($this->taggroup4_parent) $taggroup_ids[] = $this->taggroup4_parent;
+            
+            $db = Factory::getDbo();
+            $query = $db->getQuery(true);
+            $query->select('id, title, description')->from($db->quoteName('#__tags'))
+                ->where('id IN ('.implode(',',$taggroup_ids).')');
+            $db->setQuery($query);
+            $this->taggroupinfo = $db->loadAssocList('id');    
         }
         
         if (count($errors = $this->get('Errors'))) {
