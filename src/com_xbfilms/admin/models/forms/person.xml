@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms admin/models/forms/person.xml v0.9.6.f 10th January 20221 -->
+<!-- xbFilms admin/models/forms/person.xml v0.9.10.1 12th November 20221 -->
 <form>
-	<fieldset addfieldpath="/administrator/components/com_xbfilms/models/fields">
+	<fieldset addfieldpath="/administrator/components/com_xbpeople/models/fields">
 		<field name="id" default="0" 
 			label="JGLOBAL_FIELD_ID_LABEL"
 			readonly="true" class="readonly" />
@@ -77,6 +77,12 @@
 				multiple="true"
 		>
 		</field>
+		<field name="peeptaggroup" type="childtags"
+			label="People Tags" description="Description to be taken from parent tag"
+			parent="com_xbfilms.peeptaggroup_parent"
+			multiple="true"  published="1"
+			mode="nested" custom="deny"
+		/>
 
 		<field name="note" type="textarea" rows="3" cols="50"
 			label="XBCULTURE_NOTE" description="XBCULTURE_NOTE_DESC" />

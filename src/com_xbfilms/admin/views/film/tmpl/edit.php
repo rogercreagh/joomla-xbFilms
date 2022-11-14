@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/film/tmpl/edit.php
- * @version 0.9.10.0 11th November 2022
+ * @version 0.9.10.2 14th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -129,7 +129,9 @@ $document->addStyleDeclaration($style);
  				<fieldset class="form-vertical">
            			<?php echo $this->form->renderField('poster_img'); ?>
            			<?php if ($this->taggroups) : ?>
-           				<h4>Tag Groups</h4>
+ 						<?php  $this->form->setFieldAttribute('tags','label',Text::_('XBCULTURE_ALLTAGS'));
+ 						    $this->form->setFieldAttribute('tags','description',Text::_('XBCULTURE_ALLTAGS_DESC'));	?>	    
+           				<h4><?php echo Text::_('XBCULTURE_TAG_GROUPS'); ?></h4>
  						<?php if ($this->taggroup1_parent) {
  						    $this->form->setFieldAttribute('taggroup1','label',$this->taggroupinfo[$this->taggroup1_parent]['title']);
  						    $this->form->setFieldAttribute('taggroup1','description',$this->taggroupinfo[$this->taggroup1_parent]['description']);
@@ -151,9 +153,8 @@ $document->addStyleDeclaration($style);
       						echo $this->form->renderField('taggroup4'); 
 						} ?>
  					<?php endif; ?>
- 				</fieldset>
- 				
- 				<h4>Status, Category &amp; Tags</h4> 				
+ 				</fieldset> 				
+ 				<h4><?php echo Text::_('XBCULTURE_STATUS_CATS_TAGS'); ?></h4> 				
 				<?php echo LayoutHelper::render('joomla.edit.global', $this); ?>
 			</div>					
 		</div>	

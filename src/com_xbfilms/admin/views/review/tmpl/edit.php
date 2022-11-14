@@ -2,14 +2,15 @@
 /*******
  * @package xbFilms
  * @filesource admin/views//tmpl/edit.php
- * @version 0.9.9.6 20th August 2022
+ * @version 0.9.10.2 14th November 2022
  * @author Roger C-O
- * @copyright Copyright (c) Roger Creagh-Osborne, 2021
+ * @copyright Copyright (c) Roger Creagh-Osborne, 2022
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 defined('_JEXEC') or die;
 
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 
@@ -57,14 +58,22 @@ HTMLHelper::_('formbehavior.chosen', 'select');
 				</fieldset>
 			</div>
 			<div class="span3">
-                 				<?php echo $this->form->renderField('reviewer'); ?>
                  				<?php echo $this->form->renderField('rev_date'); ?>
-                				<?php echo $this->form->renderField('where_seen'); ?>
-                 				
+                				<?php echo $this->form->renderField('where_seen'); ?>                 				
                 				<?php echo $this->form->renderField('subtitled'); ?>
 			</div>
 			<div class="span3">
+					<?php if ($this->revtaggroup_parent) : ?>
+						<h4>Review Tags</h4>
+ 						<?php  $this->form->setFieldAttribute('tags','label',Text::_('XBCULTURE_ALLTAGS'));
+ 						    $this->form->setFieldAttribute('tags','description',Text::_('XBCULTURE_ALLTAGS_DESC'));						    
+ 						    $this->form->setFieldAttribute('revtaggroup','label',$this->taggroupinfo[$this->revtaggroup_parent]['title']);
+ 						    $this->form->setFieldAttribute('revtaggroup','description',$this->taggroupinfo[$this->revtaggroup_parent]['description']);
+ 						    echo $this->form->renderField('revtaggroup'); 
+						endif; ?>
+ 				<h4><?php echo Text::_('XBCULTURE_STATUS_CATS_TAGS'); ?></h4> 				
 				<?php echo LayoutHelper::render('joomla.edit.global', $this); ?>
+                 				<?php echo $this->form->renderField('reviewer'); ?>
 			</div>
 		<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
 		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('XBFILMS_FIELDSET_PUBLISHING')); ?>

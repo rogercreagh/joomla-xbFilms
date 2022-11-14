@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/person/tmpl/edit.php
- * @version 0.9.6.f 10th January 2022
+ * @version 0.9.10.2 14th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
@@ -17,7 +18,7 @@ use Joomla\CMS\Uri\Uri;
 HTMLHelper::_('behavior.formvalidator');
 HTMLHelper::_('behavior.keepalive');
 HTMLHelper::_('formbehavior.chosen', '#jform_catid', null, array('disable_search_threshold' => 0 ));
-HTMLHelper::_('formbehavior.chosen', '#jform_tags', null, array('placeholder_text_multiple' => JText::_('JGLOBAL_TYPE_OR_SELECT_SOME_TAGS')));
+HTMLHelper::_('formbehavior.chosen', '#jform_tags', null, array('placeholder_text_multiple' => Text::_('JGLOBAL_TYPE_OR_SELECT_SOME_TAGS')));
 HTMLHelper::_('formbehavior.chosen', 'select');
 
 ?>
@@ -59,7 +60,7 @@ HTMLHelper::_('formbehavior.chosen', 'select');
       <div class="span12">
 		<?php echo HTMLHelper::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
 
-		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'general', JText::_('XBFILMS_FIELDSET_GENERAL')); ?>
+		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'general', Text::_('XBFILMS_FIELDSET_GENERAL')); ?>
 		<div class="row-fluid">
 			<div class="span9">
 				<div class="row-fluid">
@@ -93,16 +94,25 @@ HTMLHelper::_('formbehavior.chosen', 'select');
  				<fieldset class="form-vertical">
            			<?php echo $this->form->renderField('portrait'); ?>
  				</fieldset>
+					<?php if ($this->peeptaggroup_parent) : ?>
+						<h4>Person Tags</h4>
+ 						<?php  $this->form->setFieldAttribute('tags','label',Text::_('XBCULTURE_ALLTAGS'));
+ 						    $this->form->setFieldAttribute('tags','description',Text::_('XBCULTURE_ALLTAGS_DESC'));						    
+ 						    $this->form->setFieldAttribute('peeptaggroup','label',$this->taggroupinfo[$this->peeptaggroup_parent]['title']);
+ 						    $this->form->setFieldAttribute('peeptaggroup','description',$this->taggroupinfo[$this->peeptaggroup_parent]['description']);
+ 						    echo $this->form->renderField('peeptaggroup'); 
+						endif; ?>
+ 				<h4><?php echo Text::_('XBCULTURE_STATUS_CATS_TAGS'); ?></h4> 				
 				<?php echo LayoutHelper::render('joomla.edit.global', $this); ?>
 			</div>
 		</div>
 		<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
-		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'biog', JText::_('XBCULTURE_BIOGRAPHY')); ?>
+		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'biog', Text::_('XBCULTURE_BIOGRAPHY')); ?>
 			<fieldset class="form-horizontal">
 				<div style="max-width:1200px;"><?php echo $this->form->renderField('biography'); ?></div>
 			</fieldset>
 		<?php echo HTMLHelper::_('bootstrap.endTab'); ?>
-		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('XBFILMS_FIELDSET_PUBLISHING')); ?>
+		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'publishing', Text::_('XBFILMS_FIELDSET_PUBLISHING')); ?>
 		<div class="row-fluid form-horizontal-desktop">
 			<div class="span6">
 				<?php echo LayoutHelper::render('joomla.edit.publishingdata', $this); ?>

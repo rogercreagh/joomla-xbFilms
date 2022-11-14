@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/film/view.html.php
- * @version 0.9.10.0 11th November 2022
+ * @version 0.9.10.1 12th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -10,7 +10,6 @@
 defined( '_JEXEC' ) or die;
 
 use Joomla\CMS\Factory;
-use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Language\Text;
 
@@ -32,12 +31,9 @@ class XbfilmsViewFilm extends JViewLegacy {
         
         $this->taggroups = $this->params->get('enable_taggroups',0);
         if ($this->taggroups) {
-//            $tagsHelper = new TagsHelper;
-            
             $taggroup_ids = array();
             $this->taggroup1_parent = $this->params->get('taggroup1_parent',0);
             if ($this->taggroup1_parent) $taggroup_ids[] = $this->taggroup1_parent;
-            //($this->taggroup1_parent) ? $tagsHelper->getTagNames($this->taggroup1_parent) : '';
             $this->taggroup2_parent = $this->params->get('taggroup2_parent',0);
             if ($this->taggroup2_parent) $taggroup_ids[] = $this->taggroup2_parent;
             $this->taggroup3_parent = $this->params->get('taggroup3_parent',0);

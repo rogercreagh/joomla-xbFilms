@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms admin/models/forms/review.xml v0.9.9.6 20th August 2022 -->
+<!-- xbFilms admin/models/forms/review.xml v0.9.10.1 12th November 2022 -->
 <form>
-	<fieldset>
+	<fieldset addfieldpath="/administrator/components/com_xbpeople/models/fields">
 		<field
 			name="id" default="0" 
 			label="JGLOBAL_FIELD_ID_LABEL"
@@ -70,8 +70,15 @@
 				label="JTAG" 
 				description="JTAG_DESC"
 				multiple="true"
+				custom="deny"
 		>
 		</field>
+		<field name="revtaggroup" type="childtags"
+			label="Review Tags" description="Description to be taken from parent tag"
+			parent="com_xbfilms.revtaggroup_parent"
+			multiple="true"  published="1"
+			mode="nested" custom="deny"
+		/>
 
 		<field name="rev_date" type="calendar"
 			label="XBFILMS_FIELD_SEEN_LABEL" description="XBFILMS_FIELD_SEEN_DESC"
@@ -109,7 +116,7 @@
 		<field name="modified_by" type="user"
 			label="XBCULTURE_FIELD_MODIFIED_BY_LBL" description="XBCULTURE_FIELD_MODIFIED_BY_DESC" />
 
-		<field name="where_seen" type="text"
+		<field name="where_seen" type="whereseen"
 			label="Where Seen" description="Note where seen and format viewed"
 			class="inputbox" maxsize="99" />
 

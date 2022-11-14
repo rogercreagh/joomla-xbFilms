@@ -148,7 +148,7 @@
 			<option value="1">JSHOW</option>
 		</field>	
 		<field name="taggrpsnote" type="note"
-			label="Tag Groups"
+			label="Film Tag Groups"
 			description="XBCULTURE_CONFIG_TAGGROUPNOTE_DESC"
 		/>	
 		
@@ -199,6 +199,10 @@
 			<option value="">- not used -</option>
 		</field>
 		
+		<field name="fdatespsnote" type="note"
+			label="Film Dates"
+			description="A film can have first and last seen dates. These are separate to the review dates, but can be updated by a new review. If both dates are not set the film is deemed not to have been seen (yet!)"
+		/>	
  		<field name="show_fdates" type="radio"
 			label="Show Seen Dates"
 			description="A film has first and last seen dates. For some sites you might not wish to use first/last seen on the front-end, for example if you are not using reviews. If seen dates are shown, then any unseen films (null in first and last seen) will not appear in the list when sorted by seen date."
@@ -279,7 +283,17 @@
 			>
 			<option value="0" >JHIDE</option>
 			<option value="1">JSHOW</option>
-		</field>			
+		</field>	
+		<field name="revtaggroup_parent" type="tag" 
+			mode="nested" published="1"
+			label="Review tag group" description="Show additional tag selector on review edit form which is limited to children of the tag specified here. Other tags can still be selected in the standard tags field."
+			multiple="false"
+			showon="show_tags:1[AND]show_rtags:1"
+			default=""
+		>
+			<option value="">- not used -</option>
+		</field>
+				
   		<field name="starsnote" type="note"
 			label="XBCULTURE_CONFIG_STARS_NOTE"
 			description="XBCULTURE_CONFIG_STARS_NOTE_DESC"
@@ -347,7 +361,8 @@
 		</field>
 		<field name="incroot_person" type="radio"
 			label="XBCULTURE_CONFIG_INCROOT_LABEL"
-			description="XBCULTURE_CONFIG_INCROOT_DESC"
+			description="XBCULTURE_CONFIG_INCROOT_DESC" 
+			
 			class="btn-group btn-group-yesno"
 			showon="show_cats!:0[AND]show_pcat!:0[AND]rootcat_person!:"
 		>
@@ -373,6 +388,16 @@
 			<option value="0" >JHIDE</option>
 			<option value="1">JSHOW</option>
 		</field>	
+		<field name="peeptaggroup_parent" type="tag" 
+			mode="nested" published="1"
+			label="People tag group" description="Show additional tag selector on review edit form which is limited to children of the tag specified here. Other tags can still be selected in the standard tags field."
+			multiple="false"
+			showon="show_tags:1[AND]show_ptags:1"
+			default=""
+		>
+			<option value="">- not used -</option>
+		</field>
+				
  		<field name="charsnote" type="note"
 			label="XBCULTURE_CONFIG_CHAR_SETTINGS"
 		/>	
@@ -398,7 +423,7 @@
 			<option value="">JOPTION_SELECT_CATEGORY</option>
 		</field>
 		<field name="incroot_char" type="radio"
-			label="XBCULTURE_CONFIG_INCROOT_LABELt"
+			label="XBCULTURE_CONFIG_INCROOT_LABEL"
 			description="XBCULTURE_CONFIG_INCROOT_DESC"
 			class="btn-group btn-group-yesno"
 			showon="show_cats!:0[AND]rootcat_char!:"
@@ -424,6 +449,15 @@
 			>
 			<option value="0" >JHIDE</option>
 			<option value="1">JSHOW</option>
+		</field>
+		<field name="chartaggroup_parent" type="tag" 
+			mode="nested" published="1"
+			label="Character tag group" description="Show additional tag selector on edit form which is limited to children of the tag specified here. Other tags can still be selected in the standard tags field."
+			multiple="false"
+			showon="show_tags:1[AND]show_ctags:1"
+			default=""
+		>
+			<option value="">- not used -</option>
 		</field>
 				
 	</fieldset>
