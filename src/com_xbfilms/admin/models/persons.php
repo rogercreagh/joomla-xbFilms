@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/persons.php
- * @version 0.9.9.8 21st October 2022
+ * @version 0.9.10.3 14th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -218,9 +218,7 @@ class XbfilmsModelPersons extends JModelList {
 				}
 				$item->ext_links_list = trim($item->ext_links_list,', ');
 	        } //end if is_object
-	        $item->persontags = $tagsHelper->getItemTags('com_xbpeople.person' , $item->id);
-//	        $item->filmtags = $tagsHelper->getItemTags('com_xbfilms.person' , $item->id);
-//	        $item->booktags = $tagsHelper->getItemTags('com_xbbooks.person' , $item->id);
+	        $item->tags = $tagsHelper->getItemTags('com_xbpeople.person' , $item->id);
         } //end foreach item
 	        return $items;
     }

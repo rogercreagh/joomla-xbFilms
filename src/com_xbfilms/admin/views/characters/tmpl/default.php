@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/characters/tmpl/default.php
- * @version 0.9.9.7 4th September 2022
+ * @version 0.9.10.3 14th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -229,7 +229,11 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 						<?php endif; ?>
                     </td>
 					<td>
-						<?php if ($item->fcnt>0) : ?> 
+						<?php if (($item->fcnt==1) || ($item->fcnt==2)) : ?> 
+                            <ul class="xbdetails">
+								<?php echo $item->filmlist; ?>
+							</ul>
+						<?php elseif ($item->fcnt>2) : ?> 
 						    <details>
 						    <summary><span class="xbnit">
 						    <?php echo Text::_('XBCULTURE_APPEARS_IN').' '.$item->fcnt.' ';
@@ -256,7 +260,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 						<?php endif; ?>
 						<ul class="inline">
 						<?php foreach ($item->tags as $t) : ?>
-							<li><a href="<?php echo $tvlink.$t->id; ?>" class="label label-info">
+							<li><a href="<?php echo $tvlink.$t->id; ?>" class="label chcnt">
 								<?php echo $t->title; ?></a>
 							</li>												
 						<?php endforeach; ?>
