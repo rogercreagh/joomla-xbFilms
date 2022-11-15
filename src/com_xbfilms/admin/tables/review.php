@@ -2,7 +2,8 @@
 /*******
  * @package xbFilms
  * @filesource admin/tables/review.php
-November * @author Roger C-O
+ * @version 0.9.11.0 15th November 2022November 
+ * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
@@ -53,7 +54,7 @@ class XbfilmsTableReview extends Table
 	    		$title = 'Review of '.$ftitle;
 	    		Factory::getApplication()->enqueueMessage('No review title supplied; default created - please check and change as necessary','Warning');
 	    	}
-	    	if (($this->id == 0) && (XbfilmsHelper::checkTitleExists($title,'#__xbfilmreviews'))) {
+	    	if (($this->id == 0) && (XbcultureHelper::checkTitleExists($title,'#__xbfilmreviews'))) {
 	    		$this->setError(JText::_('Review "'.$title.'" already exists; if this is a different review with the same title please append something to the title to distinguish them'));
 	    	    return false;
 	    	}

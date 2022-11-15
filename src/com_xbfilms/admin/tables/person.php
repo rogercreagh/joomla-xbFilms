@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/tables/person.php
- * @version 0.9.9.4 29th July 2022
+ * @version 0.9.11.0 15th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -48,7 +48,7 @@ class XbfilmsTablePerson extends Table
             return false;
         }
         
-        if (($this->id == 0) && (XbfilmsHelper::checkPersonExists($firstname,$lastname))) {
+        if (($this->id == 0) && (XbcultureHelper::checkPersonExists($firstname,$lastname))) {
         	$this->setError(JText::_('Person  "'.$firstname.' '.$lastname.'" already exists; if this is a different individual with the same name please append something to the name to distinguish them'));
         	return false;
     	}

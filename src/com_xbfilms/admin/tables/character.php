@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/tables/character.php
- * @version 0.9.8.3 24th May 2022
+ * @version 0.9.11.0 15th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -46,7 +46,7 @@ class XbfilmsTableCharacter extends Table
     	    return false;
     	}
     	
-    	if (($this->id == 0) && (XbfilmsHelper::checkTitleExists($name,'#__xbcharacters'))) {
+    	if (($this->id == 0) && (XbcultureHelper::checkTitleExists($name,'#__xbcharacters'))) {
     		$this->setError(JText::_('Character "'.$title.'" already exists; if this is a different individual with the same name please append something to the name to distinguish them'));
     	    return false;
     	}

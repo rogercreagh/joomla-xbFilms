@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/characters.php
- * @version 0.9.10.3 14th November 2022
+ * @version 0.9.11.0 15th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -191,14 +191,18 @@ class XbfilmsModelCharacters extends JModelList {
         // we are going to add the list of characters for each film
         $tagsHelper = new TagsHelper;
         foreach ($items as $i=>$item) { 
-             $item->films = ($item->fcnt>0) ? XbcultureHelper::getCharFilms($item->id) : '';
-            $item->filmlist = '';
-           foreach ($item->films as $film) {
-                $item->filmlist .= $film->listitem;
-            }
-	        $item->tags = $tagsHelper->getItemTags('com_xbpeople.character' , $item->id);
+            $item->filmcnt = 0;
+            $item->filmlist='';
+            if ($item->fcnt>0) {
+                $item->films = XbcultureHelper::getCharFilms($item->id);
+                $item->filmcnt = count($item->films);
+                $item->filmlist = $item->filmcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->films,'','ul',true,4);
+            } //bcnt is the number of books, bookcnt is the number of roles (maybe 2 roles in a book)
+            $item->films = ($item->fcnt>0) ? XbcultureHelper::getCharFilms($item->id) : '';
+
+            $item->tags = $tagsHelper->getItemTags('com_xbpeople.character' , $item->id);
         } //end foreach item
-	        return $items;
+	    return $items;
     }
 
 }

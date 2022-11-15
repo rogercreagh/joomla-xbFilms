@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/helpers/xbfilmsgeneral.php
- * @version 0.9.9.7 14th September 2022
+ * @version 0.9.11.0 15th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -10,16 +10,10 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
 use Joomla\CMS\Factory;
-use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Router\Route;
-use Joomla\CMS\Application\ApplicationHelper;
-use Joomla\CMS\Installer\Installer;
-use Joomla\CMS\Language\Text;
-use Joomla\CMS\Component\ComponentHelper;
 
-
-//class for methods used by both site and admin
+//class for methods used by both site and admin only in xbFilms
 
 class XbfilmsGeneral {
     

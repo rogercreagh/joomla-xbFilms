@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/characters.php
- * @version 0.9.9.8 23rd October 2022
+ * @version 0.9.11.0 15th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -67,12 +67,6 @@ class XbfilmsModelCharacters extends JModelList {
         //only get film chars
         $query->join('INNER','#__xbfilmcharacter AS fp ON fp.char_id = a.id');
         
-            
-            
- //           	->join('LEFT OUTER',$db->quoteName('#__xbfilmcharacter', 'p') . ' ON ' .$db->quoteName('a.id') . ' = ' . $db->quoteName('p.char_id'))
- //           	->where('p.film_id IS NOT NULL');
-//            $query->select('COUNT(DISTINCT p.film_id) AS fcnt');
-
        $query->select('c.title AS category_title');
        $query->join('LEFT', '#__categories AS c ON c.id = a.catid');
              
@@ -207,19 +201,16 @@ class XbfilmsModelCharacters extends JModelList {
     		Factory::getApplication()->setUserState('characters.sortorder', $peep);
     		
     		foreach ($items as $i=>$item) {
-    			//get films 
+    		    
+    		    $item->filmcnt = 0;
+    		    $item->filmlist='';
     		    if ($item->fcnt>0) {
-    		      $item->films = XbcultureHelper::getCharFilms($item->id); 
-    		      $item->filmlist = '<ul class="xblist">';
-    		      foreach ($item->films as $film) {
-    		          $item->filmlist .= $film->listitem;
-    		      }
-    		      $item->filmlist .= '</ul>';
-    		    } else {
-    		        $item->films = '';
-    		        $item->filmlist = '';
-    		    }
-    			$item->tags = $tagsHelper->getItemTags('com_xbpeople.character' , $item->id);
+    		        $item->films = XbcultureHelper::getCharFilms($item->id);
+    		        $item->filmcnt = count($item->films);
+    		        $item->filmlist = $item->filmcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->films,'','ul',true,4);
+    		    } //bcnt is the number of books, bookcnt is the number of roles (maybe 2 roles in a book)
+    		    
+    		    $item->tags = $tagsHelper->getItemTags('com_xbpeople.character' , $item->id);
     		} //end foreach item		        			
 		} //end if items
 		return $items;

@@ -2,19 +2,30 @@
 /*******
  * @package xbFilms
  * @filesource site/models/film.php
- * @version 0.9.9.7 8th September 2022
+ * @version 0.9.11.0 15th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 use Joomla\Registry\Registry;
 
 class XbfilmsModelFilmreview extends JModelItem {
 		
-	protected function populateState() {
+    public function __construct($config = array()) {
+        $showrevs = ComponentHelper::getParams('com_xbfilms')->get('show_revs',1);
+        if (!$showrevs) {
+            header('Location: index.php?option=com_xbfilms&view=filmlist');
+            exit();
+        }
+        parent::__construct($config);
+    }
+    
+    protected function populateState() {
 		$app = Factory::getApplication('site');
 		
 		// Load state from the request.
@@ -57,15 +68,19 @@ class XbfilmsModelFilmreview extends JModelItem {
 				$params->merge($item->params);
 				$item->params = $params;				
 				
-// 				//get people and counts
-// 				$item->people = XbfilmsGeneral::getFilmPeople($item->film_id);
-// 				$cnts = array_count_values(array_column($item->people, 'role'));
-// 				$item->dircnt = (key_exists('director',$cnts))? $cnts['director'] : 0;
-// 				$item->prodcnt = (key_exists('producer',$cnts))? $cnts['producer'] : 0;
+				$item->people = XbfilmsGeneral::getFilmPeople($item->film_id);
+				//get counts for director,producers,cast,crew,appearances
+				$roles = array_column($item->people,'role');
+				$item->dircnt = count(array_keys($roles, 'director'));
 				
-// 				$item->dirlist = $item->dircnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'director','comma');
-// 				$item->prodlist = $item->prodcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'producer','comma');
-				
+				//make author/editor list
+				$item->dirlist = '<i>';
+			    if ($item->dircnt == 0){
+			        $item->dirlist .= Text::_( 'No Director Listed' ).'</i>';
+			    } else {
+			        $item->dirlist .= ($item->authcnt>1)?Text::_('XBCULTURE_DIRECTORS'):Text::_('XBCULTURE_DIRECTOR');
+			        $item->dirlist .= '</i>: '.XbcultureHelper::makeLinkedNameList($item->people,'director','comma',false);
+			    }
 				
 				//get other reviews
 				$item->reviews = XbfilmsGeneral::getFilmReviews($item->film_id);				

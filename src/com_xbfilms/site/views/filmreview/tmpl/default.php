@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmreview/tmpl/default.php
- * @version 0.9.9.7 8th September 2022
+ * @version 0.9.11.0 15th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -50,8 +50,8 @@ if ($imgok) {
 					<h3><?php echo $item->title; ?></h3>
 					<h4><span class="xbnit"><?php echo Text::_('XBFILMS_REVIEWOF'); ?></span>"
 						 <?php echo '<a href="'.$flink;
-						 if (!empty($item->edauths)) {
-						 	echo '" class="hasTooltip" title data-original-title="'.$item->edauths;
+						 if (!empty($item->dirlist)) {
+						 	echo '" class="hasTooltip" title data-original-title="'.$item->dirlist;
 						 }
 							echo '">'.$item->film_title.'</a>'; ?>" 
 						<span class="xbnit"><?php echo Text::_('XBCULTURE_BY'); ?></span>
