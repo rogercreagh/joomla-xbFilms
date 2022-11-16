@@ -40,9 +40,9 @@
     	</field>
     	
 		<field name="rating" type="rating" 
-			label="XBFILMS_RATING_LABEL" description="XBFILMS_RATING_DESC" 
+			label="XBCULTURE_RATING" description="XBCULTURE_RATING_DESC" 
 			default="" required="true">
-			<option value="">Please Select</option>
+			<option value="">XBCULTURE_PLEASE_SELECT</option>
 		</field>
 		
 		<field name="review" type="editor"

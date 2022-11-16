@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- xbFilms admin/models/forms/filter_reviews.xml v0.4.1 19th February 2021 -->
 <form>
-	<fields name="filter"  addfieldpath="administrator/components/com_xbfilms/models/fields">
+	<fields name="filter"  addfieldpath="administrator/components/com_xbpeople/models/fields">
 		<field
 			name="search"
 			type="text"
@@ -31,7 +31,7 @@
 		</field>
 		<field
 			name="ratfilt" type="rating" 
-			label="XBFILMS_RATING_LABEL" description="XBFILMS_RATING_DESC" 
+			label="XBCULTURE_RATING" description="XBCULTURE_RATING_DESC" 
 			default="" 
 			onchange="this.form.submit();">
 			<option value="">Filter by Rating</option>
