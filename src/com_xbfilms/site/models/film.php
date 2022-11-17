@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/film.php
- * @version 0.9.9.8 10th October 2022
+ * @version 0.9.11.2 17th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -37,7 +37,7 @@ class XbfilmsModelFilm extends JModelItem {
                 a.orig_lang AS orig_lang, a.studio AS studio, a.country AS country, a.runtime AS runtime, 
                 a.filmcolour, a.aspect_ratio, a.cam_format, a.filmsound, a.tech_notes,
 				a.ext_links AS ext_links, a.first_seen AS first_seen, a.last_seen AS last_seen,
-				a.state AS published, a.catid AS catid, a.params AS params, a.metadata AS metadata ');
+				a.state AS published, a.catid AS catid, a.params AS params, a.metadata AS metadata, a.created AS created ');
 			$query->from('#__xbfilms AS a');
 			$query->select('(SELECT COUNT(DISTINCT(fp.person_id)) FROM #__xbfilmperson AS fp WHERE fp.film_id = a.id) AS pcnt');
 			$query->select('(SELECT AVG(fr.rating) FROM #__xbfilmreviews AS fr WHERE fr.film_id=a.id) AS averat');

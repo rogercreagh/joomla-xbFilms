@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/persons/view.html.php
- * @version 0.9.9.8 19th October 2022
+ * @version 0.9.11.2 17th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -90,7 +90,7 @@ class XbfilmsViewPersons extends JViewLegacy {
         
         ToolbarHelper::custom(); //spacer
         if ($this->xbpeople_ok) {
-        	ToolbarHelper::custom('persons.people', 'users', '', 'xbPeople', false) ;
+        	ToolbarHelper::custom('persons.people', 'users', '', 'All People', false) ;
         }
         
         if ($canDo->get('core.admin')) {

@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/filmlist.php
- * @version 0.9.9.9 1st November 2022
+ * @version 0.9.11.2 17th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -115,9 +115,9 @@ class XbfilmsModelFilmlist extends JModelList {
             //filter by seen/unseen
             $seenfilt = $this->getState('filter.seenfilt');
             if ((int)$seenfilt==1) {
-                $query->where('a.last_seen > 0');
+                $query->where('a.first_seen > 0');
             } elseif ($seenfilt==2) {
-                $query->where('COALESCE(a.last_seen,0) = 0');
+                $query->where('COALESCE(a.first_seen,0) = 0');
             }
             
             //filter by person 

@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/people/tmpl/default.php
- * @version 0.9.10.3 14th November 2022
+ * @version 0.9.11.2 17th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -257,49 +257,69 @@ $bplink = 'index.php?option=com_xbpeople&view=person&layout=edit&id=';
                     </td>
 					<td>
 						<?php if ($item->dircnt>0) : ?>
-                          <details>
-                          	<summary><span class="xbnit">
- 								<?php echo Text::_('XBCULTURE_DIRECTOR_OF').' '.$item->dircnt.' ';
-                                echo ($item->dircnt==1)?Text ::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS');   ?>
-                            </span></summary>
- 							<?php echo $item->dirlist; ?>
-                          </details>
+        					<?php if (($item->frcnt == 1) && ($item->dircnt < 3)) : ?>
+        						<?php echo $item->dirlist; ?>
+							<?php else : ?>
+                              <details>
+                              	<summary><span class="xbnit">
+     								<?php echo Text::_('XBCULTURE_DIRECTOR_OF').' '.$item->dircnt.' ';
+                                    echo ($item->dircnt==1)?Text ::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS');   ?>
+                                </span></summary>
+     							<?php echo $item->dirlist; ?>
+                              </details>
+    						<?php endif; ?> 
 						<?php endif; ?> 
 						<?php if ($item->prodcnt>0) : ?>
-                          <details>
-                          	<summary><span class="xbnit">
- 								<?php echo Text::_('XBCULTURE_PRODUCER_OF').' '.$item->prodcnt.' ';
-                                echo ($item->prodcnt==1)? Text::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS');   ?>
-                            </span></summary>
-							<?php echo $item->prodlist; ?>
-                          </details>
+         					<?php if (($item->frcnt == 1) && ($item->prodcnt < 3)) : ?>
+        						<?php echo $item->prodlist; ?>
+							<?php else : ?>
+                              <details>
+                              	<summary><span class="xbnit">
+     								<?php echo Text::_('XBCULTURE_PRODUCER_OF').' '.$item->prodcnt.' ';
+                                    echo ($item->prodcnt==1)? Text::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS');   ?>
+                                </span></summary>
+    							<?php echo $item->prodlist; ?>
+                              </details>
+    						<?php endif; ?> 
 						<?php endif; ?> 
 						<?php if ($item->crewcnt>0) : ?>
-                          <details>
-                          	<summary><span class="xbnit">
- 								<?php echo Text::_('XBCULTURE_CREW_ON').' '.$item->crewcnt.' ';
- 								echo ($item->crewcnt==1)? Text::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS');   ?>
-                            </span></summary>
-							<?php echo $item->crewlist; ?>
-                          </details>
+         					<?php if (($item->frcnt == 1) && ($item->crewcnt < 3)) : ?>
+        						<?php echo $item->crewlist; ?>
+							<?php else : ?>
+                              <details>
+                              	<summary><span class="xbnit">
+     								<?php echo Text::_('XBCULTURE_CREW_ON').' '.$item->crewcnt.' ';
+     								echo ($item->crewcnt==1)? Text::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS');   ?>
+                                </span></summary>
+    							<?php echo $item->crewlist; ?>
+                              </details>
+    						<?php endif; ?> 
 						<?php endif; ?> 
 						<?php if ($item->castcnt>0) : ?>
-                          <details>
-                          	<summary><span class="xbnit">
- 								<?php echo Text::_('XBCULTURE_ACTOR_IN').' '.$item->castcnt.' ';
- 								echo ($item->castcnt==1)? Text::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS');   ?>
-                            </span></summary>
-							<?php echo $item->castlist; ?>
-                          </details>
+         					<?php if (($item->frcnt == 1) && ($item->castcnt < 3)) : ?>
+        						<?php echo $item->castlist; ?>
+							<?php else : ?>
+                              <details>
+                              	<summary><span class="xbnit">
+     								<?php echo Text::_('XBCULTURE_ACTOR_IN').' '.$item->castcnt.' ';
+     								echo ($item->castcnt==1)? Text::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS');   ?>
+                                </span></summary>
+    							<?php echo $item->castlist; ?>
+                              </details>
+    						<?php endif; ?> 
 						<?php endif; ?> 
 						<?php if ($item->appcnt>0) : ?>
-                          <details>
-                          	<summary><span class="xbnit">
- 								<?php echo Text::_('XBCULTURE_SUBJECT_CAMEO').' '.$item->appcnt.' ';
- 								echo ($item->appcnt==1)? Text::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS');   ?>
-                            </span></summary>
-							<?php echo $item->applist; ?>
-                          </details>
+         					<?php if (($item->frcnt == 1) && ($item->appcnt < 3)) : ?>
+        						<?php echo $item->applist; ?>
+							<?php else : ?>
+                              <details>
+                              	<summary><span class="xbnit">
+     								<?php echo Text::_('XBCULTURE_SUBJECT_CAMEO').' '.$item->appcnt.' ';
+     								echo ($item->appcnt==1)? Text::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS');   ?>
+                                </span></summary>
+    							<?php echo $item->applist; ?>
+                              </details>
+    						<?php endif; ?> 
 						<?php endif; ?> 
 
 						<?php if ($item->bcnt>0) {

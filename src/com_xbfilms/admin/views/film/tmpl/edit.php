@@ -23,9 +23,10 @@ HTMLHelper::_('formbehavior.chosen', '#jform_catid', null, array('disable_search
 HTMLHelper::_('formbehavior.chosen', '#jform_tags', null, array('placeholder_text_multiple' => Text::_('JGLOBAL_TYPE_OR_SELECT_SOME_TAGS')));
 HTMLHelper::_('formbehavior.chosen', 'select');
 
+//set styles for quick person modal
 $document = Factory::getDocument();
 $style = '.controls .btn-group > .btn  {min-width: unset;padding:3px 12px 4px;}'
-    .' .modal-body {height:262px;} .modal-body iframe { height:232px;}' ;
+    .' .xbqpmodal .modal-body {height:262px;} .xbqpmodal .modal-body iframe { height:232px;}' ;
 $document->addStyleDeclaration($style);
 ?>
 <form action="<?php echo Route::_('index.php?option=com_xbfilms&layout=edit&id=' . (int) $this->item->id); ?>"
@@ -197,6 +198,7 @@ $document->addStyleDeclaration($style);
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbFilms');?></p>
 <script>
+//for quick person modal
 jQuery(document).ready(function(){
     jQuery('#ajax-modal').on('show', function () {
         // Load view vith AJAX
@@ -208,7 +210,8 @@ jQuery(document).ready(function(){
     })
 });
 </script>
-<div class="modal fade" id="ajax-modal" style="max-width:1000px;">
+<!-- quick person modal window -->
+<div class="modal fade xbqpmodal" id="ajax-modal" style="max-width:1000px;">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Ajax content will be loaded here -->

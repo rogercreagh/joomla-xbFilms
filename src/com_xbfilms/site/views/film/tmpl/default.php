@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/film/tmpl/default.php
- * @version 0.9.9.9 1st November 2022
+ * @version 0.9.11.2 17th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -248,7 +248,6 @@ if ($imgok) {
 
 <?php if ($this->show_fdates) : ?>
 	<div class="row-fluid">
-		<div class="span1"></div>
 		<div class="span5">
 			<span class="xbnit"><?php echo  Text::_('XBFILMS_DATE_FIRST_SEEN').': '; ?>
 			</span>
@@ -256,7 +255,7 @@ if ($imgok) {
 			echo HtmlHelper::date($item->first_seen , $datefmt) ; ?>
 		</div>
 		<div class="span5">
-	    	<?php if ($item->last_seen) : ?>
+	    	<?php if (($item->last_seen) && ($item->last_seen <> $item->first_seen)) : ?>
 	    		<span class="xbnit"><?php echo  Text::_('XBFILMS_DATE_LAST_SEEN').': '; ?>
 	    		</span>
 	    		<?php $datefmt = xbCultureHelper::getDateFmt($item->last_seen, 'D jS M Y');
@@ -264,6 +263,10 @@ if ($imgok) {
     		<?php endif; ?>
 		</div>
 		<div class="span1"></div>
+		<div class="span4">
+			   <span class="xbnit xbgrey"><?php echo  Text::_('XBCULTURE_CATALOGUED').': '.HtmlHelper::date($item->created ,'jS M Y'); ?>
+	    		</span>
+		</div>
 	</div>
     <hr />
 <?php endif; ?>
