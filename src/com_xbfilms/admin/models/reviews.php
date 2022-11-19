@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/reviews.php
- * @version 0.9.9.8 21st October 2022
+ * @version 0.9.11.2 18th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -72,12 +72,9 @@ class XbfilmsModelReviews extends JModelList {
         }
             
         // Filter by published state
-        $published = $this->getState('filter.published');
-        
+        $published = $this->getState('filter.published');       
         if (is_numeric($published)) {
             $query->where('a.state = ' . (int) $published);
-        } elseif ($published === '') {
-            $query->where('(a.state IN (0, 1))');
         }
         
         // Filter by category.

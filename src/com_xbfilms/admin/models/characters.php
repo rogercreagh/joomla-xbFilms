@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/characters.php
- * @version 0.9.11.0 15th November 2022
+ * @version 0.9.11.2 18th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -75,8 +75,6 @@ class XbfilmsModelCharacters extends JModelList {
         
         if (is_numeric($published)) {
             $query->where('state = ' . (int) $published);
-        } elseif ($published === '') {
-            $query->where('(state IN (0, 1))');
         }
         
         // Filter by category.

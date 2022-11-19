@@ -74,12 +74,9 @@ class XbfilmsModelPersons extends JModelList {
         }
         
         // Filter by published state
-        $published = $this->getState('filter.published');
-        
+        $published = $this->getState('filter.published');       
         if (is_numeric($published)) {
             $query->where('state = ' . (int) $published);
-//        } elseif ($published === '') {
-            //$query->where('(state IN (0, 1))');
         }
         
         //filter by nationality

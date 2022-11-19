@@ -20,6 +20,7 @@ class XbfilmsViewCategory extends JViewLegacy {
 		
 		$this->state = $this->get('State');
 		$this->params = $this->state->get('params');
+		$this->hide_empty = $this->params->get('hide_empty',1);
 		
 		if (count($errors = $this->get('Errors'))) {
 			Factory::getApplication()->enqueueMessage(implode('<br />', $errors),'error');
