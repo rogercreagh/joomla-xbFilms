@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms admin/models/forms/person.xml v0.9.10.1 12th November 20221 -->
+<!-- xbFilms admin/models/forms/person.xml v0.10.0.0 22nd November 2022 -->
 <form>
 	<fieldset addfieldpath="/administrator/components/com_xbpeople/models/fields">
 		<field name="id" default="0" 
@@ -52,13 +52,17 @@
 		<field name="portrait" type="media"
 			label="XBFILMS_FIELD_PORTRAIT_LABEL" description="XBFILMS_FIELD_PORTRAIT_DESC" />
 			
-		<field name="catid" type="category" extension="com_xbpeople" class="chzn-custom-value"
+		<field name="catid" type="xbcats" 
+			extension="com_xbpeople" class="chzn-custom-value"
+			parent="com_xbpeople.rootcat_person"
 			label="JCATEGORY" description="XBFILMS_CATEGORY_DESC" >
 			<option value="0">JOPTION_SELECT_CATEGORY</option>
 		</field>
+		<!-- 
 		<field name="hcatid" type="hidden"
 			default="0"
 		/>
+		 -->
 		
 		<field name="state" type="list"
 			label="JSTATUS" description="JFIELD_PUBLISHED_DESC"
@@ -77,8 +81,8 @@
 				multiple="true"
 		>
 		</field>
-		<field name="peeptaggroup" type="childtags"
-			label="People Tags" description="Description to be taken from parent tag"
+		<field name="peeptaggroup" type="xbtags"
+			label="(value from parent)" description="(Description to be taken from parent tag)"
 			parent="com_xbfilms.peeptaggroup_parent"
 			multiple="true"  published="1"
 			mode="nested" custom="deny"

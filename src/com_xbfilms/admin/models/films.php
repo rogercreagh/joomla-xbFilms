@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/films.php
- * @version 0.9.11.2 18th November 2022
+ * @version 0.10.0.0 22nd November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -99,7 +99,6 @@ class XbfilmsModelFilms extends JModelList
         }
 
         // Filter by category.
-        //TODO handle multiple cats
         $app = Factory::getApplication();
         //do we have a catid request, if so we need to over-ride any filter, but save the filter to re-instate?
         $categoryId = $app->getUserStateFromRequest('catid', 'catid','');
@@ -115,6 +114,9 @@ class XbfilmsModelFilms extends JModelList
 //            } else {
                 $query->where($db->quoteName('a.catid') . ' = ' . (int) $categoryId);
 //            }
+        } elseif (is_array($categoryId)) {
+            $categoryId = implode(',', $categoryId);
+            $query->where($db->quoteName('a.catid') . ' IN ('.$categoryId.')');
         }
 
         // Filter by search in title/id/synop

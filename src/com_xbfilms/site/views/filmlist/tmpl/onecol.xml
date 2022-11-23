@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms site/views/filmlist/onecol.xml v0.9.9.8 13th October 2022 -->
+<!-- xbFilms site/views/filmlist/onecol.xml v0.10.0.0 22nd November 2022 -->
 <metadata>
 	<layout title="Film List One Column">
 		<message>Displays a list of films in a single column. Options enable user search &amp; filtering or to restrict to single category and filter person and tags.</message>
 	</layout>
-	<fields name="params" addfieldpath="administrator/components/com_xbfilms/models/fields">
+	<fields name="params" addfieldpath="administrator/components/com_xbpeople/models/fields">
 <!-- Basic options. -->
 		<fieldset name="basic" label="Options">
 			<field name="show_fpiccol" type="radio"
@@ -97,14 +97,14 @@
 				>
 				<option value="">Character to filter by</option>
 			</field>
-			<field
-				name="menu_category_id"
-				type="category"
-				label="Category"
-				extension="com_xbfilms"
+			<field name="menu_category_id" type="xbitemcats"
+				label="XBCULTURE_CATEGORY"
 				description="XBFILMS_CATEGORY_DESC"
+				extension="com_xbfilms"
+				itemtable="#__xbfilms"
+				multiple="true" mode="nested"
+				published="1"
 				>
-					<option value="0">XBFILMS_ALL_CATEGORIES</option>
 			</field>
 			<field name="menu_subcats" type="radio"
 				default=""

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms site/views/filmlist/default.xml v0.9.9.6 24th August 2022 -->
+<!-- xbFilms site/views/filmlist/default.xml v0.10.0.0 22nd November 2022 -->
 <metadata>
 	<layout title="Film List">
 		<message>Displays a list (table) of films. Options enable user search &amp; filtering or to restrict to single category and filter person and tags.</message>
 	</layout>
-	<fields name="params" addfieldpath="administrator/components/com_xbfilms/models/fields">
+	<fields name="params" addfieldpath="administrator/components/com_xbpeople/models/fields">
 <!-- Basic options. -->
 		<fieldset name="basic" label="Layout">
 			<field name="show_fpiccol" type="radio"
@@ -93,13 +93,14 @@
 				>
 				<option value="">XBFILMS_CHARFILT_HINT</option>
 			</field>
-			<field
-				name="menu_category_id" type="category"
+			<field name="menu_category_id" type="xbitemcats"
 				label="XBCULTURE_CATEGORY"
-				extension="com_xbfilms"
 				description="XBFILMS_CATEGORY_DESC"
+				extension="com_xbfilms"
+				itemtable="#__xbfilms"
+				multiple="true" mode="nested"
+				published="1"
 				>
-					<option value="0">XBFILMS_ALL_CATEGORIES</option>
 			</field>
 			<field name="menu_subcats" type="radio"
 				default=""

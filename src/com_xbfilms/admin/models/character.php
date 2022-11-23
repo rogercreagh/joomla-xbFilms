@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/character.php
- * @version 0.9.10.1 13th November 2022
+ * @version 0.10.0.0 22nd November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -58,10 +58,10 @@ class XbfilmsModelCharacter extends JModelAdmin {
         if ($image_path != '') {
         	$form->setFieldAttribute('image','directory',$image_path);
         }
-        if (Factory::getSession()->get('xbpeople_ok')==false) {
-        	$form->setFieldAttribute('catid','name','pcatid');
-        	$form->setFieldAttribute('hcatid','name','catid');
-        }
+//         if (Factory::getSession()->get('xbpeople_ok')==false) {
+//         	$form->setFieldAttribute('catid','name','pcatid');
+//         	$form->setFieldAttribute('hcatid','name','catid');
+//         }
         
         return $form;
     }
