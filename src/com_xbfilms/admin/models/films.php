@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/films.php
- * @version 0.10.0.0 22nd November 2022
+ * @version 0.10.0.1 25th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -24,7 +24,8 @@ class XbfilmsModelFilms extends JModelList
         		'ordering','a.ordering', 'category_title', 'c.title',
         		'catid', 'a.catid', 'category_id', 'tagfilt', 'taglogic',
         		'first_seen', 'a.first_seen', 'last_seen', 'a.last_seen',
-        		'published','a.state', 'rel_year','a.rel_year');
+                'created', 'a.created',
+                'published','a.state', 'rel_year','a.rel_year');
         }
         parent::__construct($config);
     }
@@ -77,7 +78,7 @@ class XbfilmsModelFilms extends JModelList
             a.poster_img AS poster_img, a.synopsis AS synopsis, a.state AS published, 
             a.created AS created, a.created_by AS created_by, a.first_seen AS first_seen, a.last_seen AS last_seen,
             a.created_by_alias AS created_by_alias, a.ext_links AS ext_links,
-            a.checked_out AS checked_out, a.checked_out_time AS checked_out_time, 
+            a.checked_out AS checked_out, a.checked_out_time AS checked_out_time,  a.created AS created,
             a.metadata AS metadata, a.ordering AS ordering, a.params AS params, a.note AS note');
 		$query->from('#__xbfilms AS a')
         //join to persons and characters to allow filtering on them

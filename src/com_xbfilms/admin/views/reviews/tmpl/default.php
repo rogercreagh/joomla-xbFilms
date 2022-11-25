@@ -29,8 +29,8 @@ if (!$listOrder) {
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'filmtitle'=>Text::_('XBFILMS_FILMTITLE'),
 		'id'=>'id','rev_date'=>Text::_('XBCULTURE_DATES'),'rating'=>Text::_('XBCULTURE_RATING'),
-		'category_title'=>Text::_('XBCULTURE_CATEGORY'),
-		'published'=>Text::_('XBCULTURE_PUBSTATE'),'a.ordering'=>Text::_('XBCULTURE_ORDERING'));
+    'category_title'=>Text::_('XBCULTURE_CATEGORY'),'a.created'=>Text::_('XBCULTURE_DATE_ADDED')
+		'published'=>Text::_('XBCULTURE_STATUS'),'a.ordering'=>Text::_('XBCULTURE_ORDERING'));
 
 $saveOrder      = $listOrder == 'ordering';
 $canOrder       = $user->authorise('core.edit.state', 'com_xbfilms.film');
@@ -58,16 +58,17 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 	<?php else : ?>
         <div id="j-main-container">
 	<?php endif;?>
-	<div class="pull-right span2">
-		<p style="text-align:right;">
-			<?php $fnd = $this->pagination->total;
-			echo $fnd .' '. Text::_(($fnd==1)?'XBCULTURE_REVIEW':'XBCULTURE_REVIEWS').' '.Text::_('XBCULTURE_FOUND');
+ 	<div class="pull-right span6 xbtr xbm0">
+ 			<?php $fnd = $this->pagination->total;
+			echo $fnd .' '. Text::_(($fnd==1)?'XBCULTURE_REVIEW':'XBCULTURE_REVIEWS').' '.Text::_('XBCULTURE_FOUND').', ';
 			?>
-			</p>
+            <?php echo 'sorted by '.$orderNames[$listOrder].' '.$listDirn ; ?>
 	</div>
 	<div class="clearfix"></div>
-	<?php
-        // Search tools bar
+    <div class="pull-right pagination xbm0" style="padding-left:10px;">
+        <?php echo $this->pagination->getPagesLinks(); ?>
+    </div>
+	<?php // Search tools bar
         echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this));
     ?>
 	<div class="clearfix"></div>
@@ -83,11 +84,6 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 		}
 		echo '</p>';
 	} ?> 
-	<div class="pagination">
-		<?php  echo $this->pagination->getPagesLinks(); ?>
-		<br />
-	    <?php echo 'sorted by '.$orderNames[$listOrder].' '.$listDirn ; ?>
-	</div>
 
 	<?php if (empty($this->items)) : ?>
 		<div class="alert alert-no-items">
