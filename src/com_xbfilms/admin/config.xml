@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms config.xml v0.9.10.0 11th November 2022 -->
+<!-- xbFilms config.xml v0.10.0.1 24th November 2022 -->
 <config>
 <!-- GENERAL TAB -->				
 	<fieldset name="general"
@@ -95,16 +95,24 @@
 		label="XBCULTURE_CONFIG_ITEMS_NOTE_LABEL" 
 		description="XBCULTURE_CONFIG_ITEMS_NOTE_DESC"
 	>	
+		<field name="nocatnote" type="note"
+			description="Categories are disabled for Site views on the General tab above. The Category settings below will only apply for Admin views"
+			showon="show_cats:0" class="warning"
+		/>
+		<field name="notagnote" type="note"
+			description="Tags are disabled for Site views on the General tab above. The Tag settings below will only apply for Admin views"
+			showon="show_tags:0" class="warning"
+		/>
 
  		<field name="filmsnote" type="note"
 			label="Film Settings"
 		/>	
  		<field name="show_fcat" type="radio"
-			label="Show Film Category"
-			description="XBCULTURE_CONFIG_CATTAG_NO_DESC"
+			label="XBCULTURE_CONFIG_SHOW_FCAT_LABEL"
+			description="XBCULTURE_CONFIG_SHOW_CATS_DESC"
 			class="btn-group btn-group-yesno"
 			showon="show_cats!:0"
-			default="1"
+			default="2"
 			>
 			<option value="0" >JHIDE</option>
 			<option value="1">XBCULTURE_CONFIG_YES_NO_LINK</option>
@@ -112,26 +120,25 @@
 		</field>	
 		<field name="rootcat_film" type="category"
 			extension="com_xbfilms"
-			label="Films Root Category"
-			description="XBCULTURE_CONFIG_ROOTCAT_DESC"
-			default="" show_root="true"
+			label="XBCULTURE_CONFIG_CAT_FROOT_LABEL"
+			description="XBCULTURE_CONFIG_CAT_ROOT_DESC"
+			default=""
 			onchange="Joomla.submitbutton('config.save.component.apply');"			
-			showon="show_cats!:0[AND]show_fcat!:0"
 		>
-			<option value="">JOPTION_SELECT_CATEGORY</option>
+			<option value="">XBCULTURE_CONFIG_CAT_UNSPEC</option>
 		</field>
 		<field
 			name="def_new_filmcat" type="xbcats"
-			label="New Film Category"
+			label="XBCULTURE_CONFIG_CAT_DEF_LABEL"
+			description="XBCULTURE_CONFIG_CAT_DEF_DESC"
 			extension="com_xbfilms"
 			parent="com_xbfilms.rootcat_film"
-			description="XBCULTURE_CONFIG_DEFAULT_CAT_DESC"
-			showon="show_cats!:0[AND]show_fcat!:0"
+			incparent="true"
 			>			
-			<option value="" >XBCULTURE_CONFIG_SELECT_DEFAULT_NEW</option>
+			<option value="" >XBCULTURE_CONFIG_CAT_UNCAT</option>
 		</field>
  		<field name="show_ftags" type="radio"
-			label="Show Film Tags"
+			label="XBCULTURE_CONFIG_SHOW_FTAGS_LABEL"
 			description="XBCULTURE_CONFIG_CATTAG_NO_DESC"
 			class="btn-group btn-group-yesno"
 			showon="show_tags:1"
@@ -159,7 +166,7 @@
 			mode="nested" published="1"
 			label="XBCULTURE_CONFIG_TAGGROUP1_PARENT" description="XBCULTURE_CONFIG_TAGGROUP_DESC"
 			multiple="false"
-			showon="show_tags:1[AND]enable_taggroups:1"
+			showon="enable_taggroups:1" 
 			default=""
 		>
 			<option value="">- not used -</option>
@@ -168,7 +175,7 @@
 			mode="nested" published="1"
 			label="XBCULTURE_CONFIG_TAGGROUP2_PARENT" description="XBCULTURE_CONFIG_TAGGROUP_DESC"
 			multiple="false"
-			showon="show_tags:1[AND]enable_taggroups:1"
+			showon="enable_taggroups:1"
 			default=""
 		>
 			<option value="">- not used -</option>
@@ -177,7 +184,7 @@
 			mode="nested" published="1"
 			label="XBCULTURE_CONFIG_TAGGROUP3_PARENT" description="XBCULTURE_CONFIG_TAGGROUP_DESC"
 			multiple="false"
-			showon="show_tags:1[AND]enable_taggroups:1"
+			showon="enable_taggroups:1"
 			default=""
 		>
 			<option value="">- not used -</option>
@@ -186,7 +193,7 @@
 			mode="nested" published="1"
 			label="XBCULTURE_CONFIG_TAGGROUP4_PARENT" description="XBCULTURE_CONFIG_TAGGROUP_DESC"
 			multiple="false"
-			showon="show_tags:1[AND]enable_taggroups:1"
+			showon="enable_taggroups:1"
 			default=""
 		>
 			<option value="">- not used -</option>
@@ -210,7 +217,7 @@
 			label="XBCULTURE_CONFIG_REVIEWS_SETTINGS"
 		/>	
 		 <field name="show_revs" type="radio"
-			label="XBCULTURE_CONFIG_SHOW_REVIEWS_LABEL"
+			label="XBCULTURE_CONFIG_SHOW_RCAT_LABEL"
 			description="XBCULTURE_CONFIG_SHOW_REVIEWS_DESC"
 			class="btn-group btn-group-yesno"
 			default="1"
@@ -220,10 +227,10 @@
 		</field>	
  		<field name="show_rcat" type="radio"
 			label="XBCULTURE_CONFIG_SHOW_RCAT_LABEL"
-			description="XBCULTURE_CONFIG_CATTAG_NO_DESC"
+			description="XBCULTURE_CONFIG_SHOW_CATS_DESC"
 			class="btn-group btn-group-yesno"
-			showon="show_cats!:0[AND]show_revs!:0"
-			default="1"
+			showon="show_revs!:0"
+			default="2"
 			>
 			<option value="0" >JHIDE</option>
 			<option value="1">XBCULTURE_CONFIG_YES_NO_LINK</option>
@@ -233,21 +240,22 @@
 			extension="com_xbfilms"
 			label="XBCULTURE_CONFIG_RCAT_INCROOT_LABEL"
 			description="XBCULTURE_CONFIG_ROOTCAT_DESC"
-			default="" show_root="true"
+			default=""
 			onchange="Joomla.submitbutton('config.save.component.apply');"
-			showon="show_cats!:0[AND]show_rcat!:0[AND]show_revs!:0"
+			showon="show_revs!:0"
 		>
-			<option value="">JOPTION_SELECT_CATEGORY</option>
+			<option value="">XBCULTURE_CONFIG_CAT_UNSPEC</option>
 		</field>
 		<field
 			name="def_new_revcat" type="xbcats"
 			label="XBCULTURE_CONFIG_NEW_REV_CAT_LABEL"
+			description="XBCULTURE_CONFIG_DEFAULT_CAT_DESC"
 			extension="com_xbfilms"
 			parent="com_xbfilms.rootcat_review"
-			description="XBCULTURE_CONFIG_DEFAULT_CAT_DESC"
-			showon="show_cats!:0[AND]show_rcat!:0[AND]show_revs!:0"
+			incparent="true"
+			showon="show_revs!:0[AND]rootcat_review!:"
 			>			
-			<option value="" >XBCULTURE_CONFIG_SELECT_DEFAULT_NEW</option>
+			<option value="" >XBCULTURE_CONFIG_UNCAT</option>
 		</field>
  		<field name="rev_auth" type="radio"
 			default="0"
@@ -264,7 +272,7 @@
 			label="XBCULTURE_CONFIG_SHOW_RTAG_LABEL"
 			description="XBCULTURE_CONFIG_CATTAG_NO_DESC"
 			class="btn-group btn-group-yesno"
-			showon="show_tags:1[AND]show_revs!:0"
+			showon="show_revs!:0"
 			default="1"
 			>
 			<option value="0" >JHIDE</option>
@@ -274,7 +282,7 @@
 			mode="nested" published="1"
 			label="Review tag group" description="Show additional tag selector on review edit form which is limited to children of the tag specified here. Other tags can still be selected in the standard tags field."
 			multiple="false"
-			showon="show_tags:1[AND]show_rtags:1"
+			showon="show_revs:1[AND]show_rtags:1"
 			default=""
 		>
 			<option value="">- not used -</option>
@@ -313,9 +321,10 @@
 			default="fa fa-star-half xbgold"
 			showon="show_revs!:0"
 		/>
- 		<field name="peepnote" type="note"
-			label="XBCULTURE_CONFIG_PEOPLE_SETTINGS"
-			description="For Category defaults for People see xbPeople Options"
+ 		<field name="peepcahrnote" type="note"
+			label="XBCULTURE_CONFIG_PEEPCHAR_NOTE_LABEL"
+			description="XBCULTURE_CONFIG_PEEPCHAR_NOTE_DESC"
+			class="info"
 		/>
 <!-- 
  		<field name="show_pcat" type="radio"
@@ -356,7 +365,6 @@
 			>			
 			<option value="" >XBCULTURE_CONFIG_SELECT_DEFAULT_NEW</option>
 		</field>		
- -->			
  		<field name="show_ptags" type="radio"
 			label="XBCULTURE_CONFIG_SHOW_PTAG_LABEL"
 			description="XBCULTURE_CONFIG_CATTAG_NO_DESC"
@@ -369,7 +377,7 @@
 		</field>	
 		<field name="peeptaggroup_parent" type="tag" 
 			mode="nested" published="1"
-			label="People tag group" description="Show additional tag selector on review edit form which is limited to children of the tag specified here. Other tags can still be selected in the standard tags field."
+			label="People tag group" description="Optional. Show additional tag selector on review edit form which is limited to children of the tag specified here. Other tags can still be selected in the standard tags field."
 			multiple="false"
 			showon="show_tags:1[AND]show_ptags:1"
 			default=""
@@ -382,7 +390,6 @@
 			description="For Category defaults for Characters see xbPeople Options"
 		/>	
 		
-		<!-- 
  		<field name="show_ccat" type="radio"
 			label="XBCULTURE_CONFIG_SHOW_CCAT_LABEL"
 			description="XBCULTURE_CONFIG_CATTAG_NO_DESC"
@@ -412,7 +419,6 @@
 			>			
 			<option value="" >XBCULTURE_CONFIG_SELECT_DEFAULT_NEW</option>
 		</field>
-		 -->	
 		<field name="show_ctags" type="radio"
 			label="XBCULTURE_CONFIG_SHOW_CTAG_LABEL"
 			description="XBCULTURE_CONFIG_CATTAG_NO_DESC"
@@ -432,6 +438,7 @@
 		>
 			<option value="">- not used -</option>
 		</field>
+		 -->	
 				
 	</fieldset>
 

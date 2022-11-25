@@ -193,24 +193,24 @@
 
 		<field name="tags" type="tag"
 			label="JTAG" description="JTAG_DESC"
-			multiple="true" mode="ajax" custom="deny"  published="1"
+			multiple="true" custom="deny"  published="1"
 		/>
-		<field name="taggroup1" type="childtags"
+		<field name="taggroup1" type="xbtags"
 			label="Taggroup1" description="Description to be taken from parent tag"
 			parent="com_xbfilms.taggroup1_parent"
 			multiple="true" mode="nested" custom="deny"  published="1"
 		/>
-		<field name="taggroup2" type="childtags"
+		<field name="taggroup2" type="xbtags"
 			label="Taggroup2" description="Description to be taken from parent tag"
 			parent="com_xbfilms.taggroup2_parent"
 			multiple="true" mode="nested" custom="deny"  published="1"
 		/>
-		<field name="taggroup3" type="childtags"
+		<field name="taggroup3" type="xbtags"
 			label="Taggroup3" description="Description to be taken from parent tag"
 			parent="com_xbfilms.taggroup3_parent"
 			multiple="true" mode="nested" custom="deny"  published="1"
 		/>
-		<field name="taggroup4" type="childtags"
+		<field name="taggroup4" type="xbtags"
 			label="Taggroup4" description="Description to be taken from parent tag"
 			parent="com_xbfilms.taggroup4_parent"
 			multiple="true" mode="nested" custom="deny"  published="1"

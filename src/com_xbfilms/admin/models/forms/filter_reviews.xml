@@ -20,6 +20,13 @@
 			<option value="">JOPTION_SELECT_PUBLISHED</option>
 		</field>
 		<field
+			name="ratfilt" type="rating" 
+			label="XBCULTURE_RATING" description="XBCULTURE_RATING_DESC" 
+			default="" 
+			onchange="this.form.submit();">
+			<option value="">Filter by Rating</option>
+		</field>
+		<field
 			name="category_id" type="xbitemcats"
 			label="JOPTION_FILTER_CATEGORY"
 			description="JOPTION_FILTER_CATEGORY_DESC"
@@ -28,13 +35,6 @@
 			multiple="true"
 			onchange="this.form.submit();"
 			>
-		</field>
-		<field
-			name="ratfilt" type="rating" 
-			label="XBCULTURE_RATING" description="XBCULTURE_RATING_DESC" 
-			default="" 
-			onchange="this.form.submit();">
-			<option value="">Filter by Rating</option>
 		</field>
 		<field
 			name="tagfilt"
