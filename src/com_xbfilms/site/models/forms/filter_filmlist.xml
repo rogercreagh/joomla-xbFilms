@@ -43,11 +43,10 @@
 			label="Seen/unseen films"
 			description="Show all films or only those seen or those not-yet seen"
   			class="btn-group btn-small radiotop"
-			onchange="this.form.submit();"
 			>
-				<option value="0" >All</option>
-				<option value="1">Seen</option>
-				<option value="2">Unseen</option>
+				<option value="0" onchange="this.form.submit();">XBCULTURE_ALL</option>
+				<option value="1" onchange="this.form.submit();">XBCULTURE_SEEN</option>
+				<option value="2" onchange="this.form.submit();">XBCULTURE_UNSEEN</option>
 		</field>	
 		<field
 			name="category_id" type="xbitemcats"
@@ -60,16 +59,6 @@
 			onchange="this.form.submit();"
 			>
 		</field>
-		<field name="subcats" type="radio"
-			default=""
-			label="XBFILMS_SUBCATS_LBL"
-			description="XBFILMS_SUBCATS_DESC"
-  			class="btn-group btn-small radiotop"
-  			showon="category_id!:"
-		>
-			<option value="" onchange="this.form.submit();">XBCULTURE_EXCLUDE</option>
-			<option value="1" onchange="this.form.submit();">XBCULTURE_INCLUDE</option>
-		</field>	
        
 		<field
 			name="tagfilt" type="tag"

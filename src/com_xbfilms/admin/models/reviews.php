@@ -23,7 +23,7 @@ class XbfilmsModelReviews extends JModelList {
                 'title', 'filmtitle', 
             	'rev_date', 'rating',
                 'published', 'a.state',
-                'ordering', 'a.ordering',
+                'ordering', 'a.ordering', 'created', 'a.created',
                 'category_title', 'c.title', 'tagfilt', 'taglogic',
                 'catid', 'a.catid', 'category_id');
         }
@@ -40,7 +40,7 @@ class XbfilmsModelReviews extends JModelList {
         $query->select('a.id AS id, a.title AS title, a.alias AS alias, a.summary AS summary,
 			a.rev_date AS rev_date, a.where_seen AS where_seen, a.subtitled AS subtitled,
 			a.reviewer AS reviewer, a.review AS review, a.rating AS rating,
-			a.catid AS catid, a.state AS published, 
+			a.catid AS catid, a.state AS published, a.created AS created,
             a.created_by AS created_by, a.note as note, a.ordering AS ordering,
             a.checked_out AS checked_out, a.checked_out_time AS checked_out_time')
             ->from($db->quoteName('#__xbfilmreviews','a'));

@@ -78,7 +78,7 @@ class XbfilmsModelFilms extends JModelList
             a.poster_img AS poster_img, a.synopsis AS synopsis, a.state AS published, 
             a.created AS created, a.created_by AS created_by, a.first_seen AS first_seen, a.last_seen AS last_seen,
             a.created_by_alias AS created_by_alias, a.ext_links AS ext_links,
-            a.checked_out AS checked_out, a.checked_out_time AS checked_out_time,  a.created AS created,
+            a.checked_out AS checked_out, a.checked_out_time AS checked_out_time, 
             a.metadata AS metadata, a.ordering AS ordering, a.params AS params, a.note AS note');
 		$query->from('#__xbfilms AS a')
         //join to persons and characters to allow filtering on them

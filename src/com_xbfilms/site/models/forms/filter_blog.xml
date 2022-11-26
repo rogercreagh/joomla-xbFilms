@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms site/models/forms/filter_blog.xml 0.9.9.6 25th August 2022 -->
+<!-- xbFilms site/models/forms/filter_blog.xml v0.10.0.2 26th November 2022 -->
 <form>
-    <fields name="filter" addfieldpath="administrator/components/com_xbfilms/models/fields">
+    <fields name="filter" addfieldpath="administrator/components/com_xbpeople/models/fields">
         <field name="search"
             type="text"
             label="COM_CONTENT_FILTER_SEARCH_DESC"
@@ -27,26 +27,16 @@
 			<option value="">JOPTION_SELECT_CATEGORY</option>
 		</field>
 		<field
-			name="fcategory_id" type="catsubtree"
+			name="fcategory_id" type="xbitemcats"
 			label="Film Category"
 			description="XBFILMS_FILTER_CATEGORY_DESC"
 			extension="com_xbfilms"
-			itemtype="film"
-			published="1"
+			itemtable="#__xbfilms"
+			published="1" multiple="true" 
 			onchange="this.form.submit();"
 			>
 			<option value="">JOPTION_SELECT_CATEGORY</option>
 		</field>
-		<field name="subcats" type="radio"
-			default=""
-			label="XBFILMS_SUBCATS_LBL"
-			description="XBFILMS_SUBCATS_DESC"
-  			class="btn-group btn-small radiotop"
-  			showon="category_id!:[OR]fcategory_id!:"
-		>
-			<option value="" onchange="this.form.submit();">XBCULTURE_EXCLUDE</option>
-			<option value="1" onchange="this.form.submit();">XBCULTURE_INCLUDE</option>
-		</field>	
        
 		<field
 			name="tagfilt" type="tag"
