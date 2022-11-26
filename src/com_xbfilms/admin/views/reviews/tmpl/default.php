@@ -29,7 +29,7 @@ if (!$listOrder) {
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'filmtitle'=>Text::_('XBFILMS_FILMTITLE'),
 		'id'=>'id','rev_date'=>Text::_('XBCULTURE_DATES'),'rating'=>Text::_('XBCULTURE_RATING'),
-    'category_title'=>Text::_('XBCULTURE_CATEGORY'),'a.created'=>Text::_('XBCULTURE_DATE_ADDED')
+    'category_title'=>Text::_('XBCULTURE_CATEGORY'),'a.created'=>Text::_('XBCULTURE_DATE_ADDED'),
 		'published'=>Text::_('XBCULTURE_STATUS'),'a.ordering'=>Text::_('XBCULTURE_ORDERING'));
 
 $saveOrder      = $listOrder == 'ordering';

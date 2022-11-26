@@ -104,17 +104,11 @@ class XbfilmsModelFilms extends JModelList
         //do we have a catid request, if so we need to over-ride any filter, but save the filter to re-instate?
         $categoryId = $app->getUserStateFromRequest('catid', 'catid','');
         $app->setUserState('catid', '');
-//        $subcats=0;
         if ($categoryId=='') {
         	$categoryId = $this->getState('filter.category_id');
-//        $subcats = $this->getState('filter.subcats');
         }
         if (is_numeric($categoryId)) {
-//            if ($subcats) {
-//                $query->where('a.catid IN ('.(int)$categoryId.','.self::getSubCategoriesList($categoryId).')');
-//            } else {
-                $query->where($db->quoteName('a.catid') . ' = ' . (int) $categoryId);
-//            }
+            $query->where($db->quoteName('a.catid') . ' = ' . (int) $categoryId);
         } elseif (is_array($categoryId)) {
             $categoryId = implode(',', $categoryId);
             $query->where($db->quoteName('a.catid') . ' IN ('.$categoryId.')');
