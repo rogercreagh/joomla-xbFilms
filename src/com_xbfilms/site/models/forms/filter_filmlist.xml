@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms site/models/forms/filter_filmlist.xml v0.10.0.0 22nd November 2022 -->
+<!-- xbFilms site/models/forms/filter_filmlist.xml v0.10.0.3 27th November 2022 -->
 <form>
-    <fields name="filter" addfieldpath="administrator/components/com_xbfilms/models/fields">
+    <fields name="filter" addfieldpath="administrator/components/com_xbpeople/models/fields">
         <field name="search"
             type="text"
             label="COM_CONTENT_FILTER_SEARCH_DESC"
@@ -54,7 +54,7 @@
 			description="XBCULTURE_CATFILT_DESC"
 			extension="com_xbfilms"
 			itemtable="#__xbfilms"
-			multiple="true" mode="nested"
+			multiple="true"
 			published="1"
 			onchange="this.form.submit();"
 			>
