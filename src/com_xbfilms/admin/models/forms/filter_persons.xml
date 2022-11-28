@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms admin/models/forms/filter_persons.xml v0.10.0.0 22nd November 2022 -->
+<!-- xbFilms admin/models/forms/filter_persons.xml v0.10.0.4 28th November 2022 -->
 <form>
-	<fields name="filter"  addfieldpath="administrator/components/com_xbfilms/models/fields">
+	<fields name="filter"  addfieldpath="administrator/components/com_xbpeople/models/fields">
 		<field
 			name="search"
 			type="text"
@@ -50,7 +50,7 @@
 			label="JOPTION_FILTER_CATEGORY"
 			description="JOPTION_FILTER_CATEGORY_DESC"
 			extension="com_xbpeople"
-			itemtable="#__xbpeople"
+			itemtable="#__xbpersons"
 			multiple="true"
 			onchange="this.form.submit();"
 			>

@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/filmlist.php
- * @version 0.10.0.0 23rd November 2022
+ * @version 0.10.0.4 28th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html

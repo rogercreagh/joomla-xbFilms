@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/film/tmpl/default.php
- * @version 0.9.11.2 17th November 2022
+ * @version 0.10.0.4 28th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -33,6 +33,7 @@ if ($imgok) {
 }
 
 ?>
+<div class="xbculture">
 <div class="xbbox xbboxcyan">
 	<div class="row-fluid">
 		<?php if ($imgok && ($this->show_image == 1 )) : ?>
@@ -413,3 +414,8 @@ if ($imgok) {
 	    <?php endif; ?>
 	</div>
 </div>
+</div>
+<div class="clearfix"></div>
+<p><?php echo XbcultureHelper::credit('xbFilms');?></p>
+</div>
+

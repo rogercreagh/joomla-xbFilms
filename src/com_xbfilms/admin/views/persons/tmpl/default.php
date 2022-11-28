@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/people/tmpl/default.php
- * @version 0.9.11.2 17th November 2022
+ * @version 0.10.0.4 28th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -59,13 +59,16 @@ $bplink = 'index.php?option=com_xbpeople&view=person&layout=edit&id=';
 	<?php else : ?>
         <div id="j-main-container">
 	<?php endif;?>
-	<div class="pull-right span2">
-		<p style="text-align:right;">
-			<?php $fnd = $this->pagination->total;
-			echo $fnd .' '. Text::_(($fnd==1)?'XBCULTURE_PERSON':'XBCULTURE_PEOPLE').' '.Text::_('XBCULTURE_FOUND');			
-            ?>
-		</p>
+ 	<div class="pull-right span6 xbtr xbm0">
+ 			<?php $fnd = $this->pagination->total;
+			echo $fnd .' '. Text::_(($fnd==1)?'XBCULTURE_PERSON':'XBCULTURE_PEOPLE').' '.Text::_('XBCULTURE_FOUND').', ';
+			?>
+            <?php echo 'sorted by '.$orderNames[$listOrder].' '.$listDirn ; ?>
 	</div>
+	<div class="clearfix"></div>
+    <div class="pull-right pagination xbm0" style="padding-left:10px;">
+        <?php echo $this->pagination->getPagesLinks(); ?>
+    </div>
 	<div class="clearfix"></div>
 	<?php
         // Search tools bar
@@ -85,15 +88,6 @@ $bplink = 'index.php?option=com_xbpeople&view=person&layout=edit&id=';
 		}
 		echo '</p>';
 	} ?> 
-	<?php if ($this->state->get('filter.rolefilt')!='all') {
-	    echo 'Filtered by role '.ucfirst($this->state->get('filter.rolefilt'));
-	}
-	?>
-	<div class="pagination">
-		<?php  echo $this->pagination->getPagesLinks(); ?>
-		<br />
-	    <?php echo 'sorted by '.$orderNames[$listOrder].' '.$listDirn ; ?>
-	</div>
 
 	<?php if (empty($this->items)) : ?>
 		<div class="alert alert-no-items">

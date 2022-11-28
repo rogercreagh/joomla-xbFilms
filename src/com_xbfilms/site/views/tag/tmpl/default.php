@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/tag/tmpl/default.php
- * @version 0.9.9.9 8th November 2022
+ * @version 0.10.0.4 28th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -38,7 +38,7 @@ $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
 $tclink = $xblink.'tags' . $itemid;
 
 ?>
-<div class="xbfilms">
+<div class="xbculture">
 <div class="row-fluid" style="margin-bottom:20px;">
 	<div class="span3">
 		<h4><?php echo JText::_('XBFILMS_ITEMSTAGGED').': '; ?></h4>		
@@ -123,38 +123,39 @@ $tclink = $xblink.'tags' . $itemid;
 			<?php if ($item->othercnt > 0 ) : ?>
 				<?php $span = intdiv(12, count($item->othcnts)); ?>
 				<div class="row-fluid">
-				<?php $thiscomp=''; $firstcomp=true; $thisview = ''; $firstview=true; 
-				foreach ($item->others as $i=>$oth) {
-					$comp = substr($oth->type_alias, 0,strpos($oth->type_alias, '.'));
-					$view = substr($oth->type_alias,strpos($oth->type_alias, '.')+1);
-					if (($view=='review') && ($comp == 'com_xbbooks')) {
-					    $view = 'bookreview';
-					}
-					$isnewcomp = ($comp!=$thiscomp) ? true : false;
-					$newview= ($view!=$thisview) ? true : false;
-					// if it isnewcomp
-					if ($isnewcomp) {
-					    if ($firstcomp) {
-					        $firstcomp = false;
-					    } else {
-					        echo '</ul></div>';
-					    }
-					    $thiscomp = $comp;
-					    $firstview=true;
-					    echo '<div class="span'.$span.'"><b>'.ucfirst(substr($comp,4)).'</b> ';
-					}
-					if ($newview) {
-					    if ($firstview) {
-					        $firstview = false;
-					        echo '<br /><i>'.ucfirst($view).'</i><ul>';
-					    } else {
-					        echo '</ul><i>'.ucfirst($view).'</i><ul>';
-					    }
-					    $thisview = $view;
-					}
-					echo '<li><a href="index.php?option='.$comp.'&view='.$view.'&id='.$oth->othid.'">'.$oth->core_title.'</a></li> ';
-				} 			
+    				<?php $thiscomp=''; $firstcomp=true; $thisview = ''; $firstview=true; 
+    				foreach ($item->others as $i=>$oth) {
+    					$comp = substr($oth->type_alias, 0,strpos($oth->type_alias, '.'));
+    					$view = substr($oth->type_alias,strpos($oth->type_alias, '.')+1);
+    					if (($view=='review') && ($comp == 'com_xbbooks')) {
+    					    $view = 'bookreview';
+    					}
+    					$isnewcomp = ($comp!=$thiscomp) ? true : false;
+    					$newview= ($view!=$thisview) ? true : false;
+    					// if it isnewcomp
+    					if ($isnewcomp) {
+    					    if ($firstcomp) {
+    					        $firstcomp = false;
+    					    } else {
+    					        echo '</ul></div>';
+    					    }
+    					    $thiscomp = $comp;
+    					    $firstview=true;
+    					    echo '<div class="span'.$span.'"><b>'.ucfirst(substr($comp,4)).'</b> ';
+    					}
+    					if ($newview) {
+    					    if ($firstview) {
+    					        $firstview = false;
+    					        echo '<br /><i>'.ucfirst($view).'</i><ul>';
+    					    } else {
+    					        echo '</ul><i>'.ucfirst($view).'</i><ul>';
+    					    }
+    					    $thisview = $view;
+    					}
+    					echo '<li><a href="index.php?option='.$comp.'&view='.$view.'&id='.$oth->othid.'">'.$oth->core_title.'</a></li> ';
+    				} 			
 				echo '</ul>'; ?>
+				</div>
 			<?php endif; ?>
 		</div>
 	</div>
@@ -165,6 +166,7 @@ $tclink = $xblink.'tags' . $itemid;
 		<?php echo JText::_('XBFILMS_TAG_COUNTS'); ?>
 	</a>
 </p>
+</div>
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbFilms');?></p>
 </div>

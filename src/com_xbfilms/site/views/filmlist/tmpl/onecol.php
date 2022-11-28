@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmlist/tmpl/onecol.php
- * @version 0.9.9.9 1st November 2022
+ * @version 0.10.0.4 28th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -44,7 +44,7 @@ $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
 $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 
 ?>
-<div class="xbfilms">
+<div class="xbculture">
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
 	    echo XbcultureHelper::sitePageheader($this->header);
 	} ?>

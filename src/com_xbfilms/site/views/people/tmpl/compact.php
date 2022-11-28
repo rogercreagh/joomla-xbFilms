@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/people/tmpl/compact.php
- * @version 0.9.9.7 14th September 2022
+ * @version 0.10.0.4 28th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -40,7 +40,7 @@ $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
 $clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
 
 ?>
-<div class="xbfilms">
+<div class="xbculture">
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
 	    echo XbcultureHelper::sitePageheader($this->header);
 	} ?>

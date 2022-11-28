@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms site/models/forms/filter_characters.xml 0.9.9.6 25th August 2022 -->
+<!-- xbFilms site/models/forms/filter_characters.xml 0.10.0.4 28th November 2022 -->
 <form>
-    <fields name="filter" addfieldpath="administrator/components/com_xbfilms/models/fields">
+    <fields name="filter" addfieldpath="administrator/components/com_xbpeople/models/fields">
         <field name="search" type="text"
             label="COM_CONTENT_FILTER_SEARCH_DESC"
 			description=""
