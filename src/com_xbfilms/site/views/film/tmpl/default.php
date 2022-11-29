@@ -177,7 +177,7 @@ if ($imgok) {
      	<?php endif; ?>	
     	<?php if ((!$item->tech_notes=='') || (!$hide_empty)) : ?>
 			<p><span class="xbnit xbpr10">
- 				<?php echo Text::_('Tech Notes').': '; ?>
+ 				<?php echo Text::_('XBFILMS_TECH_NOTES').': '; ?>
  				</span>
 				<?php echo $item->tech_notes; ?>
 			</p>
@@ -250,14 +250,14 @@ if ($imgok) {
 <?php if ($this->show_fdates) : ?>
 	<div class="row-fluid">
 		<div class="span5">
-			<span class="xbnit"><?php echo  Text::_('XBFILMS_DATE_FIRST_SEEN').': '; ?>
+			<span class="xbnit"><?php echo  Text::_('XBFILMS_FIRST_SEEN').': '; ?>
 			</span>
 			<?php $datefmt = xbCultureHelper::getDateFmt($item->first_seen, 'D jS M Y');
 			echo HtmlHelper::date($item->first_seen , $datefmt) ; ?>
 		</div>
 		<div class="span5">
 	    	<?php if (($item->last_seen) && ($item->last_seen <> $item->first_seen)) : ?>
-	    		<span class="xbnit"><?php echo  Text::_('XBFILMS_DATE_LAST_SEEN').': '; ?>
+	    		<span class="xbnit"><?php echo  Text::_('XBFILMS_LAST_SEEN').': '; ?>
 	    		</span>
 	    		<?php $datefmt = xbCultureHelper::getDateFmt($item->last_seen, 'D jS M Y');
 	    		echo HtmlHelper::date($item->last_seen , $datefmt) ; ?>

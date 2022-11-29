@@ -430,7 +430,7 @@ if (!$this->xbpeople_ok) : ?>
     						</div>
     					</div>
                      </div>
-                     <h3 class="xbsubtitle">Counts per category<span class="xb09 xbnorm"> <i>(people:characters)</i></span></h3>
+                     <h3 class="xbsubtitle"><?php echo Text::_('XBCULTURE_COUNTS_CATEGORY'); ?><span class="xb09 xbnorm"> <i>(people:characters)</i></span></h3>
                      <div class="row-striped">
     					<div class="row-fluid">
     						    <?php echo $this->pcatlist; ?>
@@ -440,7 +440,7 @@ if (!$this->xbpeople_ok) : ?>
     			</div>
      			<div class="xbbox xbboxgrey">
     				<div class="row-fluid"><div class="span12">
-    					<h2 class="xbtitle"><?php echo Text::_('xbFilms number of items tagged'); ?>
+    					<h2 class="xbtitle"><?php echo Text::_('XBCULTURE_NUM_ITEMS_TAGGED'); ?>
     						<span class="pull-right">
     							<span class="xbnit xbmr10 xb09"><?php echo Text::_('XBCULTURE_TOTAL'); ?>: </span>
             					<span class="badge badge-info" style="border: blue solid 1px;"><?php echo ($this->tags['filmscnt']  + $this->tags['revscnt']) ; ?></span> 
@@ -450,28 +450,28 @@ if (!$this->xbpeople_ok) : ?>
     				<div class="row-striped">
     					<h4>Items tagged per type</h4>
     					<div class="row-fluid">
-    						<div class="span8"><?php echo Text::_('Films'); ?>:
+    						<div class="span8"><?php echo Text::_('XBCULTURE_FILMS_U'); ?>:
     						</div>
     						<div class="span4">
     							<span class="flmcnt badge  pull-right"><?php echo $this->tags['filmscnt']; ?></span>
     						</div>
     					</div>
     					<div class="row-fluid">
-    						<div class="span8"><?php echo Text::_('Film Reviews'); ?>:
+    						<div class="span8"><?php echo Text::_('XBFILMS_XBFILM_REVIEWS'); ?>:
     						</div>
     						<div class="span4">
     							<span class="revcnt badge  pull-right"><?php echo $this->tags['revscnt']; ?></span>
     						</div>
     					</div>
     					<div class="row-fluid">
-    						<div class="span8"><?php echo Text::_('People'); ?>:
+    						<div class="span8"><?php echo Text::_('XBCULTURE_PEOPLE_U'); ?>:
     						</div>
     						<div class="span4">
     							<span class="percnt badge  pull-right"><?php echo $this->tags['filmper']; ?></span>
     						</div>
     					</div>
     					<div class="row-fluid">
-    						<div class="span8"><?php echo Text::_('Characters'); ?>:
+    						<div class="span8"><?php echo Text::_('XBCULTURE_CHARACTERS_U'); ?>:
     						</div>
     						<div class="span4">
     							<span class="chcnt badge  pull-right"><?php echo $this->tags['filmchar']; ?></span>
@@ -482,28 +482,28 @@ if (!$this->xbpeople_ok) : ?>
      				<div class="row-striped">
      					<h4>Tags used per type</h4>
     					<div class="row-fluid">
-    						<div class="span8"><?php echo Text::_('Films'); ?>:
+    						<div class="span8"><?php echo Text::_('XBCULTURE_FILMS_U'); ?>:
     						</div>
     						<div class="span4">
     							<span class="flmcnt badge  pull-right"><?php echo $this->tags['filmtags']; ?></span>
     						</div>
     					</div>
     					<div class="row-fluid">
-    						<div class="span8"><?php echo Text::_('Film Reviews'); ?>:
+    						<div class="span8"><?php echo Text::_('XBFILMS_XBFILM_REVIEWS'); ?>:
     						</div>
     						<div class="span4">
     							<span class="revcnt badge  pull-right"><?php echo $this->tags['revtags']; ?></span>
     						</div>
     					</div>
     					<div class="row-fluid">
-    						<div class="span8"><?php echo Text::_('People'); ?>:
+    						<div class="span8"><?php echo Text::_('XBCULTURE_PEOPLE_U'); ?>:
     						</div>
     						<div class="span4">
     							<span class="percnt badge  pull-right"><?php echo $this->tags['filmpertags']; ?></span>
     						</div>
     					</div>
     					<div class="row-fluid">
-    						<div class="span8"><?php echo Text::_('Characters'); ?>:
+    						<div class="span8"><?php echo Text::_('XBCULTURE_CHARACTERS_U'); ?>:
     						</div>
     						<div class="span4">
     							<span class="chcnt badge  pull-right"><?php echo $this->tags['filmchartags']; ?></span>

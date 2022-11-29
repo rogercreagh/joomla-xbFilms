@@ -27,8 +27,8 @@ if (!$listOrder) {
     $listDirn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'rel_year'=>Text::_('XBFILMS_YEAR_RELEASED'), 
-		'averat'=>Text::_('XBFILMS_AVERAGE_RATING'), 'first_seen'=>Text::_('First Seen'),
-        'last_seen'=>Text::_('Last Seen'), 'category_title'=>Text::_('XBCULTURE_CATEGORY'));
+		'averat'=>Text::_('XBFILMS_AVERAGE_RATING'), 'first_seen'=>Text::_('XBFILMS_FIRST_SEEN'),
+        'last_seen'=>Text::_('XBFILMS_LAST_SEEN'), 'category_title'=>Text::_('XBCULTURE_CATEGORY'));
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
@@ -109,8 +109,8 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 				<?php endif; ?>
                 <?php if ($this->show_fdates) : ?>
     				<th>
-    					<?php echo HTMLHelper::_('searchtools.sort','First','first_seen',$listDirn,$listOrder ).'/'; ?>
-    					<?php echo HTMLHelper::_('searchtools.sort','Last','last_seen',$listDirn,$listOrder ).' seen'; ?>
+    					<?php echo HTMLHelper::_('searchtools.sort','XBFILMS_FIRST_SEEN','first_seen',$listDirn,$listOrder ); ?><br />
+    					<?php echo HTMLHelper::_('searchtools.sort','XBFILMS_LAST_SEEN','last_seen',$listDirn,$listOrder ); ?>
     				</th>
 				<?php endif; ?>
 				<?php if($this->showcat || $this->showtags) : ?>

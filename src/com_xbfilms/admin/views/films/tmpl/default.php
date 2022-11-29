@@ -29,7 +29,7 @@ if (!$listOrder) {
 	$listDirn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBFILMS_FILMTITLE'), 'rel_year'=>Text::_('XBFILMS_RELYEAR'),
-    'id'=>'id','first_seen'=>Text::_('First Seen'),'last_seen'=>Text::_('Last Seen'),
+    'id'=>'id','first_seen'=>Text::_('XBFILMS_FIRST_SEEN'),'last_seen'=>Text::_('XBFILMS_LAST_SEEN'),
 		'category_title'=>Text::_('XBCULTURE_CATEGORY'),
     'published'=>Text::_('XBCULTURE_STATUS'),'a.ordering'=>Text::_('XBCULTURE_ORDERING'),'a.created'=>Text::_('XBCULTURE_DATE_ADDED')
 );

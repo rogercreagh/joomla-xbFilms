@@ -27,7 +27,7 @@ if (!$listOrder) {
     $orderDrn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'pubyear'=>Text::_('XBFILMS_YEARPUB'), 'averat'=>Text::_('XBCULTURE_AVERAGE_RATING'), 
-    'first_seen'=>Text::_('First Seen'),'last_seen'=>Text::_('Last Seen'), 'category_title'=>Text::_('XBCULTURE_CATEGORY'));
+    'first_seen'=>Text::_('XBFILMS_FIRST_SEEN'),'last_seen'=>Text::_('XBFILMS_LAST_SEEN'), 'category_title'=>Text::_('XBCULTURE_CATEGORY'));
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
@@ -90,8 +90,8 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
     						', '.Text::_('XBCULTURE_DIRECTOR').', '.
     						HtmlHelper::_('searchtools.sort','RelYear','rel_year',$listDirn,$listOrder ).', ';
 					?>
-					<?php echo HtmlHelper::_('searchtools.sort','First Seen','first_seen',$listDirn,$listOrder).', ';
-					   echo HtmlHelper::_('searchtools.sort','Last Seen','last_seen',$listDirn,$listOrder); ?>
+					<?php echo HtmlHelper::_('searchtools.sort','XBFILMS_FIRST_SEEN','first_seen',$listDirn,$listOrder).', ';
+					   echo HtmlHelper::_('searchtools.sort','XBFILMS_LAST_SEEN','last_seen',$listDirn,$listOrder); ?>
 				</th>					
 		<tbody>
 			<?php foreach ($this->items as $i => $item) : ?>
@@ -219,11 +219,11 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
         						<br />
         						<?php if($item->first_seen) {
         						    $datefmt = xbCultureHelper::getDateFmt($item->first_seen, 'D jS M Y');
-        						    echo '<span class="icon-eye"></span> &nbsp;<i>'.Text::_('First seen').'</i>: '.HtmlHelper::date($item->first_seen , $datefmt); 
+        						    echo '<span class="icon-eye"></span> &nbsp;<i>'.Text::_('XBFILMS_FIRST_SEEN').'</i>: '.HtmlHelper::date($item->first_seen , $datefmt); 
 								}
         					   if(($item->last_seen) && ($item->last_seen != $item->first_seen)) {
         					       $datefmt = xbCultureHelper::getDateFmt($item->last_seen, 'D jS M Y');
-        					       echo ' -&nbsp;<i>'.Text::_('Last seen').'</i>: '.HtmlHelper::date($item->last_seen , $datefmt); 
+        					       echo ' -&nbsp;<i>'.Text::_('XBFILMS_LAST_SEEN').'</i>: '.HtmlHelper::date($item->last_seen , $datefmt); 
         					   }
         					   if((!$item->last_seen) && (!$item->first_seen)) {
         					       echo '<i>'.Text::_('not yet seen').'</i>';

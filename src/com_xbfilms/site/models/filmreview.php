@@ -76,7 +76,7 @@ class XbfilmsModelFilmreview extends JModelItem {
 				//make author/editor list
 				$item->dirlist = '<i>';
 			    if ($item->dircnt == 0){
-			        $item->dirlist .= Text::_( 'No Director Listed' ).'</i>';
+			        $item->dirlist .= Text::_( 'XBFILMS_NO_DIRECTOR' ).'</i>';
 			    } else {
 			        $item->dirlist .= ($item->authcnt>1)?Text::_('XBCULTURE_DIRECTORS'):Text::_('XBCULTURE_DIRECTOR');
 			        $item->dirlist .= '</i>: '.XbcultureHelper::makeLinkedNameList($item->people,'director','comma',false);

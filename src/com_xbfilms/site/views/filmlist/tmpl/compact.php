@@ -26,7 +26,7 @@ if (!$listOrder) {
     $orderDrn = 'descending';
 }
 $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'), 'averat'=>'Average Rating', 
-    'first_seen'=>Text::_('First Seen'), 'last_seen'=>Text::_('Last Seen'), );
+    'first_seen'=>Text::_('XBFILMS_FIRST_SEEN'), 'last_seen'=>Text::_('XBFILMS_LAST_SEEN'), );
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
@@ -86,8 +86,8 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
                 <?php endif; ?>
                 <?php if ($this->show_fdates) : ?>
     				<th class="hidden-phone">
-    					<?php echo HTMLHelper::_('searchtools.sort','First','first_seen',$listDirn,$listOrder ).'-'; ?>
-    					<?php echo HTMLHelper::_('searchtools.sort','Last','last_seen',$listDirn,$listOrder ).' seen'; ?>
+    					<?php echo HTMLHelper::_('searchtools.sort','XBFILMS_FIRST_SEEN','first_seen',$listDirn,$listOrder ); ?><br/>
+    					<?php echo HTMLHelper::_('searchtools.sort','XBFILMS_LAST_SEEN','last_seen',$listDirn,$listOrder ); ?>
     				</th>
                 <?php endif; ?>
 			</tr>
