@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmlist/tmpl/onecol.php
- * @version 0.10.0.4 28th November 2022
+ * @version 0.10.0.5 30th November 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -142,18 +142,18 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 							<?php $othcnt = $item->crewcnt + $item->castcnt + $item->subjcnt;
 							if ($othcnt>0) : ?>
 								<span class="icon-users"></span>&nbsp;
-								<span class="xbnit"><?php echo $othcnt.' '.Text::_('other people listed'); ?></span>
+								<span class="xbnit"><?php echo $othcnt.' '.Text::_('XBCULTURE_OTHER_PEOPLE_LISTED'); ?></span>
 								<br />
 							<?php endif; ?>	
 							<span class="icon-calendar"></span>&nbsp;<span class="xbnit">
 								<?php echo Text::_('XBFILMS_CAPRELEASED'); ?>
 							</span>
-							<?php if($item->rel_year > 0) { echo ': '.$item->rel_year; } else { echo '<i>'.Text::_('uknown').'</i>';}?>	
+							<?php if($item->rel_year > 0) { echo ': '.$item->rel_year; } else { echo '<i>'.Text::_('XBCULTURE_UNKNOWN').'</i>';}?>	
 							<br />
 							<span class="icon-screen"></span>&nbsp;
                             <?php if($this->show_sum) : ?>
     							<?php if (!empty($item->summary)) : ?>
-    								<?php echo '<i>'.Text::_('Summary').'</i>: '.$item->summary; ?>
+    								<?php echo '<i>'.Text::_('XBCULTURE_SUMMARY').'</i>: '.$item->summary; ?>
         						<?php else : ?>
         							<span class="xbnit">
         							<?php if (!empty($item->synopsis)) : ?>
@@ -177,13 +177,13 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 							<?php if($this->show_rev) : ?>
 								<span class="icon-pencil-2"></span> &nbsp;
 								<?php if ($item->revcnt==0) : ?>
-									<i><?php echo Text::_('No reviews available'); ?></i>
+									<i><?php echo Text::_('XBCULTURE_NO_REVIEWS_AVAILABLE'); ?></i>
 								<?php else : ?>
 									<i>
 								    <?php if($item->revcnt==1) {
-								        echo $item->revcnt.' '.Text::_('review with rating');
+								        echo $item->revcnt.' '.Text::_('XBCULTURE_REVIEW_RATING');
 								    } else {
-								        echo $item->revcnt.' '.Text::_('reviews, average rating');
+								        echo $item->revcnt.' '.Text::_('XBCULTURE_REVIEWS_AVE_RATING');
 								    } ?>
 									</i> &nbsp;
 								    <?php $stars = (round(($item->averat)*2)/2); 
@@ -226,7 +226,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
         					       echo ' -&nbsp;<i>'.Text::_('XBFILMS_LAST_SEEN').'</i>: '.HtmlHelper::date($item->last_seen , $datefmt); 
         					   }
         					   if((!$item->last_seen) && (!$item->first_seen)) {
-        					       echo '<i>'.Text::_('not yet seen').'</i>';
+        					       echo '<i>'.Text::_('XBFILMS_NOT_SEEN_YET').'</i>';
         					   }
         					?>
 							<?php endif; ?>
