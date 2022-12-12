@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/films/tmpl/default.php
- * @version 0.10.0.1 25th November 2022
+ * @version 0.12.0.1 11th December 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -228,6 +228,12 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 						<?php else : ?>
 							<span class="xbnit">No director or producer listed</span>
 						<?php endif; ?>
+						<?php if(($item->crewcnt+$item->castcnt)>0) :?>
+							<br /><span class="xbnit hasTooltip"  style="margin:0;" title data-original-title="
+								<?php echo strip_tags($item->castlist.' '.$item->crewlist); ?>
+								">
+							<?php echo ($item->crewcnt+$item->castcnt).' '.Text::_('Cast &amp; Crew listed'); ?></span>
+						<?php endif; ?>
 						<br />
 							<?php echo $item->rel_year > 0 ? '<span class="xbnit">'.Text::_('XBFILMS_RELEASED').': </span>'.$item->rel_year : ''; ?>						
 						</span></p>						
@@ -254,22 +260,27 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 							</p>
 						<?php endif; ?>
 						<p class="xb095 xbnit">	
-                            <?php $list = '';
-                            if ($item->prodcnt>0) { $list .=  $item->prodcnt.' '.lcfirst($item->prodcnt==1 ? Text::_('XBCULTURE_PRODUCER') :Text::_('XBCULTURE_PRODUCERS')).', ';}
-                            if ($item->crewcnt>0) { $list .= $item->crewcnt.' '.lcfirst(Text::_('XBCULTURE_CREW')).', ';}
-                            if ($item->subjcnt>0) { $list .= $item->subjcnt.' '.lcfirst($item->subjcnt==1 ? Text::_('XBCULTURE_APPEARANCE') :Text::_('XBCULTURE_APPEARANCES')).', ';}
-                            if ($item->castcnt>0) { $list .= $item->castcnt.' '.lcfirst($item->castcnt==1 ? Text::_('XBCULTURE_ACTOR') :Text::_('XBCULTURE_ACTORS'));}
-                            if ($list != '') {
-                            	echo trim($list,', ').' '.Text::_('XBCULTURE_LISTED');
-                            } else {
-                            	echo Text::_('XBCULTURE_NO_PEOPLE_LISTED');
-                            } ?>
+                            <?php if ($item->subjcnt>0) : ?> 
+                                <span class="xbnit hasTooltip"  style="margin:0;" title data-original-title="
+								<?php echo strip_tags($item->subjlist); ?>
+								">
+								<?php echo $item->subjcnt.' '.
+								    lcfirst($item->subjcnt==1 ? Text::_('XBCULTURE_APPEARANCE') :Text::_('XBCULTURE_APPEARANCES')).
+                            	   ' '.Text::_('XBCULTURE_LISTED'); ?>
+                            	</span>
+                            <?php else : ?>
+                            	<?php echo Text::_('XBCULTURE_NO_PEOPLE_LISTED'); ?>
+                            <?php  endif; ?>
                             <br />
-                            <?php if ($item->charcnt>0) {
-                                echo $item->charcnt.' '.lcfirst(Text::_($item->charcnt==1 ? 'XBCULTURE_CHARACTER' :'XBCULTURE_CHARACTERS'));
-                            } else {
-                                echo Text::_('XBCULTURE_NO_CHARS_LISTED');
-                            } ?>
+                            <?php if ($item->charcnt>0) : ?>
+                                <span class="xbnit hasTooltip"  style="margin:0;" title data-original-title="
+								<?php echo strip_tags($item->charlist); ?>
+								">
+                                <?php echo $item->charcnt.' '.lcfirst(Text::_($item->charcnt==1 ? 'XBCULTURE_CHARACTER' :'XBCULTURE_CHARACTERS')); ?>
+                                </span>
+                            <?php else : ?>
+                                <?php echo Text::_('XBCULTURE_NO_CHARS_LISTED'); ?>
+                            <?php endif; ?>
                         </p>
 						<?php if($item->ext_links_cnt >0 ) : ?>
 							<p class="xbnit xb095">	

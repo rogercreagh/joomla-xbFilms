@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/xbfilms.php
- * @version 0.9.9.9 2nd November 2022
+ * @version 0.12.0 6th December 2022
  * @since 0.1.0 22nd November 2020
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -40,11 +40,7 @@ if ($usexbcss<2) {
     }
     $document->addStyleSheet($cssFile);
 }
-$exticon = $params->get('ext_icon',0);
-if ($exticon) {
-    $style = 'a[target="_blank"]:after {font-style: normal; font-weight:bold; content: "\2197";}' ;
-    $document->addStyleDeclaration($style);
-}
+
 $cssFile = "https://use.fontawesome.com/releases/v5.8.1/css/all.css\" integrity=\"sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf\" crossorigin=\"anonymous";
 $document->addStyleSheet($cssFile);
 

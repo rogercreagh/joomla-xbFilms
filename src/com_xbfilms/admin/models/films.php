@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/films.php
- * @version 0.10.0.1 25th November 2022
+ * @version 0.12.0.1 12th December 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -90,8 +90,6 @@ class XbfilmsModelFilms extends JModelList
         
         $query->select('(SELECT COUNT(*) FROM #__xbfilmreviews AS fr WHERE fr.film_id=a.id) AS revcnt');
         $query->select('(SELECT AVG(fr.rating) FROM #__xbfilmreviews AS fr WHERE fr.film_id=a.id) AS averat');
-//        $query->select('(SELECT MAX(fr.rev_date) FROM #__xbfilmreviews AS fr WHERE fr.film_id=a.id) AS lastseen');
-//        $query->select('GREATEST(a.acq_date, COALESCE(a.last_seen, 0)) AS sort_date');
         
 		// Filter by published state
         $published = $this->getState('filter.published');
@@ -101,7 +99,6 @@ class XbfilmsModelFilms extends JModelList
 
         // Filter by category.
         $app = Factory::getApplication();
-        //do we have a catid request, if so we need to over-ride any filter, but save the filter to re-instate?
         $categoryId = $app->getUserStateFromRequest('catid', 'catid','');
         $app->setUserState('catid', '');
         if ($categoryId=='') {
@@ -226,19 +223,15 @@ class XbfilmsModelFilms extends JModelList
             $item->subjcnt = count(array_keys($roles, 'appearsin'));
             $item->castcnt = count(array_keys($roles, 'actor'));
             
-//             $cnts = array_count_values(array_column($item->people, 'role'));
-//             $item->dircnt = (key_exists('director',$cnts))? $cnts['director'] : 0;
-//             $item->prodcnt = (key_exists('producer',$cnts))? $cnts['producer'] : 0;
-//             $item->crewcnt = (key_exists('crew',$cnts))? $cnts['crew'] : 0;
-//             $item->actcnt = (key_exists('actor',$cnts))? $cnts['actor'] : 0;
-//             $item->appcnt = (key_exists('appearsin',$cnts))? $cnts['appearsin'] : 0;
+            $item->dirlist = $item->dircnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'director','comma',true,5);            
+            $item->prodlist = $item->prodcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'producer','comma',true,5);
+            $item->castlist = $item->castcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'actor','comma',true,4);
+            $item->crewlist = $item->crewcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'crew','comma',true,4);
+            $item->subjlist = $item->subjcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'appearsin','comma',true,4);
             
-            $item->dirlist = $item->dircnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'director','comma');            
-            $item->prodlist = $item->prodcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'producer','comma');
-           
             $item->chars = XbfilmsGeneral::getFilmChars($item->id);
             $item->charcnt = (empty($item->chars)) ? 0 : count($item->chars);
- //           $item->charlist = $item->charcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->chars,'char','ul',true,1);
+            $item->charlist = $item->charcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->chars,'char','comma',true,5);
             
             $item->reviews = XbfilmsGeneral::getFilmReviews($item->id);
         	

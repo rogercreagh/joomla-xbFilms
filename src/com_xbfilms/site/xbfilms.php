@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/xbfilms.php
- * @version 0.9.9.8 21st October 2022
+ * @version 0.12.0 6th December 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -46,11 +46,6 @@ if ($usexbcss<2) {
         $stylestr = XbcultureHelper::popstylecolours($popcolour);
         $document->addStyleDeclaration($stylestr);
     }
-}
-$exticon = $params->get('ext_icon',0);
-if ($exticon) {
-    $style = 'a[target="_blank"]:after {font-style: normal; font-weight:bold; content: "\2197";}' ;
-    $document->addStyleDeclaration($style);
 }
 
 $cssFile = "https://use.fontawesome.com/releases/v5.8.1/css/all.css\" integrity=\"sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf\" crossorigin=\"anonymous";
