@@ -1,4 +1,4 @@
-# sql installation file for component xbFilms v0.9.9.8 10th October 2022
+# sql installation file for component xbFilms v1.0.0.1 13th December 2022
 # NB no film data is installed with this file, default categories are created by the installation script
 
 INSERT INTO `#__content_types` (`type_title`, `type_alias`, `content_history_options`, `table`, `field_mappings`, `router`,`rules`) 
@@ -24,50 +24,6 @@ VALUES
     "core_catid": "catid"
   }}',
 'XbfilmsHelperRoute::getFilmRoute',''),
-
--- ('Xbfilms Person', 'com_xbfilms.person', 
--- '{"formFile":"administrator\\/components\\/com_xbfilms\\/models\\/forms\\/person.xml", 
---     "hideFields":["checked_out","checked_out_time"], 
---     "ignoreChanges":["checked_out", "checked_out_time"],
---     "convertToInt":[], 
---     "displayLookup":[
---         {"sourceColumn":"catid","targetTable":"#__categories","targetColumn":"id","displayColumn":"title"}
---     ]
---  }',
--- '{"special":{"dbtable":"#__xbpersons","key":"id","type":"Person","prefix":"XbfilmsTable","config":"array()"},
---     "common":{"dbtable":"#__ucm_content","key":"ucm_id","type":"Corecontent","prefix":"JTable","config":"array()"}}',
--- '{"common": {
---     "core_content_item_id": "id",
---     "core_title": "lastname",
---     "core_state": "state",
---     "core_alias": "alias",
---     "core_created_time": "created",
---     "core_body": "biography",
---     "core_catid": "catid"
---   }}',
--- 'XbfilmsHelperRoute::getPersonRoute',''),
--- 
--- ('Xbfilms Character', 'com_xbfilms.character', 
--- '{"formFile":"administrator\\/components\\/com_xbfilms\\/models\\/forms\\/character.xml", 
---     "hideFields":["checked_out","checked_out_time"], 
---     "ignoreChanges":["checked_out", "checked_out_time"],
---     "convertToInt":[], 
---     "displayLookup":[
---         {"sourceColumn":"catid","targetTable":"#__categories","targetColumn":"id","displayColumn":"title"}
---     ]
---  }',
--- '{"special":{"dbtable":"#__xbcharacters","key":"id","type":"Character","prefix":"XbfilmsTable","config":"array()"},
---     "common":{"dbtable":"#__ucm_content","key":"ucm_id","type":"Corecontent","prefix":"JTable","config":"array()"}}',
--- '{"common": {
---     "core_content_item_id": "id",
---     "core_title": "name",
---     "core_state": "state",
---     "core_alias": "alias",
---     "core_created_time": "created",
---     "core_body": "description",
---     "core_catid": "catid"
---   }}',
--- 'XbfilmsHelperRoute::getCharacterRoute',''),
 
 ('Xbfilms Review', 'com_xbfilms.review', 
 '{"formFile":"administrator\\/components\\/com_xbfilms\\/models\\/forms\\/review.xml", 
@@ -264,7 +220,7 @@ CREATE TABLE IF NOT EXISTS `#__xbfilmcharacter` (
   `listorder` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `idx_film_id` (`film_id`),
-  KEY `idx_person_id` (`char_id`),
+  KEY `idx_char_id` (`char_id`),
   KEY `idx_actor_id` (`actor_id`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
