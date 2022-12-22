@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/film/tmpl/default.php
- * @version 0.10.0.4 28th November 2022
+ * @version 1.0.0.1 22nd December 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -252,8 +252,13 @@ if ($imgok) {
 		<div class="span5">
 			<span class="xbnit"><?php echo  Text::_('XBFILMS_FIRST_SEEN').': '; ?>
 			</span>
-			<?php $datefmt = xbCultureHelper::getDateFmt($item->first_seen, 'D jS M Y');
-			echo HtmlHelper::date($item->first_seen , $datefmt) ; ?>
+			<?php if($item->first_seen) : ?>
+				<?php $datefmt = xbCultureHelper::getDateFmt($item->first_seen, 'D jS M Y');
+    			echo HtmlHelper::date($item->first_seen , $datefmt) ; ?>
+			<?php else: 
+			     echo Text::_('unknown');
+			endif; ?>
+			
 		</div>
 		<div class="span5">
 	    	<?php if (($item->last_seen) && ($item->last_seen <> $item->first_seen)) : ?>
