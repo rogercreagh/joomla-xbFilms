@@ -1,7 +1,7 @@
 # v1.0.1.0 add #__xbfilmgroup
 CREATE TABLE IF NOT EXISTS `#__xbfilmgroup` (
   `id` int(6) NOT NULL AUTO_INCREMENT,
-  `book_id` int(11) NOT NULL DEFAULT '0',
+  `film_id` int(11) NOT NULL DEFAULT '0',
   `group_id` int(11) NOT NULL DEFAULT '0',
   `role` varchar(255) NOT NULL DEFAULT '',
   `role_note` varchar(255) NOT NULL DEFAULT '',
