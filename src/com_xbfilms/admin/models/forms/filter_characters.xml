@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms admin/models/forms/filter_persons.xml v0.10.0.4 28th November 2022 -->
+<!-- xbFilms admin/models/forms/filter_persons.xml v1.0.1.3 5th January 2023 -->
 <form>
 	<fields name="filter"  addfieldpath="administrator/components/com_xbpeople/models/fields">
 		<field
@@ -26,6 +26,7 @@
 			extension="com_xbpeople"
 			itemtable="#__xbcharacters"
 			multiple="true"
+			class="multipleCats"
 			onchange="this.form.submit();"
 			>
 		</field>

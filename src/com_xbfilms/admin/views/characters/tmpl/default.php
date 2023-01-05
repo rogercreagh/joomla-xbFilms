@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/characters/tmpl/default.php
- * @version 0.10.0.4 28th November 2022
+ * @version 1.0.1.3 5th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -16,8 +16,8 @@ use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Uri\Uri;
 
 HTMLHelper::_('behavior.multiselect');
-HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => Text::_('JOPTION_SELECT_TAG')));
-HTMLHelper::_('formbehavior.chosen', 'select');
+HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => Text::_('XBCULTURE_SELECT_TAGS')));
+HTMLHelper::_('formbehavior.chosen', '.multipleCats', null, array('placeholder_text_multiple' => Text::_('XBCULTURE_SELECT_CATS')));
 
 $user = Factory::getUser();
 $userId = $user->get('id');
@@ -40,11 +40,8 @@ if ($saveOrder) {
 
 $nofile = "media/com_xbfilms/images/nofile.jpg";
 
-$pelink = 'index.php?option=com_xbpeople&view=person&task=character.edit&id=';
-$pvlink = 'index.php?option=com_xbfilms&view=person&task=character.edit&id='; //change this to view view when available
-$celink = 'index.php?option=com_categories&task=category.edit&id=';
+$pelink = 'index.php?option=com_xbpeople&view=character&task=character.edit&id=';
 $cvlink = 'index.php?option=com_xbfilms&view=fcategory&id=';
-$telink = 'index.php?option=com_tags&view=tag&task=tag.edit&id=';
 $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 
 ?>
@@ -78,7 +75,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 	<?php if ($search) {
 		echo '<p>Searched for <b>'; 
 		if (stripos($search, 'i:') === 0) {
-            echo trim(substr($search, 2)).'</b> '.Text::_('XBFILMS_AS_CHARID');
+            echo trim(substr($search, 2)).'</b> '.Text::_('XBCULTURE_AS_ID');
 		} elseif ((stripos($search, 's:') === 0) || (stripos($search, 'd:') === 0)) {
             echo trim(substr($search, 2)).'</b> '.Text::_('XBFILMS_AS_INBIOG');
         } else {
@@ -112,15 +109,13 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 					<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_NAME', 'name', $listDirn, $listOrder); ?>					
     			</th>
     			<th>
-    				<?php echo Text::_('XBCULTURE_DESCRIPTION'); ?>
+    				<?php echo Text::_('XBCULTURE_DETAILS'); ?>
     			</th>
     			<th >
 					<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_FILMS_U', 'fcnt', $listDirn, $listOrder); ?>					
     			</th>
     			<th class="hidden-tablet hidden-phone" style="width:15%;">
-						<?php if ($this->xbpeople_ok!==false) {
-							echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; ';
-						}
+						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; ';
 						echo Text::_( 'XBCULTURE_TAGS_U' ); ?>
 					</th>
     			
@@ -218,7 +213,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
     							<?php endif; ?>
     						<?php endif; ?>
                         </p>
-                        <?php if ((!empty($item->description)) && (strlen(strip_tags($item->description))>200)) : ?>
+                        <?php if ((!empty($item->description)) && (strlen(strip_tags($item->description))>20)) : ?>
                         	<p class="xbnit xb09">   
                              <?php 
                              echo Text::_('XBCULTURE_BIOGRAPHY').' '.str_word_count(strip_tags($item->description)).' '.Text::_('XBCULTURE_WORDS'); 
@@ -250,12 +245,10 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 						}?>
 					</td>
 					<td>
-						<?php if ($this->xbpeople_ok!==false): ?>						
 						<p><a  class="label label-success" href="<?php echo $cvlink.$item->catid.'&extension=com_xbpeople'; ?>" 
 							title="<?php echo Text::_( 'XBCULTURE_VIEW_CATEGORY' );?>::<?php echo $item->category_title; ?>">
 								<?php echo $item->category_title; ?>
 						</a></p>						
-						<?php endif; ?>
 						<ul class="inline">
 						<?php foreach ($item->tags as $t) : ?>
 							<li><a href="<?php echo $tvlink.$t->id; ?>" class="label chcnt">

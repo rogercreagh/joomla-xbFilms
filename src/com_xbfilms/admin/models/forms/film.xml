@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms admin/models/forms/film.xml v0.12.0.1 8th December 2022 -->
+<!-- xbFilms admin/models/forms/film.xml v1.0.1.3 5th January 2023 -->
 <form>
 
 	<fieldset addfieldpath="/administrator/components/com_xbpeople/models/fields">
@@ -312,6 +312,23 @@
 					<option value="self">Appears as themself</option>	
 					<option value="subect">Main Subject</option>	
 				</field>
+			</form>
+		</field>						
+
+		<field name= "grouplist" type= "subform"
+			label= "XBCULTURE_FIELD_GROUPS_FEATURED_ADD"
+			description="XBCULTURE_SUBFORM_ADD_DESC"
+			min= "0" max= "10"
+			multiple= "true"
+			buttons= "add,remove,move"
+			layout="joomla.form.field.subform.repeatable-table"
+			groupByFieldset="false" >
+			<form>
+				<field name="group_id" type="allgroups" label="XBCULTURE_GROUP" >
+					<option value="">JSELECT</option>	
+				</field>
+				<field name="role" type="text" label="XBCULTURE_ROLE_U" size="20" maxlength="50" />
+				<field name="role_note" type="text" label="XBCULTURE_NOTE" size="20" maxlength="200" />
 			</form>
 		</field>						
 

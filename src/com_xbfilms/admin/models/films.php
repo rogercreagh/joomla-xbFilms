@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/films.php
- * @version 0.12.0.1 12th December 2022
+ * @version 1.0.1.3 5th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -69,8 +69,8 @@ class XbfilmsModelFilms extends JModelList
         
     protected function getListQuery() {
 	
-//		$user   = JFactory::getUser();
-		$db = $this->getDbo();
+        $app = Factory::getApplication();
+        $db = $this->getDbo();
         $query = $db->getQuery(true);
         
         $query->select('a.id AS id, a.title AS title, a.subtitle AS subtitle, a.alias AS alias, 
@@ -98,7 +98,6 @@ class XbfilmsModelFilms extends JModelList
         }
 
         // Filter by category.
-        $app = Factory::getApplication();
         $categoryId = $app->getUserStateFromRequest('catid', 'catid','');
         $app->setUserState('catid', '');
         if ($categoryId=='') {

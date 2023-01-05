@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/films/tmpl/default.php
- * @version 0.12.0.1 11th December 2022
+ * @version 1.0.1.3 5th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -17,8 +17,8 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 
 HTMLHelper::_('behavior.multiselect');
-HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => Text::_('JOPTION_SELECT_TAG')));
-HTMLHelper::_('formbehavior.chosen', 'select');
+HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => Text::_('XBCULTURE_SELECT_TAGS')));
+HTMLHelper::_('formbehavior.chosen', '.multipleCats', null, array('placeholder_text_multiple' => Text::_('XBCULTURE_SELECT_CATS')));
 
 $user = Factory::getUser();
 $userId  = $user->get('id');
@@ -46,10 +46,8 @@ $nocover = "media/com_xbfilms/images/nocover.jpg";
 $nofile = "media/com_xbfilms/images/nofile.jpg";
 
 $belink = 'index.php?option=com_xbfilms&view=film&task=film.edit&id=';
-$bvlink = 'index.php?option=com_xbfilms&view=film&task=film.edit&id='; //change this to view view when available
 $relink = 'index.php?option=com_xbfilms&view=review&task=review.edit&id=';
 $rvlink = 'index.php?option=com_xbfilms&view=review&task=review.edit&id='; //change this to view view when available
-$celink = 'index.php?option=com_categories&task=category.edit&id='; 
 $cvlink = 'index.php?option=com_xbfilms&view=fcategory&id=';
 $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 
@@ -268,18 +266,28 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 								    lcfirst($item->subjcnt==1 ? Text::_('XBCULTURE_APPEARANCE') :Text::_('XBCULTURE_APPEARANCES')).
                             	   ' '.Text::_('XBCULTURE_LISTED'); ?>
                             	</span>
-                            <?php else : ?>
-                            	<?php echo Text::_('XBCULTURE_NO_PEOPLE_LISTED'); ?>
-                            <?php  endif; ?>
-                            <br />
-                            <?php if ($item->charcnt>0) : ?>
+                                <?php if (($item->charcnt>0) || ($item->grpcnt>0)) : ?>
+                                    <br />
+                            	<?php endif; ?>
+                            <?php endif; 
+                            if ($item->charcnt>0) : ?>
                                 <span class="xbnit hasTooltip"  style="margin:0;" title data-original-title="
 								<?php echo strip_tags($item->charlist); ?>
 								">
                                 <?php echo $item->charcnt.' '.lcfirst(Text::_($item->charcnt==1 ? 'XBCULTURE_CHARACTER' :'XBCULTURE_CHARACTERS')); ?>
                                 </span>
-                            <?php else : ?>
-                                <?php echo Text::_('XBCULTURE_NO_CHARS_LISTED'); ?>
+                                <?php if ($item->grpcnt>0) : ?>
+                                    <br />
+                            	<?php endif; ?>
+                            <?php endif;  
+                            if ($item->grpcnt>0) : ?>
+								<span class="xbnit hasTooltip"  style="margin:0;" title data-original-title="
+								<?php echo strip_tags($item->grplist); ?>
+								">
+								<?php echo $item->grpcnt.' ';
+                                echo ($item->charcnt==1) ? Text::_('XBCULTURE_GROUP') : Text::_('XBCULTURE_GROUPS');
+                                echo ' '.Text::_('XBCULTURE_LISTED'); ?>
+                                </span>
                             <?php endif; ?>
                         </p>
 						<?php if($item->ext_links_cnt >0 ) : ?>

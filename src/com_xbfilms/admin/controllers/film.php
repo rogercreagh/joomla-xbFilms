@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/controllers/film.php
- * @version 0.3.0 7th February 2021
+ * @version 1.0.1.3 5th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -41,11 +41,11 @@ class XbfilmsControllerFilm extends FormController {
 
 		switch ($task) {
 			case 'save2NewPer':
-				$redirectTo =('index.php?option=com_xbfilms&task=person.edit&id=0');
+				$redirectTo =('index.php?option=com_xbpeople&task=person.edit&id=0');
 				$this->setRedirect(Route::_($redirectTo,false ));
 				break;
 			case 'save2NewChar':
-				$redirectTo =('index.php?option=com_xbfilms&task=character.edit&id=0');
+				$redirectTo =('index.php?option=com_xbpeople&task=character.edit&id=0');
 				$this->setRedirect(Route::_($redirectTo,false ));
 				break;
 			case 'save2NewRev':

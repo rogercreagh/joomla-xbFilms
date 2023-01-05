@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms admin/models/forms/review.xml v0.10.0.1 25th November 2022 -->
+<!-- xbFilms admin/models/forms/review.xml v1.0.1.3 5th January 2023 -->
 <form>
 	<fieldset addfieldpath="/administrator/components/com_xbpeople/models/fields">
 		<field
@@ -27,14 +27,11 @@
 			default="" />
 			
 		<field
-		    name="film_id"
-    		type="films"
-    		required="true"
-    		class="input-xxlarge input-large-text"
-    		value_field="title"
+		    name="film_id" type="films"
 		    label="XBFILMS_SELECTFILM_LABEL"
 		    description="XBFILMS_SELECTFILM_DESC"
-    		query="SELECT id AS value, title FROM #__xbfilms ORDER BY title ASC"
+    		required="true"
+    		class="input-xxlarge input-large-text"
     		>
     		<option value="">JSELECT</option>
     	</field>

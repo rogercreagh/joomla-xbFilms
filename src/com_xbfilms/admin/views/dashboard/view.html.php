@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/dashboard/view.html.php
- * @version 0.12.0.1 11th December 2022
+ * @version 1.0.1.3 5th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -28,7 +28,7 @@ class XbfilmsViewDashboard extends JViewLegacy
 	    if ($err!='') {
 	        $app->enqueueMessage(urldecode($err),'Error');
 	    }
-	    $this->xbpeople_ok = Factory::getSession()->get('xbpeople_ok');
+	    $this->xbpeople_ok = XbfilmsGeneral::checkComPeople();
 		$this->xbbooks_ok = Factory::getSession()->get('xbbooks_ok');
 		$this->xbevents_ok = Factory::getSession()->get('xbevents_ok');
 		
@@ -36,11 +36,13 @@ class XbfilmsViewDashboard extends JViewLegacy
 			
 			$this->filmStates = $this->get('FilmStates');
 			$this->catStates = $this->get('CatStates');
-			$this->pcatStates = $this->get('PcatStates');
+//			$this->pcatStates = $this->get('PcatStates');
 			$this->revStates = $this->get('RevStates');
 			$this->perStates = $this->get('PerStates');
+			$this->groupStates = $this->get('GroupStates');
 			$this->charStates = $this->get('CharStates');
 			$this->totPeople = XbcultureHelper::getItemCnt('#__xbpersons');
+			$this->totGroups = XbcultureHelper::getItemCnt('#__xbgroups');
 			$this->totChars = XbcultureHelper::getItemCnt('#__xbcharacters');
 			$this->otherRoles = $this->get('OtherRoles');
 						
@@ -49,7 +51,7 @@ class XbfilmsViewDashboard extends JViewLegacy
 			$this->people = $this->get('RoleCnts');
 			
 			$this->cats = $this->get('Cats');
-			$this->pcats = $this->get('PeopleCats');
+//			$this->pcats = $this->get('PeopleCats');
 			$this->tags = $this->get('Tagcnts');
 			
 			$this->xmldata = Installer::parseXMLInstallFile(JPATH_COMPONENT_ADMINISTRATOR . '/xbfilms.xml');
@@ -98,36 +100,36 @@ class XbfilmsViewDashboard extends JViewLegacy
 	            throw new Exception(implode("\n", $errors), 500);
 	        }
 	
-	        $clink='index.php?option=com_xbfilms&view=fcategory&id=';
-	        $this->catlist = '<ul style="list-style-type: none;">';
-	        foreach ($this->cats as $key=>$value) {
-	        	if ($value['level']==1) {
-	        		$this->catlist .= '<li>';
-	        	} else {
-	        		$this->catlist .= str_repeat('-&nbsp;', $value['level']-1);
-	        	}
-	        	$lbl = $value['published']==1 ? 'label-success' : '';
-	        	$this->catlist .='<a class="label label-success" href="'.$clink.$value['id'].'">'.$value['title'].'</a>&nbsp;(<i>'.$value['filmcnt'].':'.$value['revcnt'].'</i>) ';
-	        	if ($value['level']==1) {
-	        		$this->catlist .= '</li>';
-	        	}
-	        }
-	        $this->catlist .= '</ul>'; 
+// 	        $clink='index.php?option=com_xbfilms&view=fcategory&id=';
+// 	        $this->catlist = '<ul style="list-style-type: none;">';
+// 	        foreach ($this->cats as $key=>$value) {
+// 	        	if ($value['level']==1) {
+// 	        		$this->catlist .= '<li>';
+// 	        	} else {
+// 	        		$this->catlist .= str_repeat('-&nbsp;', $value['level']-1);
+// 	        	}
+// 	        	$lbl = $value['published']==1 ? 'label-success' : '';
+// 	        	$this->catlist .='<a class="label label-success" href="'.$clink.$value['id'].'">'.$value['title'].'</a>&nbsp;(<i>'.$value['filmcnt'].':'.$value['revcnt'].'</i>) ';
+// 	        	if ($value['level']==1) {
+// 	        		$this->catlist .= '</li>';
+// 	        	}
+// 	        }
+// 	        $this->catlist .= '</ul>'; 
 	        
-	        $this->pcatlist = '<ul style="list-style-type: none;">';
-	        foreach ($this->pcats as $key=>$value) {
-	            if ($value['level']==1) {
-	                $this->pcatlist .= '<li>';
-	            } else {
-	                $this->pcatlist .= str_repeat('-&nbsp;', $value['level']-1);
-	            }
-	            $lbl = $value['published']==1 ? 'label-success' : '';
-	            $this->pcatlist .='<a class="label label-success" href="'.$clink.$value['id'].'">'.$value['title'].'</a>&nbsp;(<i>'.$value['percnt'].':'.$value['chrcnt'].'</i>) ';
-	            if ($value['level']==1) {
-	                $this->pcatlist .= '</li>';
-	            }
-	        }
-	        $this->pcatlist .= '</ul>';
+// 	        $this->pcatlist = '<ul style="list-style-type: none;">';
+// 	        foreach ($this->pcats as $key=>$value) {
+// 	            if ($value['level']==1) {
+// 	                $this->pcatlist .= '<li>';
+// 	            } else {
+// 	                $this->pcatlist .= str_repeat('-&nbsp;', $value['level']-1);
+// 	            }
+// 	            $lbl = $value['published']==1 ? 'label-success' : '';
+// 	            $this->pcatlist .='<a class="label label-success" href="'.$clink.$value['id'].'">'.$value['title'].'</a>&nbsp;(<i>'.$value['percnt'].':'.$value['chrcnt'].'</i>) ';
+// 	            if ($value['level']==1) {
+// 	                $this->pcatlist .= '</li>';
+// 	            }
+// 	        }
+// 	        $this->pcatlist .= '</ul>';
 	        
 // 	        $tlink='index.php?option=com_xbfilms&view=tag&id=';
 // 	        $this->taglist = '<ul class="inline">';
@@ -165,13 +167,13 @@ class XbfilmsViewDashboard extends JViewLegacy
 	        ToolbarHelper::custom('dashboard.people', 'info-2', '', 'xbPeople', false) ;
 	        
 	        ToolbarHelper::custom('dashboard.books', 'book', '', 'xbBooks', false) ;
-	        ToolbarHelper::custom('dashboard.live', 'music', '', 'xbEvents', false) ;
+	        ToolbarHelper::custom('dashboard.events', 'music', '', 'xbEvents', false) ;
 	        if ($canDo->get('core.admin')) {
 	            ToolbarHelper::preferences('com_xbfilms');
 	        }
 	        ToolbarHelper::help( '', false,'https://crosborne.uk/xbfilms/doc?tmpl=component#admin-panel' );
         } else {
-            ToolbarHelper::title('xbFilms - please install xbPeople to proceed','info-2');
+            ToolbarHelper::title('xbFilms - please install/enable xbPeople to proceed','info-2');
             ToolBarHelper::help( '', false,'https://www.crosborne.uk/downloads/file/11-xbpeople-component?tmpl=component' );
         }
     }

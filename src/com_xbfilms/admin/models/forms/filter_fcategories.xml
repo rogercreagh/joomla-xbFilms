@@ -32,11 +32,12 @@
 		</field>
 	</fields>
 	<fields name="list">
+  		<field name="fullordering" type="hidden" default="" />
 		<field
 			name="limit"
 			type="limitbox"
 			class="inputbox input-mini"
-			default="20"
+			default="25"
 			label="COM_CONTENT_LIST_LIMIT"
 			description="COM_CONTENT_LIST_LIMIT_DESC"
 			onchange="this.form.submit();"

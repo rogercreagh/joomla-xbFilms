@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/films/view.html.php
- * @version 0.9.6.f 11th January 2022
+ * @version 1.0.1.3 5th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -35,6 +35,12 @@ class XbfilmsViewFilms extends JViewLegacy {
         $this->zero_class = $params->get('zero_class');
         $this->star_class = $params->get('star_class');
         $this->halfstar_class = $params->get('halfstar_class');
+        
+        $show_cats = $params->get('show_cats','1','int');
+        $this->showcat = ($show_cats) ? $params->get('show_bcat','1','int') : 0;
+        
+        $show_tags = $params->get('show_tags','1','int');
+        $this->showtags = ($show_tags) ? $params->get('show_btags','1','int') : 0;
         
         $this->xbpeople_ok = Factory::getSession()->get('xbpeople_ok');
         

@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource script.xbfilms.php
- * @version 0.12.0.1 12th December 2022
+ * @version 1.0.1.3 5th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html 
@@ -93,31 +93,42 @@ class com_xbfilmsInstallerScript
     	$message .= '<br />For ChangeLog see <a href="http://crosborne.co.uk/xbfilms/changelog" target="_blank">
             www.crosborne.co.uk/xbfilms/changelog</a></p>';
     	Factory::getApplication()->enqueueMessage($message,'Message');
-    	
-    	$delfiles = '/models/fields/allpeople.php,/models/fields/filmpeople.php,/models/fields/catsubtree.php,/models/fields/characters.php,
-            /models/fields/nationality.php,/models/fields/natlist.php,/models/fields/people.php,
-            /models/fields/filmyear.php,/models/fields/revyear.php,/models/forms/booklist.xml,/models/forms/peoplelist.xml';
-    	$delfiles = explode(',',$delfiles);
-    	$cnt = 0;
+    	$delfiles = '';
+    	$delfiles .= '/models/fields/allpeople.php,/models/fields/filmpeople.php,/models/fields/catsubtree.php,/models/fields/characters.php';
+        $delfiles .= ',/models/fields/nationality.php,/models/fields/natlist.php,/models/fields/people.php';
+        $delfiles .= ',/models/fields/filmyear.php,/models/fields/revyear.php,/models/forms/booklist.xml,/models/forms/peoplelist.xml';
+        $delfiles .= ',/controllers/character.php,/controllers/person.php,/models/character.php,/models/person.php';
+        $delfiles .= ',/models/forms/character.xml,/models/forms/person.xml,/tables/character.php,/tables/person.php';
+        $delfiles .= ',/views/character,/views/person,/models/forms/filmlist.xml,/views/films/tmpl/modal.php,/views/review/tmpl/view.php';
+        $delfiles = explode(',',$delfiles);
+        $cnt = 0; $dcnt=0;
     	$ecnt = 0;
     	$message = 'Deleting Redundant Files in '.JPATH_ADMINISTRATOR.'/components/com_xbfilms/<br />';
     	foreach ($delfiles as $f) {
-    	    if (file_exists(JPATH_ADMINISTRATOR.'/components/com_xbfilms/'.$f)) {
-    	        if (unlink(JPATH_ADMINISTRATOR.'/components/com_xbfilms/'.$f)) {
-    	            //$message .= $f.'<br />';
-    	            $cnt ++;
+    	    $name = JPATH_ADMINISTRATOR.'/components/com_xbbooks'.$f;
+    	    if (file_exists($name)) {
+    	        if (is_dir($name)) {
+    	            if ($this->rrmdir($name)) {
+    	                $dcnt ++;
+    	                //    	               $message .= 'RMDIR '.$f.'<br />';
+    	            }
     	        } else {
-    	            $message .= 'DELETE FAILED: '.$f.'<br />';
-    	            $ecnt ++;
+    	            if (unlink($name)) {
+    	                //        	            $message .= 'DEL '.$f.'<br />';
+    	                $cnt ++;
+    	            } else {
+    	                $message .= 'DELETE FAILED: '.$f.'<br />';
+    	                $ecnt ++;
+    	            }
     	        }
     	    } else {
-    	       // $message .= 'FILE NOT FOUND: '.$f.'<br />';
+    	        //        	    $message .= 'FILE NOT FOUND: '.$f.'<br />';
     	    }
     	}
-    	if (($cnt+$ecnt)>0) {
-    	    $message .= $cnt.' old files cleared';
+    	if (($cnt+$ecnt+$dcnt)>0) {
+    	    $message .= $cnt.' files, '.$dcnt.' folders cleared';
     	    $mtype = ($ecnt>0) ? 'Warning' : 'Message';
-        	Factory::getApplication()->enqueueMessage($message, $mtype);
+    	    Factory::getApplication()->enqueueMessage($message, $mtype);
     	}
     }
     
@@ -302,6 +313,25 @@ class com_xbfilmsInstallerScript
 	        return false;
 	    }
 	    return true;
+	}
+	
+	protected function rrmdir($dir) {
+	    if (is_dir($dir)) {
+	        $objects = scandir($dir);
+	        foreach ($objects as $object) {
+	            if ($object != "." && $object != "..") {
+	                if (filetype($dir."/".$object) == "dir") {
+	                    $this->rrmdir($dir."/".$object);
+	                } else {
+	                    unlink($dir."/".$object);
+	                }
+	            }
+	        }
+	        reset($objects);
+	        rmdir($dir);
+	        return true;
+	    }
+	    return false;
 	}
 	
 }

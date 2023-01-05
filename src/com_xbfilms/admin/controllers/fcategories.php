@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/controlers/fcategories.php
- * @version 0.9.4 14th April 2021
+ * @version 1.0.1.3 5th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -29,12 +29,11 @@ class XbfilmsControllerFcategories extends JControllerAdmin {
     	$ext = $db->loadResult();
     	if ($ext == 'com_xbfilms') {
     		$this->setRedirect($this->edcatlink.'com_xbfilms&id='.$id);    		
-    	} elseif ($ext = 'com_xbpeople') {
-    		//if (Factory::getSession()->get('xbpeople_ok')==1){
-    		if (XbcultureHelper::checkComponent('com_xbpeople')==1){
-    			$this->setRedirect($this->edcatlink.'com_xbpeople&id='.$id);
+    	} else {
+    	    if (XbcultureHelper::checkComponent($ext)==1){
+    			$this->setRedirect($this->edcatlink.$ext.'&id='.$id);
 	    	} else {
-	    		Factory::getApplication()->enqueueMessage('XBFILMS_NO_COMPEOPLE','error');
+	    		Factory::getApplication()->enqueueMessage($ext.' not available','error');
 	    	}
     	}
     }

@@ -2,7 +2,7 @@
 /*******
  * @package xbBooks
  * @filesource admin/helpers/xbfilmsgeneral.php
- * @version 0.9.11.0 15th November 2022
+ * @version 1.0.1.3 5th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -141,6 +141,63 @@ public static function getFilmChars($filmid) {
         	}
     	}
     	return $list;
+    }
+    
+    /**
+     * @name getFilmGroups()
+     * @desc returns list of groups linked to given film
+     * @param int $filmid
+     * @return array of objects
+     */
+    public static function getFilmGroups($filmid) {
+        $admin = Factory::getApplication()->isClient('administrator');
+        $link = 'index.php?option=com_xbpeople'. ($admin) ? '&task=group.edit&id=' : '&view=group&id=';
+        $db = Factory::getDBO();
+        $query = $db->getQuery(true);
+        
+        $query->select('g.title, g.id, g.state AS gstate, a.role, a.role_note')
+        ->from('#__xbfilmgroup AS a')
+        ->join('LEFT','#__xbgroups AS g ON g.id=a.group_id')
+        ->where('a.film_id = "'.$filmid.'"' );
+        if (!$admin) {
+            $query->where('g.state = 1');
+        }
+        $query->order('a.listorder', 'ASC');
+        try {
+            $db->setQuery($query);
+            $list = $db->loadObjectList();
+        } catch (Exception $e) {
+            return '';
+        }
+        if (!empty($list)) {
+            foreach ($list as $i=>$item){
+                $item->link = Route::_($link . $item->id);
+                if ($item->gstate != 1) {
+                    $item->title = '<span class="xbhlt">'.$item->title.'</span>';
+                }
+                $item->note = $item->role_note;
+            }
+        }
+        return $list;
+    }
+    
+    /**
+     * @name checkComPeople()
+     * @desc check whether com_xbpeople is installed and sets/clears session variable
+     * needed here as can't depend on XbcultureHelper::checkComponent() being available if xbPeople not installed
+     * @return null if not installed, 0 if not enabled, 1 if ok
+     */
+    public static function checkComPeople() {
+        $sess= Factory::getSession();
+        $db = Factory::getDBO();
+        $db->setQuery('SELECT enabled FROM #__extensions WHERE element = '.$db->quote('com_xbpeople'));
+        $res = $db->loadResult();
+        if (is_null($res)) {
+            $sess->clear('xbpeople_ok');
+        } else {
+            $sess->set('xbpeople_ok',$res);
+        }
+        return $res;
     }
     
 }

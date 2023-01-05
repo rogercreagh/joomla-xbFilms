@@ -36,11 +36,9 @@ class XbfilmsViewCharacters extends JViewLegacy {
             throw new Exception(implode("\n", $errors), 500);
         }
         
-        if ($this->getLayout() !== 'modal') {
-            $this->addToolbar();
-            XbfilmsHelper::addSubmenu('characters');
-            $this->sidebar = JHtmlSidebar::render();
-        }
+        $this->addToolbar();
+        XbfilmsHelper::addSubmenu('characters');
+        $this->sidebar = JHtmlSidebar::render();
         
         // Display the template
         parent::display($tpl);

@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/fcategory.php
- * @version 0.9.1 9th April 2021
+ * @version 1.0.1.3 5th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -26,7 +26,7 @@ class XbfilmsModelFcategory extends JModelItem {
 	
 	public function getItem($id = null) {
 		if (!isset($this->item) || !is_null($id)) {
-			$params = ComponentHelper::getParams('com_xbmaps');
+			$params = ComponentHelper::getParams('com_xbfilms');
 			$people_sort = $params->get('people_sort');
 			
 			$id    = is_null($id) ? $this->getState('cat.id') : $id;

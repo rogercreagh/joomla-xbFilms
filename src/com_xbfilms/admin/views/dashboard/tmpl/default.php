@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/dashboard/tmpl/default.php
- * @version 0.12.0.1 11th December 2022
+ * @version 1.0.1.3 5th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -16,14 +16,15 @@ use Joomla\CMS\Router\Route;
 
 //jimport('joomla.html.html.bootstrap');
 
-$relink='index.php?option=com_xbfilms&view=review&layout=edit&id=';
-$pelink='index.php?option=com_xbfilms&view=person&layout=edit&id=';
-$chelink='index.php?option=com_xbfilms&view=character&layout=edit&id=';
+//$relink='index.php?option=com_xbfilms&view=review&layout=edit&id=';
+//$pelink='index.php?option=com_xbfilms&view=person&layout=edit&id=';
+//$chelink='index.php?option=com_xbfilms&view=character&layout=edit&id=';
+$clink='index.php?option=com_xbfilmss&view=bcategory&id=';
 
-if (!$this->xbpeople_ok) : ?>
-    <div class="alert alert-error">
-    	<?php echo Text::_('XBFILMS_PEOPLE_WARNING'); ?>
-    </div>
+if ($this->xbpeople_ok==='0') : ?>
+    <div class="alert alert-error"><?php echo Text::_('XBBOOKS_PEOPLE_WARNING'); ?></div>
+<?php elseif ($this->xbpeople_ok != 1) : ?>
+    <div class="alert alert-error"><?php echo Text::_('XBBOOKS_PEOPLE_ERROR'); ?></div>
 <?php else: ?>
 
 <form action="<?php echo Route::_('index.php?option=com_xbfilms&view=dashboard'); ?>" method="post" name="adminForm" id="adminForm">
@@ -197,33 +198,62 @@ if (!$this->xbpeople_ok) : ?>
     						</table>
     					</div>
     				</div>
-    			</div>			
+    			</div>	
+     			<div class="xbbox xbboxgrey">
+    				<div class="row-fluid"><div class="span12">
+    					<h2 class="xbtitle"><?php echo Text::_('XBCULTURE_NUM_ITEMS_TAGGED'); ?>
+    						<span class="pull-right">
+    							<span class="xbnit xbmr10 xb09"><?php echo Text::_('XBCULTURE_TOTAL'); ?>: </span>
+            					<span class="badge badge-info" style="border: blue solid 1px;">
+            					<?php echo ($this->tags['filmscnt']  + $this->tags['revscnt']) ; ?></span> 
+    						</span>
+    					</h2>
+    				</div></div>
+    				<div class="row-striped">
+    					<h4>Items tagged per type</h4>
+    					<div class="row-fluid">
+    						<div class="span8"><?php echo Text::_('XBCULTURE_FILMS_U'); ?>:
+    						</div>
+    						<div class="span4">
+    							<span class="flmcnt badge  pull-right"><?php echo $this->tags['filmscnt']; ?></span>
+    						</div>
+    					</div>
+    					<div class="row-fluid">
+    						<div class="span8"><?php echo Text::_('XBFILMS_XBFILM_REVIEWS'); ?>:
+    						</div>
+    						<div class="span4">
+    							<span class="revcnt badge  pull-right"><?php echo $this->tags['revscnt']; ?></span>
+    						</div>
+    					</div>
+    				</div>
+     				<hr style="margin: 8px 0;" />
+     				<div class="row-striped">
+     					<h4>Tags used per type</h4>
+    					<div class="row-fluid">
+    						<div class="span8"><?php echo Text::_('XBCULTURE_FILMS_U'); ?>:
+    						</div>
+    						<div class="span4">
+    							<span class="flmcnt badge  pull-right"><?php echo $this->tags['filmtags']; ?></span>
+    						</div>
+    					</div>
+    					<div class="row-fluid">
+    						<div class="span8"><?php echo Text::_('XBFILMS_XBFILM_REVIEWS'); ?>:
+    						</div>
+    						<div class="span4">
+    							<span class="revcnt badge  pull-right"><?php echo $this->tags['revtags']; ?></span>
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+    		</div>
+    		<div class="span5">
+    					
     			<div class="xbbox xbboxgrn">
     				<h2 class="xbtitle"><?php echo Text::_('XBCULTURE_PEOPLE_U'); ?>
     					 <span class="pull-right"><span class="xbnit xbmr10 xb09">Total: </span><span class="badge percnt xbmr20"><?php echo $this->totPeople;?></span>
     					 <span class="xbnit xbmr10 xb09">In Films: </span><span class="badge badge-info "><?php echo $this->perStates['total'];?></span></span>	
     				</h2>
     				<div class="row-striped">
-    					<div class="row-fluid">
-    						<div class="span6">
-    							<span class="badge badge-success xbmr10"><?php echo $this->perStates['published']; ?></span>
-    							<?php echo Text::_('XBFILMS_PUBLISHED'); ?>
-    						</div>
-    						<div class="span6">
-    							<span class="badge <?php echo $this->perStates['unpublished']>0 ?'badge-yellow' : ''; ?> xbmr10"><?php echo $this->perStates['unpublished']; ?></span>
-    							<?php echo Text::_('XBFILMS_UNPUBLISHED'); ?>
-    						</div>
-    					</div>
-    					<div class="row-fluid">
-    						<div class="span6">
-    							<span class="badge <?php echo $this->perStates['archived']>0 ?'badge-warning' : ''; ?> xbmr10"><?php echo $this->perStates['archived']; ?></span>
-    							<?php echo Text::_('XBCULTURE_ARCHIVED'); ?>
-    						</div>
-    						<div class="span6">
-    							<span class="badge <?php echo $this->perStates['archived']>0 ?'badge-important' : ''; ?> xbmr10"><?php echo $this->perStates['trashed']; ?></span>
-    							<?php echo Text::_('XBCULTURE_TRASHED'); ?>
-    						</div>
-    					</div>
     					<div class="row-fluid">
     						<div class="span1"></div><div class="span11">
     							<span class="badge badge-info xbmr10"><?php echo $this->people['dirpub']+$this->people['dirunpub'];?></span>
@@ -295,7 +325,8 @@ if (!$this->xbpeople_ok) : ?>
     								<span class="badge <?php echo $this->people['otherunpub']>0 ?'badge-important' : ''; ?>"><?php echo $this->people['otherunpub'];?></span>
     							</span>
     							<?php if(!empty($this->otherRoles)) :?>
-    								<br /><span class="xbnit xbmr10">Other roles:</</span>
+    								<br /><span class="xbnit xbmr10">
+    									<?php echo Text::_('XBCULTURE_OTHER_ROLES'); ?>:</span>
     								<?php echo implode(', ',$this->otherRoles); ?>
     							<?php endif; ?>
     						</div>
@@ -308,36 +339,21 @@ if (!$this->xbpeople_ok) : ?>
     					 <span class="xbnit xbmr10 xb09">In Films: </span><span class="badge badge-info "><?php echo $this->charStates['total'];?></span></span>	
     					<?php echo Text::_('XBCULTURE_CHARACTER_U'); ?>
     				</h2>
-    				<div class="row-striped">
-    					<div class="row-fluid">
-    						<div class="span6">
-    							<span class="badge badge-success xbmr10"><?php echo $this->charStates['published']; ?></span>
-    							<?php echo Text::_('XBFILMS_PUBLISHED'); ?>
-    						</div>
-    						<div class="span6">
-    							<span class="badge <?php echo $this->charStates['unpublished']>0 ?'badge-yellow' : ''; ?> xbmr10"><?php echo $this->charStates['unpublished']; ?></span>
-    							<?php echo Text::_('XBFILMS_UNPUBLISHED'); ?>
-    						</div>
-    					</div>
-    					<div class="row-fluid">
-    						<div class="span6">
-    							<span class="badge <?php echo $this->charStates['archived']>0 ?'badge-warning' : ''; ?> xbmr10"><?php echo $this->charStates['archived']; ?></span>
-    							<?php echo Text::_('XBCULTURE_ARCHIVED'); ?>
-    						</div>
-    						<div class="span6">
-    							<span class="badge <?php echo $this->charStates['trashed']>0 ?'badge-important' : ''; ?> xbmr10"><?php echo $this->charStates['trashed']; ?></span>
-    							<?php echo Text::_('XBCULTURE_TRASHED'); ?>
-    						</div>
-    					</div>
-    				</div>
     			</div>
-    		</div>
-    		<div class="span5">
+    			<div class="xbbox xbboxgrn">
+    				<h2 class="xbtitle">
+    					 <span class="pull-right"><span class="xbnit xbmr10 xb09">Total: </span>
+    					 <span class="badge grpcnt xbmr20"><?php echo $this->totGroups;?></span>
+    					 <span class="xbnit xbmr10 xb09">In Filmss: </span><span class="badge badge-info ">
+    					 <?php echo $this->groupStates['total'];?></span></span>	
+    					<?php echo Text::_('XBCULTURE_GROUPS'); ?>
+    				</h2>
+    			</div>
     			<div class="xbbox xbboxyell">
     				<h2 class="xbtitle">
     					<span class="badge badge-info pull-right">
     						<?php echo $this->catStates['total']; ?></span> 
-    					<?php echo Text::_('XBFILMS_FILM_CATS'); ?>
+    					<?php echo Text::_('XBCULTURE_CATEGORIES_U'); ?>
     				</h2>
     				<div class="row-striped">
     					<div class="row-fluid">
@@ -360,124 +376,42 @@ if (!$this->xbpeople_ok) : ?>
     							<?php echo Text::_('XBCULTURE_TRASHED'); ?>
     						</div>
     					</div>
-                     </div>
-                     <h3 class="xbsubtitle">Counts per category<span class="xb09 xbnorm"> <i>(films:reviews:people)</i></span></h3>
-                     <div class="row-striped">
-    					<div class="row-fluid">
-    						    <?php echo $this->catlist; ?>
-    					</div>
-    				</div>
-    				<br />
-    <?php if ($this->xbpeople_ok !==false) : ?>
-     				<h2 class="xbtitle">
-    					<span class="badge badge-info pull-right">
-    						<?php echo $this->pcatStates['total']; ?></span> 
-    					<?php echo Text::_('XBCULTURE_PEOPLE_CATEGORIES'); ?>
-    				</h2>
-    				<div class="row-striped">
-    					<div class="row-fluid">
-    						<div class="span6">
-    							<span class="badge badge-success xbmr10"><?php echo $this->pcatStates['published']; ?></span>
-    							<?php echo Text::_('XBFILMS_PUBLISHED'); ?>
-    						</div>
-    						<div class="span6">
-    							<span class="badge <?php echo $this->pcatStates['unpublished']>0 ?'badge-yellow' : ''; ?> xbmr10"><?php echo $this->pcatStates['unpublished']; ?></span>
-    							<?php echo Text::_('XBFILMS_UNPUBLISHED'); ?>
-    						</div>
-     					</div>
-     					<div class="row-fluid">
-    						<div class="span6">
-    							<span class="badge <?php echo $this->pcatStates['archived']>0 ?'badge-warning' : ''; ?> xbmr10"><?php echo $this->pcatStates['archived']; ?></span>
-    							<?php echo Text::_('XBCULTURE_ARCHIVED'); ?>
-    						</div>
-    						<div class="span6">
-    							<span class="badge <?php echo $this->pcatStates['trashed']>0 ?'badge-important' : ''; ?> xbmr10"><?php echo $this->pcatStates['trashed']; ?></span>
-    							<?php echo Text::_('XBCULTURE_TRASHED'); ?>
-    						</div>
-    					</div>
-                     </div>
-                     <h3 class="xbsubtitle"><?php echo Text::_('XBCULTURE_COUNTS_CATEGORY'); ?><span class="xb09 xbnorm"> <i>(people:characters)</i></span></h3>
-                     <div class="row-striped">
-    					<div class="row-fluid">
-    						    <?php echo $this->pcatlist; ?>
-    					</div>
-    				</div>
-    <?php endif; ?>
-    			</div>
-     			<div class="xbbox xbboxgrey">
-    				<div class="row-fluid"><div class="span12">
-    					<h2 class="xbtitle"><?php echo Text::_('XBCULTURE_NUM_ITEMS_TAGGED'); ?>
-    						<span class="pull-right">
-    							<span class="xbnit xbmr10 xb09"><?php echo Text::_('XBCULTURE_TOTAL'); ?>: </span>
-            					<span class="badge badge-info" style="border: blue solid 1px;"><?php echo ($this->tags['filmscnt']  + $this->tags['revscnt']) ; ?></span> 
-    						</span>
-    					</h2>
-    				</div></div>
-    				<div class="row-striped">
-    					<h4>Items tagged per type</h4>
-    					<div class="row-fluid">
-    						<div class="span8"><?php echo Text::_('XBCULTURE_FILMS_U'); ?>:
-    						</div>
-    						<div class="span4">
-    							<span class="flmcnt badge  pull-right"><?php echo $this->tags['filmscnt']; ?></span>
-    						</div>
-    					</div>
-    					<div class="row-fluid">
-    						<div class="span8"><?php echo Text::_('XBFILMS_XBFILM_REVIEWS'); ?>:
-    						</div>
-    						<div class="span4">
-    							<span class="revcnt badge  pull-right"><?php echo $this->tags['revscnt']; ?></span>
-    						</div>
-    					</div>
-    					<div class="row-fluid">
-    						<div class="span8"><?php echo Text::_('XBCULTURE_PEOPLE_U'); ?>:
-    						</div>
-    						<div class="span4">
-    							<span class="percnt badge  pull-right"><?php echo $this->tags['filmper']; ?></span>
-    						</div>
-    					</div>
-    					<div class="row-fluid">
-    						<div class="span8"><?php echo Text::_('XBCULTURE_CHARACTERS_U'); ?>:
-    						</div>
-    						<div class="span4">
-    							<span class="chcnt badge  pull-right"><?php echo $this->tags['filmchar']; ?></span>
-    						</div>
-    					</div>
-    				</div>
-     				<hr style="margin: 8px 0;" />
-     				<div class="row-striped">
-     					<h4>Tags used per type</h4>
-    					<div class="row-fluid">
-    						<div class="span8"><?php echo Text::_('XBCULTURE_FILMS_U'); ?>:
-    						</div>
-    						<div class="span4">
-    							<span class="flmcnt badge  pull-right"><?php echo $this->tags['filmtags']; ?></span>
-    						</div>
-    					</div>
-    					<div class="row-fluid">
-    						<div class="span8"><?php echo Text::_('XBFILMS_XBFILM_REVIEWS'); ?>:
-    						</div>
-    						<div class="span4">
-    							<span class="revcnt badge  pull-right"><?php echo $this->tags['revtags']; ?></span>
-    						</div>
-    					</div>
-    					<div class="row-fluid">
-    						<div class="span8"><?php echo Text::_('XBCULTURE_PEOPLE_U'); ?>:
-    						</div>
-    						<div class="span4">
-    							<span class="percnt badge  pull-right"><?php echo $this->tags['filmpertags']; ?></span>
-    						</div>
-    					</div>
-    					<div class="row-fluid">
-    						<div class="span8"><?php echo Text::_('XBCULTURE_CHARACTERS_U'); ?>:
-    						</div>
-    						<div class="span4">
-    							<span class="chcnt badge  pull-right"><?php echo $this->tags['filmchartags']; ?></span>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-    		</div>
+                         <table style="width:100%"><tr>
+                         	<td><h3 class="xbsubtitle">Counts per category</h3></td>
+                         	<td style="width:65px;"><span class="badge bkcnt">books</span></td>
+                         	<td style="width:65px;"><span class="badge revcnt">reviews</span></td>
+                         </tr></table>
+                         <div class="row-striped">
+        					<div class="row-fluid">
+         						<table style="width:100%; margin-left:30px;">
+                					<?php foreach ($this->cats as $key=>$value) : ?>
+         								<tr><td>
+                        					<?php if ($value['level']>1) {
+                                                echo '&boxur;'.str_repeat('&boxh;', $value['level']-1).'&nbsp;';
+                                            } ?>
+        									<a class="label <?php echo ($value['published']==1) ? 'label-success' : ''; ?>" 
+        										href="<?php echo $clink.$value['id']; ?>">
+        										<?php echo $value['title']; ?></a>
+                    					</td><td>
+                    						<?php if($value['filmcnt']>0) : ?>
+                    							<span class="badge flmcnt"><?php echo $value['filmcnt']; ?>
+                    							</span>
+                    						<?php endif; ?>
+                    					</td><td>
+                    						<?php if($value['revcnt']>0) : ?>
+                    						<span class="badge revcnt"><?php echo $value['revcnt']; ?>
+                    						</span>
+                    						<?php endif; ?>
+                    					</td></tr>
+                    				<?php endforeach; ?>        
+                				</table>
+        					</div>
+        				</div>
+        				<br />for People/Groups/Character categories see <a href="index.php?option=com_xbpeople">xbPeople</a>
+        			</div>
+              	</div>
+			</div>
+    					
         	<div class="span2">
         		<div class="xbbox xbboxwht">
     				<h4><?php echo Text::_('XBCULTURE_CONFIG_OPTIONS'); ?></h4>

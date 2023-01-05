@@ -1,8 +1,8 @@
 <?php
 /*******
  * @package xbFilms
- * @filesource admin/views/film/tmpl/modal.php
- * @version 0.5.3 14th March 2021
+ * @filesource admin/views/film/tmpl/modalnewp.php
+ * @version 1.0.1.3 5th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -15,8 +15,10 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
      
 
 </div>
-<div class="modal-body xbml20 xbmr20">
-	<iframe src="index.php?option=com_xbfilms&view=person&layout=qnew&tmpl=component" title="Quick Person Form" id="newp"></iframe>      
+<div class="modal-body">
+    <div style="margin:0 30px;">
+		<iframe src="index.php?option=com_xbfilms&view=person&layout=qnew&tmpl=component" title="Quick Person Form" id="newp"></iframe>      
+	</div>    
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

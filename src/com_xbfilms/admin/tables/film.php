@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/tables/film.php
- * @version 0.9.11.0 15th November 2022
+ * @version 1.0.1.3 5th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -14,6 +14,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Filter\OutputFilter;
+use Joomla\CMS\Language\Text;
 use Joomla\Registry\Registry;
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Table\Observer\Tags;
@@ -33,12 +34,12 @@ class XbfilmsTableFilm extends Table
 	    $title = trim($this->title);
 	    //check title 
 	    if ($title == '') {
-	        $this->setError(JText::_('XBCULTURE_PROVIDE_VALID_TITLE'));
+	        $this->setError(Text::_('XBCULTURE_PROVIDE_VALID_TITLE'));
 	        return false;
 	    }
 	    
 	    if (($this->id == 0) && (XbcultureHelper::checkTitleExists($title,'#__xbfilms'))) {
-	    	$this->setError(JText::_('Film "'.$title.'" already exists; if this is a different film with the same title please append something to the title to distinguish them'));
+	    	$this->setError(Text::_('Film "'.$title.'" already exists; if this is a different film with the same title please append something to the title to distinguish them'));
 	        return false;
 	    }
 	    
@@ -59,10 +60,10 @@ class XbfilmsTableFilm extends Table
 	        }
 	        if ($defcat>0) {
 	            $this->catid = $defcat;
-	            Factory::getApplication()->enqueueMessage(JText::_('XBCULTURE_CATEGORY_DEFAULT_SET').' ('.XbcultureHelper::getCat($this->catid)->title.')');
+	            Factory::getApplication()->enqueueMessage(Text::_('XBCULTURE_CATEGORY_DEFAULT_SET').' ('.XbcultureHelper::getCat($this->catid)->title.')');
 	        } else {
 	        	// this shouldn't happen unless uncategorised has been deleted
-	            $this->setError(JText::_('XBCULTURE_CATEGORY_MISSING'));
+	            $this->setError(Text::_('XBCULTURE_CATEGORY_MISSING'));
 	            return false;
 	        }
 	    }
@@ -70,7 +71,7 @@ class XbfilmsTableFilm extends Table
 	    //warn if summary missing
 	    if ((trim($this->summary)=='')) {
 	        if (trim($this->synopsis)=='' ) {
-	            Factory::getApplication()->enqueueMessage(JText::_('XBCULTURE_MISSING_SUMMARY'));
+	            Factory::getApplication()->enqueueMessage(Text::_('XBCULTURE_MISSING_SUMMARY'));
 	        }
 	    }
 	    
@@ -182,6 +183,11 @@ class XbfilmsTableFilm extends Table
 		$query->delete()->from('#__xbfilmperson')->where('film_id = '. $pk);
 		$this->_db->setQuery($query);
 		$this->_db->execute();
+		$query = $db->getQuery(true);
+		$query->delete()->from('#__xbfilmgroup')->where('film_id = '. $pk);
+		$this->_db->setQuery($query);
+		$this->_db->execute();
+		//TODO should we also delete reviews????
 		return parent::delete($pk);
     }
 

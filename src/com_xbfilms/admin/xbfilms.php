@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/xbfilms.php
- * @version 0.12.0 6th December 2022
+ * @version 1.0.1.3 5th January 2023
  * @since 0.1.0 22nd November 2020
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
@@ -16,6 +16,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\MVC\Controller\BaseController;
 
+$app = Factory::getApplication();
 if (!Factory::getUser()->authorise('core.manage', 'com_xbfilms')) {
     Factory::getApplication()->enqueueMessage(Text::_('JERROR_ALERTNOAUTHOR'),'warning');
     return false;
@@ -49,32 +50,25 @@ JLoader::register('XbfilmsHelper', JPATH_ADMINISTRATOR . '/components/com_xbfilm
 JLoader::register('XbfilmsGeneral', JPATH_ADMINISTRATOR . '/components/com_xbfilms/helpers/xbfilmsgeneral.php');
 JLoader::register('XbcultureHelper', JPATH_ADMINISTRATOR . '/components/com_xbpeople/helpers/xbculture.php');
 
-Factory::getSession()->set('xbfilms_ok',true);
+$sess= Factory::getSession();
+$sess->set('xbfilms_ok',true);
 
 //detect related components and set session flags
-$sess= Factory::getSession();
-if (!$sess->get('xbbooks_ok',false)) {
-    if (file_exists(JPATH_ADMINISTRATOR . '/components/com_xbbooks/xbbooks.php')) {
-        XbcultureHelper::checkComponent('com_xbbooks');
-    }
-}
-if (!$sess->get('xblive_ok',false)) {
-    if (file_exists(JPATH_ADMINISTRATOR . '/components/com_xblive/xblive.php')) {
-        XbcultureHelper::checkComponent('com_xblive');
-    }
-}
-if (!$sess->get('xbpeople_ok',false)) {
-    if (file_exists(JPATH_ADMINISTRATOR . '/components/com_xbpeople/xbpeople.php')) {
-        XbcultureHelper::checkComponent('com_xbpeople');
-    } else {
-        $app = Factory::getApplication();
+if ($sess->get('xbpeople_ok',false) != 1) {
+    if (XbfilmsGeneral::checkComPeople() != 1) {
         if ($app->input->get('view')!='dashboard') {
-            $app->redirect('index.php?option=com_xbfilms&view=dashboard');
+            $app->redirect('index.php?option=com_xbbooks&view=dashboard');
             $app->close();
         }
     }
 }
-
+//if there is no session variable for films/events check them.
+if (!$sess->has('xbbooks_ok')) {
+    XbcultureHelper::checkComponent('com_xbbooks');
+}
+if (!$sess->has('xbevents_ok')) {
+    XbcultureHelper::checkComponent('com_xbevents');
+}
 // Get an instance of the controller prefixed
 $controller = BaseController::getInstance('xbfilms');
 // Perform the Request task and Execute request task

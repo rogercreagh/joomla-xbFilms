@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/helpers/xbfilms.php
- * @version 0.9.11.0 15th November 2022
+ * @version 1.0.1.3 5th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -71,7 +71,7 @@ class XbfilmsHelper extends ContentHelper
 				);
 			JHtmlSidebar::addEntry(
 				Text::_('XBCULTURE_ICONMENU_NEWPERSON'),
-				'index.php?option=com_xbfilms&view=person&layout=edit',
+				'index.php?option=com_xbpeople&view=person&layout=edit',
 				$vName == 'person'
 				);
 			JHtmlSidebar::addEntry(
@@ -81,7 +81,7 @@ class XbfilmsHelper extends ContentHelper
 				);
 			JHtmlSidebar::addEntry(
 				Text::_('XBCULTURE_ICONMENU_NEWCHAR'),
-				'index.php?option=com_xbfilms&view=character&layout=edit',
+				'index.php?option=com_xbpeople&view=character&layout=edit',
 				$vName == 'character'
 				);
 			JHtmlSidebar::addEntry(
@@ -99,13 +99,6 @@ class XbfilmsHelper extends ContentHelper
 				'index.php?option=com_categories&view=categories&extension=com_xbfilms',
 				$vName == 'categories'
 				);
-			if (Factory::getSession()->get('xbpeople_ok')==true) {			
-				JHtmlSidebar::addEntry(
-					Text::_('XBCULTURE_ICONMENU_SUBPEOPLECATS'),
-					'index.php?option=com_xbpeople&view=pcategories',
-					$vName == 'pcategories'
-					);
-			}
 			JHtmlSidebar::addEntry(
 	            Text::_('XBCULTURE_ICONMENU_TAGS'),
 	            'index.php?option=com_xbfilms&view=tags',

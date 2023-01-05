@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/people/tmpl/default.php
- * @version 0.10.0.4 28th November 2022
+ * @version 1.0.1.3 5th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -16,8 +16,8 @@ use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Uri\Uri;
 
 HTMLHelper::_('behavior.multiselect');
-HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => Text::_('JOPTION_SELECT_TAG')));
-HTMLHelper::_('formbehavior.chosen', 'select');
+HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => Text::_('XBCULTURE_SELECT_TAGS')));
+HTMLHelper::_('formbehavior.chosen', '.multipleCats', null, array('placeholder_text_multiple' => Text::_('XBCULTURE_SELECT_CATS')));
 
 $user = Factory::getUser();
 $userId = $user->get('id');
@@ -42,10 +42,7 @@ if ($saveOrder) {
 $nofile = "media/com_xbfilms/images/nofile.jpg";
 
 $pelink = 'index.php?option=com_xbfilms&view=person&task=person.edit&id=';
-$pvlink = 'index.php?option=com_xbfilms&view=person&task=person.edit&id='; //change this to view view when available
-$celink = 'index.php?option=com_categories&task=category.edit&id=';
 $cvlink = 'index.php?option=com_xbfilms&view=fcategory&id=';
-$telink = 'index.php?option=com_tags&view=tag&task=tag.edit&id=';
 $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 $bplink = 'index.php?option=com_xbpeople&view=person&layout=edit&id=';
 
@@ -315,21 +312,24 @@ $bplink = 'index.php?option=com_xbpeople&view=person&layout=edit&id=';
                               </details>
     						<?php endif; ?> 
 						<?php endif; ?> 
+						<?php if (($item->bcnt + $item->ecnt)>0) {
+						    echo '<span class="xbnit">'.Text::_('Also').' ';
+						    echo '</span>';
+						    if ($item->bcnt>0) {
+						        echo $item->bcnt.' '.Text::_(($item->fcnt==1)?'XBCULTURE_BOOK':'XBCULTURE_BOOKS');
+						        echo ($item->ecnt>0) ? ' &amp; ': '';
+						    }
+						    if ($item->ecnt>0) {
+						        echo $item->ecnt.' '.lcfirst(Text::_(($item->ecnt==1)?'XBCULTURE_EVENT':'XBCULTURE_EVENTS'));
+						    }
+						} ?>
 
-						<?php if ($item->bcnt>0) {
-							echo '<span class="xbnit">';
-							echo Text::_('XBCULTURE_ALSO_WITH').' <a href="'.$bplink.$item->id.'">'.$item->bcnt.' ';
-							echo Text::_(($item->bcnt==1)?'XBCULTURE_BOOK':'XBCULTURE_BOOKS');
-							echo '</a></span>';
-						}?>
 					</td>
 					<td>
-						<?php if ($this->xbpeople_ok!==false): ?>						
 						<p><a  class="label label-success" href="<?php echo $cvlink . $item->catid.'&extension=com_xbpeople'; ?>" 
 							title="<?php echo Text::_( 'XBCULTURE_VIEW_CATEGORY' );?>::<?php echo $item->category_title; ?>">
 								<?php echo $item->category_title; ?>
 						</a></p>						
-						<?php endif; ?>
 						<ul class="inline">
 						<?php foreach ($item->tags as $t) : ?>
 							<li><a href="<?php echo $tvlink.$t->id; ?>" class="label percnt">

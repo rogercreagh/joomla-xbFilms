@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/controllers/dashboard.php
- * @version 0.9.9.9 2nd November 2022
+ * @version 1.0.1.3 5th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -35,8 +35,8 @@ class XbfilmsControllerDashboard extends JControllerAdmin {
         }
     }
     
-    function live() {
-        $xbevents_ok = Factory::getSession()->get('xbevents_ok',false);
+    function events() {
+        $xbevents_ok = XbcultureHelper::checkComponent('com_xbevents');
         if ($xbevents_ok == true) {
             $this->setRedirect('index.php?option=com_xbevents');
         } elseif ($xbevents_ok === 0) {
