@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/films.php
- * @version 1.0.1.3 5th January 2023
+ * @version 1.0.1.4 6th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -231,6 +231,10 @@ class XbfilmsModelFilms extends JModelList
             $item->chars = XbfilmsGeneral::getFilmChars($item->id);
             $item->charcnt = (empty($item->chars)) ? 0 : count($item->chars);
             $item->charlist = $item->charcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->chars,'char','comma',true,5);
+            
+            $item->groups = XbfilmsGeneral::getFilmGroups($item->id);
+            $item->grpcnt = (empty($item->groups)) ? 0 : count($item->groups);
+            $item->grplist = $item->grpcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->groups,'','comma',true, 5);
             
             $item->reviews = XbfilmsGeneral::getFilmReviews($item->id);
         	

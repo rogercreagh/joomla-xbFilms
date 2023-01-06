@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/dashboard/tmpl/default.php
- * @version 1.0.1.3 5th January 2023
+ * @version 1.0.1.4 6th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -246,8 +246,7 @@ if ($this->xbpeople_ok==='0') : ?>
     				</div>
     			</div>
     		</div>
-    		<div class="span5">
-    					
+    		<div class="span5">   					
     			<div class="xbbox xbboxgrn">
     				<h2 class="xbtitle"><?php echo Text::_('XBCULTURE_PEOPLE_U'); ?>
     					 <span class="pull-right"><span class="xbnit xbmr10 xb09">Total: </span><span class="badge percnt xbmr20"><?php echo $this->totPeople;?></span>

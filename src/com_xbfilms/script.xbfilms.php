@@ -105,16 +105,16 @@ class com_xbfilmsInstallerScript
     	$ecnt = 0;
     	$message = 'Deleting Redundant Files in '.JPATH_ADMINISTRATOR.'/components/com_xbfilms/<br />';
     	foreach ($delfiles as $f) {
-    	    $name = JPATH_ADMINISTRATOR.'/components/com_xbbooks'.$f;
+    	    $name = JPATH_ADMINISTRATOR.'/components/com_xbfilms'.$f;
     	    if (file_exists($name)) {
     	        if (is_dir($name)) {
     	            if ($this->rrmdir($name)) {
     	                $dcnt ++;
-    	                //    	               $message .= 'RMDIR '.$f.'<br />';
+        	               $message .= 'RMDIR '.$f.'<br />';
     	            }
     	        } else {
     	            if (unlink($name)) {
-    	                //        	            $message .= 'DEL '.$f.'<br />';
+        	            $message .= 'DEL '.$f.'<br />';
     	                $cnt ++;
     	            } else {
     	                $message .= 'DELETE FAILED: '.$f.'<br />';
@@ -122,7 +122,7 @@ class com_xbfilmsInstallerScript
     	            }
     	        }
     	    } else {
-    	        //        	    $message .= 'FILE NOT FOUND: '.$f.'<br />';
+//        	    $message .= 'FILE NOT FOUND: '.$f.'<br />';
     	    }
     	}
     	if (($cnt+$ecnt+$dcnt)>0) {

@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/dashboard.php
- * @version 0.9.9.8 25th October 2022
+ * @version 1.0.1.4 6th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -13,9 +13,7 @@ use Joomla\CMS\Factory;
 //use Joomla\CMS\Table\Observer\Tags;
 
 class XbfilmsModelDashboard extends JModelList {
-    
-    protected $xbbooksStatus;
-    
+        
     public function __construct() {
         //$this->xbbooksStatus = XbcultureHelper::checkComponent('com_xbbooks');
         $this->xbbooksStatus = Factory::getSession()->get('xbbooks_ok',false);
@@ -30,20 +28,20 @@ class XbfilmsModelDashboard extends JModelList {
     	return $this->stateCnts('#__categories','published','com_xbfilms');
     }
     
-    public function getPcatStates() {
-     	return $this->stateCnts('#__categories','published','com_xbpeople');
-    }
-        
     public function getRevStates() {
     	return $this->stateCnts('#__xbfilmreviews');
     }
     
     public function getPerStates() {
-     	return $this->stateCnts('#__xbpersons');
+     	return $this->stateCnts('#__xbpersons','state','com_xbpeople');
+    }
+    
+    public function getGroupStates() {
+        return $this->stateCnts('#__xbgroups','state','com_xbpeople');
     }
     
     public function getCharStates() {
-    	return $this->stateCnts('#__xbcharacters');
+        return $this->stateCnts('#__xbcharacters','state','com_xbpeople');
     }
     
     public function getFilmCnts() {
@@ -69,19 +67,6 @@ class XbfilmsModelDashboard extends JModelList {
     	->order($db->quoteName('path') . ' ASC');
     	$db->setQuery($query);
     	return $db->loadAssocList('alias');    	
-    }
-    
-    public function getPeopleCats() {
-        $db = $this->getDbo();
-        $query = $db->getQuery(true);
-        $query->select('a.*')
-        ->select('(SELECT COUNT(*) FROM #__xbcharacters AS c WHERE c.catid=a.id) AS chrcnt')
-        ->select('(SELECT COUNT(*) FROM #__xbpersons AS p WHERE p.catid=a.id) AS percnt')
-        ->from('#__categories AS a')
-        ->where('a.extension = '.$db->quote("com_xbpeople"))
-        ->order($db->quoteName('path') . ' ASC');
-        $db->setQuery($query);
-        return $db->loadAssocList('alias');
     }
     
     public function getRoleCnts() {

@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/film/tmpl/edit.php
- * @version 1.0.1.3 5th January 2023
+ * @version 1.0.1.4 6th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -177,9 +177,12 @@ $document->addStyleDeclaration($style);
 	    			<?php echo $this->form->renderField('castlist'); ?>
  				</div>
     			<div class="span6 form-vertical">
-				<h4><?php echo Text::_('XBCULTURE_FILM_U').' '.Text::_('XBCULTURE_CHARACTERS_U');?></h4>
-				<p class="xbnote"><?php echo Text::_('XBCULTURE_ADD_CHAR_NOTE');?> </p>
-				<?php echo $this->form->renderField('charlist'); ?>
+    				<h4><?php echo Text::_('XBCULTURE_FILM_U').' '.Text::_('XBCULTURE_CHARACTERS_U');?></h4>
+    				<p class="xbnote"><?php echo Text::_('XBCULTURE_ADD_CHAR_NOTE');?> </p>
+    				<?php echo $this->form->renderField('charlist'); ?>
+    				<h4><?php echo Text::_('XBCULTURE_FILM_U').' '.Text::_('XBCULTURE_GROUPS');?></h4>
+    				<p class="xbnote"><?php echo Text::_('XBCULTURE_ADD_CHAR_NOTE');?> </p>
+    				<?php echo $this->form->renderField('grouplist'); ?>
 				</div>
 			</div>
 		<?php echo HTMLHelper::_('bootstrap.endTab'); ?>

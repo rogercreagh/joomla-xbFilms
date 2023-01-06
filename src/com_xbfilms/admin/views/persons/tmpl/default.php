@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/people/tmpl/default.php
- * @version 1.0.1.3 5th January 2023
+ * @version 1.0.1.4 6th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -18,6 +18,7 @@ use Joomla\CMS\Uri\Uri;
 HTMLHelper::_('behavior.multiselect');
 HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => Text::_('XBCULTURE_SELECT_TAGS')));
 HTMLHelper::_('formbehavior.chosen', '.multipleCats', null, array('placeholder_text_multiple' => Text::_('XBCULTURE_SELECT_CATS')));
+HTMLHelper::_('formbehavior.chosen', 'select');
 
 $user = Factory::getUser();
 $userId = $user->get('id');
@@ -41,7 +42,7 @@ if ($saveOrder) {
 
 $nofile = "media/com_xbfilms/images/nofile.jpg";
 
-$pelink = 'index.php?option=com_xbfilms&view=person&task=person.edit&id=';
+$pelink = 'index.php?option=com_xbpeople&view=person&task=person.edit&id=';
 $cvlink = 'index.php?option=com_xbfilms&view=fcategory&id=';
 $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 $bplink = 'index.php?option=com_xbpeople&view=person&layout=edit&id=';
