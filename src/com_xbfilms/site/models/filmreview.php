@@ -78,7 +78,7 @@ class XbfilmsModelFilmreview extends JModelItem {
 			    if ($item->dircnt == 0){
 			        $item->dirlist .= Text::_( 'XBFILMS_NO_DIRECTOR' ).'</i>';
 			    } else {
-			        $item->dirlist .= ($item->authcnt>1)?Text::_('XBCULTURE_DIRECTORS'):Text::_('XBCULTURE_DIRECTOR');
+			        $item->dirlist .= ($item->dircnt>1)?Text::_('XBCULTURE_DIRECTORS'):Text::_('XBCULTURE_DIRECTOR');
 			        $item->dirlist .= '</i>: '.XbcultureHelper::makeLinkedNameList($item->people,'director','comma',false);
 			    }
 				

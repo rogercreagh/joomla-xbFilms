@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/film/tmpl/edit.php
- * @version 1.0.2.1 6th January 2023
+ * @version 1.0.2.2 6th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -29,8 +29,8 @@ $document->addStyleDeclaration($style);
 ?>
 <style type="text/css" media="screen">
     .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
-    .xbqpmodal .modal-body {height:300px;} 
-    .xbqpmodal .modal-body iframe { height:270px;}
+    .xbqpmodal .modal-body {height:370px;} 
+    .xbqpmodal .modal-body iframe { height:340px;}
 </style>
 <form action="<?php echo Route::_('index.php?option=com_xbfilms&layout=edit&id=' . (int) $this->item->id); ?>"
     method="post" name="adminForm" id="adminForm">
@@ -226,7 +226,7 @@ jQuery(document).ready(function(){
 });
 </script>
 <!-- preview modal window -->
-<div class="modal fade xbpvmodal" id="ajax-pvmodal" style="max-width:80%;">
+<div class="modal fade xbpvmodal" id="ajax-pvmodal" style="max-width:1200px;">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Ajax content will be loaded here -->

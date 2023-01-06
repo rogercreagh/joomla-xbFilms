@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Language\Text;
 
@@ -73,6 +74,15 @@ class XbfilmsViewReview extends JViewLegacy {
             ToolbarHelper::cancel('review.cancel','JTOOLBAR_CANCEL');
         } else {
             ToolbarHelper::cancel('review.cancel','JTOOLBAR_CLOSE');
+        }
+        
+        ToolbarHelper::custom(); //spacer
+        $bar = Toolbar::getInstance( 'toolbar' );
+        if ($this->item->id > 0) {
+            $dhtml = '<a href="index.php?option=com_xbfilms&view=review&layout=modalpv&tmpl=component&id='.$this->item->id.'"
+            	data-toggle="modal" data-target="#ajax-pvmodal"
+            	class="btn btn-small btn-primary"><i class="icon-eye"></i> '.Text::_('Preview').'</a>';
+            $bar->appendButton('Custom', $dhtml);
         }
     }
     

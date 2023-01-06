@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/film/tmpl/default.php
- * @version 1.0.0.1 22nd December 2022
+ * @version 1.0.2.2 6th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -396,7 +396,8 @@ if ($imgok) {
     	</div>
 	<?php endif; ?>
 </div>
-<div class="row-fluid xbbox xbboxgrey">
+<div class="xbbox xbboxgrey">
+<div class="row-fluid ">
 	<div class="span2">
 		<?php if (($item->prev>0) || ($item->next>0)) : ?>
     		<span class="hasTooltip xbinfo" title 

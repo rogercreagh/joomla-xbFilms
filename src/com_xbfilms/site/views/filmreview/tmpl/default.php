@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmreview/tmpl/default.php
- * @version 0.10.0.4 28th November 2022
+ * @version 1.0.2.2 6th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -49,16 +49,17 @@ if ($imgok) {
 			<div class="span12">
 				<div class="xbbox xbboxmag">
 					<h3><?php echo $item->title; ?></h3>
-					<h4><span class="xbnit"><?php echo Text::_('XBFILMS_REVIEWOF'); ?></span>"
-						 <?php echo '<a href="'.$flink;
-						 if (!empty($item->dirlist)) {
-						 	echo '" class="hasTooltip" title data-original-title="'.$item->dirlist;
-						 }
-							echo '">'.$item->film_title.'</a>'; ?>" 
-						<span class="xbnit"><?php echo Text::_('XBCULTURE_BY'); ?></span>
-						 <?php echo $item->reviewer.', '.
-								 HtmlHelper::date($item->rev_date , 'D jS M Y'); ?>
-					</h4>
+    				<h4><span class="xbnit"><?php echo Text::_('XBFILMS_REVIEWOF'); ?></span>"
+    					 <a href="<?php echo XbfilmsHelperRoute::getFilmLink($item->film_id); ?>"
+        					 <?php if (!empty($item->dirlist)) : ?>
+        					 	class="xbpop xbcultpop xbhover" data-trigger="hover" tabindex="<?php echo $item->id; ?>" 
+        					 	title data-original-title="Director(s)" data-content="<?php echo strip_tags($item->dirlist); ?>"
+        					 <?php endif; ?>
+    					 ><?php echo $item->film_title; ?></a>
+    					 <span class="xbnit"><?php echo Text::_('XBCULTURE_BY'); ?></span>
+    					 <?php echo $item->reviewer.', '.
+    							 HtmlHelper::date($item->rev_date ,'d M Y'); ?>
+    				</h4>
 				</div>
 			</div>
 		</div>
@@ -175,8 +176,8 @@ if ($imgok) {
 	    </div>
 	</div>
 <?php endif; ?>
-<div class="row-fluid xbmt16"><!-- prev/next -->
-	<div class="span12 xbbox xbboxgrey">
+	<div class="xbbox xbboxgrey">
+<div class="row-fluid"><!-- prev/next -->
 		<div class="row-fluid">
 			<div class="span2">
 				<?php if (($item->prev>0) || ($item->next>0)) : ?>

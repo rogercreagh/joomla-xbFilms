@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/film/view.html.php
- * @version 0.9.10.1 12th November 2022
+ * @version 1.0.2.2 6th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -10,6 +10,7 @@
 defined( '_JEXEC' ) or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Language\Text;
 
@@ -96,6 +97,15 @@ class XbfilmsViewFilm extends JViewLegacy {
             ToolbarHelper::cancel('film.cancel','JTOOLBAR_CANCEL');
         } else {
             ToolbarHelper::cancel('film.cancel','JTOOLBAR_CLOSE');
+        }
+        ToolbarHelper::custom(); //spacer
+        
+        $bar = Toolbar::getInstance( 'toolbar' );
+        if ($this->item->id > 0) {
+            $dhtml = '<a href="index.php?option=com_xbfilms&view=film&layout=modalpv&tmpl=component&id='.$this->item->id.'"
+            	data-toggle="modal" data-target="#ajax-pvmodal"
+            	class="btn btn-small btn-primary"><i class="icon-eye"></i> '.Text::_('Preview').'</a>';
+            $bar->appendButton('Custom', $dhtml);
         }
         ToolbarHelper::help( '', false,'https://crosborne.uk/xbfilms/doc?tmpl=component#filmedit' );
     }
