@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/dashboard/tmpl/default.php
- * @version 1.0.1.4 6th January 2023
+ * @version 1.0.2.3 6th January 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -19,7 +19,7 @@ use Joomla\CMS\Router\Route;
 //$relink='index.php?option=com_xbfilms&view=review&layout=edit&id=';
 //$pelink='index.php?option=com_xbfilms&view=person&layout=edit&id=';
 //$chelink='index.php?option=com_xbfilms&view=character&layout=edit&id=';
-$clink='index.php?option=com_xbfilmss&view=bcategory&id=';
+$clink='index.php?option=com_xbfilms&view=fcategory&id=';
 
 if ($this->xbpeople_ok==='0') : ?>
     <div class="alert alert-error"><?php echo Text::_('XBBOOKS_PEOPLE_WARNING'); ?></div>
