@@ -76,42 +76,50 @@
 			<menu link="option=com_xbfilms"
 				img="class:xbfilms-dashboard"
 				>
-					xbfilms_dashboard
+					xbculture_iconmenu_dashboard
 			</menu>
 			<menu link="option=com_xbfilms&amp;view=films"
 				img="class:xbfilms-films"
 				>
-					xbfilms_films
+					xbculture_iconmenu_films
 			</menu>
 			<menu link="option=com_xbfilms&amp;view=reviews"
 				img="class:xbfilms-reviews"
 				>
-					xbfilms_reviews
+					xbculture_iconmenu_reviews
 			</menu>
 			<menu link="option=com_xbfilms&amp;view=persons"
 				img="class:xbfilms-persons"
 				>
-					xbfilms_people
+					xbculture_iconmenu_people
+			</menu>
+			<menu link="option=com_xbpeople&amp;view=groups" 
+				img="class:xbpeople-groups"
+				>
+					xbculture_iconmenu_groups					
 			</menu>
 			<menu link="option=com_xbfilms&amp;view=characters" 
 				img="class:xbfilms-persons"
 				>
-					xbfilms_characters
+					xbculture_iconmenu_characters
 			</menu>
 			<menu link="option=com_xbfilms&amp;view=fcategories"
 				img="class:categories"
 				>
-					xbfilms_categories
+					xbculture_iconmenu_categories
 			</menu>
 			<menu link="option=com_xbfilms&amp;view=tags"
 				img="class:xbfilms-tags"
 				>
-					xbfilms_tags
+					xbculture_iconmenu_tags
 			</menu>
 			<menu link="option=com_xbfilms&amp;view=importexport"
 				img="class:xbfilms-importexport"
 			>
-				xbfilms_dataman
+				xbculture_iconmenu_dataman
+			</menu>
+			<menu link="option=com_config&amp;view=component&amp;component=com_xbbooks"
+					>xbculture_iconmenu_options				
 			</menu>
 		</submenu>
 	</administration>
