@@ -2,23 +2,17 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/dashboard/tmpl/default.php
- * @version 1.0.2.3 6th January 2023
+ * @version 1.0.3.1 3rd Febuary 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 defined('_JEXEC') or die;
 
-//use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Router\Route;
 
-//jimport('joomla.html.html.bootstrap');
-
-//$relink='index.php?option=com_xbfilms&view=review&layout=edit&id=';
-//$pelink='index.php?option=com_xbfilms&view=person&layout=edit&id=';
-//$chelink='index.php?option=com_xbfilms&view=character&layout=edit&id=';
 $clink='index.php?option=com_xbfilms&view=fcategory&id=';
 
 if ($this->xbpeople_ok==='0') : ?>
@@ -102,9 +96,9 @@ if ($this->xbpeople_ok==='0') : ?>
     	<h4><?php echo Text::_( 'XBCULTURE_SUMMARY' ); ?></h4>
     	<div class="row-fluid">
     		<div class="span5">
-    			<div class="xbbox xbboxcyan">
+    			<div class="xbbox flmbox">
     				<h2 class="xbtitle">
-    					<span class="badge badge-info pull-right"><?php echo $this->filmStates['total']; ?></span> 
+    					<span class="badge flmcnt pull-right"><?php echo $this->filmStates['total']; ?></span> 
     					<?php echo Text::_('XBCULTURE_FILMS_U'); ?>
     				</h2>
     				<div class="row-striped">
@@ -141,9 +135,9 @@ if ($this->xbpeople_ok==='0') : ?>
     					</div>
     				</div>
     			</div>
-    			<div class="xbbox xbboxmag">
+    			<div class="xbbox revbox">
     				<h2 class="xbtitle">
-    					<span class="badge badge-info pull-right">
+    					<span class="badge revcnt pull-right">
     						<?php echo $this->revStates['total']; ?>
     					</span> 
     					<?php echo Text::_('XBCULTURE_REVIEWS_U'); ?>
@@ -199,7 +193,7 @@ if ($this->xbpeople_ok==='0') : ?>
     					</div>
     				</div>
     			</div>	
-     			<div class="xbbox xbboxgrey">
+     			<div class="xbbox tagbox">
     				<div class="row-fluid"><div class="span12">
     					<h2 class="xbtitle"><?php echo Text::_('XBCULTURE_NUM_ITEMS_TAGGED'); ?>
     						<span class="pull-right">
@@ -247,15 +241,15 @@ if ($this->xbpeople_ok==='0') : ?>
     			</div>
     		</div>
     		<div class="span5">   					
-    			<div class="xbbox xbboxgrn">
+    			<div class="xbbox perbox">
     				<h2 class="xbtitle"><?php echo Text::_('XBCULTURE_PEOPLE_U'); ?>
     					 <span class="pull-right"><span class="xbnit xbmr10 xb09">Total: </span><span class="badge percnt xbmr20"><?php echo $this->totPeople;?></span>
-    					 <span class="xbnit xbmr10 xb09">In Films: </span><span class="badge badge-info "><?php echo $this->perStates['total'];?></span></span>	
+    					 <span class="xbnit xbmr10 xb09">In Films: </span><span class="badge flmcnt "><?php echo $this->perStates['total'];?></span></span>	
     				</h2>
     				<div class="row-striped">
     					<div class="row-fluid">
     						<div class="span1"></div><div class="span11">
-    							<span class="badge badge-info xbmr10"><?php echo $this->people['dirpub']+$this->people['dirunpub'];?></span>
+    							<span class="badge percnt xbmr10"><?php echo $this->people['dirpub']+$this->people['dirunpub'];?></span>
     							<?php echo Text::_('XBCULTURE_DIRECTORS'); ?>
     							<span class="pull-right xb08">
     							 	<?php echo Text::_('XBCULTURE_PUBCOLON'); ?> 				
@@ -267,7 +261,7 @@ if ($this->xbpeople_ok==='0') : ?>
     					</div>
     					<div class="row-fluid">
     						<div class="span1"></div><div class="span11">
-    							<span class="badge badge-info xbmr10"><?php echo $this->people['prodpub']+$this->people['produnpub'];?></span>
+    							<span class="badge percnt xbmr10"><?php echo $this->people['prodpub']+$this->people['produnpub'];?></span>
     							<?php echo Text::_('XBCULTURE_PRODUCERS'); ?>
     							<span class="pull-right xb08">
     							 	<?php echo Text::_('XBCULTURE_PUBCOLON'); ?> 				
@@ -279,7 +273,7 @@ if ($this->xbpeople_ok==='0') : ?>
     					</div>
     					<div class="row-fluid">
     						<div class="span1"></div><div class="span11">
-    							<span class="badge badge-info xbmr10"><?php echo $this->people['crewpub']+$this->people['crewunpub'];?></span>
+    							<span class="badge percnt xbmr10"><?php echo $this->people['crewpub']+$this->people['crewunpub'];?></span>
     							<?php echo Text::_('XBCULTURE_CREW'); ?>
     							<span class="pull-right xb08">
     							 	<?php echo Text::_('XBCULTURE_PUBCOLON'); ?> 				
@@ -291,7 +285,7 @@ if ($this->xbpeople_ok==='0') : ?>
     					</div>
     					<div class="row-fluid">
     						<div class="span1"></div><div class="span11">
-    							<span class="badge badge-info xbmr10"><?php echo $this->people['castpub']+$this->people['castunpub'];?></span>
+    							<span class="badge percnt xbmr10"><?php echo $this->people['castpub']+$this->people['castunpub'];?></span>
     							<?php echo Text::_('XBCULTURE_CAST'); ?>
     							<span class="pull-right xb08">
     							 	<?php echo Text::_('XBCULTURE_PUBCOLON'); ?> 				
@@ -303,7 +297,7 @@ if ($this->xbpeople_ok==='0') : ?>
     					</div>
     					<div class="row-fluid">
     						<div class="span1"></div><div class="span11">
-    							<span class="badge badge-info xbmr10"><?php echo $this->people['apppub']+$this->people['appunpub'];?></span>
+    							<span class="badge percnt xbmr10"><?php echo $this->people['apppub']+$this->people['appunpub'];?></span>
     							<?php echo Text::_('XBCULTURE_APPEARANCES'); ?>
     							<span class="pull-right xb08">
     							 	<?php echo Text::_('XBCULTURE_PUBCOLON'); ?> 				
@@ -315,7 +309,7 @@ if ($this->xbpeople_ok==='0') : ?>
     					</div>
     					<div class="row-fluid">
     						<div class="span1"></div><div class="span11">
-    							<span class="badge badge-info xbmr10"><?php echo $this->people['otherpub']+$this->people['otherunpub'];?></span>
+    							<span class="badge percnt xbmr10"><?php echo $this->people['otherpub']+$this->people['otherunpub'];?></span>
     							<?php echo Text::_('XBCULTURE_OTHERS'); ?>
     							<span class="pull-right" style="text-transform:none;font-weight:normal;font-size:10px;">
     							 	<?php echo Text::_('XBCULTURE_PUBCOLON'); ?> 				
@@ -332,26 +326,30 @@ if ($this->xbpeople_ok==='0') : ?>
     					</div>
     				</div>
     			</div>
-    			<div class="xbbox xbboxcyan">
-    				<h2 class="xbtitle">
-    					 <span class="pull-right"><span class="xbnit xbmr10 xb09">Total: </span><span class="badge chcnt xbmr20"><?php echo $this->totChars;?></span>
-    					 <span class="xbnit xbmr10 xb09">In Films: </span><span class="badge badge-info "><?php echo $this->charStates['total'];?></span></span>	
-    					<?php echo Text::_('XBCULTURE_CHARACTER_U'); ?>
-    				</h2>
-    			</div>
-    			<div class="xbbox xbboxgrn">
+    			<div class="xbbox grpbox">
     				<h2 class="xbtitle">
     					 <span class="pull-right"><span class="xbnit xbmr10 xb09">Total: </span>
     					 <span class="badge grpcnt xbmr20"><?php echo $this->totGroups;?></span>
-    					 <span class="xbnit xbmr10 xb09">In Filmss: </span><span class="badge badge-info ">
+    					 <span class="xbnit xbmr10 xb09">In Filmss: </span><span class="badge flmcnt ">
     					 <?php echo $this->groupStates['total'];?></span></span>	
     					<?php echo Text::_('XBCULTURE_GROUPS'); ?>
     				</h2>
     			</div>
-    			<div class="xbbox xbboxyell">
+    			<div class="xbbox chbox">
     				<h2 class="xbtitle">
-    					<span class="badge badge-info pull-right">
-    						<?php echo $this->catStates['total']; ?></span> 
+    					 <span class="pull-right"><span class="xbnit xbmr10 xb09">Total: </span><span class="badge chcnt xbmr20"><?php echo $this->totChars;?></span>
+    					 <span class="xbnit xbmr10 xb09">In Films: </span><span class="badge flmcnt "><?php echo $this->charStates['total'];?></span></span>	
+    					<?php echo Text::_('XBCULTURE_CHARACTER_U'); ?>
+    				</h2>
+    			</div>
+    			<div class="xbbox catbox">
+    				<h2 class="xbtitle">
+    					<span class="pull-right">
+     						<span class="xbnit xbmr10 xb09"><?php echo Text::_('XBCULTURE_TOTAL'); ?>: </span>
+    						<span class="badge badge-success pull-right">
+    							<?php echo $this->catStates['total']; ?>
+    						</span> 
+    					</span>
     					<?php echo Text::_('XBCULTURE_CATEGORIES_U'); ?>
     				</h2>
     				<div class="row-striped">
@@ -406,7 +404,7 @@ if ($this->xbpeople_ok==='0') : ?>
                 				</table>
         					</div>
         				</div>
-        				<br />for People/Groups/Character categories see <a href="index.php?option=com_xbpeople">xbPeople</a>
+        				<br />><?php echo Text::_('XBCULTURE_PEOPLE_GROUPS_CHARS'); ?> <a href="index.php?option=com_xbpeople">xbPeople</a>
         			</div>
               	</div>
 			</div>
