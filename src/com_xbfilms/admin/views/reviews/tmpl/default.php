@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/reviews/tmpl/default.php
- * @version 1.0.2.2 6th January 2023
+ * @version 1.0.3.2 4th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -47,7 +47,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 
 ?>
 <style type="text/css" media="screen">
-    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
+	.xbpvmodal .modal-content {padding:15px;max-height:calc(100vh - 190px); overflow:scroll; }
 </style>
 <form action="index.php?option=com_xbfilms&view=reviews" method="post" id="adminForm" name="adminForm">
 	<?php if (!empty( $this->sidebar)) : ?>
@@ -91,16 +91,27 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 		</div>
 	<?php else : ?>	
 	<table class="table table-striped table-hover" id="xbfilmreviewsList">
+			<colgroup>
+				<col class="hiddem-phone" style="width:25px;"><!-- ordering -->
+				<col class="hiddem-phone" style="width:25px;"><!-- checkbox -->
+				<col style="width:55px;"><!-- status -->
+				<col ><!-- title -->
+				<col ><!-- film, date -->
+				<col style="width:105px;"><!-- rating -->
+				<col class="hiddem-phone"style="width:230px;" ><!-- summary, extlinks -->
+				<col class="hidden-tablet hidden-phone" style="width:230px;"><!-- cats & tags -->
+				<col class="hiddem-phone" style="width:45px;"><!-- id -->
+			</colgroup>	
 		<thead>
 			<tr>
-				<th class="nowrap center hidden-phone" style="width:25px;">
+				<th class="nowrap center">
 					<?php echo HTMLHelper::_('searchtools.sort', '', 'ordering', 
 					    $listDirn, $listOrder, null, 'asc', 'XBCULTURE_HEADING_ORDERING_DESC', 'icon-menu-2'); ?>
 				</th>
-        		<th class="hidden-phone" style="width:25px;">
+        		<th>
         			<?php echo HTMLHelper::_('grid.checkall'); ?>
         		</th>
-        		<th class="nowrap center" style="width:55px">
+        		<th class="nowrap center">
         			<?php echo HTMLHelper::_('searchtools.sort', 'JSTATUS', 'published', $listDirn, $listOrder); ?>
         		</th>
         		<th>
@@ -117,11 +128,11 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
         		<th class="hidden-phone">
         			<?php echo Text::_('XBFILMS_REVIEW_SUMMARY_LABEL');?>
         		</th>
- 					<th class="hidden-tablet hidden-phone" style="width:15%;">
+ 					<th>
 						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; '.Text::_( 'XBCULTURE_TAGS_U' ); ?>
 					</th>
         		
-        		<th class="nowrap hidden-phone" style="width:45px;">
+        		<th class="nowrap">
         			<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ID', 'id', $listDirn, $listOrder); ?>
         		</th>
     				<th>[pv]</th>
@@ -186,7 +197,8 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
     						} ?>
     						<a href="<?php echo Route::_($relink . $item->id); ?>" title="<?php echo Text::_('XBFILMS_EDIT_REVIEW'); ?>">
     							<?php echo $item->title; ?>
-    						</a>
+							</a>&nbsp;
+							<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" onclick="window.pvid=<?php echo $item->id; ?>;"><i class="far fa-eye"></i></a>
     						<br /><span class="xb08 xbnorm"><i><?php echo Text::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?></i></span>
     						</p>
 							<br /><span class="xb08 xbnorm"><i>reviewed by: </i><?php echo ''.$item->reviewer.'</span>'; ?> 
@@ -293,20 +305,26 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 <p><?php echo XbcultureHelper::credit('xbFilms');?></p>
 <script>
 jQuery(document).ready(function(){
-//for preview modal
-    jQuery('#ajax-pvmodal').on('show', function () {
+//for preview modals
+    jQuery('#ajax-rpvmodal').on('show', function () {
         // Load view vith AJAX
-        jQuery(this).find('.modal-content').load(jQuery('a[data-target="#'+jQuery(this).attr('id')+'"]').attr('href'));
+       jQuery(this).find('.modal-content').load('/index.php?option=com_xbfilms&view=review&layout=default&tmpl=component&id='+window.pvid);
     })
+    jQuery('#ajax-rpvmodal').on('hidden', function () {
+       document.location.reload(true);
+    })    
 });
 </script>
-<!-- preview modal window -->
-<div class="modal fade xbpvmodal" id="ajax-pvmodal" style="max-width:1200px">
+<!-- preview modal windows -->
+<div class="modal fade xbpvmodal" id="ajax-rpvmodal" style="max-width:1000px">
     <div class="modal-dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
+            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
+             <h4 class="modal-title" style="margin:5px;">Preview Review</h4>
+        </div>
         <div class="modal-content">
             <!-- Ajax content will be loaded here -->
         </div>
     </div>
 </div>
-
-

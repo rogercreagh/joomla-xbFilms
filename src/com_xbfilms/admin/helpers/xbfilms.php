@@ -76,7 +76,7 @@ class XbfilmsHelper extends ContentHelper
 				);
 			JHtmlSidebar::addEntry(
 			    Text::_('XBCULTURE_ICONMENU_GROUPS'),
-			    'index.php?option=com_xbbooks&view=groups',
+			    'index.php?option=com_xbfilms&view=groups',
 			    $vName == 'groups'
 			    );
 			JHtmlSidebar::addEntry(

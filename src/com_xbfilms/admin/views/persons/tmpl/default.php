@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/people/tmpl/default.php
- * @version 1.0.1.4 6th January 2023
+ * @version 1.0.3.2 4th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -48,6 +48,9 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 $bplink = 'index.php?option=com_xbpeople&view=person&layout=edit&id=';
 
 ?>
+<style type="text/css" media="screen">
+	.xbpvmodal .modal-content {padding:15px;max-height:calc(100vh - 190px); overflow:scroll; }
+</style>
 <form action="index.php?option=com_xbfilms&view=persons" method="post" id="adminForm" name="adminForm">
 	<?php if (!empty( $this->sidebar)) : ?>
         <div id="j-sidebar-container" class="span2">
@@ -93,19 +96,30 @@ $bplink = 'index.php?option=com_xbpeople&view=person&layout=edit&id=';
 		</div>
 	<?php else : ?>	
 	<table class="table table-striped table-hover" id="xbpersonsList">
+			<colgroup>
+				<col class="hiddem-phone" style="width:25px;"><!-- ordering -->
+				<col class="hiddem-phone" style="width:25px;"><!-- checkbox -->
+				<col style="width:55px;"><!-- status -->
+				<col style="width:80px;"><!-- picture -->
+				<col ><!-- title, dates -->
+				<col class="hiddem-phone"style="width:230px;" ><!-- summary -->
+				<col ><!-- films -->
+				<col class="hidden-tablet hidden-phone" style="width:230px;"><!-- cats & tags -->
+				<col class="hiddem-phone" style="width:45px;"><!-- id -->
+			</colgroup>	
 		<thead>
 			<tr>
-				<th class="nowrap center hidden-phone" style="width:25px;">
+				<th class="nowrap center">
 					<?php echo HTMLHelper::_('searchtools.sort', '', 'ordering', 
 					    $listDirn, $listOrder, null, 'asc', 'XBCULTURE_HEADING_ORDERING_DESC', 'icon-menu-2'); ?>
 				</th>
-    			<th class="hidden-phone" style="width:25px;">
+    			<th>
     				<?php echo HTMLHelper::_('grid.checkall'); ?>
     			</th>
-    			<th class="nowrap center" style="width:55px">
+    			<th class="nowrap center">
 					<?php echo HTMLHelper::_('searchtools.sort', 'JSTATUS', 'published', $listDirn, $listOrder); ?>
     			</th>
-    			<th class="center" style="width:80px">
+    			<th class="center">
     				<?php echo Text::_('XBCULTURE_PORTRAIT') ;?>
     			</th>
     			<th >
@@ -119,14 +133,14 @@ $bplink = 'index.php?option=com_xbpeople&view=person&layout=edit&id=';
     			<th >
 					<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_FILMS_U', 'fcnt', $listDirn, $listOrder); ?>
      			</th>
-    			<th class="hidden-tablet hidden-phone" style="width:15%;">
-						<?php if ($this->xbpeople_ok!==false) {
-							echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; ';
-						}
-						echo Text::_( 'XBCULTURE_TAGS_U' ); ?>
+    			<th>
+					<?php if ($this->xbpeople_ok!==false) {
+						echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; ';
+					}
+					echo Text::_( 'XBCULTURE_TAGS_U' ); ?>
 					</th>
     			
-    			<th class="nowrap hidden-phone" style="width:45px;">
+    			<th class="nowrap">
 					<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ID', 'id', $listDirn, $listOrder); ?>
     			</th>
     		</tr>
@@ -202,7 +216,8 @@ $bplink = 'index.php?option=com_xbpeople&view=person&layout=edit&id=';
 							<a href="<?php echo $pelink.$item->id; ?>" title="<?php echo Text::_('XBFILMS_EDIT_PERSON'); ?>">
 								<?php echo ($item->firstname=='')? '... ' : $item->firstname; ?>
 								<?php echo ' '.$item->lastname; ?> 
-							</a>
+							</a>&nbsp;
+							<a href="" data-toggle="modal" data-target="#ajax-ppvmodal" onclick="window.pvid=<?php echo $item->id; ?>;"><i class="far fa-eye"></i></a>
 							<br />
 							<span class="xb08 xbnorm"><i><?php echo Text::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?></i></span>
 						</p>
@@ -249,73 +264,52 @@ $bplink = 'index.php?option=com_xbpeople&view=person&layout=edit&id=';
                     </td>
 					<td>
 						<?php if ($item->dircnt>0) : ?>
-        					<?php if (($item->frcnt == 1) && ($item->dircnt < 3)) : ?>
-        						<?php echo $item->dirlist; ?>
-							<?php else : ?>
-                              <details>
-                              	<summary><span class="xbnit">
-     								<?php echo Text::_('XBCULTURE_DIRECTOR_OF').' '.$item->dircnt.' ';
+                            <details>
+                            	<summary class="xbnit">
+                            		<?php echo Text::_('XBCULTURE_DIRECTOR_OF').' '.$item->dircnt.' ';
                                     echo ($item->dircnt==1)?Text ::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS');   ?>
-                                </span></summary>
-     							<?php echo $item->dirlist; ?>
-                              </details>
-    						<?php endif; ?> 
+                                </summary>
+                            	<?php echo $item->dirlist['ullist']; ?>
+                            </details>
 						<?php endif; ?> 
 						<?php if ($item->prodcnt>0) : ?>
-         					<?php if (($item->frcnt == 1) && ($item->prodcnt < 3)) : ?>
-        						<?php echo $item->prodlist; ?>
-							<?php else : ?>
-                              <details>
-                              	<summary><span class="xbnit">
+	                        <details>
+								<summary class="xbnit">
      								<?php echo Text::_('XBCULTURE_PRODUCER_OF').' '.$item->prodcnt.' ';
                                     echo ($item->prodcnt==1)? Text::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS');   ?>
-                                </span></summary>
-    							<?php echo $item->prodlist; ?>
-                              </details>
-    						<?php endif; ?> 
+                                </summary>
+    							<?php echo $item->prodlist['ullist']; ?>
+							</details>
 						<?php endif; ?> 
 						<?php if ($item->crewcnt>0) : ?>
-         					<?php if (($item->frcnt == 1) && ($item->crewcnt < 3)) : ?>
-        						<?php echo $item->crewlist; ?>
-							<?php else : ?>
                               <details>
-                              	<summary><span class="xbnit">
+                              	<summar class="xbnit">
      								<?php echo Text::_('XBCULTURE_CREW_ON').' '.$item->crewcnt.' ';
      								echo ($item->crewcnt==1)? Text::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS');   ?>
-                                </span></summary>
-    							<?php echo $item->crewlist; ?>
-                              </details>
-    						<?php endif; ?> 
+                                </summary>
+    							<?php echo $item->crewlist['ullist']; ?>
+							</details>
 						<?php endif; ?> 
 						<?php if ($item->castcnt>0) : ?>
-         					<?php if (($item->frcnt == 1) && ($item->castcnt < 3)) : ?>
-        						<?php echo $item->castlist; ?>
-							<?php else : ?>
                               <details>
-                              	<summary><span class="xbnit">
+                              	<summary class="xbnit">
      								<?php echo Text::_('XBCULTURE_ACTOR_IN').' '.$item->castcnt.' ';
      								echo ($item->castcnt==1)? Text::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS');   ?>
-                                </span></summary>
-    							<?php echo $item->castlist; ?>
+                                </summary>
+    							<?php echo $item->castlist['ullist']; ?>
                               </details>
-    						<?php endif; ?> 
 						<?php endif; ?> 
 						<?php if ($item->appcnt>0) : ?>
-         					<?php if (($item->frcnt == 1) && ($item->appcnt < 3)) : ?>
-        						<?php echo $item->applist; ?>
-							<?php else : ?>
                               <details>
-                              	<summary><span class="xbnit">
+                              	<summary class="xbnit">
      								<?php echo Text::_('XBCULTURE_SUBJECT_CAMEO').' '.$item->appcnt.' ';
      								echo ($item->appcnt==1)? Text::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS');   ?>
-                                </span></summary>
+                                </summary>
     							<?php echo $item->applist; ?>
                               </details>
-    						<?php endif; ?> 
 						<?php endif; ?> 
 						<?php if (($item->bcnt + $item->ecnt)>0) {
-						    echo '<span class="xbnit">'.Text::_('Also').' ';
-						    echo '</span>';
+						    echo '<span class="xbnit">'.Text::_('Also in').' ';
 						    if ($item->bcnt>0) {
 						        echo $item->bcnt.' '.Text::_(($item->fcnt==1)?'XBCULTURE_BOOK':'XBCULTURE_BOOKS');
 						        echo ($item->ecnt>0) ? ' &amp; ': '';
@@ -323,8 +317,8 @@ $bplink = 'index.php?option=com_xbpeople&view=person&layout=edit&id=';
 						    if ($item->ecnt>0) {
 						        echo $item->ecnt.' '.lcfirst(Text::_(($item->ecnt==1)?'XBCULTURE_EVENT':'XBCULTURE_EVENTS'));
 						    }
+						    echo '</span>';
 						} ?>
-
 					</td>
 					<td>
 						<p><a  class="label label-success" href="<?php echo $cvlink . $item->catid.'&extension=com_xbpeople'; ?>" 
@@ -363,3 +357,44 @@ $bplink = 'index.php?option=com_xbpeople&view=person&layout=edit&id=';
 </form>
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbFilms');?></p>
+<script>
+jQuery(document).ready(function(){
+//for preview modals
+    jQuery('#ajax-ppvmodal').on('show', function () {
+        // Load view vith AJAX
+      jQuery(this).find('.modal-content').load('/index.php?option=com_xbpeople&view=person&layout=default&tmpl=component&id='+window.pvid);
+    })
+    jQuery('#ajax-fpvmodal').on('show', function () {
+        // Load view vith AJAX
+       jQuery(this).find('.modal-content').load('/index.php?option=com_xbfilms&view=film&layout=default&tmpl=component&id='+window.pvid);
+    })
+    jQuery('#ajax-ppvmodal,#ajax-fpvmodal').on('hidden', function () {
+       document.location.reload(true);
+    })    
+});
+</script>
+<!-- preview modal windows -->
+<div class="modal fade xbpvmodal" id="ajax-ppvmodal" style="max-width:900px">
+    <div class="modal-dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
+            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
+             <h4 class="modal-title" style="margin:5px;">Preview Person</h4>
+        </div>
+        <div class="modal-content">
+            <!-- Ajax content will be loaded here -->
+        </div>
+    </div>
+</div>
+<div class="modal fade xbpvmodal" id="ajax-fpvmodal" style="max-width:1000px">
+    <div class="modal-dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
+            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
+             <h4 class="modal-title" style="margin:5px;">Preview Film</h4>
+        </div>
+        <div class="modal-content">
+            <!-- Ajax content will be loaded here -->
+        </div>
+    </div>
+</div>

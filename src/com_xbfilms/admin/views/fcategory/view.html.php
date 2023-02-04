@@ -31,7 +31,7 @@ class XbfilmsViewFcategory extends JViewLegacy {
 	protected function addToolBar() {
 		$canDo = XbfilmsHelper::getActions();
 		
-		ToolBarHelper::title(Text::_( 'COM_XBFILMS' ).': '.Text::_( 'XBCULTURE_TITLE_CATMANGER' ), 'tag' );
+		ToolBarHelper::title(Text::_( 'XBFILMS_ADMIN_CATITEMS' ), 'folder' );
 		
 		ToolbarHelper::custom('fcategory.fcategories', 'folder', '', 'XBFILMS_CAT_LIST', false) ;
 		

@@ -64,7 +64,7 @@ class XbfilmsViewFilms extends JViewLegacy {
 	protected function addToolbar() {
 	    $canDo = XbfilmsHelper::getActions();
 	    
-	    ToolbarHelper::title(Text::_( 'COM_XBFILMS' ).': '.Text::_( 'XBCULTURE_TITLE_FILMMANAGER' ), 'screen' );
+	    ToolbarHelper::title(Text::_( 'XBFILMS_ADMIN_FILMS' ), 'screen' );
 
 		if ($canDo->get('core.create') > 0) {
             ToolbarHelper::addNew('film.add');

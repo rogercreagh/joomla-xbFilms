@@ -94,19 +94,30 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 		</div>
 	<?php else : ?>	
 	<table class="table table-striped table-hover" id="xbcharactersList">
+		<colgroup>
+			<col class="hiddem-phone" style="width:25px;"><!-- ordering -->
+			<col class="hiddem-phone" style="width:25px;"><!-- checkbox -->
+			<col style="width:55px;"><!-- status -->
+			<col style="width:80px;"><!-- picture -->
+			<col ><!-- name -->
+			<col class="hiddem-phone"style="width:230px;" ><!-- summary, extlinks -->
+			<col ><!-- films -->
+			<col class="hidden-tablet hidden-phone" style="width:230px;"><!-- cats & tags -->
+			<col class="hiddem-phone" style="width:45px;"><!-- id -->
+		</colgroup>	
 		<thead>
 			<tr>
-				<th class="nowrap center hidden-phone" style="width:25px;">
+				<th class="nowrap center>
 					<?php echo HTMLHelper::_('searchtools.sort', '', 'ordering', 
 					    $listDirn, $listOrder, null, 'asc', 'XBCULTURE_HEADING_ORDERING_DESC', 'icon-menu-2'); ?>
 				</th>
-    			<th class="hidden-phone" style="width:25px;">
+    			<th>
     				<?php echo HTMLHelper::_('grid.checkall'); ?>
     			</th>
-    			<th class="nowrap center" style="width:55px">
+    			<th class="nowrap center">
 					<?php echo HTMLHelper::_('searchtools.sort', 'JSTATUS', 'published', $listDirn, $listOrder); ?>
     			</th>
-    			<th class="center" style="width:80px">
+    			<th class="center">
     				<?php echo Text::_('XBCULTURE_PORTRAIT') ;?>
     			</th>
     			<th >
@@ -118,12 +129,11 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
     			<th >
 					<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_FILMS_U', 'fcnt', $listDirn, $listOrder); ?>					
     			</th>
-    			<th class="hidden-tablet hidden-phone" style="width:15%;">
-						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; ';
-						echo Text::_( 'XBCULTURE_TAGS_U' ); ?>
-					</th>
-    			
-    			<th class="nowrap hidden-phone" style="width:45px;">
+    			<th>
+					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; ';
+					echo Text::_( 'XBCULTURE_TAGS_U' ); ?>
+				</th>   			
+    			<th class="nowrap">
 					<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ID', 'id', $listDirn, $listOrder); ?>
     			</th>
     		</tr>
@@ -229,27 +239,28 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 						<?php endif; ?>
                     </td>
 					<td>
-						<?php if (($item->fcnt==1) || ($item->fcnt==2)) : ?> 
-                            <ul class="xbdetails">
-								<?php echo $item->filmlist['ullist']; ?>
-							</ul>
-						<?php elseif ($item->fcnt>2) : ?> 
-						    <details>
-						    <summary><span class="xbnit">
-						    <?php echo Text::_('XBCULTURE_APPEARS_IN').' '.$item->fcnt.' ';
-						    echo Text::_(($item->fcnt==1)?'XBCULTURE_FILM':'XBCULTURE_FILMS');   ?>
-                            </span></summary>
-                            <ul class="xbdetails">
-								<?php echo $item->filmlist['ullist']; ?>
-							</ul>
-                          </details>
-						 <?php endif; ?> 
-						<?php if ($item->bcnt>0) {
-							echo '<span class="xbnit">';
-							echo Text::_('XBCULTURE_ALSO_IN').' <a href="'.$pelink.$item->id.'">'.$item->bcnt.' ';
-							echo Text::_(($item->bcnt==1)?'XBCULTURE_BOOK':'XBCULTURE_BOOKS');
-							echo '</a></span>';
-						}?>
+						<?php if ($item->fcnt>1) : ?> 
+							<details>
+                                <summary class="xbnit">
+                                    <?php echo Text::_('XBCULTURE_APPEARS_IN').' '.$item->fcnt.' ';
+                                    echo Text::_(($item->fcnt==1)?'XBCULTURE_FILM':'XBCULTURE_FILMS');   ?>
+                                </summary>
+                                <ul class="xbdetails">
+                                	<?php echo $item->filmlist['ullist']; ?>
+                                </ul>
+							</details>
+						<?php endif; ?> 
+						<?php if (($item->bcnt + $item->ecnt)>0) {
+						    echo '<span class="xbnit">'.Text::_('Also in').' ';
+						    if ($item->bcnt>0) {
+						        echo $item->bcnt.' '.Text::_(($item->fcnt==1)?'XBCULTURE_BOOK':'XBCULTURE_BOOKS');
+						        echo ($item->ecnt>0) ? ' &amp; ': '';
+						    }
+						    if ($item->ecnt>0) {
+						        echo $item->ecnt.' '.lcfirst(Text::_(($item->ecnt==1)?'XBCULTURE_EVENT':'XBCULTURE_EVENTS'));
+						    }
+						    echo '</span>';
+						} ?>
 					</td>
 					<td>
 						<p><a  class="label label-success" href="<?php echo $cvlink.$item->catid.'&extension=com_xbpeople'; ?>" 
@@ -299,7 +310,7 @@ jQuery(document).ready(function(){
         // Load view vith AJAX
        jQuery(this).find('.modal-content').load('/index.php?option=com_xbfilms&view=film&layout=default&tmpl=component&id='+window.pvid);
     })
-    jQuery('#ajax-cpvmodal,#ajax-bpvmodal').on('hidden', function () {
+    jQuery('#ajax-cpvmodal,#ajax-fpvmodal').on('hidden', function () {
        document.location.reload(true);
     })    
 });

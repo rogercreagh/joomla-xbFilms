@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/groups.php
- * @version 1.0.3.1 3rd February 2023
+ * @version 1.0.3.2 4th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -43,7 +43,7 @@ class XbfilmsModelGroups extends JModelList {
         
         $query->select('(SELECT COUNT(DISTINCT(gp.person_id)) FROM #__xbgroupperson AS gp WHERE gp.group_id = a.id) AS pcnt');
         
-        $query->select('(SELECT COUNT(DISTINCT(bg.book_id)) FROM #__xbfilmgroup AS fg WHERE fg.group_id = a.id) AS fcnt');
+        $query->select('(SELECT COUNT(DISTINCT(fg.film_id)) FROM #__xbfilmgroup AS fg WHERE fg.group_id = a.id) AS fcnt');
 
         if ($sess->get('xbbooks_ok',false)==1) $query->select('(SELECT COUNT(DISTINCT(bg.book_id)) FROM #__xbbookgroup AS bg WHERE bg.group_id = a.id) AS bcnt');
         if ($sess->get('xbevents_ok',false)==1) $query->select('(SELECT COUNT(DISTINCT(eg.event_id)) FROM #__xbeventgroup AS eg WHERE eg.group_id = a.id) AS ecnt');
@@ -166,8 +166,8 @@ class XbfilmsModelGroups extends JModelList {
                 $item->members = XbcultureHelper::getGroupMembers($item->id);
                 $item->memberlist = XbcultureHelper::makeItemLists($item->members,'','tr',4,'ppvmodal');
             }
-            $item->books = XbcultureHelper::getGroupBooks($item->id);
-            $item->booklist = XbcultureHelper::makeItemLists($item->films,'','t',4,'fpvmodal');
+            $item->films = XbcultureHelper::getGroupFilms($item->id);
+            $item->filmlist = XbcultureHelper::makeItemLists($item->films,'','t',4,'fpvmodal');
             
             $item->ext_links = json_decode($item->ext_links);
             $item->ext_links_list ='';

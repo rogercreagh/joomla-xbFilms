@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/characters/view.html.php
- * @version 0.9.11.2 17th November 2022
+ * @version 1.0.3.2 4th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -50,7 +50,7 @@ class XbfilmsViewCharacters extends JViewLegacy {
     protected function addToolBar() {
         $canDo = XbfilmsHelper::getActions();
                 
-        ToolbarHelper::title(Text::_('COM_XBFILMS').': '.Text::_('XBCULTURE_TITLE_CHARMANAGER'), 'users' );
+        ToolbarHelper::title(Text::_('XBFILMS_ADMIN_CHARS'), 'users' );
         
         if ($canDo->get('core.create') > 0) {
             ToolbarHelper::addNew('character.add');
@@ -61,28 +61,11 @@ class XbfilmsViewCharacters extends JViewLegacy {
         if ($canDo->get('core.edit.state')) {
             ToolbarHelper::publish('character.publish', 'JTOOLBAR_PUBLISH', true);
             ToolbarHelper::unpublish('character.unpublish', 'JTOOLBAR_UNPUBLISH', true);
-            ToolbarHelper::archiveList('character.archive');
-        }
-        if ($this->state->get('filter.published') == -2 && $canDo->get('core.delete')) {
-           ToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'character.delete','JTOOLBAR_EMPTY_TRASH');
-        } else if ($canDo->get('core.edit.state')) {
-           ToolbarHelper::trash('character.trash');
-        }
-        
-        // Add a batch button
-        $bar = Toolbar::getInstance('toolbar');
-        if ($canDo->get('core.create') && $canDo->get('core.edit')
-        		&& $canDo->get('core.edit.state'))
-        {
-        	// we use a standard Joomla layout to get the html for the batch button
-        	$layout = new FileLayout('joomla.toolbar.batch');
-        	$batchButtonHtml = $layout->render(array('title' => Text::_('JTOOLBAR_BATCH')));
-        	$bar->appendButton('Custom', $batchButtonHtml, 'batch');
         }
         
         ToolbarHelper::custom(); //spacer
         if ($this->xbpeople_ok) {
-        	ToolbarHelper::custom('characters.people', 'users', '', 'All Characters', false) ;
+        	ToolbarHelper::custom('characters.allchars', 'users', '', 'All Characters', false) ;
         }
         
         if ($canDo->get('core.admin')) {

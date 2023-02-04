@@ -57,7 +57,7 @@ class XbfilmsViewReviews extends JViewLegacy {
     protected function addToolBar() {
         $canDo = XbfilmsHelper::getActions();
                 
-        ToolbarHelper::title(Text::_( 'COM_XBFILMS' ).': '.Text::_( 'XBCULTURE_TITLE_REVIEWSMANAGER' ), 'users' );
+        ToolbarHelper::title(Text::_( 'XBFILMS_ADMIN_REVIEWS' ), 'users' );
         
         if ($canDo->get('core.create') > 0) {
             ToolbarHelper::addNew('review.add');

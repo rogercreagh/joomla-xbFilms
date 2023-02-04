@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/persons.php
- * @version 1.0.1.3 5th January 2023
+ * @version 1.0.3.2 4th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -196,12 +196,11 @@ class XbfilmsModelPersons extends JModelList {
             $item->appcnt = count(array_keys($roles, 'appearsin'));
             $item->castcnt = count(array_keys($roles, 'actor'));
             
-            $rfmt = ($item->frcnt <3) ? 1 : 4;
-            $item->dirlist = $item->dircnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->films,'director','ul',true,$rfmt);
-            $item->prodlist = $item->prodcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->films,'producer','ul',true,$rfmt);
-            $item->crewlist = $item->crewcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->films,'crew','ul',true,$rfmt);
-            $item->castlist = $item->castcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->films,'actor','ul',true,$rfmt);
-            $item->applist = $item->appcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->films,'appearsin','ul',true,$rfmt);
+            $item->dirlist = $item->dircnt==0 ? '' : XbcultureHelper::makeItemLists($item->films,'director','t',3,'fpvmodal');
+            $item->prodlist = $item->prodcnt==0 ? '' : XbcultureHelper::makeItemLists($item->films,'producer','t',3,'fpvmodal');
+            $item->crewlist = $item->crewcnt==0 ? '' : XbcultureHelper::makeItemLists($item->films,'crew','tn',3,'fpvmodal');
+            $item->castlist = $item->castcnt==0 ? '' : XbcultureHelper::makeItemLists($item->films,'actor','tn',3,'fpvmodal');
+            $item->applist = $item->appcnt==0 ? '' : XbcultureHelper::makeItemLists($item->films,'appearsin','tn',3,'fpvmodal');
             
             $item->ext_links = json_decode($item->ext_links);
             $item->ext_links_list ='';

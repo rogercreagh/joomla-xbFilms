@@ -100,6 +100,7 @@ class com_xbfilmsInstallerScript
         $delfiles .= ',/controllers/character.php,/controllers/person.php,/models/character.php,/models/person.php';
         $delfiles .= ',/models/forms/character.xml,/models/forms/person.xml,/tables/character.php,/tables/person.php';
         $delfiles .= ',/views/character,/views/person,/models/forms/filmlist.xml,/views/films/tmpl/modal.php,/views/review/tmpl/view.php';
+        $delfiles .= ',views/persons/tmpl/default_batch_body.php,views/persons/tmpl/default_batch_footer.php';
         $delfiles = explode(',',$delfiles);
         $cnt = 0; $dcnt=0;
     	$ecnt = 0;

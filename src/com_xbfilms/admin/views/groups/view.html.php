@@ -58,7 +58,7 @@ class XbfilmsViewGroups extends JViewLegacy {
         
         $bar = Toolbar::getInstance('toolbar');
         
-        ToolBarHelper::title(Text::_('XBFILMS_TITLE_GROUPS_ADMIN'), 'users' );
+        ToolBarHelper::title(Text::_('XBFILMS_ADMIN_GROUPS'), 'users' );
         
         if ($canDo->get('core.create') > 0) {
             ToolbarHelper::custom('groups.groupnew','new','','New',false);

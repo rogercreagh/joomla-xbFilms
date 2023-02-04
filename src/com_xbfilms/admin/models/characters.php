@@ -174,9 +174,8 @@ class XbfilmsModelCharacters extends JModelList {
             if ($item->fcnt>0) {
                 $item->films = XbcultureHelper::getCharFilms($item->id);
                 $item->filmcnt = count($item->films);
-//                $item->filmlist = $item->filmcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->films,'','ul',true,4);
                 $item->filmlist = $item->filmcnt==0 ? '' : XbcultureHelper::makeItemLists($item->films,'','t',4,'fpvmodal');
-            } //bcnt is the number of books, bookcnt is the number of roles (maybe 2 roles in a book)
+            } 
 
             $item->tags = $tagsHelper->getItemTags('com_xbpeople.character' , $item->id);
         } //end foreach item

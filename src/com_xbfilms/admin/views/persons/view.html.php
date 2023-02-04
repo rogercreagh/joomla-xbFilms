@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/persons/view.html.php
- * @version 0.9.11.2 17th November 2022
+ * @version 1.0.3.2 4th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -12,6 +12,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\FileLayout;
 
 class XbfilmsViewPersons extends JViewLegacy {
@@ -59,7 +60,7 @@ class XbfilmsViewPersons extends JViewLegacy {
         
         	$bar = Toolbar::getInstance('toolbar');        	
 
-        	ToolbarHelper::title(JText::_('COM_XBFILMS').': '.JText::_('XBCULTURE_TITLE_PEOPLEMANAGER'), 'users' );
+        	ToolbarHelper::title(Text::_('XBFILMS_ADMIN_PEOPLE'), 'users' );
         
         if ($canDo->get('core.create') > 0) {
             ToolbarHelper::addNew('person.add');
@@ -70,22 +71,6 @@ class XbfilmsViewPersons extends JViewLegacy {
         if ($canDo->get('core.edit.state')) {
             ToolbarHelper::publish('person.publish', 'JTOOLBAR_PUBLISH', true);
             ToolbarHelper::unpublish('person.unpublish', 'JTOOLBAR_UNPUBLISH', true);
-            ToolbarHelper::archiveList('person.archive');
-        }
-        if ($this->state->get('filter.published') == -2 && $canDo->get('core.delete')) {
-           ToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'person.delete','JTOOLBAR_EMPTY_TRASH');
-        } else if ($canDo->get('core.edit.state')) {
-           ToolbarHelper::trash('person.trash');
-        }
-        
-        // Add a batch button
-        if ($canDo->get('core.create') && $canDo->get('core.edit')
-        		&& $canDo->get('core.edit.state'))
-        {
-        	// we use a standard Joomla layout to get the html for the batch button
-        	$layout = new FileLayout('joomla.toolbar.batch');
-        	$batchButtonHtml = $layout->render(array('title' => JText::_('JTOOLBAR_BATCH')));
-        	$bar->appendButton('Custom', $batchButtonHtml, 'batch');
         }
         
         ToolbarHelper::custom(); //spacer

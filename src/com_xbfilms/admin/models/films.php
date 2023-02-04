@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/films.php
- * @version 1.0.1.4 6th January 2023
+ * @version 1.0.3.2 4th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -80,10 +80,11 @@ class XbfilmsModelFilms extends JModelList
             a.created_by_alias AS created_by_alias, a.ext_links AS ext_links,
             a.checked_out AS checked_out, a.checked_out_time AS checked_out_time, 
             a.metadata AS metadata, a.ordering AS ordering, a.params AS params, a.note AS note');
-		$query->from('#__xbfilms AS a')
-        //join to persons and characters to allow filtering on them
-		->join('LEFT OUTER',$db->quoteName('#__xbfilmperson', 'p') . ' ON ' .$db->quoteName('a.id') . ' = ' . $db->quoteName('p.film_id'))
-		->join('LEFT OUTER',$db->quoteName('#__xbfilmcharacter', 'ch') . ' ON ' .$db->quoteName('a.id') . ' = ' . $db->quoteName('ch.film_id'));
+		$query->from('#__xbfilms AS a');
+		
+		$query->select('(SELECT COUNT(DISTINCT(fp.person_id)) FROM #__xbfilmperson AS fp WHERE fp.film_id = a.id) AS pcnt');
+		$query->select('(SELECT COUNT(DISTINCT(fg.group_id)) FROM #__xbfilmgroup AS fg WHERE fg.film_id = a.id) AS gcnt');
+		$query->select('(SELECT COUNT(DISTINCT(fc.char_id)) FROM #__xbfilmcharacter AS fc WHERE fc.film_id = a.id) AS ccnt');
 		
 		$query->select('c.title AS category_title');
         $query->join('LEFT', '#__categories AS c ON c.id = a.catid');
@@ -128,6 +129,7 @@ class XbfilmsModelFilms extends JModelList
         //filter by person (optional specify role)
         $pfilt = $this->getState('filter.perfilt');
         if (is_numeric($pfilt)) {
+            $query->join('LEFT OUTER',$db->quoteName('#__xbfilmperson', 'p') . ' ON ' .$db->quoteName('a.id') . ' = ' . $db->quoteName('p.film_id'));
             $query->where('p.person_id = '.$db->quote($pfilt));
             $ptype = $this->getState('filter.pertype');
             if ($ptype != '') {
@@ -135,9 +137,17 @@ class XbfilmsModelFilms extends JModelList
             }
         }
         
-        //filter by character 
+        //filter by group
+        $gfilt = $this->getState('filter.groupfilt');
+        if (is_numeric($gfilt)) {
+            $query->join('LEFT OUTER',$db->quoteName('#__xbfilmgroup', 'g') . ' ON ' .$db->quoteName('a.id') . ' = ' . $db->quoteName('g.film_id'));
+            $query->where('ch.char_id = '.$db->quote($chfilt));
+        }
+        
+        //filter by character
         $chfilt = $this->getState('filter.charfilt');
         if (is_numeric($chfilt)) {
+            $query->join('LEFT OUTER',$db->quoteName('#__xbfilmcharacter', 'ch') . ' ON ' .$db->quoteName('a.id') . ' = ' . $db->quoteName('ch.film_id'));
             $query->where('ch.char_id = '.$db->quote($chfilt));
         }
         
@@ -222,20 +232,22 @@ class XbfilmsModelFilms extends JModelList
             $item->subjcnt = count(array_keys($roles, 'appearsin'));
             $item->castcnt = count(array_keys($roles, 'actor'));
             
-            $item->dirlist = $item->dircnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'director','comma',true,5);            
-            $item->prodlist = $item->prodcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'producer','comma',true,5);
-            $item->castlist = $item->castcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'actor','comma',true,4);
-            $item->crewlist = $item->crewcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'crew','comma',true,4);
-            $item->subjlist = $item->subjcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'appearsin','comma',true,4);
+            $item->dirlist = $item->dircnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'director','t',4,'ppvmodal');            
+            $item->prodlist = $item->prodcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'producer','t',3,'ppvmodal');
+            $item->castlist = $item->castcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'actor','tn',3,'ppvmodal');
+            $item->crewlist = $item->crewcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'crew','tn',3,'ppvmodal');
+            $item->subjlist = $item->subjcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'appearsin','tn',3,'ppvmodal');
             
-            $item->chars = XbfilmsGeneral::getFilmChars($item->id);
-            $item->charcnt = (empty($item->chars)) ? 0 : count($item->chars);
-            $item->charlist = $item->charcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->chars,'char','comma',true,5);
+            if ($item->gcnt > 0) {
+                $item->groups = XbfilmsGeneral::getFilmGroups($item->id);
+                $item->grplist = $item->gcnt==0 ? '' : XbcultureHelper::makeItemLists($item->groups,'','t',3,'gpvmodal');
+            }
             
-            $item->groups = XbfilmsGeneral::getFilmGroups($item->id);
-            $item->grpcnt = (empty($item->groups)) ? 0 : count($item->groups);
-            $item->grplist = $item->grpcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->groups,'','comma',true, 5);
-            
+            if ($item->ccnt > 0) {
+                $item->chars = XbfilmsGeneral::getFilmChars($item->id);
+                $item->charlist = $item->ccnt==0 ? '' : XbcultureHelper::makeItemLists($item->chars,'','t',3,'cpvmodal');
+            }
+
             $item->reviews = XbfilmsGeneral::getFilmReviews($item->id);
         	
             $item->ext_links = json_decode($item->ext_links);

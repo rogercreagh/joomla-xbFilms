@@ -154,7 +154,7 @@ class XbfilmsViewDashboard extends JViewLegacy
         
         
         if ($this->xbpeople_ok) {
-            ToolbarHelper::title(Text::_( 'XBCULTURE_XBFILMS' ).': '.Text::_('XBCULTURE_DASHBOARD'),'info-2');
+            ToolbarHelper::title(Text::_( 'XBFILMS_ADMIN_DASHBOARD'),'info-2');
             $samplesexist = XbcultureHelper::getIdFromAlias('#__categories', 'sample-films','com_xbfilms');
 	        if ($this->show_sample==1) {
 	        	if ($samplesexist > 0) {
