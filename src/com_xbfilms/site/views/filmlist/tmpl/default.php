@@ -38,13 +38,16 @@ $clink = 'index.php?option=com_xbfilms&view=category'.$itemid.'&id=';
 
 $itemid = XbfilmsHelperRoute::getFilmsRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
-$blink = 'index.php?option=com_xbfilms&view=film'.$itemid.'&id=';
+$flink = 'index.php?option=com_xbfilms&view=film'.$itemid.'&id=';
 
 $itemid = XbfilmsHelperRoute::getReviewsRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
 $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 
 ?>
+<style type="text/css" media="screen">
+	.xbpvmodal .modal-content {padding:15px;max-height:calc(100vh - 190px); overflow:scroll; }
+</style>
 <div class="xbculture">
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
 	    echo XbcultureHelper::sitePageheader($this->header);
@@ -148,8 +151,11 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
                     <?php endif; ?>
 					<td>
 						<p class="xbtitle">
-							<a href="<?php echo Route::_($blink.$item->id);?>" >
-								<b><?php echo $this->escape($item->title); ?></b></a> 
+							<a href="<?php echo Route::_($flink.$item->id);?>" >
+								<b><?php echo $this->escape($item->title); ?></b></a>&nbsp; 
+    						<a href="" data-toggle="modal" data-target="#ajax-fpvmodal" onclick="window.pvid= <?php echo $item->id; ?>;">
+                				<i class="far fa-eye"></i>
+                			</a>					
 						<?php if (!empty($item->subtitle)) :?>
                         	<br /><span class="xb09"><?php echo $this->escape($item->subtitle); ?></span>
                         <?php endif; ?>

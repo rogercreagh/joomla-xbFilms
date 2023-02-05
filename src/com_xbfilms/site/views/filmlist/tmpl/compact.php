@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmlist/tmpl/compact.php
- * @version 0.10.0.4 28th November 2022
+ * @version 1.0.3.4 5th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -29,8 +29,18 @@ $orderNames = array('title'=>Text::_('XBCULTURE_TITLE'), 'averat'=>'Average Rati
     'first_seen'=>Text::_('XBFILMS_FIRST_SEEN'), 'last_seen'=>Text::_('XBFILMS_LAST_SEEN'), );
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
+$itemid = XbfilmsHelperRoute::getFilmsRoute();
+$itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
+$flink = 'index.php?option=com_xbfilms&view=film'.$itemid.'&id=';
+
+$itemid = XbfilmsHelperRoute::getReviewsRoute();
+$itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
+$rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 
 ?>
+<style type="text/css" media="screen">
+	.xbpvmodal .modal-content {padding:15px;max-height:calc(100vh - 190px); overflow:scroll; }
+</style>
 <div class="xbculture">
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
 	    echo XbcultureHelper::sitePageheader($this->header);
@@ -98,8 +108,11 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
 				<tr class="row<?php echo $i % 2; ?>">	
 					<td>
 						<p class="xbtitle">
-							<a href="<?php echo Route::_(XbfilmsHelperRoute::getFilmLink($item->id));?>" >
-								<b><?php echo $this->escape($item->title); ?></b></a> 
+							<a href="<?php echo Route::_($flink.$item->id);?>" >
+								<b><?php echo $this->escape($item->title); ?></b></a>&nbsp;
+    						<a href="" data-toggle="modal" data-target="#ajax-fpvmodal" onclick="window.pvid=<?php echo $item->id; ?>;">
+                				<i class="far fa-eye"></i>
+                			</a>					
 						<?php if (!empty($item->subtitle)) :?>
                         	<br /><span class="xb09 xbnorm"><?php echo $this->escape($item->subtitle); ?></span>
                         <?php endif; ?>
@@ -110,7 +123,7 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
                         	<?php if ($item->dircnt==0) {
                         		echo '<span class="xbnit">'.Text::_('XBFILMS_NODIRECTOR').'</span>';
                         	} else { ?> 
-                        		<?php echo $item->dirlist; 
+                        		<?php echo $item->dirlist['commalist']; 
                         	} ?>                          	
 						</p>
 					</td>
@@ -118,20 +131,39 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
     					<td>
     						<?php if ($item->revcnt==0) : ?>
     						   <i><?php  echo ($this->show_rev == 1)? Text::_( 'XBCULTURE_NO_RATING' ) : Text::_( 'XBCULTURE_NO_REVIEW' ); ?></i><br />
-    						<?php else : ?> 
-	                        	<?php $stars = (round(($item->averat)*2)/2); ?>
-	                            <div class="xbstar">
-								<?php if (($this->zero_rating) && ($stars==0)) : ?>
-								    <span class="<?php echo $this->zero_class; ?>" style="color:red;"></span>
+    						<?php else : ?>
+    	                        <?php $starcnt = (round(($item->averat)*2)/2); ?>
+								<?php if (($this->zero_rating) && ($starcnt==0)) : ?>
+									<?php $stars = '<span class="<?php echo $this->zero_class; ?>" style="color:red;"></span>'; ?>								    
 								<?php else : ?>
-	                                <?php echo str_repeat('<i class="'.$this->star_class.'"></i>',intval($item->averat)); ?>
+	                                <?php $stars = str_repeat('<i class="'.$this->star_class.'"></i>',intval($item->averat)); ?>
 	                                <?php if (($item->averat - floor($item->averat))>0) : ?>
-	                                    <i class="<?php echo $this->halfstar_class; ?>"></i>
-	                                    <span style="color:darkgray;"> (<?php echo round($item->averat,1); ?>)</span>                                   
+	                                    <?php $stars .= '<i class="<?php echo $this->halfstar_class; ?>"></i>'; ?>
 	                                <?php  endif; ?> 
 	                             <?php endif; ?>                        
-	                            </div>
-     						<?php endif; ?>   											
+         					<?php endif; ?>											
+	    					<?php if($item->revcnt == 1) : ?>
+    							<?php echo $stars; ?>&nbsp;	
+        						<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" onclick="window.pvid=<?php echo $item->reviews[0]->id; ?>;">
+                    				<i class="far fa-eye"></i>
+                    			</a>					
+        					<?php elseif ($item->revcnt>1) : ?> 
+	                             <?php echo $stars; ?>&nbsp;<span style="color:darkgray;"> (<?php echo round($item->averat,1); ?>)</span>
+	                             <details>
+	                             	<summary class="xbnit">Average from <?php $item->revcnt; ?> Rating(s)
+	                             	</summary>
+    	                            <?php foreach ($item->reviews as $rev) : ?>
+    	                            	<?php if($rev->rating==0) {
+    	                            	    echo '<span class="<?php echo $this->zero_class; ?>" style="color:red;"></span>';
+    	                            	} else {
+    	                            	    echo str_repeat('<i class="'.$this->star_class.'"></i>',$rev->rating);
+    	                            	} ?>&nbsp;
+                						<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" onclick="window.pvid=<?php echo $rev->id; ?>;">
+                            				<i class="far fa-eye"></i>
+                            			</a>					
+    	                            <?php  endforeach; ?>
+	                             </details>                                   
+         					<?php endif; ?>   
     					</td>
     				<?php endif; ?>
     				<?php if ($this->show_fdates ) : ?>   				
@@ -158,4 +190,61 @@ require_once JPATH_COMPONENT.'/helpers/route.php';
       </div>
       </div>
 </form>
+</div>
+<div class="clearfix"></div>
+<p><?php echo XbcultureHelper::credit('xbFilms');?></p>
+<script>
+jQuery(document).ready(function(){
+//for preview modals
+    // Load view vith AJAX
+    jQuery('#ajax-ppvmodal').on('show', function () {
+      jQuery(this).find('.modal-content').load('/index.php?option=com_xbpeople&view=person&layout=default&tmpl=component&id='+window.pvid);
+    })
+    jQuery('#ajax-fpvmodal').on('show', function () {
+       jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=book&layout=default&tmpl=component&id='+window.pvid);
+    })
+    jQuery('#ajax-rpvmodal').on('show', function () {
+       jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=bookreview&layout=default&tmpl=component&id='+window.pvid);
+    })
+    jQuery('#ajax-ppvmodal,#ajax-fpvmodal,#ajax-rpvmodal').on('hidden', function () {
+       document.location.reload(true);
+    })    
+});
+</script>
+<!-- preview modal windows -->
+<div class="modal fade xbpvmodal" id="ajax-ppvmodal" style="max-width:800px">
+    <div class="modal-dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
+            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
+             <h4 class="modal-title" style="margin:5px;">Preview Person</h4>
+        </div>
+        <div class="modal-content">
+            <!-- Ajax content will be loaded here -->
+        </div>
+    </div>
+</div>
+<div class="modal fade xbpvmodal" id="ajax-fpvmodal" style="max-width:1000px">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
+            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
+             <h4 class="modal-title" style="margin:5px;">Preview Film</h4>
+        </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Ajax content will be loaded here -->
+        </div>
+    </div>
+</div>
+<div class="modal fade xbpvmodal" id="ajax-rpvmodal" style="max-width:1000px">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
+            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
+             <h4 class="modal-title" style="margin:5px;">Preview Film</h4>
+        </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Ajax content will be loaded here -->
+        </div>
+    </div>
 </div>

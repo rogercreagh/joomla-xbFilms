@@ -40,6 +40,9 @@ $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
 $plink = 'index.php?option=com_xbpeople&view=group'.$itemid.'&id=';
 
 ?>
+<style type="text/css" media="screen">
+	.xbpvmodal .modal-content {padding:15px;max-height:calc(100vh - 190px); overflow:scroll; }
+</style>
 <div class="xbculture">
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
 	    echo XbcultureHelper::sitePageheader($this->header);
