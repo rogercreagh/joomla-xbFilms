@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/helpers/xbfilms.php
- * @version 0.5.0 5th March 2021
+ * @version 1.0.3.3 5th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -172,6 +172,17 @@ class XbfilmsHelperRoute
 			}
 		}
 		return null;
+	}
+	
+	public static function getGroupsRoute() {
+	    $items  = self::getItems();
+	    foreach ($items as $item) {
+	        if (isset($item->query['view']) && $item->query['view'] === 'groups' &&
+	            (empty($item->query['layout']) || $item->query['layout'] === 'default')) {
+	                return $item->id;
+	            }
+	    }
+	    return null;
 	}
 	
 	public static function getCharsRoute() {

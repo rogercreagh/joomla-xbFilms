@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/router.php
- * @version 0.9.8.7 5th June 2022
+ * @version 1.0.3.3 5th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -73,8 +73,11 @@ class XbfilmsRouter extends JComponentRouterBase {
 				$vars['view'] = 'blog';
 				break;
 			case 'people':
-				$vars['view'] = 'people';
-				break;
+			    $vars['view'] = 'people';
+			    break;
+			case 'groups':
+			    $vars['view'] = 'groups';
+			    break;
 			case 'characters':
 				$vars['view'] = 'characters';
 				break;
