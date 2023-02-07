@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmlist/tmpl/default.php
- * @version 0.10.0.4 28th November 2022
+ * @version 1.0.3.5 6th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -86,11 +86,29 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 					</div>
 				<?php else : ?>
 
-	<table class="table table-striped table-hover" style="table-layout:fixed;" id="xbfilmlist">	
+	<table class="table table-striped table-hover"  id="xbfilmlist">	
+		<colgroup>
+			<?php if($this->show_pic) : ?>
+				<col style="width:80px"><!-- picture -->
+            <?php endif; ?>
+			<col ><!-- title -->
+			<?php if($this->show_sum) : ?>
+				<col class="hidden-phone" style="width:230px;"><!-- summary -->
+            <?php endif; ?>
+            <?php if ($this->show_rev != 0 ) : ?>
+				<col style="width:130px;"><!-- rating -->
+			<?php endif; ?>
+            <?php if ($this->show_fdates) : ?>
+				<col ><!-- dates -->
+			<?php endif; ?>
+			<?php if($this->showcat || $this->showtags) : ?>
+				<col class="hidden-tablet hidden-phone"><!-- cats&tags -->
+			<?php endif; ?>
+		</colgroup>
 		<thead>
 			<tr>
 				<?php if($this->show_pic) : ?>
-					<th class="center" style="width:80px">
+					<th class="center">
 						<?php echo Text::_( 'XBFILMS_POSTER' ); ?>
 					</th>	
                 <?php endif; ?>
@@ -101,7 +119,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 					?>
 				</th>					
 				<?php if($this->show_sum) : ?>
-    				<th class="hidden-phone">
+    				<th>
     					<?php echo Text::_('XBCULTURE_SUMMARY');?>
     				</th>
                 <?php endif; ?>
@@ -117,7 +135,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
     				</th>
 				<?php endif; ?>
 				<?php if($this->showcat || $this->showtags) : ?>
-    				<th class="hidden-tablet hidden-phone">
+    				<th>
     					<?php if ($this->showcat) {
     						echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATEGORY','category_title',$listDirn,$listOrder );
     					}
@@ -166,7 +184,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 	                        	<span class="xbnit">
 	                        		<?php echo $item->dircnt>1 ? Text::_('XBCULTURE_DIRECTORS') : Text::_('XBCULTURE_DIRECTOR' ); ?>
 	                        	</span>: 
-                        		<?php echo $item->dirlist; 
+                        		<?php echo $item->dirlist['commalist']; 
                         	} ?>                          	
 						</br>
 						<span class="xb09">
@@ -300,3 +318,59 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbFilms');?></p>
 </div>
+<script>
+jQuery(document).ready(function(){
+//for preview modals
+    // Load view vith AJAX
+    jQuery('#ajax-ppvmodal').on('show', function () {
+      jQuery(this).find('.modal-content').load('/index.php?option=com_xbpeople&view=person&layout=default&tmpl=component&id='+window.pvid);
+    })
+    jQuery('#ajax-fpvmodal').on('show', function () {
+       jQuery(this).find('.modal-content').load('/index.php?option=com_xbfilms&view=film&layout=default&tmpl=component&id='+window.pvid);
+    })
+    jQuery('#ajax-rpvmodal').on('show', function () {
+       jQuery(this).find('.modal-content').load('/index.php?option=com_xbfilms&view=filmreview&layout=default&tmpl=component&id='+window.pvid);
+    })
+    jQuery('#ajax-ppvmodal,#ajax-fpvmodal,#ajax-rpvmodal').on('hidden', function () {
+       document.location.reload(true);
+    })    
+});
+</script>
+<!-- preview modal windows -->
+<div class="modal fade xbpvmodal" id="ajax-ppvmodal" style="max-width:800px">
+    <div class="modal-dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
+            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
+             <h4 class="modal-title" style="margin:5px;">Preview Person</h4>
+        </div>
+        <div class="modal-content">
+            <!-- Ajax content will be loaded here -->
+        </div>
+    </div>
+</div>
+<div class="modal fade xbpvmodal" id="ajax-fpvmodal" style="max-width:1000px">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
+            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
+             <h4 class="modal-title" style="margin:5px;">Preview Film</h4>
+        </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Ajax content will be loaded here -->
+        </div>
+    </div>
+</div>
+<div class="modal fade xbpvmodal" id="ajax-rpvmodal" style="max-width:1000px">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
+            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
+             <h4 class="modal-title" style="margin:5px;">Preview Film Review</h4>
+        </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Ajax content will be loaded here -->
+        </div>
+    </div>
+</div>
+

@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmlist/tmpl/compact.php
- * @version 1.0.3.4 5th February 2023
+ * @version 1.0.3.5 6th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -80,6 +80,17 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 				<?php else : ?>
 
 	<table class="table table-striped table-hover"  id="xbfilmlist">	
+		<colgroup>
+			<col ><!-- title -->
+			<col ><!-- director -->
+            <?php if ($this->show_rev != 0 ) : ?>			
+				<col class="hidden-phone"style="width:150px;" ><!-- ratings -->
+            <?php endif; ?>
+            <?php if ($this->show_fdates) : ?>
+				<col class="hidden-phone" style="width:105px;" ><!-- seendates -->
+            <?php endif; ?>
+			</colgroup>	
+	
 		<thead>
 			<tr>
 				<th>
@@ -134,7 +145,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
     						<?php else : ?>
     	                        <?php $starcnt = (round(($item->averat)*2)/2); ?>
 								<?php if (($this->zero_rating) && ($starcnt==0)) : ?>
-									<?php $stars = '<span class="<?php echo $this->zero_class; ?>" style="color:red;"></span>'; ?>								    
+									<?php $stars = '<span class="'.$this->zero_class.'" style="color:red;"></span>'; ?>								    
 								<?php else : ?>
 	                                <?php $stars = str_repeat('<i class="'.$this->star_class.'"></i>',intval($item->averat)); ?>
 	                                <?php if (($item->averat - floor($item->averat))>0) : ?>
@@ -150,7 +161,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
         					<?php elseif ($item->revcnt>1) : ?> 
 	                             <?php echo $stars; ?>&nbsp;<span style="color:darkgray;"> (<?php echo round($item->averat,1); ?>)</span>
 	                             <details>
-	                             	<summary class="xbnit">Average from <?php $item->revcnt; ?> Rating(s)
+	                             	<summary class="xbnit">Ave, <?php echo $item->revcnt; ?> Rating(s)
 	                             	</summary>
     	                            <?php foreach ($item->reviews as $rev) : ?>
     	                            	<?php if($rev->rating==0) {
@@ -160,7 +171,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
     	                            	} ?>&nbsp;
                 						<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" onclick="window.pvid=<?php echo $rev->id; ?>;">
                             				<i class="far fa-eye"></i>
-                            			</a>					
+                            			</a><br />					
     	                            <?php  endforeach; ?>
 	                             </details>                                   
          					<?php endif; ?>   
@@ -169,12 +180,12 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
     				<?php if ($this->show_fdates ) : ?>   				
 						<td class="hidden-phone">
         					<p><?php if($item->first_seen) {
-        					    $datefmt = xbCultureHelper::getDateFmt($item->first_seen,'j M y');
+        					    $datefmt = xbCultureHelper::getDateFmt($item->first_seen,'j M \'y');
         					    echo HtmlHelper::date($item->first_seen , $datefmt);
         					}
         					   if(($item->last_seen) && ($item->last_seen != $item->first_seen)) {
-        					       echo ' - ';
-        					       $datefmt = xbCultureHelper::getDateFmt($item->last_seen);
+        					       echo '<br />';
+        					       $datefmt = xbCultureHelper::getDateFmt($item->last_seen,'j M y');
         					       echo HtmlHelper::date($item->last_seen , $datefmt);
         					   }
         					?> </p>
@@ -201,10 +212,10 @@ jQuery(document).ready(function(){
       jQuery(this).find('.modal-content').load('/index.php?option=com_xbpeople&view=person&layout=default&tmpl=component&id='+window.pvid);
     })
     jQuery('#ajax-fpvmodal').on('show', function () {
-       jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=book&layout=default&tmpl=component&id='+window.pvid);
+       jQuery(this).find('.modal-content').load('/index.php?option=com_xbfilms&view=film&layout=default&tmpl=component&id='+window.pvid);
     })
     jQuery('#ajax-rpvmodal').on('show', function () {
-       jQuery(this).find('.modal-content').load('/index.php?option=com_xbbooks&view=bookreview&layout=default&tmpl=component&id='+window.pvid);
+       jQuery(this).find('.modal-content').load('/index.php?option=com_xbfilms&view=filmreview&layout=default&tmpl=component&id='+window.pvid);
     })
     jQuery('#ajax-ppvmodal,#ajax-fpvmodal,#ajax-rpvmodal').on('hidden', function () {
        document.location.reload(true);
@@ -240,7 +251,7 @@ jQuery(document).ready(function(){
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
             	style="opacity:unset;line-height:unset;border:none;">&times;</button>
-             <h4 class="modal-title" style="margin:5px;">Preview Film</h4>
+             <h4 class="modal-title" style="margin:5px;">Preview Film Review</h4>
         </div>
     <div class="modal-dialog">
         <div class="modal-content">

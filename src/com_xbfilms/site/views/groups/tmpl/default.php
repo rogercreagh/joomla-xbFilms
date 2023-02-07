@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/groups/tmpl/default.php
- * @version 1.0.3.3 5th February 2023
+ * @version 1.0.3.5 5th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -79,11 +79,30 @@ $plink = 'index.php?option=com_xbpeople&view=group'.$itemid.'&id=';
 		<?php echo JText::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
 	</div>
 <?php } else { ?>
-		<table class="table table-striped table-hover" style="table-layout:fixed;" id="xbcharacters">	
+		<table class="table table-striped table-hover"  id="xbgroups">	
+    		<colgroup>
+    			<?php if($this->show_pic) : ?>
+    				<col style="width:80px"><!-- picture -->
+                <?php endif; ?>
+    			<col ><!-- name -->
+    			<?php if($this->show_gdates) : ?>
+    				<col ><!-- dates -->
+                <?php endif; ?>
+    			<col ><!-- members -->
+    			<?php if($this->show_sum) : ?>
+    				<col style="width:230px"><!-- summary -->
+                <?php endif; ?>
+                <?php if ($this->showgcnts) : ?>
+    				<col ><!-- films -->
+                <?php endif; ?>
+    			<?php if($this->showcat || $this->showtags) : ?>
+    				<col class="hidden-tablet hidden-phone"><!-- cat&tags -->
+                <?php endif; ?>
+    		</colgroup>
 		<thead>
 			<tr>
 				<?php if($this->show_pic) : ?>
-					<th class="center" style="width:80px">
+					<th class="center" >
 						<?php echo Text::_( 'XBCULTURE_PICTURE' ); ?>
 					</th>	
                 <?php endif; ?>
@@ -168,10 +187,10 @@ $plink = 'index.php?option=com_xbpeople&view=group'.$itemid.'&id=';
 				<td>
 					<?php if ($item->pcnt>0) : ?>
     					<details>
-    						<summary><span class="xbnit">
+    						<summary class="xbnit">
 								<?php echo $item->pcnt.' ';
 								    echo $item->pcnt ==1 ? Text::_('XBCULTURE_MEMBER') : lcfirst(Text::_('XBCULTURE_MEMBERS')); ?>       					
-    						</span></summary>
+    						</summary>
     						<?php echo $item->memberlist['ullist']; ?>    						
     					</details>
 					<?php else : ?>
@@ -265,3 +284,58 @@ $plink = 'index.php?option=com_xbpeople&view=group'.$itemid.'&id=';
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbFilms');?></p>
 </div>
+<script>
+jQuery(document).ready(function(){
+//for preview modals Load view vith AJAX
+    jQuery('#ajax-gpvmodal').on('show', function () {
+      jQuery(this).find('.modal-content').load('/index.php?option=com_xbpeople&view=group&layout=default&tmpl=component&id='+window.pvid);
+    })
+    jQuery('#ajax-ppvmodal').on('show', function () {
+      jQuery(this).find('.modal-content').load('/index.php?option=com_xbpeople&view=group&layout=default&tmpl=component&id='+window.pvid);
+    })
+    jQuery('#ajax-fpvmodal').on('show', function () {
+       jQuery(this).find('.modal-content').load('/index.php?option=com_xbfilms&view=film&layout=default&tmpl=component&id='+window.pvid);
+    })
+    jQuery('#ajax-gpvmodal,#ajax-ppvmodal,#ajax-fpvmodal').on('hidden', function () {
+       document.location.reload(true);
+    })    
+});
+</script>
+<!-- preview modal windows -->
+<div class="modal fade xbpvmodal" id="ajax-gpvmodal" style="max-width:800px">
+    <div class="modal-dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
+            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
+             <h4 class="modal-title" style="margin:5px;">Preview Group</h4>
+        </div>
+        <div class="modal-content">
+            <!-- Ajax content will be loaded here -->
+        </div>
+    </div>
+</div>
+<div class="modal fade xbpvmodal" id="ajax-ppvmodal" style="max-width:1000px">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
+            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
+             <h4 class="modal-title" style="margin:5px;">Preview Group Member</h4>
+        </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Ajax content will be loaded here -->
+        </div>
+    </div>
+</div>
+<div class="modal fade xbpvmodal" id="ajax-fpvmodal" style="max-width:1000px">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
+            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
+             <h4 class="modal-title" style="margin:5px;">Preview Film</h4>
+        </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Ajax content will be loaded here -->
+        </div>
+    </div>
+</div>
+

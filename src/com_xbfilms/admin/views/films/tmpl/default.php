@@ -101,17 +101,17 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 	<?php else : ?>	
 		<table class="table table-striped table-hover" id="xbfilmsList">
 			<colgroup>
-				<col class="hiddem-phone" style="width:25px;"><!-- ordering -->
-				<col class="hiddem-phone" style="width:25px;"><!-- checkbox -->
+				<col class="hidden-phone" style="width:25px;"><!-- ordering -->
+				<col class="hidden-phone" style="width:25px;"><!-- checkbox -->
 				<col style="width:55px;"><!-- status -->
 				<col style="width:80px;"><!-- picture -->
 				<col ><!-- title, year -->
 				<col ><!-- people -->
-				<col class="hiddem-phone"style="width:230px;" ><!-- summary, extlinks -->
+				<col class="hidden-phone"style="width:230px;" ><!-- summary, extlinks -->
 				<col ><!-- reviews -->
-				<col class="hiddem-phone" style="width:105px;" ><!-- seendates -->
+				<col class="hidden-phone" style="width:105px;" ><!-- seendates -->
 				<col class="hidden-tablet hidden-phone" style="width:230px;"><!-- cats & tags -->
-				<col class="hiddem-phone" style="width:45px;"><!-- id -->
+				<col class="hidden-phone" style="width:45px;"><!-- id -->
 			</colgroup>	
 			<thead>
 				<tr>
