@@ -221,14 +221,14 @@ jQuery(document).ready(function(){
        document.location.reload(true);
     })    
 });
-jQuery(document).bind('DOMNodeInserted', function(e) {
-    var element = e.target;
-  	if (jQuery(element).hasClass('modal-backdrop')) {
-       	if (jQuery(".modal-backdrop").length > -1) {
-            jQuery(".modal-backdrop").not(':first').remove();
-        }
-    }
-});
+// jQuery(document).bind('DOMNodeInserted', function(e) {
+//     var element = e.target;
+//   	if (jQuery(element).hasClass('modal-backdrop')) {
+//        	if (jQuery(".modal-backdrop").length > -1) {
+//             jQuery(".modal-backdrop").not(':first').remove();
+//         }
+//     }
+// });
 </script>
 <!-- preview modal windows -->
 <div class="modal fade xbpvmodal" id="ajax-ppvmodal" style="max-width:800px">
