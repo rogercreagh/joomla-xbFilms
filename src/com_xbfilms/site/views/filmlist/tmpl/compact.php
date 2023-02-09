@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmlist/tmpl/compact.php
- * @version 1.0.3.5 6th February 2023
+ * @version 1.0.3.6 9th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -17,6 +17,7 @@ use Joomla\CMS\Router\Route;
 
 HTMLHelper::_('behavior.multiselect');
 HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => Text::_('JOPTION_SELECT_TAG')));
+HTMLHelper::_('formbehavior.chosen', '.multipleCats', null, array('placeholder_text_multiple' => Text::_('XBCULTURE_SELECT_CATS')));
 HTMLHelper::_('formbehavior.chosen', 'select');
 
 $listOrder = $this->escape($this->state->get('list.ordering'));
@@ -52,8 +53,8 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 				$hide = '';
 				if ($this->hide_peep) { $hide .= 'filter_perfilt,filter_prole,';}
 				if ($this->hide_char) { $hide .= 'filter_charfilt,';}
-				if ((!$this->showcat) || $this->hide_cat) { $hide .= 'filter_category_id,filter_subcats,';}
-				if ((!$this->showtags) || $this->hide_tag) { $hide .= 'filter_tagfilt,filter_taglogic,';}
+				if ($this->hide_cat) { $hide .= 'filter_category_id,filter_subcats,';}
+				if ($this->hide_tag) { $hide .= 'filter_tagfilt,filter_taglogic,';}
 				echo '<div class="row-fluid"><div class="span12">';
 	            echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this,'hide'=>$hide));       
 	         echo '</div></div>';
@@ -83,14 +84,13 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 		<colgroup>
 			<col ><!-- title -->
 			<col ><!-- director -->
-            <?php if ($this->show_rev != 0 ) : ?>			
-				<col class="hidden-phone"style="width:150px;" ><!-- ratings -->
+            <?php if ($this->show_revs != 0 ) : ?>			
+				<col class="hidden-phone" style="width:150px;" ><!-- ratings -->
             <?php endif; ?>
             <?php if ($this->show_fdates) : ?>
 				<col class="hidden-phone" style="width:105px;" ><!-- seendates -->
             <?php endif; ?>
-			</colgroup>	
-	
+			</colgroup>		
 		<thead>
 			<tr>
 				<th>
@@ -100,13 +100,13 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 				<th>
 					<?php echo Text::_('XBCULTURE_DIRECTOR');?>
 				</th>
-                <?php if ($this->show_rev != 0 ) : ?>
-    				<th class="hidden-phone xbtc">
+                <?php if ($this->show_revs != 0 ) : ?>
+    				<th class="xbtc">
     					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_RATING','averat',$listDirn,$listOrder); ?>
     				</th>
                 <?php endif; ?>
                 <?php if ($this->show_fdates) : ?>
-    				<th class="hidden-phone">
+    				<th>
     					<?php echo HTMLHelper::_('searchtools.sort','XBFILMS_FIRST_SEEN','first_seen',$listDirn,$listOrder ); ?><br/>
     					<?php echo HTMLHelper::_('searchtools.sort','XBFILMS_LAST_SEEN','last_seen',$listDirn,$listOrder ); ?>
     				</th>
@@ -121,7 +121,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 						<p class="xbtitle">
 							<a href="<?php echo Route::_($flink.$item->id);?>" >
 								<b><?php echo $this->escape($item->title); ?></b></a>&nbsp;
-    						<a href="" data-toggle="modal" data-target="#ajax-fpvmodal" onclick="window.pvid=<?php echo $item->id; ?>;">
+    						<a href="" data-toggle="modal" data-target="#ajax-fpvmodal" data-backdrop="static"  onclick="window.pvid=<?php echo $item->id; ?>;">
                 				<i class="far fa-eye"></i>
                 			</a>					
 						<?php if (!empty($item->subtitle)) :?>
@@ -138,10 +138,10 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
                         	} ?>                          	
 						</p>
 					</td>
-					<?php if ($this->show_rev != 0 ) : ?>
+					<?php if ($this->show_revs != 0 ) : ?>
     					<td>
     						<?php if ($item->revcnt==0) : ?>
-    						   <i><?php  echo ($this->show_rev == 1)? Text::_( 'XBCULTURE_NO_RATING' ) : Text::_( 'XBCULTURE_NO_REVIEW' ); ?></i><br />
+    						   <i><?php  echo ($this->show_revs == 1)? Text::_( 'XBCULTURE_NO_RATING' ) : Text::_( 'XBCULTURE_NO_REVIEW' ); ?></i><br />
     						<?php else : ?>
     	                        <?php $starcnt = (round(($item->averat)*2)/2); ?>
 								<?php if (($this->zero_rating) && ($starcnt==0)) : ?>
@@ -155,23 +155,26 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
          					<?php endif; ?>											
 	    					<?php if($item->revcnt == 1) : ?>
     							<?php echo $stars; ?>&nbsp;	
-        						<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" onclick="window.pvid=<?php echo $item->reviews[0]->id; ?>;">
+        						<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" data-backdrop="static" onclick="window.pvid=<?php echo $item->reviews[0]->id; ?>;">
                     				<i class="far fa-eye"></i>
                     			</a>					
         					<?php elseif ($item->revcnt>1) : ?> 
-	                             <?php echo $stars; ?>&nbsp;<span style="color:darkgray;"> (<?php echo round($item->averat,1); ?>)</span>
 	                             <details>
-	                             	<summary class="xbnit">Ave, <?php echo $item->revcnt; ?> Rating(s)
+	                             	<summary>
+    	                             <?php echo $stars; ?>
+    	                             <br /><span class="xbnit"><?php echo round($item->averat,1); ?>
+	                             	 from <?php echo $item->revcnt; ?> Rating(s)</span>
 	                             	</summary>
     	                            <?php foreach ($item->reviews as $rev) : ?>
-    	                            	<?php if($rev->rating==0) {
+       	                            	<?php if($rev->rating==0) {
     	                            	    echo '<span class="<?php echo $this->zero_class; ?>" style="color:red;"></span>';
     	                            	} else {
     	                            	    echo str_repeat('<i class="'.$this->star_class.'"></i>',$rev->rating);
-    	                            	} ?>&nbsp;
-                						<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" onclick="window.pvid=<?php echo $rev->id; ?>;">
+    	                            	} ?>
+                						&nbsp;<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" data-backdrop="static" onclick="window.pvid=<?php echo $rev->id; ?>;">
                             				<i class="far fa-eye"></i>
-                            			</a><br />					
+                            			</a>&nbsp;
+										<br />					
     	                            <?php  endforeach; ?>
 	                             </details>                                   
          					<?php endif; ?>   
@@ -218,17 +221,21 @@ jQuery(document).ready(function(){
        jQuery(this).find('.modal-content').load('/index.php?option=com_xbfilms&view=filmreview&layout=default&tmpl=component&id='+window.pvid);
     })
     jQuery('#ajax-ppvmodal,#ajax-fpvmodal,#ajax-rpvmodal').on('hidden', function () {
-       document.location.reload(true);
+//    // reload the document if using non-static backdrops
+//       document.location.reload(true);
+    // cleanup the modal-content that was loaded
+		jQuery(this).find(".modal-content").html("");
     })    
 });
-// jQuery(document).bind('DOMNodeInserted', function(e) {
-//     var element = e.target;
-//   	if (jQuery(element).hasClass('modal-backdrop')) {
-//        	if (jQuery(".modal-backdrop").length > -1) {
-//             jQuery(".modal-backdrop").not(':first').remove();
-//         }
-//     }
-// });
+// fix multiple backdrops
+jQuery(document).bind('DOMNodeInserted', function(e) {
+    var element = e.target;
+    if (jQuery(element).hasClass('modal-backdrop')) {
+         if (jQuery(".modal-backdrop").length > 1) {
+           jQuery(".modal-backdrop").not(':last').remove();
+       }
+	}    
+})
 </script>
 <!-- preview modal windows -->
 <div class="modal fade xbpvmodal" id="ajax-ppvmodal" style="max-width:800px">

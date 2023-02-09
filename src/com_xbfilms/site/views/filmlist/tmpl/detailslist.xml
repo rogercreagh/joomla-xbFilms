@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms site/views/filmlist/default.xml v0.10.0.0 22nd November 2022 -->
+<!-- xbBooks site/views/booklist/detailslist.xml v1.0.3.3 16th January 2023 -->
 <metadata>
-	<layout title="Film List">
-		<message>Displays a list (table) of films. Options enable user search &amp; filtering or to restrict to single category and filter person and tags.</message>
+	<layout title="Book List - Details">
+		<message>Displays a list of books as single column list with details and preview links to reviews. Menu options enable user search &amp; filtering or to restrict to single category and filter person and tags.</message>
 	</layout>
-	<fields name="params" addfieldpath="administrator/components/com_xbpeople/models/fields">
+	<fields name="params" addfieldpath="administrator/components/com_xbbooks/models/fields">
 <!-- Basic options. -->
-		<fieldset name="basic" label="Layout">
-			<field name="show_fpiccol" type="radio"
-				label="Poster Column"
-				description="Show poster column"
+		<fieldset name="basic" label="Options">
+			<field name="show_bpiccol" type="radio"
+				label="Cover Column"
+				description="Show image column"
 				class="btn-group btn-group-yesno btn-small"
 				useglobal="true"
 				>
@@ -17,7 +17,7 @@
 				<option value="1">JSHOW</option>
 			</field>	
 	 
-	 		<field name="show_fsumcol" type="radio"
+	 		<field name="show_bsumcol" type="radio"
 				label="Summary Column"
 				description="Show summary column"
 				class="btn-group btn-group-yesno btn-small"
@@ -27,7 +27,7 @@
 				<option value="1">JSHOW</option>
 			</field>	
 	 
-	 		<field name="show_frevcol" type="list"
+	 		<field name="show_brevcol" type="list"
 				label="Rating &amp; Review Column"
 				description="Show rating &amp; reviews column."
 				useglobal="true"
@@ -36,9 +36,10 @@
 				<option value="1">Show Average Rating only</option>
 				<option value="2">Show Rating and Review Links</option>
 			</field>	
-			<field name="show_fcat" type="list"
-				label="Show Film Category"
-				description="If both Category and Tags are hidden the column will be hidden. The category label can optionally be linked to the Category view showing all items in that category"
+
+			<field name="show_bcat" type="list"
+				label="Show Book Category"
+				description="Category label can optionally be linked to the Category view listing all items in the category"
 				class="btn-group btn-group-yesno"
 				useglobal="true"
 				>
@@ -46,9 +47,9 @@
 					<option value="1">Show (no link)</option>
 					<option value="2">Show (linked)</option>
 			</field>	
-	 		<field name="show_ftags" type="radio"
-				label="Show Film Tags"
-				description="If both Category and Tag are hidden the column will be hidden. Tag labels are always linked to their Tag view"
+	 		<field name="show_btags" type="radio"
+				label="Show Tags"
+				description="Tag labels are always linked to their Tag view listing all items with that tag"
 				class="btn-group btn-group-yesno"
 				useglobal="true"
 				>
@@ -59,9 +60,10 @@
 			    
 <!-- Search and Filter options. -->
 		<fieldset name="filters" label="Filters">
+
 	 		<field name="search_bar" type="radio"
-				label="XBFILMS_LIST_SHOW_SEARCH_LBL"
-				description="XBFILMS_LIST_SHOW_SEARCH_DESC"
+				label="Show Search Bar"
+				description="Show the search and filter tools above the list"
 				class="btn-group btn-group-yesno btn-small"
 				useglobal="true"
 			>
@@ -69,54 +71,74 @@
 				<option value="1">JYES</option>
 			</field>	
 			<field
-				name="menu_perfilt" type="filmpeople"
-				label="XBCULTURE_PEOPLE_U"
-				description="XBFILMS_PERFILT_DESC"
+				name="menu_perfilt" type="bookpeople"
+				label="Person"
+				description="XBBOOKS_PERFILT_DESC"
 				>
-				<option value="">XBFILMS_PERFILT_HINT</option>
+				<option value="">XBBOOKS_PERFILT_HINT</option>
 			</field>
 			<field name="menu_prole" type="list"
 				default=""
-				label="XBFILMS_PROLE_LBL"
-				description="XBFILMS_PROLE_DESC"
+				label="XBBOOKS_PROLE_LBL"
+				description="XBBOOKS_PROLE_DESC"
 				showon="menu_perfilt!:"			
 			>
-	  			<option value="">XBFILMS_PROLE_DEF</option>
-				<option value="1">XBCULTURE_DIRECTOR</option>
-				<option value="2">XBCULTURE_PRODUCER</option>
-				<option value="3">XBFILMS_CHAR_IN</option>
+	  			<option value="">XBBOOKS_PROLE_DEF</option>
+				<option value="1">XBCULTURE_AUTHOR</option>
+				<option value="2">XBCULTURE_EDITOR</option>
+				<option value="3">XBBOOKS_CHAR_IN</option>
+				<option value="4">XBBOOKS_MENTION_IN</option>
 			</field>	
 			<field
-				name="menu_charfilt" type="characters"
-				label="XBCULTURE_CHARACTER_U"
-				description="Only show films featuring a particular character"
+				name="menu_charfilt"
+				type="characters"
+				label="Character"
+				description="XBBOOKS_CHARFILT_DESC"
 				>
-				<option value="">XBFILMS_CHARFILT_HINT</option>
+				<option value="">Character to filter by</option>
 			</field>
-			<field name="menu_category_id" type="xbitemcats"
-				label="XBCULTURE_CATEGORY"
-				description="XBFILMS_CATEGORY_DESC"
-				extension="com_xbfilms"
-				itemtable="#__xbfilms"
-				multiple="true" mode="nested"
-				published="1"
+			<field 
+  				name="menu_fiction"
+				type="list"
+				label="XBBOOKS_FILT_FICT_LBL"
+				description="XBBOOKS_FILT_FICT_LBL"
 				>
-			</field>
+					<option value="0" >XBBOOKS_FILT_BOTH</option>
+					<option value="1">XBCULTURE_NONFICTION</option>
+					<option value="2">XBCULTURE_FICTION</option>
+			</field>	
 			<field
-				name="menu_tag"
-				type="tag"
+				name="menu_category_id"
+				type="category"
+				label="XBCULTURE_CATFILT_LABEL"
+				extension="com_xbbooks"
+				description="XBCULTURE_CATFILT_DESC"
+				>
+					<option value="0">XBCULTURE_ALL_CATS</option>
+			</field>
+			<field name="menu_subcats" type="radio"
+				default=""
+				label="XBCULTURE_CATFILT_SUBS_LABEL"
+				description="XBCULTURE_CATFILT_SUBS_DESC"
+	  			class="btn-group btn-small radiotop"
+	  			showon="menu_category_id!:0"
+				>
+					<option value="" >XBCULTURE_EXCLUDE</option>
+					<option value="1">XBCULTURE_INCLUDE</option>
+			</field>	
+			<field
+				name="menu_tag" type="tag"
 				label="XBCULTURE_TAGFILT_LABEL"
 				description="XBCULTURE_TAGFILT_DESC"
 				multiple="true"
 				mode="nested"
 			/>
-			<field name="menu_taglogic"
-				type="radio"
+			<field name="taglogic" type="radio"
 				default="0"
 				label="XBCULTURE_TAGFILT_MULTI_LABEL"
 				description="XBCULTURE_TAGFILT_MULTI_DESC"
 	  			class="btn-group btn-small radiotop"
-				showon="menu_tag!:"
+	  			showon="menu_tag!:"
 			>
 				<option value="1">XBCULTURE_ALL</option>
 				<option value="0">XBCULTURE_ANY</option>

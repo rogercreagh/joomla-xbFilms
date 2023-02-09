@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmlist/tmpl/default.php
- * @version 1.0.3.5 6th February 2023
+ * @version 1.0.3.6 9th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -18,6 +18,7 @@ use Joomla\CMS\Layout\FileLayout;
 
 HTMLHelper::_('behavior.multiselect');
 HTMLHelper::_('formbehavior.chosen', '.multipleTags', null, array('placeholder_text_multiple' => Text::_('JOPTION_SELECT_TAG')));
+HTMLHelper::_('formbehavior.chosen', '.multipleCats', null, array('placeholder_text_multiple' => Text::_('XBCULTURE_SELECT_CATS')));
 HTMLHelper::_('formbehavior.chosen', 'select');
 
 $listOrder = $this->escape($this->state->get('list.ordering'));
@@ -57,10 +58,10 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 		<?php  // Search tools bar
 			if ($this->search_bar) {
 				$hide = '';
-				if ((!$this->showcat) || ($this->hide_cat)) { $hide .= 'filter_category_id, filter_subcats,';}
 				if ($this->hide_peep) { $hide .= 'filter_perfilt,filter_prole,';}
 				if ($this->hide_char) { $hide .= 'filter_charfilt,';}
-				if ((!$this->showtags) || $this->hide_tag) { $hide .= 'filter_tagfilt,filter_taglogic,';}
+				if ($this->hide_cat) { $hide .= 'filter_category_id, filter_subcats,';}
+				if ($this->hide_tag) { $hide .= 'filter_tagfilt,filter_taglogic,';}
 				echo '<div class="row-fluid"><div class="span12">';
 	            echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this,'hide'=>$hide));       
 	         echo '</div></div>';
@@ -95,11 +96,11 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 			<?php if($this->show_sum) : ?>
 				<col class="hidden-phone" style="width:230px;"><!-- summary -->
             <?php endif; ?>
-            <?php if ($this->show_rev != 0 ) : ?>
-				<col style="width:130px;"><!-- rating -->
+            <?php if ($this->show_revs != 0 ) : ?>
+				<col style="width:150px;"><!-- rating -->
 			<?php endif; ?>
             <?php if ($this->show_fdates) : ?>
-				<col ><!-- dates -->
+				<col  style="width:105px;"><!-- dates -->
 			<?php endif; ?>
 			<?php if($this->showcat || $this->showtags) : ?>
 				<col class="hidden-tablet hidden-phone"><!-- cats&tags -->
@@ -123,7 +124,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
     					<?php echo Text::_('XBCULTURE_SUMMARY');?>
     				</th>
                 <?php endif; ?>
-                <?php if ($this->show_rev != 0 ) : ?>
+                <?php if ($this->show_revs != 0 ) : ?>
 					<th class="xbtc">
 						<?php echo HTMLHelper::_('searchtools.sort','Rating','averat',$listDirn,$listOrder); ?>
 					</th>
@@ -143,7 +144,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
     					    echo ' &amp; ';
     					}
     					if($this->showtags) {
-    					    echo Text::_( 'XBFILMS_CAPTAGS' ); 
+    					    echo Text::_( 'XBCULTURE_TAGS_U' ); 
     					} ?>                
     				</th>
                 <?php endif; ?>
@@ -171,7 +172,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 						<p class="xbtitle">
 							<a href="<?php echo Route::_($flink.$item->id);?>" >
 								<b><?php echo $this->escape($item->title); ?></b></a>&nbsp; 
-    						<a href="" data-toggle="modal" data-target="#ajax-fpvmodal" onclick="window.pvid= <?php echo $item->id; ?>;">
+    						<a href="" data-toggle="modal" data-target="#ajax-fpvmodal" data-backdrop="static" onclick="window.pvid= <?php echo $item->id; ?>;">
                 				<i class="far fa-eye"></i>
                 			</a>					
 						<?php if (!empty($item->subtitle)) :?>
@@ -194,7 +195,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 						</span></p>
 					</td>
     				<?php if($this->show_sum) : ?>
-    					<td class="hidden-phone">
+    					<td>
     						<p class="xb095">
     							<?php if (!empty($item->summary)) : ?>
     								<?php echo $item->summary; ?>
@@ -218,77 +219,113 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
     						<?php endif; ?>
     					</td>
 					<?php endif; ?>
-					<?php if ($this->show_rev != 0 ) : ?>
+					<?php if ($this->show_revs != 0 ) : ?>
     					<td>
     						<?php if ($item->revcnt==0) : ?>
-    						   <i><?php  echo ($this->show_rev == 1)? Text::_( 'XBCULTURE_NO_RATING' ) : Text::_( 'XBCULTURE_NO_REVIEW' ); ?></i><br />
-    						<?php else : ?> 
-	                        	<?php $stars = (round(($item->averat)*2)/2); ?>
-	                            <div class="xbstar
-    	                            <?php if ($item->revcnt>1) : ?>
-    	                            	 xbmb8 xbbb1">Average
-                              		<?php else: ?>
-                                      ">
-    	                            <?php endif; ?>
-    								<?php if (($this->zero_rating) && ($stars==0)) : ?>
-    								    <span class="<?php echo $this->zero_class; ?>" style="color:red;"></span>
-    								<?php else : ?>
-    	                                <?php echo str_repeat('<i class="'.$this->star_class.'"></i>',intval($item->averat)); ?>
-    	                                <?php if (($item->averat - floor($item->averat))>0) : ?>
-    	                                    <i class="<?php echo $this->halfstar_class; ?>"></i>
-    	                                    <span style="color:darkgray;"> (<?php echo round($item->averat,1); ?>)</span>                                   
-    	                                <?php  endif; ?> 
-    	                             <?php endif; ?>                        
-	                            </div>
-     							<?php if ($this->show_rev == 2) : ?>
-                                    <?php foreach ($item->reviews as $rev) : ?>
-                                    	<?php $summary = $rev->summary; 
-                                    	if ((empty($summary) && ($rev->review))) {
-                                    	    $summary = XbcultureHelper::makeSummaryText($rev->review,0);
-                                    	}
-                                    	if (empty($summary)) {
-                                    	    $summary = '<i>Rating only, no review text</i>';
-                                    	}
-                                    	?>
-										<div class="hasPopover xbmb8 xb09"  title 
-											data-content="<?php echo htmlentities($summary); ?>"
-											data-original-title="<?php echo htmlentities($rev->title); ?>" 
+    						   <i><?php  echo ($this->show_revs == 1)? Text::_( 'XBCULTURE_NO_RATING' ) : Text::_( 'XBCULTURE_NO_REVIEW' ); ?></i><br />
+    						<?php elseif ($item->revcnt==1) : ?>
+    							<?php  $rev=$item->reviews[0];
+    							$starcnt = $rev->rating; 
+    							if (($this->zero_rating) && ($starcnt==0)) {
+    							    echo '<span class="'.$this->zero_class.'" style="color:red;padding-left:40px;"></span>'; 
+    							} else {
+    							    echo str_repeat('<i class="'.$this->star_class.'"></i>',$starcnt);
+    							}
+    							$wordcnt = ($rev->review =='') ? str_word_count(strip_tags($rev->summary)) : str_word_count(strip_tags($rev->review));
+    							if ($wordcnt <2) {
+        							$poptitle = 'Rating Only';
+        							$poptext = 'by'.' '.$rev->reviewer.'<br /><i>'.'No review text available'.'</i>';
+    							} else {
+    							    $poptitle = 'Review Available';
+    							    $poptext = $wordcnt.' '.'words'.' '.'by'.' '.$rev->reviewer.'<br><i>click date for review page or eye-icon for preview</i>';
+    							}
+    							?>
+    							<br />
+                                <span class="xbpop xbcultpop xbhover xbmb8 xb09" data-trigger="hover" 
+                                	tabindex="<?php echo $item->reviews[0]->id; ?>" title 
+									data-content="<?php echo $poptext; ?>"
+									data-original-title="<?php echo $poptitle; ?>"
+									style="padding-left:20px;" 
+                        		>
+                            		<?php if ($wordcnt>1) echo '<a href="'.$rlink.$rev->id.'">'; ?>
+                            			<?php  echo HtmlHelper::date($rev->rev_date , 'd M \'y'); ?>
+                            		<?php if ($wordcnt>1) echo '</a>'; ?>
+                        		</span>                                            
+        						<?php if ($wordcnt>1) : ?>
+        							&nbsp;<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" data-backdrop="static" onclick="window.pvid=<?php echo $item->reviews[0]->id; ?>;">
+                    					<i class="far fa-eye"></i>
+                    				</a>					
+								<?php endif; ?>
+    						<?php else : ?>
+    	                        <?php $starcnt = (round(($item->averat)*2)/2); ?>
+								<?php if (($this->zero_rating) && ($starcnt==0)) : ?>
+									<?php $stars = '<span class="'.$this->zero_class.'" style="color:red;"></span>'; ?>								    
+								<?php else : ?>
+	                                <?php $stars = str_repeat('<i class="'.$this->star_class.'"></i>',intval($item->averat)); ?>
+	                                <?php if (($item->averat - floor($item->averat))>0) : ?>
+	                                    <?php $stars .= '<i class="<?php echo $this->halfstar_class; ?>"></i>'; ?>
+	                                <?php  endif; ?> 
+	                             <?php endif; ?>                        
+    	                         <?php echo $stars; ?>
+	                             <details>
+	                             	<summary>
+    	                             <span class="xbnit xb095"><?php echo round($item->averat,1); ?>
+	                             	 from <?php echo $item->revcnt; ?> Rating(s)</span>
+	                             	</summary>
+    	                            <?php foreach ($item->reviews as $rev) : ?>
+            							<?php $starcnt = $rev->rating; 
+            							if (($this->zero_rating) && ($starcnt==0)) {
+            							    echo '<span class="'.$this->zero_class.'" style="color:red;padding-left:40px;"></span>'; 
+            							} else {
+            							    echo str_repeat('<i class="'.$this->star_class.'"></i>',$starcnt);
+            							}
+            							$wordcnt = ($rev->review =='') ? str_word_count(strip_tags($rev->summary)) : str_word_count(strip_tags($rev->review));
+            							if ($wordcnt <2) {
+                							$poptitle = 'Rating Only';
+                							$poptext = 'by'.' '.$rev->reviewer.'<br /><i>'.'No review text available'.'</i>';
+            							} else {
+            							    $poptitle = 'Review Available';
+            							    $poptext = $wordcnt.' '.'words'.' '.'by'.' '.$rev->reviewer.'<br><i>click date for review page or eye-icon for preview</i>';
+            							}
+            							?>
+            							<br />
+                                        <span class="xbpop xbcultpop xbhover xbmb8 xb09" data-trigger="hover" 
+                                        	tabindex="<?php echo $rev->id; ?>" title 
+        									data-content="<?php echo $poptext; ?>"
+        									data-original-title="<?php echo $poptitle; ?>" 
+											style="padding-left:20px;" 
                                 		>
-    										<?php if ($item->revcnt>1) : ?>
-                                            	<?php if($rev->rating == 0) {
-                                                	echo '<span class="'.$this->zero_class.'" style="color:red;"></span>';
-                                                } else {
-                                                	echo str_repeat('<i class="'.$this->star_class.'"></i>',$rev->rating);
-                                                } 
-                                            	echo '<br />';?>
-                                                
-     			                            <?php endif; ?>
-    			                            <a href="<?php echo Route::_($rlink.$rev->id); ?>">
-	    	                                	 <?php echo $rev->reviewer; ?> 
-	    	                                	 <?php echo HtmlHelper::date($rev->rev_date , 'd M y'); ?>
-    			                            </a>
-        								</div>
-        							<?php endforeach; ?> 
-        						<?php endif; ?>
-     						<?php endif; ?>   											
+                                    		<?php if ($wordcnt>1) echo '<a href="'.$rlink.$rev->id.'">'; ?>
+                                    			<?php  echo HtmlHelper::date($rev->rev_date , 'd M \'y'); ?>
+                                    		<?php if ($wordcnt>1) echo '</a>'; ?>
+                                		</span>                                            
+                						<?php if ($wordcnt>1) : ?>
+                							&nbsp;<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" data-backdrop="static" onclick="window.pvid=<?php echo $item->reviews[0]->id; ?>;">
+                            					<i class="far fa-eye"></i>
+                            				</a>					
+        								<?php endif; ?>
+        								<br />
+            	                    <?php  endforeach; ?>
+	                             </details>                                   
+         					<?php endif; ?>   
     					</td>
-    				<?php endif; ?>
-                   <?php if ($this->show_fdates) : ?>
+					<?php endif; ?>
+                   	<?php if ($this->show_fdates) : ?>
         				<td>
         					<p><?php if($item->first_seen) {
         					    //if more earlier than say 2010 then if day is 01 display month-year if day-mon is 01-01 only display year
-        					    $datefmt = xbCultureHelper::getDateFmt($item->first_seen);
+        					    $datefmt = xbCultureHelper::getDateFmt($item->first_seen,'j M \'y');
 						        echo HtmlHelper::date($item->first_seen , $datefmt);
         					}
     					    echo '<br />';
         					if(($item->last_seen) && ($item->last_seen != $item->first_seen)) {
-        					    $datefmt = xbCultureHelper::getDateFmt($item->last_seen);
+        					    $datefmt = xbCultureHelper::getDateFmt($item->last_seen,'j M \'y');
         					   echo HtmlHelper::date($item->last_seen , $datefmt); 
         					} ?> </p>
          				</td>
      				<?php endif; ?>
     				<?php if($this->showcat || $this->showtags) : ?>
-    					<td class="hidden-phone">
+    					<td>
      						<?php if($this->showcat) : ?>
      							<p>
      							<?php if($this->showcat==2) : ?>											
@@ -332,9 +369,21 @@ jQuery(document).ready(function(){
        jQuery(this).find('.modal-content').load('/index.php?option=com_xbfilms&view=filmreview&layout=default&tmpl=component&id='+window.pvid);
     })
     jQuery('#ajax-ppvmodal,#ajax-fpvmodal,#ajax-rpvmodal').on('hidden', function () {
-       document.location.reload(true);
+//    // reload the document if using non-static backdrops
+//       document.location.reload(true);
+    // cleanup the modal-content that was loaded
+		jQuery(this).find(".modal-content").html("");
     })    
 });
+// fix multiple backdrops
+jQuery(document).bind('DOMNodeInserted', function(e) {
+    var element = e.target;
+    if (jQuery(element).hasClass('modal-backdrop')) {
+         if (jQuery(".modal-backdrop").length > 1) {
+           jQuery(".modal-backdrop").not(':last').remove();
+       }
+	}    
+})
 </script>
 <!-- preview modal windows -->
 <div class="modal fade xbpvmodal" id="ajax-ppvmodal" style="max-width:800px">

@@ -46,8 +46,8 @@ class XbfilmsViewFilmlist extends JViewLegacy {
 		
 		$this->show_pic = $this->params->get('show_fpiccol','1','int');
 		$this->show_sum = $this->params->get('show_fsumcol','1','int');
-		$this->show_revs = $this->params->get('show_revs','1','int');
-		$this->show_rev = ($this->show_revs) ? $this->params->get('show_frevcol','2','int') : 0;
+		$show_revs = $this->params->get('show_revs','1','int');
+		$this->show_revs = ($show_revs) ? $this->params->get('show_frevcol','2','int') : 0;
 		
 		$this->show_fdates = $this->params->get('show_fdates','1','int');
 		
