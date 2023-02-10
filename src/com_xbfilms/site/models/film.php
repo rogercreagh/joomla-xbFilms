@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/film.php
- * @version 0.9.11.2 17th November 2022
+ * @version 1.0.3.8 9th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -40,6 +40,8 @@ class XbfilmsModelFilm extends JModelItem {
 				a.state AS published, a.catid AS catid, a.params AS params, a.metadata AS metadata, a.created AS created ');
 			$query->from('#__xbfilms AS a');
 			$query->select('(SELECT COUNT(DISTINCT(fp.person_id)) FROM #__xbfilmperson AS fp WHERE fp.film_id = a.id) AS pcnt');
+			$query->select('(SELECT COUNT(DISTINCT(fc.char_id)) FROM #__xbfilmcharacter AS fc WHERE fc.film_id = a.id) AS ccnt');
+			$query->select('(SELECT COUNT(DISTINCT(fg.group_id)) FROM #__xbfilmgroup AS fg WHERE fg.film_id = a.id) AS gcnt');
 			$query->select('(SELECT AVG(fr.rating) FROM #__xbfilmreviews AS fr WHERE fr.film_id=a.id) AS averat');
 			$query->select('c.title AS category_title');
 			$query->leftJoin('#__categories AS c ON c.id = a.catid');
@@ -77,26 +79,40 @@ class XbfilmsModelFilm extends JModelItem {
 					$item->ext_links_list .= '</ul>';
 				}
 				
-				$item->people = XbfilmsGeneral::getFilmPeople($item->id);
+				if ($item->pcnt) {
+				    $people = XbfilmsGeneral::getFilmPeople($item->id);
 				 
-				//get counts for director,producers,cast,crew,appearances
-				$roles = array_column($item->people,'role');
-				$item->dircnt = count(array_keys($roles, 'director'));
-				$item->prodcnt = count(array_keys($roles, 'producer'));
-				$item->crewcnt = count(array_keys($roles, 'crew'));
-				$item->subjcnt = count(array_keys($roles, 'appearsin'));
-				$item->castcnt = count(array_keys($roles, 'actor'));
+				    //get counts for director,producers,cast,crew,appearances
+				    $roles = array_column($people,'role');
+				    $item->dircnt = count(array_keys($roles, 'director'));
+				    $item->prodcnt = count(array_keys($roles, 'producer'));
+				    $item->crewcnt = count(array_keys($roles, 'crew'));
+				    $item->subjcnt = count(array_keys($roles, 'appearsin'));
+				    $item->castcnt = count(array_keys($roles, 'actor'));
 				
-				//make director/producer/char lists
-			    $item->dirlist = $item->dircnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'director','comma');
-			    $item->prodlist = $item->prodcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'producer','comma');
-			    $item->crewlist = $item->crewcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'crew','ul',true,1);
-			    $item->subjlist =$item->subjcnt==0 ? '' :  XbcultureHelper::makeLinkedNameList($item->people,'appearsin','ul',true,1);
-			    $item->castlist = $item->castcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->people,'actor','ul',true,1);
-			
-				$item->chars = XbfilmsGeneral::getFilmChars($item->id);
-				$item->charcnt = empty($item->chars) ? 0 : count($item->chars);
-				$item->charlist = $item->charcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->chars,'char','ul',true,1);
+				    //make director/producer/char lists
+				    $item->dirlist = XbcultureHelper::makeItemLists($people,'director','tn',3,'ppvmodal');
+				    $item->prodlist = XbcultureHelper::makeItemLists($people,'producer','tn',3,'ppvmodal');
+				    $item->crewlist = XbcultureHelper::makeItemLists($people,'crew','ul','tn',3,'ppvmodal');
+				    $item->subjlist = XbcultureHelper::makeItemLists($people,'appearsin','tn',3,'ppvmodal');
+				    $item->castlist = XbcultureHelper::makeItemLists($people,'actor','tn',3,'ppvmodal');
+				} else {
+				    $item->dircnt = 0;
+				    $item->prodcnt = 0;
+				    $item->crewcnt = 0;
+				    $item->subjcnt = 0;
+				    $item->castcnt = 0;				    
+				}
+				
+				if ($item->ccnt) {
+				    $chars = XbfilmsGeneral::getFilmChars($item->id);
+				    $item->charslist = XbcultureHelper::makeItemLists($chars,'char','tn',3,'cpvmodal');
+				}
+				
+				if ($item->gcnt) {
+				    $groups = XbfilmsGeneral::getFilmGroups($item->id);
+				    $item->groupslist = XbcultureHelper::makeItemLists($groups,'','trn',3,'cpvmodal');
+				}
 				
 				//order by review rating or date?
 				$item->reviews = XbfilmsGeneral::getFilmReviews($item->id);

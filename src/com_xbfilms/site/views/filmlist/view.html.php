@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmlist/view.html.php
- * @version 0.9.9.3 14th July 2022
+ * @version 1.0.3.8 10th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -51,10 +51,10 @@ class XbfilmsViewFilmlist extends JViewLegacy {
 		
 		$this->show_fdates = $this->params->get('show_fdates','1','int');
 		
-		$this->zero_rating = $this->params->get('zero_rating',1);
-		$this->zero_class = $this->params->get('zero_class','fas fa-thumbs-down xbred');
-		$this->star_class = $this->params->get('star_class','fa fa-star xbgold');
-		$this->halfstar_class = $this->params->get('halfstar_class','fa fa-star-half xbgold');
+// 		$this->zero_rating = $this->params->get('zero_rating',1);
+// 		$this->zero_class = $this->params->get('zero_class','fas fa-thumbs-down xbred');
+// 		$this->star_class = $this->params->get('star_class','fa fa-star xbgold');
+// 		$this->halfstar_class = $this->params->get('halfstar_class','fa fa-star-half xbgold');
 		
 		if (count($errors = $this->get('Errors'))) {
 			Factory::getApplication()->enqueueMessage(implode('<br />', $errors),'error');

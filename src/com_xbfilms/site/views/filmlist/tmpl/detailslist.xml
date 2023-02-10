@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbBooks site/views/booklist/detailslist.xml v1.0.3.3 16th January 2023 -->
+<!-- xbFilms site/views/filmlist/detailslist.xml v1.0.3.7 9th February 2023 -->
 <metadata>
-	<layout title="Book List - Details">
-		<message>Displays a list of books as single column list with details and preview links to reviews. Menu options enable user search &amp; filtering or to restrict to single category and filter person and tags.</message>
+	<layout title="Film List - Details">
+		<message>Displays a list of films as single column list with details and preview links to reviews. Menu options enable user search &amp; filtering or to restrict to single category and filter person and tags.</message>
 	</layout>
-	<fields name="params" addfieldpath="administrator/components/com_xbbooks/models/fields">
+	<fields name="params" addfieldpath="administrator/components/com_xbpeople/models/fields">
 <!-- Basic options. -->
 		<fieldset name="basic" label="Options">
 			<field name="show_bpiccol" type="radio"
@@ -38,7 +38,7 @@
 			</field>	
 
 			<field name="show_bcat" type="list"
-				label="Show Book Category"
+				label="Show Film Category"
 				description="Category label can optionally be linked to the Category view listing all items in the category"
 				class="btn-group btn-group-yesno"
 				useglobal="true"
@@ -71,61 +71,39 @@
 				<option value="1">JYES</option>
 			</field>	
 			<field
-				name="menu_perfilt" type="bookpeople"
-				label="Person"
-				description="XBBOOKS_PERFILT_DESC"
+				name="menu_perfilt" type="filmpeople"
+				label="XBCULTURE_PEOPLE_U"
+				description="XBFILMS_PERFILT_DESC"
 				>
-				<option value="">XBBOOKS_PERFILT_HINT</option>
+				<option value="">XBFILMS_PERFILT_HINT</option>
 			</field>
 			<field name="menu_prole" type="list"
 				default=""
-				label="XBBOOKS_PROLE_LBL"
-				description="XBBOOKS_PROLE_DESC"
+				label="XBFILMS_PROLE_LBL"
+				description="XBFILMS_PROLE_DESC"
 				showon="menu_perfilt!:"			
 			>
-	  			<option value="">XBBOOKS_PROLE_DEF</option>
-				<option value="1">XBCULTURE_AUTHOR</option>
-				<option value="2">XBCULTURE_EDITOR</option>
-				<option value="3">XBBOOKS_CHAR_IN</option>
-				<option value="4">XBBOOKS_MENTION_IN</option>
+	  			<option value="">XBFILMS_PROLE_DEF</option>
+				<option value="1">XBCULTURE_DIRECTOR</option>
+				<option value="2">XBCULTURE_PRODUCER</option>
+				<option value="3">XBFILMS_CHAR_IN</option>
 			</field>	
 			<field
-				name="menu_charfilt"
-				type="characters"
-				label="Character"
-				description="XBBOOKS_CHARFILT_DESC"
+				name="menu_charfilt" type="characters"
+				label="XBCULTURE_CHARACTER_U"
+				description="Only show films featuring a particular character"
 				>
-				<option value="">Character to filter by</option>
+				<option value="">XBFILMS_CHARFILT_HINT</option>
 			</field>
-			<field 
-  				name="menu_fiction"
-				type="list"
-				label="XBBOOKS_FILT_FICT_LBL"
-				description="XBBOOKS_FILT_FICT_LBL"
+			<field name="menu_category_id" type="xbitemcats"
+				label="XBCULTURE_CATEGORY"
+				description="XBFILMS_CATEGORY_DESC"
+				extension="com_xbfilms"
+				itemtable="#__xbfilms"
+				multiple="true" mode="nested"
+				published="1"
 				>
-					<option value="0" >XBBOOKS_FILT_BOTH</option>
-					<option value="1">XBCULTURE_NONFICTION</option>
-					<option value="2">XBCULTURE_FICTION</option>
-			</field>	
-			<field
-				name="menu_category_id"
-				type="category"
-				label="XBCULTURE_CATFILT_LABEL"
-				extension="com_xbbooks"
-				description="XBCULTURE_CATFILT_DESC"
-				>
-					<option value="0">XBCULTURE_ALL_CATS</option>
 			</field>
-			<field name="menu_subcats" type="radio"
-				default=""
-				label="XBCULTURE_CATFILT_SUBS_LABEL"
-				description="XBCULTURE_CATFILT_SUBS_DESC"
-	  			class="btn-group btn-small radiotop"
-	  			showon="menu_category_id!:0"
-				>
-					<option value="" >XBCULTURE_EXCLUDE</option>
-					<option value="1">XBCULTURE_INCLUDE</option>
-			</field>	
 			<field
 				name="menu_tag" type="tag"
 				label="XBCULTURE_TAGFILT_LABEL"

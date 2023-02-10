@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource script.xbfilms.php
- * @version 1.0.1.3 5th January 2023
+ * @version 1.0.3.7 9th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html 
@@ -23,6 +23,7 @@ class com_xbfilmsInstallerScript
     protected $extension = 'com_xbfilms';
     protected $ver = 'v0';
     protected $date = '';
+    protected $pminver = '1.0.3.8';
     
     function preflight($type, $parent) {
         $jversion = new Version();
@@ -31,6 +32,23 @@ class com_xbfilmsInstallerScript
             throw new RuntimeException('xbFilms requires Joomla version greater than '.$this->jminver. ' and less than '.$this->jmaxver.'. You have '.$jverthis);
         }
         $message='';
+        $xbp = $this->checkXbPeople($this->pminver);
+        
+        if ($xbp === false ) {
+            $message = 'Component xbPeople appears not to be installed. Please install and enable it before installing xbFilms.';
+            Factory::getApplication()->enqueueMessage($message);
+            throw new RuntimeException('xbPeople not found: install aborted');
+        }
+        if ($xbp === 0 ) {
+            Factory::getApplication()->enqueueMessage('Component xbPeople appears to be disabled. Please enable it and save options before running xbFilms.','alert');
+        } elseif (is_array($xbp)) {
+             $message = 'xbPeople version '.$xbp['version'].' is out of date. Please update xbPeople to '.$this->pminver.' or higher before installing xbFilms.';
+             Factory::getApplication()->enqueueMessage($message);
+             throw new RuntimeException('xbPeople version out of date: install aborted' );
+        } elseif ($xbp !==1) {
+            Factory::getApplication()->enqueueMessage('unknow value checking com_xbpeople');
+            throw new RuntimeException();
+        }
         if ($type=='update') {
         	$componentXML = Installer::parseXMLInstallFile(Path::clean(JPATH_ADMINISTRATOR . '/components/com_xbfilms/xbfilms.xml'));
         	$this->ver = $componentXML['version'];
@@ -94,6 +112,7 @@ class com_xbfilmsInstallerScript
             www.crosborne.co.uk/xbfilms/changelog</a></p>';
     	Factory::getApplication()->enqueueMessage($message,'Message');
     	$delfiles = '';
+    	//since v1.0.1
     	$delfiles .= '/models/fields/allpeople.php,/models/fields/filmpeople.php,/models/fields/catsubtree.php,/models/fields/characters.php';
         $delfiles .= ',/models/fields/nationality.php,/models/fields/natlist.php,/models/fields/people.php';
         $delfiles .= ',/models/fields/filmyear.php,/models/fields/revyear.php,/models/forms/booklist.xml,/models/forms/peoplelist.xml';
@@ -101,6 +120,8 @@ class com_xbfilmsInstallerScript
         $delfiles .= ',/models/forms/character.xml,/models/forms/person.xml,/tables/character.php,/tables/person.php';
         $delfiles .= ',/views/character,/views/person,/models/forms/filmlist.xml,/views/films/tmpl/modal.php,/views/review/tmpl/view.php';
         $delfiles .= ',views/persons/tmpl/default_batch_body.php,views/persons/tmpl/default_batch_footer.php';
+        $delfiles .= ',/views/filmlist/tmpl/onecol.php,/views/filmlist/tmpl/onecol.xml';
+        //reset above after v1.2.0
         $delfiles = explode(',',$delfiles);
         $cnt = 0; $dcnt=0;
     	$ecnt = 0;
@@ -334,6 +355,30 @@ class com_xbfilmsInstallerScript
 	    }
 	    return false;
 	}
+
+	protected static function checkXbPeople(string $minver = '') {
+	    $db = Factory::getDBO();
+	    $qry = $db->getQuery(true);
+	    $qry->select('enabled, manifest_cache')
+	    ->from($db->quoteName('#__extensions'))
+	    ->where($db->quoteName('element').' = '.$db->quote('com_xbpeople'));
+	    $db->setQuery($qry);
+	    $res = $db->loadAssoc();
+	    if (is_null($res)) {
+	        return false;
+	    } elseif($res['enabled']==0) {
+	        return 0;
+	    } else {
+	        if ($minver != '') {
+	            $manifest = json_decode($res['manifest_cache'],true);
+	            if (version_compare($minver, $manifest['version']) == 1) {
+	                return $manifest;
+	            }
+	        }
+	    }	    
+	    return 1;
+	}
+	
 	
 }
 

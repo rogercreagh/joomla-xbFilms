@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmreviews/tmpl/default.php
- * @version 1.0.3.5 5th February 2023
+ * @version 1.0.3.8 9th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -157,7 +157,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
     						<a href="<?php echo Route::_($rvlink . $item->id); ?>" title="<?php echo Text::_('XBCULTURE_REVIEW'); ?>">
     							<?php echo $item->title; ?>
     						</a>&nbsp;
-    						<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" onclick="window.pvid= <?php echo $item->id; ?>;">
+    						<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" data-backdrop="static" onclick="window.pvid= <?php echo $item->id; ?>;">
                 				<i class="far fa-eye"></i>
                 			</a>					
     						</p>
@@ -171,7 +171,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 								<p><a href="<?php echo Route::_($bvlink . $item->filmid); ?>">
 	    							<?php echo $item->filmtitle; ?>
 								</a>&nbsp;
-        						<a href="" data-toggle="modal" data-target="#ajax-fpvmodal" onclick="window.pvid= <?php echo $item->filmid; ?>;">
+        						<a href="" data-toggle="modal" data-target="#ajax-fpvmodal" data-backdrop="static" onclick="window.pvid= <?php echo $item->filmid; ?>;">
                     				<i class="far fa-eye"></i>
                     			</a>					
 								</p>
@@ -238,43 +238,6 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 </div>
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbFilms');?></p>
-<script>
-jQuery(document).ready(function(){
-//for preview modals Load view vith AJAX
-    jQuery('#ajax-rpvmodal').on('show', function () {
-      jQuery(this).find('.modal-content').load('/index.php?option=com_xbfilms&view=filmreview&layout=default&tmpl=component&id='+window.pvid);
-    })
-    jQuery('#ajax-fpvmodal').on('show', function () {
-       jQuery(this).find('.modal-content').load('/index.php?option=com_xbfilms&view=film&layout=default&tmpl=component&id='+window.pvid);
-    })
-    jQuery('#ajax-rpvmodal,#ajax-fpvmodal').on('hidden', function () {
-       document.location.reload(true);
-    })    
-});
-</script>
-<!-- preview modal windows -->
-<div class="modal fade xbpvmodal" id="ajax-rpvmodal" style="max-width:800px">
-    <div class="modal-dialog">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
-            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
-             <h4 class="modal-title" style="margin:5px;">Preview Review</h4>
-        </div>
-        <div class="modal-content">
-            <!-- Ajax content will be loaded here -->
-        </div>
-    </div>
-</div>
-<div class="modal fade xbpvmodal" id="ajax-fpvmodal" style="max-width:1000px">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
-            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
-             <h4 class="modal-title" style="margin:5px;">Preview Film</h4>
-        </div>
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Ajax content will be loaded here -->
-        </div>
-    </div>
-</div>
+
+ <?php echo LayoutHelper::render('xbculture.modalpvlayout', array('show' => 'fr'), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
 

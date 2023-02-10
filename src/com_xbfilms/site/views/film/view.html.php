@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/film/view.html.php
- * @version 0.9.8.4 26th May 2022
+ * @version 1.0.3.8 10th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -35,10 +35,10 @@ class XbfilmsViewFilm extends JViewLegacy {
 		$this->show_revs = $this->params->get('show_revs','1','int');		
 		$this->show_frevs = $this->show_revs ? $this->params->get('show_frevs',1) : 0;
 		
-		$this->zero_rating = $this->params->get('zero_rating',1);
-		$this->zero_class = $this->params->get('zero_class','fas fa-thumbs-down xbred');
-		$this->star_class = $this->params->get('star_class','fa fa-star xbgold');
-		$this->halfstar_class = $this->params->get('halfstar_class','fa fa-star-half xbgold');
+// 		$this->zero_rating = $this->params->get('zero_rating',1);
+// 		$this->zero_class = $this->params->get('zero_class','fas fa-thumbs-down xbred');
+// 		$this->star_class = $this->params->get('star_class','fa fa-star xbgold');
+// 		$this->halfstar_class = $this->params->get('halfstar_class','fa fa-star-half xbgold');
 		
 		if (count($errors = $this->get('Errors'))) {
 			Factory::getApplication()->enqueueMessage(implode('<br />', $errors),'error');
@@ -49,6 +49,7 @@ class XbfilmsViewFilm extends JViewLegacy {
 		//if we have arrived here directly then we probably ought to load a default sort to determine prev/next
 		//we also need to determine where we need to go back to (catlist of allfilmslist)
 		$app = Factory::getApplication();
+		$this->tmpl = $app->input->getCmd('tmpl');
 		$srt = $app->getUserState('films.sortorder');
 		if (!empty($srt)) {
 	      	$i = array_search($this->item->id, $srt);

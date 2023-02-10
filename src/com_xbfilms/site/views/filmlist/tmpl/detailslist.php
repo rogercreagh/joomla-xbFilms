@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmlist/tmpl/detailslist.php
- * @version 1.0.3.6 8th February 2023
+ * @version 1.0.3.8 10th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -27,8 +27,9 @@ if (!$listOrder) {
     $listOrder='last_seen';
     $orderDrn = 'descending';
 }
-$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'pubyear'=>Text::_('XBBOOKS_YEARPUB'), 'averat'=>Text::_('XBCULTURE_AVERAGE_RATING'), 
-    'first_seen'=>Text::_('XBBOOKS_FIRST_READ'),'last_seen'=>Text::_('XBBOOKS_LAST_READ'), 'category_title'=>Text::_('XBCULTURE_CATEGORY'));
+$orderNames = array('title'=>Text::_('XBCULTURE_TITLE'),'rel_year'=>Text::_('XBFILMS_YEAR_RELEASED'),
+    'averat'=>Text::_('XBFILMS_AVERAGE_RATING'), 'first_seen'=>Text::_('XBFILMS_FIRST_SEEN'),
+    'last_seen'=>Text::_('XBFILMS_LAST_SEEN'), 'category_title'=>Text::_('XBCULTURE_CATEGORY'));
 
 require_once JPATH_COMPONENT.'/helpers/route.php';
 
@@ -38,7 +39,7 @@ $clink = 'index.php?option=com_xbfilms&view=category'.$itemid.'&id=';
 
 $itemid = XbfilmsHelperRoute::getFilmsRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
-$blink = 'index.php?option=com_xbfilms&view=film'.$itemid.'&id=';
+$flink = 'index.php?option=com_xbfilms&view=film'.$itemid.'&id=';
 
 $itemid = XbfilmsHelperRoute::getReviewsRoute();
 $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
@@ -57,7 +58,6 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 		<?php  // Search tools bar
 			if ($this->search_bar) {
 				$hide = '';
-				if ($this->hide_fict) { $hide .= 'filter_fictionfilt,';}
 				if ($this->hide_peep) { $hide .= 'filter_perfilt,filter_prole,';}
 				if ($this->hide_char) { $hide .= 'filter_charfilt,';}
 				if ($this->hide_cat) { $hide .= 'filter_category_id,filter_subcats,';}
@@ -90,13 +90,11 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 	<table class="table table-hover" style="table-layout:fixed;width:100%;" id="xbfilmlist">	
 		<thead>
 			<tr>
-				<th>
-					<?php echo HtmlHelper::_('searchtools.sort','XBCULTURE_TITLE','title',$listDirn,$listOrder).				
-    						', '.Text::_('XBCULTURE_AUTHOR').', '.
-    						HtmlHelper::_('searchtools.sort','XBBOOKS_PUBYEARCOL','pubyear',$listDirn,$listOrder );
-					?>
-					<?php echo HtmlHelper::_('searchtools.sort','First Read','first_seen',$listDirn,$listOrder).', ';
-					   echo HtmlHelper::_('searchtools.sort','Last Read','last_seen',$listDirn,$listOrder); ?>
+				<th><span class="xbnit"><?php echo Text::_('Sort list by')?></span>: 
+					<?php echo HtmlHelper::_('searchtools.sort','XBCULTURE_TITLE','title',$listDirn,$listOrder).', '.
+    				    HtmlHelper::_('searchtools.sort','XBFILMS_RELYEARCOL','rel_year',$listDirn,$listOrder ),', '.
+                        HtmlHelper::_('searchtools.sort','XBFILMS_FIRST_SEEN','first_seen',$listDirn,$listOrder).', '.
+                        HtmlHelper::_('searchtools.sort','XBFILMS_LAST_SEEN','last_seen',$listDirn,$listOrder); ?>
 				</th>					
 		<tbody>
 			<?php foreach ($this->items as $i => $item) : ?>
@@ -104,7 +102,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 				<tr class="xbrow<?php echo $i % 2; ?>">	
 					<td>
 						<h3>
-							<a href="<?php echo Route::_(XbfilmsHelperRoute::getFilmLink($item->id)) ;?>" >
+							<a href="<?php echo $flink.$item->id ;?>" >
 								<b><?php echo $this->escape($item->title); ?></b></a>
 								&nbsp;<a href="" data-toggle="modal" data-target="#ajax-bpvmodal" data-backdrop="static" onclick="window.pvid=<?php echo $item->id; ?>;"><i class="far fa-eye"></i></a>
 						<?php if (!empty($item->subtitle)) :?>
@@ -115,7 +113,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 						<tr>
                   		<?php if($this->show_pic) : ?>
                   			<td style="width:100px;padding-right:20px;">
-    							<?php  $src = trim($item->cover_img);
+    							<?php  $src = trim($item->poster_img);
     							if ((!$src=='') && (file_exists(JPATH_ROOT.'/'.$src))) : 
     								$src = Uri::root().$src; 
     								$tip = '<img src=\''.$src.'\' style=\'max-width:250px;\' />'; ?>
@@ -128,40 +126,51 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
                         <?php endif; ?>
                         <td>
 							<i class="fas fa-user xbpr10"></i>&nbsp;
-                        	<?php if ($item->authcnt==0) {
-                        		echo '<span class="xbnit">'.Text::_('XBBOOKS_NOAUTHOR').'</span>';
+                        	<?php if ($item->dircnt==0) {
+                        		echo '<span class="xbnit">'.Text::_('XBFILMS_NODIRECTOR').'</span>';
                         	} else { ?> 
 	                        	<span class="xbnit">
-	                        		<?php echo $item->authcnt>1 ? Text::_('XBCULTURE_AUTHORS') : Text::_('XBCULTURE_AUTHOR' ); ?>
+	                        		<?php echo $item->dircnt>1 ? Text::_('XBCULTURE_DIRECTORS') : Text::_('XBCULTURE_DIRECTOR' ); ?>
 	                        	</span>: 
-                        		<?php echo $item->authlist['commalist']; 
+                        		<?php echo $item->dirlist['commalist']; 
                         	} ?>                          	
 							<br />
-							<?php if ($item->editcnt >0 ) : ?>
-	                        	<i class="fas fa-user-edit xbpr10"></i>&nbsp;<span class="xbnit">
-	                        		<?php echo $item->editcnt>1 ? Text::_('XBCULTURE_EDITORS') : Text::_('XBCULTURE_EDITOR' ); ?>
+							<?php if ($item->prodcnt >0 ) : ?>
+	                        	<i class="fas fa-user-tie xbpr10"></i>&nbsp;<span class="xbnit">
+	                        		<?php echo $item->prodcnt>1 ? Text::_('XBCULTURE_PRODUCERS') : Text::_('XBCULTURE_PRODUCERS' ); ?>
 	                        	</span>: 
-                        		<?php echo $item->editlist['commalist']; ?>
+                        		<?php echo $item->prodlist['commalist']; ?>
                         	<br />
 							<?php endif; ?>
-							<?php if ($item->othercnt>0) : ?>
-								<div class="pull-left"><i class="fas fa-user-friends xbpr10"></i>&nbsp;</div>
+							<?php if ($item->crewcnt>0) : ?>
+								<div class="pull-left"><i class="fas fa-user-cog xbpr10"></i>&nbsp;</div>
 								<div class="pull-left">
 								<details>
-    								<summary><span class="xbnit"><?php echo $item->othercnt.' '.Text::_('XBCULTURE_OTHER_PEOPLE_LISTED'); ?></span>
+    								<summary><span class="xbnit"><?php echo $item->crewcnt.' '.Text::_('Crew listed'); ?></span>
     								</summary>
-    								<?php echo $item->otherlist['ullist']; ?>
+    								<?php echo $item->crewlist['ullist']; ?>
     							</details>
 								</div>
 								<div class="clearfix"></div>
 							<?php endif; ?>
-							<?php if ($item->mencnt>0) : ?>
-								<div class="pull-left"><i class="far fa-user xbpr10"></i>&nbsp;</div>
+							<?php if ($item->castcnt>0) : ?>
+								<div class="pull-left"><i class="fas fa-theater-masks xbpr10"></i>&nbsp;</div>
 								<div class="pull-left">
 								<details>
-    								<summary><span class="xbnit"><?php echo $item->mencnt.' '.Text::_('subjects of film, or mentioned in it'); ?></span>
+    								<summary><span class="xbnit"><?php echo $item->castcnt.' '.Text::_('Cast listed'); ?></span>
     								</summary>
-    								<?php echo $item->menlist['ullist']; ?>
+    								<?php echo $item->castlist['ullist']; ?>
+    							</details>
+								</div>
+								<div class="clearfix"></div>
+							<?php endif; ?>
+							<?php if ($item->subjcnt>0) : ?>
+								<div class="pull-left"><i class="fas fa-user-friends xbpr10"></i>&nbsp;</div>
+								<div class="pull-left">
+								<details>
+    								<summary><span class="xbnit"><?php echo $item->subjcnt.' '.Text::_('Subjects or appearances'); ?></span>
+    								</summary>
+    								<?php echo $item->subjlist['ullist']; ?>
     							</details>
 								</div>
 								<div class="clearfix"></div>
@@ -189,9 +198,9 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 								<div class="clearfix"></div>
 							<?php endif; ?>
 							<span class="icon-calendar xbpr10"></span>&nbsp;<span class="xbnit">
-								<?php echo Text::_('XBCULTURE_PUBLISHED'); ?>
+								<?php echo Text::_('XBFILMS_CAPRELEASED'); ?>
 							</span>
-							<?php if($item->pubyear > 0) { echo ': '.$item->rel_year; } else { echo '<i>'.Text::_('XBCULTURE_UNKNOWN').'</i>';}?>	
+							<?php if($item->rel_year > 0) { echo ': '.$item->rel_year; } else { echo '<i>'.Text::_('XBCULTURE_UNKNOWN').'</i>';}?>	
 							<br />
 							<i class="fas fa-film xbpr10"></i>&nbsp;
                             <?php if($this->show_sum) : ?>
@@ -218,55 +227,39 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
     							<br />	
                         	<?php endif; ?>
 							<?php if($this->show_revs) : ?>
-								<div class="pull-left"><i class="fas fa-book-reader xbpr10"></i>&nbsp;</div>
+								<div class="pull-left"><i class="fas fa-pencil-alt xbpr10"></i>&nbsp;</div>
 								<div class="pull-left">
 								<?php if ($item->revcnt==0) : ?>
 									<i><?php echo Text::_('XBCULTURE_NO_REVIEWS_AVAILABLE'); ?></i>
-								<?php else : ?>
-									
-								    <?php if($item->revcnt==1) : ?>
-								        
-								        <?php $stars = (round(($item->averat)*2)/2);
-								        if (($this->zero_rating) && ($stars==0)) : ?>
-    								    	<span class="<?php echo $this->zero_class; ?>" style="color:red;"></span>
-    									<?php else : 
-    								        echo str_repeat('<i class="'.$this->star_class.'"></i>',intval($item->averat)); 
-    	                                endif;  
+								<?php else : ?>									
+								    <?php if($item->revcnt==1) : ?>								        
+								        <?php $stars = XbcultureHelper::getStarStr($item->averat,'com_xbfilms');
+								        echo $stars; 
     	                                echo ' on '.HtmlHelper::date($item->reviews[0]->rev_date , 'd M Y');?>
     	                                &nbsp;<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" data-backdrop="static" onclick="window.pvid=<?php echo $item->reviews[0]->id; ?>;"><i class="far fa-eye"></i></a> 
-    	                                
 								    <?php else : ?>
 								        <details><summary><i>
-								        <?php echo $item->revcnt.' '.Text::_('XBCULTURE_REVIEWS_AVE_RATING');?></i>								    
-    								    <?php $stars = (round(($item->averat)*2)/2); 
-    								    if (($this->zero_rating) && ($stars==0)) : ?>
-        								    <span class="<?php echo $this->zero_class; ?>" style="color:red;"></span>
-        								<?php else : 
-        								    echo str_repeat('<i class="'.$this->star_class.'"></i>',intval($item->averat)); 
-        								    if (($item->averat - floor($item->averat))>0) : ?>
-        	                                    <i class="<?php echo $this->halfstar_class; ?>"></i>
-        	                                    <span style="color:darkgray;"> (<?php echo round($item->averat,1); ?>)</span>                                   
-        	                                <?php  endif; ?> 
-        	                             <?php endif; ?>
-        	                             </summary>
-        	                             <?php foreach ($item->reviews as $rev) : ?>
-        	                                 <?php if (($this->zero_rating) && ($rev->rating==0)) : ?>
-    								    		<span class="<?php echo $this->zero_class; ?>" style="color:red;"></span>
-    										<?php else : 
-    								            echo str_repeat('<i class="'.$this->star_class.'"></i>',$rev->rating); 
-    	                                   endif;  ?>  
-    	                                   <?php if (($rev->summary.$rev->review)=='') : 
-    	                                       echo Text::_('Rating only on ').HtmlHelper::date($rev->rev_date , 'd M Y');    
-    	                                   else :
-        	                                   echo ' on '.HtmlHelper::date($rev->rev_date , 'd M Y');
-    	                                       echo ' by '.$rev->reviewer; ?>
-        	                                   &nbsp;
-        	                                   <a href="" data-toggle="modal" data-target="#ajax-rpvmodal" data-backdrop="static" onclick="window.pvid=<?php echo $rev->id; ?>;">
-        	                                   		<i class="far fa-eye"></i>
-        	                                   </a> 
-    	                                   <?php endif; ?>                    								    
-    	                                   <br />
-        	                             <?php endforeach; ?>
+    								        	<?php echo $item->revcnt.' '.Text::_('XBCULTURE_REVIEWS_AVE_RATING');?>
+    								        	</i>								    
+        								    	<?php $stars = XbcultureHelper::getStarStr($item->averat,'com_xbfilms');
+        								            echo $stars; ?>
+            	                                <span style="color:darkgray;"> (<?php echo round($item->averat,1); ?>)</span>                                   
+        	                            	</summary>
+            	                            <?php foreach ($item->reviews as $rev) : ?>
+    										<?php $stars = XbcultureHelper::getStarStr($rev->rating,'com_xbfilms');
+            	                                   echo $stars;
+        	                                       if (($rev->summary.$rev->review)=='') : ?>
+        	                                           <?php echo Text::_('Rating only on ').HtmlHelper::date($rev->rev_date , 'd M Y'); ?>  
+        	                                       <?php else : ?>
+            	                                       <?php echo ' on '.HtmlHelper::date($rev->rev_date , 'd M Y');
+        	                                           echo ' by '.$rev->reviewer; ?>
+            	                                       &nbsp;
+                	                                   <a href="" data-toggle="modal" data-target="#ajax-rpvmodal" data-backdrop="static" onclick="window.pvid=<?php echo $rev->id; ?>;">
+                	                                   		<i class="far fa-eye"></i>
+                	                                   </a> 
+        	                                   		<?php endif; ?>                    								    
+        	                                       <br />
+            	                             <?php endforeach; ?>
         	                             </details>
         	                         <?php endif; ?>                    								    
 								<?php endif; ?>
@@ -290,18 +283,18 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
         						<?php endif; ?>
         						<br />
 	                		<?php endif; ?>
-	                		<?php if ($this->show_bdates) : ?> 
-	                			<i class="far fa-eye xbpr10"></i>&nbsp;      				
+	                		<?php if ($this->show_fdates) : ?> 
+	                			<i class="fas fa-desktop xbpr10"></i>&nbsp;      				
         						<?php if($item->first_seen) {
         						    $datefmt = xbCultureHelper::getDateFmt($item->first_seen, 'D jS M Y');
-        						    echo '<i>'.Text::_('XBBOOKS_FIRST_READ').'</i>: '.HtmlHelper::date($item->first_seen , $datefmt); 
+        						    echo '<i>'.Text::_('XBFILMS_FIRST_SEEN').'</i>: '.HtmlHelper::date($item->first_seen , $datefmt); 
 								}
 								if(($item->last_seen) && ($item->last_seen != $item->first_seen)) {
 								    $datefmt = xbCultureHelper::getDateFmt($item->last_seen, 'D jS M Y');
-								    echo ' -&nbsp;<i>'.Text::_('XBBOOKS_LAST_READ').'</i>: '.HtmlHelper::date($item->last_seen , $datefmt); 
+								    echo ' -&nbsp;<i>'.Text::_('XBFILMS_LAST_SEEN').'</i>: '.HtmlHelper::date($item->last_seen , $datefmt); 
         					   }
         					   if((!$item->last_seen) && (!$item->first_seen)) {
-        					       echo '<i>'.Text::_('XBBOOKS_NOT_YET_READ').'</i>';
+        					       echo '<i>'.Text::_('not yet seen').'</i>';
         					   }
         					?>
 							<?php endif; ?>
@@ -322,88 +315,8 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 </div>
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbFilms');?></p>
-<script>
-jQuery(document).ready(function(){
-//for preview modals
-    // Load view vith AJAX
-    jQuery('#ajax-ppvmodal').on('show', function () {
-      jQuery(this).find('.modal-content').load('/index.php?option=com_xbpeople&view=person&layout=default&tmpl=component&id='+window.pvid);
-    })
-    jQuery('#ajax-gpvmodal').on('show', function () {
-      jQuery(this).find('.modal-content').load('/index.php?option=com_xbpeople&view=group&layout=default&tmpl=component&id='+window.pvid);
-    })
-    jQuery('#ajax-cpvmodal').on('show', function () {
-      jQuery(this).find('.modal-content').load('/index.php?option=com_xbpeople&view=character&layout=default&tmpl=component&id='+window.pvid);
-    })
-    jQuery('#ajax-bpvmodal').on('show', function () {
-       jQuery(this).find('.modal-content').load('/index.php?option=com_xbfilms&view=film&layout=default&tmpl=component&id='+window.pvid);
-    })
-    jQuery('#ajax-rpvmodal').on('show', function () {
-       jQuery(this).find('.modal-content').load('/index.php?option=com_xbfilms&view=filmreview&layout=default&tmpl=component&id='+window.pvid);
-    })
-    jQuery('#ajax-bpvmodal,#ajax-ppvmodal,#ajax-gpvmodal,#ajax-cpvmodal,#ajax-rpvmodal').on('hidden', function () {
-       document.location.reload(true);
-    })    
-});
-</script>
-<!-- preview modal windows -->
-<div class="modal fade xbpvmodal" id="ajax-ppvmodal" style="max-width:800px">
-    <div class="modal-dialog">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
-            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
-             <h4 class="modal-title" style="margin:5px;">Preview Person</h4>
-        </div>
-        <div class="modal-content">
-            <!-- Ajax content will be loaded here -->
-        </div>
-    </div>
-</div>
-<div class="modal fade xbpvmodal" id="ajax-gpvmodal" style="max-width:800px">
-    <div class="modal-dialog">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
-            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
-             <h4 class="modal-title" style="margin:5px;">Preview Group</h4>
-        </div>
-        <div class="modal-content">
-            <!-- Ajax content will be loaded here -->
-        </div>
-    </div>
-</div>
-<div class="modal fade xbpvmodal" id="ajax-cpvmodal" style="max-width:800px">
-    <div class="modal-dialog">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
-            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
-             <h4 class="modal-title" style="margin:5px;">Preview Character</h4>
-        </div>
-        <div class="modal-content">
-            <!-- Ajax content will be loaded here -->
-        </div>
-    </div>
-</div>
-<div class="modal fade xbpvmodal" id="ajax-bpvmodal" style="max-width:1000px">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
-            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
-             <h4 class="modal-title" style="margin:5px;">Preview Film</h4>
-        </div>
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Ajax content will be loaded here -->
-        </div>
-    </div>
-</div>
-<div class="modal fade xbpvmodal" id="ajax-rpvmodal" style="max-width:800px">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
-            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
-             <h4 class="modal-title" style="margin:5px;">Preview Film Review</h4>
-        </div>
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- Ajax content will be loaded here -->
-        </div>
-    </div>
-</div>
+	
+ <?php echo LayoutHelper::render('xbculture.modalpvlayout', array('show' => 'pgcfr'), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
+	
+	    
+
