@@ -696,7 +696,7 @@
  		<field name="show_frevs" type="list"
 			label="Show Reviews"
 			description="Show reviews as title and stars or full text"
-			default="1"
+			default="3"
 			showon="show_revs:1"
 			>
 			<option value="0" >JHIDE</option>

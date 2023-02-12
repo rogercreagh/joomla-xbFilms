@@ -79,7 +79,7 @@ class XbfilmsModelFilm extends JModelItem {
 					$item->ext_links_list .= '</ul>';
 				}
 				
-				if ($item->pcnt) {
+				if ($item->pcnt>0) {
 				    $people = XbfilmsGeneral::getFilmPeople($item->id);
 				 
 				    //get counts for director,producers,cast,crew,appearances

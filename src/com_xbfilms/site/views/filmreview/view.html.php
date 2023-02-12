@@ -1,7 +1,7 @@
 <?php 
 /*******
  * @package xbFilms
- * @filesource site/views/person/view.html.php
+ * @filesource site/views/filmreview/view.html.php
  * @version 0.9.6.f 10th January 2022
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021

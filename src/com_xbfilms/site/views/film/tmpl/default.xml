@@ -59,8 +59,7 @@
  		<field name="show_frevs" type="list"
 			label="Show Reviews"
 			description="Show reviews as title and stars or full text"
-			default="1"
-			showon="show_revs:1"
+			useglobal="true"
 			>
 			<option value="0" >JHIDE</option>
 			<option value="1">Ratings only</option>
@@ -79,12 +78,13 @@
 			</field>	
 	 		<field name="show_rtags" type="list"
 				label="Show Review Tags"
-				description="Show category, optionally with link to category items list"
+				description="Show category, optionally with link to tagged items list"
 				useglobal="true"
 				showon="show_frevs!:0"
 				>
 				<option value="0" >JHIDE</option>
-				<option value="1">JSHOW</option>
+				<option value="1">Show without link</option>
+				<option value="2">Show with link</option>
 			</field>	
 	    
 		</fieldset>

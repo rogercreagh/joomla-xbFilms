@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/film/view.html.php
- * @version 1.0.3.8 10th February 2023
+ * @version 1.0.3.8 12th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -32,8 +32,8 @@ class XbfilmsViewFilm extends JViewLegacy {
 
 		$this->show_fdates = $this->params->get('show_fdates','1','int');
 		
-		$this->show_revs = $this->params->get('show_revs','1','int');		
-		$this->show_frevs = $this->show_revs ? $this->params->get('show_frevs',1) : 0;
+		$show_revs = $this->params->get('show_revs','1','int');		
+		$this->show_frevs = $show_revs ? $this->params->get('show_frevs',1) : 0;
 		
 // 		$this->zero_rating = $this->params->get('zero_rating',1);
 // 		$this->zero_class = $this->params->get('zero_class','fas fa-thumbs-down xbred');
