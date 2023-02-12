@@ -197,4 +197,4 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbFilms');?></p>
  
-<?php echo LayoutHelper::render('xbculture.modalpvlayout', array('show' => 'pfr'), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
+<?php echo LayoutHelper::render('xbculture.modalpvlayout', array('show' => 'pfi'), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>

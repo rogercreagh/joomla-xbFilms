@@ -40,6 +40,7 @@ class XbfilmsViewFilmreview extends JViewLegacy {
 		}
 		
 		$app = Factory::getApplication();
+		$this->tmpl = $app->input->getCmd('tmpl');
 		$srt = $app->getUserState('filmreviews.sortorder');
 		if (!empty($srt)) {
 			$i = array_search($this->item->id, $srt);

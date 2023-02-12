@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/film.php
- * @version 0.9.11.0 15th November 2022
+ * @version 1.0.3.9 12th Febrary 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -44,7 +44,8 @@ class XbfilmsModelFilmreview extends JModelItem {
 			$db = $this->getDbo();
 			$query = $db->getQuery(true);
 			$query->select('a.id AS id, a.title AS title, 
-				a.film_id AS film_id, b.poster_img AS poster_img, b.title AS film_title,
+				a.film_id AS film_id, b.poster_img AS poster_img, 
+                b.title AS film_title, b.rel_year AS rel_year,
 				a.rev_date AS rev_date, a.where_seen AS where_seen, a.rating AS rating,
 				a.summary AS summary, a.review AS review, a.reviewer AS reviewer, a.subtitled AS subtitled,
 				a.state AS published, a.catid AS catid, a.params AS params, a.metadata AS metadata  ');
@@ -68,19 +69,14 @@ class XbfilmsModelFilmreview extends JModelItem {
 				$params->merge($item->params);
 				$item->params = $params;				
 				
-				$item->people = XbfilmsGeneral::getFilmPeople($item->film_id);
-				//get counts for director,producers,cast,crew,appearances
-				$roles = array_column($item->people,'role');
+                // get director(s)
+				$people = XbfilmsGeneral::getFilmPeople($item->film_id);
+				$roles = array_column($people,'role');
 				$item->dircnt = count(array_keys($roles, 'director'));
 				
-				//make author/editor list
-				$item->dirlist = '<i>';
-			    if ($item->dircnt == 0){
-			        $item->dirlist .= Text::_( 'XBFILMS_NO_DIRECTOR' ).'</i>';
-			    } else {
-			        $item->dirlist .= ($item->dircnt>1)?Text::_('XBCULTURE_DIRECTORS'):Text::_('XBCULTURE_DIRECTOR');
-			        $item->dirlist .= '</i>: '.XbcultureHelper::makeLinkedNameList($item->people,'director','comma',false);
-			    }
+				if ($item->dircnt>0) {
+				    $item->dirlist = XbcultureHelper::makeItemLists($people,'director','t',3,'ppvmodal');
+				}
 				
 				//get other reviews
 				$item->reviews = XbfilmsGeneral::getFilmReviews($item->film_id);				

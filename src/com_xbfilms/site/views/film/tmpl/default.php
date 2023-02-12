@@ -455,9 +455,9 @@ if ($imgok) {
     </div>
     <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbFilms');?></p>
-</div>
 <?php endif; ?>
+</div>
 <?php if($this->tmpl != 'component') : ?>
-	<?php echo LayoutHelper::render('xbculture.modalpvlayout', array('show' => 'pgc'), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
+	<?php echo LayoutHelper::render('xbculture.modalpvlayout', array('show' => 'pgcr'), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
 <?php endif; ?>
 

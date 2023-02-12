@@ -35,11 +35,6 @@ class XbfilmsViewFilm extends JViewLegacy {
 		$show_revs = $this->params->get('show_revs','1','int');		
 		$this->show_frevs = $show_revs ? $this->params->get('show_frevs',1) : 0;
 		
-// 		$this->zero_rating = $this->params->get('zero_rating',1);
-// 		$this->zero_class = $this->params->get('zero_class','fas fa-thumbs-down xbred');
-// 		$this->star_class = $this->params->get('star_class','fa fa-star xbgold');
-// 		$this->halfstar_class = $this->params->get('halfstar_class','fa fa-star-half xbgold');
-		
 		if (count($errors = $this->get('Errors'))) {
 			Factory::getApplication()->enqueueMessage(implode('<br />', $errors),'error');
 			return false;
