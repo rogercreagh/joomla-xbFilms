@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmreviews/tmpl/default.php
- * @version 1.0.3.8 9th February 2023
+ * @version 1.0.3.10 13th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -166,7 +166,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 							</p>						
 						</td>
 						<td><?php if ($item->filmtitle == '') :  ?>
-							<p class="xbnote">Review not found - orphan review</p>
+							<p class="xbnote">Film not found - orphan review</p>
 							<?php  else : ?>
 								<p><a href="<?php echo Route::_($bvlink . $item->filmid); ?>">
 	    							<?php echo $item->filmtitle; ?>
@@ -196,17 +196,17 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
     						<?php else : ?>
     							<span class="xbnit">
     							<?php if (!empty($item->review)) : ?>
-    								<?php echo Text::_('XBFILMS_REVIEW_EXTRACT'); ?>: </span>
+    								<?php echo Text::_('XBCULTURE_REVIEW_EXTRACT'); ?>: </span>
     								<?php echo XbcultureHelper::makeSummaryText($item->review,250); ?>
     							<?php else : ?>
-    								<?php echo Text::_('XBFILMS_NO_SUMMARY_REVIEW'); ?></span>
+    								<?php echo Text::_('XBCULTURE_NO_SUMMARY_DESC'); ?></span>
     							<?php endif; ?>
     						<?php endif; ?>
                         </p>
                         <?php if ((!empty($item->review)) && (strlen($item->review)>210)) : ?>
                              <p class="xbnit xb09">   
                              <?php 
-                             	echo Text::_('XBFILMS_FULLREVIEW').' '.str_word_count(strip_tags($item->review)).' '.Text::_('XBCULTURE_WORDS'); 
+                             	echo Text::_('XBCULTURE_REVIEW_FULL').' '.str_word_count(strip_tags($item->review)).' '.Text::_('XBCULTURE_WORDS'); 
                              ?>
 							</p>
 						<?php endif; ?>
@@ -239,5 +239,5 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbFilms');?></p>
 
- <?php echo LayoutHelper::render('xbculture.modalpvlayout', array('show' => 'fr'), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
+ <?php echo LayoutHelper::render('xbculture.modalpvlayout', array('show' => 'fi'), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
 

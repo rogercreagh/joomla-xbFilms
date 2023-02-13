@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/people/tmpl/compact.php
- * @version 0.10.0.4 28th November 2022
+ * @version 1.0.3.10 13th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -40,6 +40,9 @@ $itemid = $itemid !== null ? '&Itemid=' . $itemid : '';
 $clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
 
 ?>
+<style type="text/css" media="screen">
+	.xbpvmodal .modal-content {padding:15px;max-height:calc(100vh - 190px); overflow:scroll; }
+</style>
 <div class="xbculture">
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
 	    echo XbcultureHelper::sitePageheader($this->header);
@@ -113,7 +116,10 @@ $clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
 					<p class="xbtitlelist">
 						<a href="<?php echo Route::_($plink.$item->id);?>" >
 							<b><?php echo $this->escape($item->firstname).' '.$this->escape($item->lastname); ?></b>
-						</a>
+						</a>&nbsp;
+						<a href="" data-toggle="modal" data-target="#ajax-ppvmodal" data-backdrop="static"  onclick="window.pvid=<?php echo $item->id; ?>;">
+            				<i class="far fa-eye"></i>
+            			</a>					
 					</p>
 				</td>
 				<?php if($this->show_pdates) : ?>
@@ -129,15 +135,20 @@ $clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
 					</td>
 				<?php endif; ?>
                 <?php if ($this->showcnts) : ?>
-    				<td><p>
-						<?php echo $item->fcnt.' ';
-						    echo $item->fcnt ==1 ? Text::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS'); ?>       					
-						<?php if ($item->frolecnt > $item->fcnt ) : ?>
-     					    <span class="xbit xbnorm"> (
-     					    	<?php echo $item->frolecnt.' '.Text::_('XBCULTURE_ROLES');?>
-     					    )</span>
-     					<?php endif; ?>            					
-    				</p></td>
+    				<td>
+    					<details>
+    						<summary><span class="xbnit">
+								<?php echo $item->fcnt.' ';
+								    echo $item->fcnt ==1 ? Text::_('XBCULTURE_FILM') : Text::_('XBCULTURE_FILMS'); ?>       					
+    							<?php if ($item->frolecnt > $item->fcnt ) : ?>
+             					    <span class="xbit xbnorm"> (
+             					    	<?php echo $item->frolecnt.' '.Text::_('XBCULTURE_ROLES');?>
+             					    )</span>
+             					<?php endif; ?>
+    						</span></summary>
+    						<?php echo $item->filmlist['ullist']; ?>    						
+    					</details>   				
+ 					</td>
 				<?php endif; ?>
 				<?php if ($this->showcat) : ?>												
 					<td class="hidden-phone">
@@ -168,5 +179,6 @@ $clink = 'index.php?option=com_xbpeople&view=category' . $itemid.'&id=';
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbFilms');?></p>
 </div>
+<?php echo LayoutHelper::render('xbculture.modalpvlayout', array('show' => 'pf'), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
 
 

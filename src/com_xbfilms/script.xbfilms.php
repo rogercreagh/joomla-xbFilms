@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource script.xbfilms.php
- * @version 1.0.3.7 9th February 2023
+ * @version 1.0.3.10 13th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html 
@@ -125,9 +125,13 @@ class com_xbfilmsInstallerScript
         $delfiles = explode(',',$delfiles);
         $cnt = 0; $dcnt=0;
     	$ecnt = 0;
-    	$message = 'Deleting Redundant Files in '.JPATH_ADMINISTRATOR.'/components/com_xbfilms/<br />';
+    	$message = 'Deleting Redundant Files in '.JPATH_ROOT.'/[administrator/]components/com_xbfilms/ <br />';
     	foreach ($delfiles as $f) {
-    	    $name = JPATH_ADMINISTRATOR.'/components/com_xbfilms'.$f;
+    	    if (substr($f,0,1)=='/') {
+    	        $name = JPATH_ROOT.'/components/com_xbfilms'.$f;
+    	    } else {
+    	        $name = JPATH_ADMINISTRATOR.'/components/com_xbfilms/'.$f;
+    	    }
     	    if (file_exists($name)) {
     	        if (is_dir($name)) {
     	            if ($this->rrmdir($name)) {
@@ -144,7 +148,7 @@ class com_xbfilmsInstallerScript
     	            }
     	        }
     	    } else {
-//        	    $message .= 'FILE NOT FOUND: '.$f.'<br />';
+        	  //  $message .= 'FILE NOT FOUND: '.$f.'<br />';
     	    }
     	}
     	if (($cnt+$ecnt+$dcnt)>0) {

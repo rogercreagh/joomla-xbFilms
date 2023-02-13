@@ -2,7 +2,7 @@
 <extension type="component" version="3.1" method="upgrade">
 	<name>xbfilms</name>
 	<creationDate>13th February 2023</creationDate>
-	<version>1.0.3.9</version>
+	<version>1.0.3.10</version>
 	<author>Roger C-O</author>
 	<authorEmail>roger@crosborne.uk</authorEmail>
 	<authorUrl>www.crosborne.uk</authorUrl>

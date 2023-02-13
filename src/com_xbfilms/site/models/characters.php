@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/characters.php
- * @version 0.10.0.0 23rd November 2022
+ * @version 1.0.3.10 13th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -208,8 +208,8 @@ class XbfilmsModelCharacters extends JModelList {
     		    if ($item->fcnt>0) {
     		        $item->films = XbcultureHelper::getCharFilms($item->id);
     		        $item->filmcnt = count($item->films);
-    		        $item->filmlist = $item->filmcnt==0 ? '' : XbcultureHelper::makeLinkedNameList($item->films,'','ul',true,4);
-    		    } //bcnt is the number of books, bookcnt is the number of roles (maybe 2 roles in a book)
+    		        $item->filmlist = $item->filmcnt==0 ? '' : XbcultureHelper::makeItemLists($item->films,'','t',3,'fpvmodal');
+    		    } 
     		    
     		    $item->tags = $tagsHelper->getItemTags('com_xbpeople.character' , $item->id);
     		} //end foreach item		        			

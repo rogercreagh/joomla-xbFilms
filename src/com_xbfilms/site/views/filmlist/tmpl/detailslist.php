@@ -103,8 +103,11 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 					<td>
 						<h3>
 							<a href="<?php echo $flink.$item->id ;?>" >
-								<b><?php echo $this->escape($item->title); ?></b></a>
-								&nbsp;<a href="" data-toggle="modal" data-target="#ajax-bpvmodal" data-backdrop="static" onclick="window.pvid=<?php echo $item->id; ?>;"><i class="far fa-eye"></i></a>
+								<b><?php echo $this->escape($item->title); ?></b>
+							</a>&nbsp;
+							<a href="" data-toggle="modal" data-target="#ajax-fpvmodal" data-backdrop="static" onclick="window.pvid=<?php echo $item->id; ?>;">
+								<i class="far fa-eye"></i>
+							</a>
 						<?php if (!empty($item->subtitle)) :?>
                         	<br /><span class="xb08" style="padding-left:15px;"><?php echo $this->escape($item->subtitle); ?></span>
                         <?php endif; ?>

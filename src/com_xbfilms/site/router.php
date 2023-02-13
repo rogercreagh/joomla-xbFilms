@@ -85,7 +85,7 @@ class XbfilmsRouter extends JComponentRouterBase {
 				$vars['view'] = 'categories';
 				break;
 			case 'filmreviews':
-				$vars['view'] = 'blog';
+				$vars['view'] = 'filmreviews';
 				break;
 			case 'tags':
 				$vars['view'] = 'tags';
