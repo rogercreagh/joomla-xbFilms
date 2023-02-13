@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmreview/tmpl/default.php
- * @version 1.0.3.9 12th Febrary 2023
+ * @version 1.0.3.9 13th Febrary 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -54,6 +54,14 @@ if ($imgok) {
 	    	    <div class="xb12">
 					<?php echo XbcultureHelper::getStarStr($item->rating, 'com_xbfilms'); ?> 
                 </div>
+                <?php if($item->reviewer != '') : ?>
+        			<p><span class="xbnit"><?php echo Text::_('Reviewed by'); ?></span>
+        				<?php echo $item->reviewer.', '; ?>
+        			</p>
+                <?php endif; ?>
+                <p><?php echo Text::_('Seen on').' '.HtmlHelper::date($item->rev_date ,'d M Y'); ?>
+                <br /><span class="xbnit"><?php echo Text::_('XBCULTURE_WHERE_SEEN'); ?>: </span>
+                <?php echo $item->where_seen; ?></p>
 			</div>
 			<h2><?php echo $item->title; ?></h2>
 			<h3><span class="xbnit"><?php echo Text::_('XBFILMS_REVIEWOF'); ?></span>"
@@ -64,29 +72,23 @@ if ($imgok) {
     				<i class="far fa-eye"></i>
     			</a>					
 			</h3>
-			<p><span class="xbnit"><?php echo Text::_('XBCULTURE_BY'); ?></span>
-				<?php echo $item->reviewer.', on '.
-	      			 HtmlHelper::date($item->rev_date ,'d M Y'); ?>
-			</p>
 			<?php if($item->dircnt>0) :?>
 				<p><span class="xbnit">Film directed by</span>: 
 					<?php echo $item->dirlist['commalist']; ?>
     			</p>	
 			<?php endif; ?> 
 			<p><span class="xbnit"> Film released</span>: <b><?php echo $item->rel_year; ?></b></p>
-        	<?php if(!($this->hide_empty) && ($item->where_seen =='')): ?>
-        		<p>
-        			<span class="xbnit"><?php echo Text::_('XBCULTURE_WHERE_SEEN'); ?>: </span>
-        			<?php echo $item->where_seen; ?>
-        		</p>
-        	<?php endif; ?>
              <div class="clearfix"></div>
-             <?php if (trim($item->summary)!='') : ?>
-             	<p class="xbnit"><?php echo Text::_('XBCULTURE_SUMMARY'); ?></p>: 
-				<div class="xbbox xbboxwht" style="max-width:700px; margin:auto;">
-					<div><?php echo $item->summary; ?></div> 
-				</div>
-             <?php endif; ?>						
+             <?php if ((trim($item->review)=='') && (trim($item->summary)=='')) : ?>
+            	<div style="margin:auto;"><h4><i>No review text - only rating provided</i></h4></div>
+             <?php else : ?>
+                 <?php if (trim($item->summary)!='') : ?>
+                 	<span class="xbnit"><?php echo (trim($item->review)!='') ? Text::_('XBCULTURE_SUMMARY') : Text::_('XBCULTURE_SHORT_REVIEW'); ?>
+    				<div class="xbbox xbboxwht" style="max-width:600px; margin:auto;">
+    					<div><?php echo $item->summary; ?></div> 
+    				</div>
+                 <?php endif; ?>						
+             <?php endif; ?>
 					
 		</div>
 		<?php if ($imgok && ($this->show_image == 2)) : ?>
@@ -95,23 +97,46 @@ if ($imgok) {
 					 data-placement="left" src="<?php echo $src; ?>" border="0" alt="" style="max-width:100%;" />
 			</div>
 		<?php endif; ?>
-        <div class="row-fluid"><!-- review text -->
-        	<div class="span12">
+	</div>
+    <div class="row-fluid"><!-- review text -->
+        	<div class="span<?php echo (count($item->reviews) > 1) ? '9' : '12'; ?>">
             		<?php if (empty($item->review)) : ?>
-            			<?php if (empty($item->summary)) : ?>
-                			<p class="xbnit">No review text provided</p>
-            			<?php else : ?>
-            				<p class="xbnit"><?php echo Text::_('XBCULTURE_SHORT_REVIEW'); ?></p>
-            				<div class="xbbox xbboxmag"><?php echo $item->summary; ?></div>
-            			<?php endif; ?>
-        		<?php else : ?>
-        			<p class="xbnit xbmb8"><?php echo Text::_('XBCULTURE_REVIEW_U');?></p>
-        			<div class="xbbox xbboxmag"><?php echo $item->review; ?></div>
-                <?php endif; ?>
+            			<?php if (!empty($item->summary)) : ?>
+                			<p class="xbnit"><?php echo Text::_('No long review text provided'); ?></p>
+                		<?php endif; ?>
+            		<?php else : ?>
+            			<p class="xbnit xbmb8"><?php echo Text::_('XBCULTURE_REVIEW_U');?></p>
+            			<div class="xbbox xbboxmag" style="max-width:700px; margin:auto;"><?php echo $item->review; ?></div>
+                    <?php endif; ?>
         	</div>
+            <?php if (count($item->reviews) > 1) : ?>
+        		<div class="span3">
+                	<div class="row-fluid">
+                		<div class="span12">
+                			<div class="xbbox xbboxwht">
+                				<span class="xbnit"><?php echo Text::_('XBCULTURE_OTHER_REVIEWS_OF').' <b>'.$item->film_title.'</b>'; ?>: </span>
+                				<p>
+                				<?php foreach ($item->reviews as $rev) : ?>
+                					<?php if ($rev->id != $item->id) : ?>
+                						<div style="min-width:110px; margin:0 10px 0 30px">
+											<?php echo XbcultureHelper::getStarStr($rev->rating, 'com_xbfilms'); ?> 
+                	                    </div>
+                	                    <a href="<?php echo $frlink.$rev->id; ?>"><b><?php echo HtmlHelper::date($rev->rev_date , 'd M Y'); ?></b></a>&nbsp;
+                	                    <a href="" data-toggle="modal" data-target="#ajax-rpvmodal" data-backdrop="static"  onclick="window.pvid=<?php echo $rev->id; ?>;">
+                            				<i class="far fa-eye"></i>
+                            			</a>					                	                    
+                	                    <br />
+                	                <?php endif; ?>
+                				<?php endforeach; ?>
+                				</p>
+                	        </div>
+                	    </div>
+                	</div>
+            	</div>
+            <?php endif; ?>
         </div>
         <div class="row-fluid xbmt16">
-        	<div class="span6">
+        	<div class="span4">
         		<?php if ($this->show_cat >0) : ?>       
                 	<div>
         				<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_CATEGORY'); ?></div>
@@ -126,6 +151,8 @@ if ($imgok) {
         				</div>
         	        </div>
                 <?php endif; ?>
+            </div>
+            <div class="span8">
             	<?php if (($this->show_tags) && (!empty($item->tags))) : ?>
                 	<div>
             			<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBFILMS_CAPTAGS'); ?>
@@ -137,37 +164,10 @@ if ($imgok) {
                 	</div>
         		<?php endif; ?>
         	</div>
-        	<div class="span6">
-                <?php if (count($item->reviews) > 1) : ?>
-                	<div class="row-fluid">
-                		<div class="span12">
-                			<div class="xbbox xbboxwht">
-                				<span class="xbnit"><?php echo Text::_('XBCULTURE_OTHER_REVIEWS_OF').' '.$item->film_title; ?>: </span>
-                				<p>
-                				<?php foreach ($item->reviews as $rev) : ?>
-                					<?php if ($rev->id != $item->id) : ?>
-                						<div class="pull-left" style="min-width:110px; margin:0 10px 0 30px">
-											<?php echo XbcultureHelper::getStarStr($rev->rating, 'com_xbfilms'); ?> 
-                	                    </div>
-                	                    <a href="<?php echo $frlink.$rev->id; ?>"><b><?php echo $rev->title; ?></b></a>&nbsp;
-                	                    <a href="" data-toggle="modal" data-target="#ajax-rpvmodal" data-backdrop="static"  onclick="window.pvid=<?php echo $rev->id; ?>;">
-                            				<i class="far fa-eye"></i>
-                            			</a>					                	                    
-                	                     by <?php echo $rev->created_by_alias.', '.HtmlHelper::date($rev->created , 'd M Y'); ?>
-                	                     <br />
-                	                <?php endif; ?>
-                				<?php endforeach; ?>
-                				</p>
-                	        </div>
-                	    </div>
-                	</div>
-                <?php endif; ?>
-        	</div>
         			
         </div>
 	</div>
-    
-</div>
+<br />    
 <?php if($this->tmpl != 'component') : ?>
 	<div class="xbbox xbboxgrey">
         <div class="row-fluid"><!-- prev/next -->
