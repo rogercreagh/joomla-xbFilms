@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource script.xbfilms.php
- * @version 1.0.3.10 13th February 2023
+ * @version 1.0.3.11 13th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html 
@@ -120,6 +120,8 @@ class com_xbfilmsInstallerScript
         $delfiles .= ',/models/forms/character.xml,/models/forms/person.xml,/tables/character.php,/tables/person.php';
         $delfiles .= ',/views/character,/views/person,/models/forms/filmlist.xml,/views/films/tmpl/modal.php,/views/review/tmpl/view.php';
         $delfiles .= ',views/persons/tmpl/default_batch_body.php,views/persons/tmpl/default_batch_footer.php';
+        $delfiles .= ',views/characters/tmpl/default_batch_body.php,views/characters/tmpl/default_batch_footer.php';
+        $delfiles .= ',views/reviews/tmpl/default_batch_body.php,views/reviews/tmpl/default_batch_footer.php';
         $delfiles .= ',/views/filmlist/tmpl/onecol.php,/views/filmlist/tmpl/onecol.xml';
         //reset above after v1.2.0
         $delfiles = explode(',',$delfiles);

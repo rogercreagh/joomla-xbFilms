@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/people/tmpl/default.php
- * @version 1.0.3.2 4th February 2023
+ * @version 1.0.3.11 13th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -215,9 +215,9 @@ $bplink = 'index.php?option=com_xbpeople&view=person&layout=edit&id=';
 							
 							<a href="<?php echo $pelink.$item->id; ?>" title="<?php echo Text::_('XBFILMS_EDIT_PERSON'); ?>">
 								<?php echo ($item->firstname=='')? '... ' : $item->firstname; ?>
-								<?php echo ' '.$item->lastname; ?> 
-							</a>&nbsp;
-							<a href="" data-toggle="modal" data-target="#ajax-ppvmodal" onclick="window.pvid=<?php echo $item->id; ?>;"><i class="far fa-eye"></i></a>
+								<?php echo ' '.$item->lastname; ?></a>&nbsp;<a href="" 
+									data-toggle="modal" data-target="#ajax-ppvmodal" data-backdrop="static" 
+									onclick="window.pvid=<?php echo $item->id; ?>;"><i class="far fa-eye"></i></a>
 							<br />
 							<span class="xb08 xbnorm"><i><?php echo Text::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?></i></span>
 						</p>
@@ -340,16 +340,6 @@ $bplink = 'index.php?option=com_xbpeople&view=person&layout=edit&id=';
 			<?php endforeach; ?>
 		</tbody>
 	</table>
-        <?php // load the modal for displaying the batch options
-            echo HTMLHelper::_(
-            'bootstrap.renderModal',
-            'collapseModal',
-            array(
-                'title' => Text::_('XBCULTURE_BATCH_TITLE'),
-                'footer' => $this->loadTemplate('batch_footer')
-            ),
-            $this->loadTemplate('batch_body')
-        ); ?>
 	<?php endif; ?>
 	<input type="hidden" name="task" value=""/>
 	<input type="hidden" name="boxchecked" value="0"/>
@@ -357,44 +347,6 @@ $bplink = 'index.php?option=com_xbpeople&view=person&layout=edit&id=';
 </form>
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbFilms');?></p>
-<script>
-jQuery(document).ready(function(){
-//for preview modals
-    jQuery('#ajax-ppvmodal').on('show', function () {
-        // Load view vith AJAX
-      jQuery(this).find('.modal-content').load('/index.php?option=com_xbpeople&view=person&layout=default&tmpl=component&id='+window.pvid);
-    })
-    jQuery('#ajax-fpvmodal').on('show', function () {
-        // Load view vith AJAX
-       jQuery(this).find('.modal-content').load('/index.php?option=com_xbfilms&view=film&layout=default&tmpl=component&id='+window.pvid);
-    })
-    jQuery('#ajax-ppvmodal,#ajax-fpvmodal').on('hidden', function () {
-       document.location.reload(true);
-    })    
-});
-</script>
-<!-- preview modal windows -->
-<div class="modal fade xbpvmodal" id="ajax-ppvmodal" style="max-width:900px">
-    <div class="modal-dialog">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
-            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
-             <h4 class="modal-title" style="margin:5px;">Preview Person</h4>
-        </div>
-        <div class="modal-content">
-            <!-- Ajax content will be loaded here -->
-        </div>
-    </div>
-</div>
-<div class="modal fade xbpvmodal" id="ajax-fpvmodal" style="max-width:1000px">
-    <div class="modal-dialog">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
-            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
-             <h4 class="modal-title" style="margin:5px;">Preview Film</h4>
-        </div>
-        <div class="modal-content">
-            <!-- Ajax content will be loaded here -->
-        </div>
-    </div>
-</div>
+
+<?php echo LayoutHelper::render('xbculture.modalpvlayout', array('show' => 'pf'), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
+

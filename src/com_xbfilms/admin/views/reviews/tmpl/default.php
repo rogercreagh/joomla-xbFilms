@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/reviews/tmpl/default.php
- * @version 1.0.3.2 4th February 2023
+ * @version 1.0.3.11 13th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -40,7 +40,7 @@ if ($saveOrder) {
 	HTMLHelper::_('sortablelist.sortable', 'xbfilmreviewsList', 'adminForm', strtolower($listDirn), $saveOrderingUrl);
 }
 
-$bvlink = 'index.php?option=com_xbfilms&view=film&task=film.edit&id='; //change this to view view when available
+$fvlink = 'index.php?option=com_xbfilms&view=film&task=film.edit&id='; //change this to view view when available
 $relink = 'index.php?option=com_xbfilms&view=review&task=review.edit&id=';
 $cvlink = 'index.php?option=com_xbfilms&view=fcategory&id=';
 $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
@@ -135,7 +135,6 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
         		<th class="nowrap">
         			<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ID', 'id', $listDirn, $listOrder); ?>
         		</th>
-    				<th>[pv]</th>
         	</tr>
 		</thead>
 		<tfoot>
@@ -196,9 +195,9 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
     						    echo HTMLHelper::_('jgrid.checkedout', $i, Text::_('XBCULTURE_OPENED_BY').': '.$couname, $item->checked_out_time, 'review.', $canCheckin);
     						} ?>
     						<a href="<?php echo Route::_($relink . $item->id); ?>" title="<?php echo Text::_('XBFILMS_EDIT_REVIEW'); ?>">
-    							<?php echo $item->title; ?>
-							</a>&nbsp;
-							<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" onclick="window.pvid=<?php echo $item->id; ?>;"><i class="far fa-eye"></i></a>
+    							<?php echo $item->title; ?></a>&nbsp;<a href="" 
+								data-toggle="modal" data-target="#ajax-rpvmodal" data-backdrop="static" 
+								onclick="window.pvid=<?php echo $item->id; ?>;"><i class="far fa-eye"></i></a>
     						<br /><span class="xb08 xbnorm"><i><?php echo Text::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?></i></span>
     						</p>
 							<br /><span class="xb08 xbnorm"><i>reviewed by: </i><?php echo ''.$item->reviewer.'</span>'; ?> 
@@ -207,9 +206,10 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 						<td><?php if ($item->filmtitle == '') :  ?>
 							<p class="xbnote">Film not found - orphan review</p>
 							<?php  else : ?>
-								<p><a href="<?php echo Route::_($bvlink . $item->filmid); ?>">
-	    							<?php echo $item->filmtitle; ?>
-								</a>
+								<p><a href="<?php echo Route::_($fvlink . $item->filmid); ?>">
+	    							<?php echo $item->filmtitle; ?></a>&nbsp;<a href=""
+            							data-toggle="modal" data-backdrop="static" data-target="#ajax-fpvmodal" 
+            							onclick="window.pvid= <?php echo $item->filmid; ?>;"><i class="far faeye"></i></a>					
 								<br /><span class="xb09">
 								<?php if ($item->subtitled) { echo '('.Text::_('XBFILMS_SUBTITLED').')<br />'; } ?>
 								<?php if($item->where_seen != '') : ?>
@@ -265,37 +265,15 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 							</li>													
 						<?php endforeach; ?>
 						</ul>						    											
-					</td>
-						
-						</td>
-						<td align="center">
-							<?php echo $item->id; ?>
-						</td>
-					<td class="center hidden-phone">
-						<?php echo $item->id; ?>
-					</td>
-					<td>
-						<a href="index.php?option=com_xbfilms&view=review&layout=modalpv&tmpl=component&id=<?php echo $item->id; ?>"
-            				data-toggle="modal" data-target="#ajax-pvmodal"
-            				>
-            				<i class="icon-eye xbeye"></i>
-            			</a>					
-					</td>
+    					</td>
+    					<td class="center hidden-phone">
+    						<?php echo $item->id; ?>
+    					</td>
 					</tr>
 				<?php endforeach; ?>
 			<?php endif; ?>
 		</tbody>
 	</table>
-        <?php // load the modal for displaying the batch options
-            echo HTMLHelper::_(
-            'bootstrap.renderModal',
-            'collapseModal',
-            array(
-                'title' => Text::_('XBCULTURE_BATCH_TITLE'),
-                'footer' => $this->loadTemplate('batch_footer')
-            ),
-            $this->loadTemplate('batch_body')
-        ); ?>
 	<?php endif; ?>
 	<input type="hidden" name="task" value=""/>
 	<input type="hidden" name="boxchecked" value="0"/>
@@ -303,28 +281,5 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 </form>
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbFilms');?></p>
-<script>
-jQuery(document).ready(function(){
-//for preview modals
-    jQuery('#ajax-rpvmodal').on('show', function () {
-        // Load view vith AJAX
-       jQuery(this).find('.modal-content').load('/index.php?option=com_xbfilms&view=review&layout=default&tmpl=component&id='+window.pvid);
-    })
-    jQuery('#ajax-rpvmodal').on('hidden', function () {
-       document.location.reload(true);
-    })    
-});
-</script>
-<!-- preview modal windows -->
-<div class="modal fade xbpvmodal" id="ajax-rpvmodal" style="max-width:1000px">
-    <div class="modal-dialog">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
-            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
-             <h4 class="modal-title" style="margin:5px;">Preview Review</h4>
-        </div>
-        <div class="modal-content">
-            <!-- Ajax content will be loaded here -->
-        </div>
-    </div>
-</div>
+
+<?php echo LayoutHelper::render('xbculture.modalpvlayout', array('show' => 'fi'), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
