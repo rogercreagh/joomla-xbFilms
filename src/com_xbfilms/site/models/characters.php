@@ -208,7 +208,7 @@ class XbfilmsModelCharacters extends JModelList {
     		    if ($item->fcnt>0) {
     		        $item->films = XbcultureHelper::getCharFilms($item->id);
     		        $item->filmcnt = count($item->films);
-    		        $item->filmlist = $item->filmcnt==0 ? '' : XbcultureHelper::makeItemLists($item->films,'','t',3,'fpvmodal');
+    		        $item->filmlist = $item->filmcnt==0 ? '' : XbcultureHelper::makeItemLists($item->films,'','t',4,'fpvmodal');
     		    } 
     		    
     		    $item->tags = $tagsHelper->getItemTags('com_xbpeople.character' , $item->id);

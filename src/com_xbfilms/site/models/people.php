@@ -250,7 +250,7 @@ class XbfilmsModelPeople extends JModelList {
 			
             $item->films = XbcultureHelper::getPersonFilms($item->id);
             $item->frolecnt = count($item->films);
-            $item->filmlist = $item->frolecnt==0 ? '' : XbcultureHelper::makeItemLists($item->films,'','tr',4,'ppvmodal');
+            $item->filmlist = $item->frolecnt==0 ? '' : XbcultureHelper::makeItemLists($item->films,'','tr',4,'fpvmodal');
 			
 		} //end foreach item
 		return $items;

@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/blog.php
- * @version 0.9.9.8 21st October 2022
+ * @version 1.0.3.11 14th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -260,7 +260,7 @@ class XbfilmsModelBlog extends JModelList {
 			$dirs = XbfilmsGeneral::getFilmPeople($item->film_id,'director');
 			//TODO what about other roles - cast etc
 			$item->dircnt = count($dirs);
-			$item->dirlist = $item->dircnt==0 ? '' : XbcultureHelper::makeLinkedNameList($dirs,'director','comma',true, 1);
+			$item->dirlist = $item->dircnt==0 ? '' : XbcultureHelper::makeItemLists($dirs,'director','t',1, '');
 			
 			$item->tags = $tagsHelper->getItemTags('com_xbfilms.review' , $item->id);
 			$item->ftags = $tagsHelper->getItemTags('com_xbfilms.film' , $item->fid);			

@@ -209,7 +209,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 								<p><a href="<?php echo Route::_($fvlink . $item->filmid); ?>">
 	    							<?php echo $item->filmtitle; ?></a>&nbsp;<a href=""
             							data-toggle="modal" data-backdrop="static" data-target="#ajax-fpvmodal" 
-            							onclick="window.pvid= <?php echo $item->filmid; ?>;"><i class="far faeye"></i></a>					
+            							onclick="window.pvid= <?php echo $item->filmid; ?>;"><i class="far fa-eye"></i></a>					
 								<br /><span class="xb09">
 								<?php if ($item->subtitled) { echo '('.Text::_('XBFILMS_SUBTITLED').')<br />'; } ?>
 								<?php if($item->where_seen != '') : ?>
