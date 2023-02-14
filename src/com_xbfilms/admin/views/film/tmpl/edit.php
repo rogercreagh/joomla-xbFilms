@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/film/tmpl/edit.php
- * @version 1.0.2.2 6th January 2023
+ * @version 1.0.3.12 14th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -28,7 +28,7 @@ $style = '.controls .btn-group > .btn  {min-width: unset;padding:3px 12px 4px;}'
 $document->addStyleDeclaration($style);
 ?>
 <style type="text/css" media="screen">
-    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
+	.xbpvmodal .modal-content {padding:15px;max-height:calc(100vh - 190px); overflow:scroll; }
     .xbqpmodal .modal-body {height:370px;} 
     .xbqpmodal .modal-body iframe { height:340px;}
 </style>
@@ -223,6 +223,15 @@ jQuery(document).ready(function(){
      //document.location.reload(true);
      Joomla.submitbutton('film.apply');
     })    
+});
+// fix multiple backdrops
+jQuery(document).bind('DOMNodeInserted', function(e) {
+    var element = e.target;
+    if (jQuery(element).hasClass('modal-backdrop')) {
+         if (jQuery(".modal-backdrop").length > 1) {
+           jQuery(".modal-backdrop").not(':last').remove();
+       }
+	}    
 });
 </script>
 <!-- preview modal window -->

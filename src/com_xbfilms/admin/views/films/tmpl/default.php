@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/films/tmpl/default.php
- * @version 1.0.3.8 9th February 2023
+ * @version 1.0.3.12 14th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -107,7 +107,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 				<col style="width:80px;"><!-- picture -->
 				<col ><!-- title, year -->
 				<col ><!-- people -->
-				<col class="hidden-phone"style="width:230px;" ><!-- summary, extlinks -->
+				<col class="hidden-phone" style="width:230px;" ><!-- summary, extlinks -->
 				<col ><!-- reviews -->
 				<col class="hidden-phone" style="width:105px;" ><!-- seendates -->
 				<col class="hidden-tablet hidden-phone" style="width:230px;"><!-- cats & tags -->
@@ -131,13 +131,12 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 					<th>
 						<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_TITLE','title',$listDirn,$listOrder).
     						' <span class="xb095">'.
-     						Text::_('XBCULTURE_DIRECTOR').', '.
      						HTMLHelper::_('searchtools.sort','XBFILMS_RELYEARCOL','rel_year',$listDirn,$listOrder ).', '.
     					   '</span>';
 						?>
 					</th>					
 					<th>
-						<?php echo Text::_('XBCULTURE_PEOPLE');?>
+						<?php echo ucfirst(Text::_('XBCULTURE_PEOPLE'));?>
 					</th>
 					<th>
 						<?php echo Text::_('XBCULTURE_SUMMARY');?>
@@ -225,8 +224,8 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 							<a href="<?php echo Route::_($belink.$item->id);?>"
 								title="<?php echo Text::_('XBFILMS_EDIT_FILM'); ?>" >
 								<b><?php echo $this->escape($item->title); ?></b>
-							</a>&nbsp;
-							<a href="" data-toggle="modal" data-target="#ajax-fpvmodal" onclick="window.pvid=<?php echo $item->id; ?>;"><i class="far fa-eye"></i></a>
+							</a>&nbsp;<a href="" 
+								data-toggle="modal" data-target="#ajax-fpvmodal" data-backdrop="static" onclick="window.pvid=<?php echo $item->id; ?>;"><i class="far fa-eye"></i></a>
 						<?php else : ?>
 							<?php echo $this->escape($item->title); ?>
 						<?php endif; ?>
@@ -278,7 +277,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 							<details>
 								<summary class="xbnit">
 									<?php echo ($item->subjcnt).' ';
-									echo ($item->prodcnt>1) ? Text::_('XBCULTURE_APPEARANCES') : Text::_('XBCULTURE_APPEARANCE').' '.Text::_('XBCULTURE_LISTED'); ?>
+									echo ($item->subjcnt>1) ? Text::_('XBCULTURE_APPEARANCES') : Text::_('XBCULTURE_APPEARANCE').' '.Text::_('XBCULTURE_LISTED'); ?>
 								</summary>
 								<?php echo $item->subjlist['ullist']; ?>	
 							</details>
@@ -333,36 +332,25 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 	                    	</p>
 						<?php endif; ?>
 					</td>
-					<td class="hidden-phone">
+					<td>
 						<?php if ($item->revcnt==0) : ?>						    
                             <i><?php echo Text::_('XBFILMS_NOREVIEW'); ?></i><br /> 
 						<?php else: ?>
                         	<?php $stars = (round(($item->averat)*2)/2); ?>
                            	<?php if ($item->revcnt>1) : ?>
                                 <div class="xbbb1">Average: 
-        							<?php if (($this->zero_rating) && ($stars==0)) : ?>
-        							    <span class="<?php echo $this->zero_class; ?> xbzero16"></span>
-        							<?php else : ?>
-                                        <span style="font-size:10px;color:#edc500;">
-                                        <?php echo str_repeat('<i class="'.$this->star_class.'"></i>',intval($item->averat)); ?>
-                                        <?php if (($item->averat - floor($item->averat))>0) : ?>
-                                            <i class="<?php echo $this->halfstar_class; ?>"></i>
-                                            </span> <span style="color:darkgray;">(<?php echo round($item->averat,1); ?>)                                  
-                                        <?php  endif; ?> 
+    								<?php echo XbcultureHelper::getStarStr($item->averat,'com_xbfilms')?>
+                                    <?php if (($item->averat - floor($item->averat))>0) : ?>
+                                        <span style="color:darkgray;">
+                                        	(<?php echo round($item->averat,1); ?>)                                  
                                         </span> 
                                      <?php endif; ?>                        
                                 </div>
                             <?php endif; ?>                        
 							<?php foreach ($item->reviews as $rev) : ?>
 								<div class="xbbb1">
-									<span>
-										<?php if (($this->zero_rating) && ($rev->rating==0)) : ?>
-											<i class="<?php echo $this->zero_class; ?>"></i>
-										<?php else : ?>
-										 	<?php echo $rev->rating;?><i class="<?php echo $this->star_class; ?>" ></i> 
-										 <?php endif; ?>
-									</span>
-									<a href="<?php echo Route::_($rvlink.$rev->id);?>">
+    								<?php echo XbcultureHelper::getStarStr($rev->rating,'com_xbfilms')?>
+									<br /><a href="<?php echo Route::_($rvlink.$rev->id);?>">
 	    								<span class="xbnit"><?php echo Text::_('XBCULTURE_BY').':';?>
     	    								<?php if ($rev->reviewer) {
     	    								    echo $rev->reviewer;
@@ -372,7 +360,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 	    								</span>
 	    								<span class="xb09"> <?php echo HtmlHelper::date($rev->rev_date , 'd M Y'); ?></span>
 									</a>&nbsp;
-									<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" onclick="window.pvid=<?php echo $rev->id; ?>;">
+									<a href="" data-toggle="modal" data-target="#ajax-ipvmodal" data-backdrop="static" onclick="window.pvid=<?php echo $rev->id; ?>;">
 										<i class="far fa-eye"></i>
 									</a>
 								</div>
@@ -433,4 +421,6 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 </form>
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbFilms');?></p>
-  <?php echo LayoutHelper::render('xbculture.modalpvlayout', array('show' => 'pgcfr'), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
+
+<?php echo LayoutHelper::render('xbculture.modalpvlayout', array('show' => 'pgcfi'), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
+  
