@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/groups.php
- * @version 1.0.3.2 4th February 2023
+ * @version 1.0.3.13 16th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -164,10 +164,10 @@ class XbfilmsModelGroups extends JModelList {
             
             if ($item->pcnt>0) {
                 $item->members = XbcultureHelper::getGroupMembers($item->id);
-                $item->memberlist = XbcultureHelper::makeItemLists($item->members,'','tr',4,'ppvmodal');
+                $item->memberlist = XbcultureHelper::makeItemLists($item->members,'','tr',4,'person');
             }
             $item->films = XbcultureHelper::getGroupFilms($item->id);
-            $item->filmlist = XbcultureHelper::makeItemLists($item->films,'','t',4,'fpvmodal');
+            $item->filmlist = XbcultureHelper::makeItemLists($item->films,'','t',4,'film');
             
             $item->ext_links = json_decode($item->ext_links);
             $item->ext_links_list ='';

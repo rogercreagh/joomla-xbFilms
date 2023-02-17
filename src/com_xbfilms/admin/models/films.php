@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/films.php
- * @version 1.0.3.2 4th February 2023
+ * @version 1.0.3.13 16th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -232,20 +232,20 @@ class XbfilmsModelFilms extends JModelList
             $item->subjcnt = count(array_keys($roles, 'appearsin'));
             $item->castcnt = count(array_keys($roles, 'actor'));
             
-            $item->dirlist = $item->dircnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'director','t',4,'ppvmodal');            
-            $item->prodlist = $item->prodcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'producer','t',3,'ppvmodal');
-            $item->castlist = $item->castcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'actor','tn',3,'ppvmodal');
-            $item->crewlist = $item->crewcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'crew','tn',3,'ppvmodal');
-            $item->subjlist = $item->subjcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'appearsin','tn',3,'ppvmodal');
+            $item->dirlist = $item->dircnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'director','t',4,'person');            
+            $item->prodlist = $item->prodcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'producer','t',3,'person');
+            $item->castlist = $item->castcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'actor','tn',3,'person');
+            $item->crewlist = $item->crewcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'crew','tn',3,'person');
+            $item->subjlist = $item->subjcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'appearsin','tn',3,'person');
             
             if ($item->gcnt > 0) {
                 $item->groups = XbfilmsGeneral::getFilmGroups($item->id);
-                $item->grplist = $item->gcnt==0 ? '' : XbcultureHelper::makeItemLists($item->groups,'','t',3,'gpvmodal');
+                $item->grplist = $item->gcnt==0 ? '' : XbcultureHelper::makeItemLists($item->groups,'','t',3,'group');
             }
             
             if ($item->ccnt > 0) {
                 $item->chars = XbfilmsGeneral::getFilmChars($item->id);
-                $item->charlist = $item->ccnt==0 ? '' : XbcultureHelper::makeItemLists($item->chars,'','t',3,'cpvmodal');
+                $item->charlist = $item->ccnt==0 ? '' : XbcultureHelper::makeItemLists($item->chars,'','t',3,'char');
             }
 
             $item->reviews = XbfilmsGeneral::getFilmReviews($item->id);

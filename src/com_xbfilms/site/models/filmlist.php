@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/filmlist.php
- * @version 1.0.3.4 5th February 2023
+ * @version 1.0.3.14 16th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -261,26 +261,26 @@ class XbfilmsModelFilmlist extends JModelList {
 		        $item->people = XbfilmsGeneral::getFilmPeople($item->id);
     			$roles = array_column($item->people,'role');
     			$item->dircnt = count(array_keys($roles, 'director'));
-    			$item->dirlist = $item->dircnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'director','t',3,'ppvmodal');
+    			$item->dirlist = $item->dircnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'director','t',3,'person');
     			$item->prodcnt = count(array_keys($roles, 'producer'));
-    			$item->prodlist = $item->prodcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'producer','t',3,'ppvmodal');
+    			$item->prodlist = $item->prodcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'producer','t',3,'person');
     			$item->crewcnt = count(array_keys($roles, 'crew'));
-    			$item->crewlist = $item->crewcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'crew','t',3,'ppvmodal');
+    			$item->crewlist = $item->crewcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'crew','t',3,'person');
     			$item->subjcnt = count(array_keys($roles, 'appearsin'));
-    			$item->subjlist = $item->subjcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'appearsin','t',3,'ppvmodal');
+    			$item->subjlist = $item->subjcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'appearsin','t',3,'person');
     			$item->castcnt = count(array_keys($roles, 'actor'));
-    			$item->castlist = $item->castcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'actor','t',3,'ppvmodal');
+    			$item->castlist = $item->castcnt==0 ? '' : XbcultureHelper::makeItemLists($item->people,'actor','t',3,'person');
 		    } else {
 		        $item->dircnt = 0; $item->prodcnt = 0; $item->crewcnt = 0; $item->subjcnt = 0; $item->castcnt = 0;
 		    }
 		    
 		    if ($item->ccnt>0) {
 		        $item->chars = XbfilmsGeneral::getFilmChars($item->id);
-		        $item->charlist = XbcultureHelper::makeItemLists($item->chars,'','t',3,'cpvmodal');
+		        $item->charlist = XbcultureHelper::makeItemLists($item->chars,'','t',3,'char');
 		    }
 		    if ($item->gcnt>0) {
 		        $item->groups = XbfilmsGeneral::getFilmGroups($item->id);
-		        $item->grouplist = XbcultureHelper::makeItemLists($item->groups,'','t',3,'gpvmodal');
+		        $item->grouplist = XbcultureHelper::makeItemLists($item->groups,'','t',3,'group');
 		    }
 			
 			$item->reviews = XbfilmsGeneral::getFilmReviews($item->id);

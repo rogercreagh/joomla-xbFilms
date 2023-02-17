@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/characters.php
- * @version 1.0.3.1 3rd February 2023
+ * @version 1.0.3.13 16th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -174,7 +174,7 @@ class XbfilmsModelCharacters extends JModelList {
             if ($item->fcnt>0) {
                 $item->films = XbcultureHelper::getCharFilms($item->id);
                 $item->filmcnt = count($item->films);
-                $item->filmlist = $item->filmcnt==0 ? '' : XbcultureHelper::makeItemLists($item->films,'','t',4,'fpvmodal');
+                $item->filmlist = $item->filmcnt==0 ? '' : XbcultureHelper::makeItemLists($item->films,'','t',4,'film');
             } 
 
             $item->tags = $tagsHelper->getItemTags('com_xbpeople.character' , $item->id);

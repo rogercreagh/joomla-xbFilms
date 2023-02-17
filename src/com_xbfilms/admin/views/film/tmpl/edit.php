@@ -203,6 +203,7 @@ $document->addStyleDeclaration($style);
 </form>
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbFilms');?></p>
+  
 <script>
 //for preview modal
 jQuery(document).ready(function(){

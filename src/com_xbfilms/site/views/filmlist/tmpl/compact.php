@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmlist/tmpl/compact.php
- * @version 1.0.3.8 10th February 2023
+ * @version 1.0.3.14 17th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -40,7 +40,8 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 
 ?>
 <style type="text/css" media="screen">
-	.xbpvmodal .modal-content {padding:15px;max-height:calc(100vh - 190px); overflow:scroll; }
+    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
+    .xbpvmodal .modal-body { max-height:none; height:auto;}
 </style>
 <div class="xbculture">
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
@@ -121,8 +122,9 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 						<p class="xbtitle">
 							<a href="<?php echo Route::_($flink.$item->id);?>" >
 								<b><?php echo $this->escape($item->title); ?></b>
-							</a>&nbsp;<a href="" 
-								data-toggle="modal" data-target="#ajax-fpvmodal" data-backdrop="static"  onclick="window.pvid=<?php echo $item->id; ?>;">
+							</a>&nbsp;<a href="#ajax-xbmodal" 
+								data-toggle="modal" data-target="#ajax-xbmodal" data-backdrop="static"  
+								onclick="window.com='films';window.view='film';window.pvid=<?php echo $item->id; ?>;">
                 				<i class="far fa-eye"></i>
                 			</a>					
 						<?php if (!empty($item->subtitle)) :?>
@@ -148,7 +150,8 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
          					<?php endif; ?>											
 	    					<?php if($item->revcnt == 1) : ?>
     							<?php echo $stars; ?>&nbsp;	
-        						<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" data-backdrop="static" onclick="window.pvid=<?php echo $item->reviews[0]->id; ?>;">
+        						<a href="#ajax-xbmodal" data-toggle="modal" data-target="#ajax-xbmodal" data-backdrop="static" 
+        						onclick="window.com='films';window.view='filmreview';window.pvid=<?php echo $item->reviews[0]->id; ?>;">
                     				<i class="far fa-eye"></i>
                     			</a>					
         					<?php elseif ($item->revcnt>1) : ?> 
@@ -161,7 +164,8 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
     	                            <?php foreach ($item->reviews as $rev) : 
     	                               $stars = XbcultureHelper::getStarStr($rev->rating,'com_xbfilms');
     	                               echo $stars; ?>
-                						&nbsp;<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" data-backdrop="static" onclick="window.pvid=<?php echo $rev->id; ?>;">
+                						&nbsp;<a href="#ajax-xbmodal" data-toggle="modal" data-target="#ajax-xbmodal" data-backdrop="static" 
+                						onclick="window.com='films';window.view='filmreview';window.pvid=<?php echo $rev->id; ?>;">
                             				<i class="far fa-eye"></i>
                             			</a>&nbsp;
 										<br />					
@@ -198,4 +202,4 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbFilms');?></p>
  
-<?php echo LayoutHelper::render('xbculture.modalpvlayout', array('show' => 'pfi'), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
+<?php echo LayoutHelper::render('xbculture.layoutpvmodal', array(), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>

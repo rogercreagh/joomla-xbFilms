@@ -50,6 +50,7 @@ $bplink = 'index.php?option=com_xbpeople&view=person&layout=edit&id=';
 ?>
 <style type="text/css" media="screen">
 	.xbpvmodal .modal-content {padding:15px;max-height:calc(100vh - 190px); overflow:scroll; }
+    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
 </style>
 <form action="index.php?option=com_xbfilms&view=persons" method="post" id="adminForm" name="adminForm">
 	<?php if (!empty( $this->sidebar)) : ?>
@@ -216,8 +217,8 @@ $bplink = 'index.php?option=com_xbpeople&view=person&layout=edit&id=';
 							<a href="<?php echo $pelink.$item->id; ?>" title="<?php echo Text::_('XBFILMS_EDIT_PERSON'); ?>">
 								<?php echo ($item->firstname=='')? '... ' : $item->firstname; ?>
 								<?php echo ' '.$item->lastname; ?></a>&nbsp;<a href="" 
-									data-toggle="modal" data-target="#ajax-ppvmodal" data-backdrop="static" 
-									onclick="window.pvid=<?php echo $item->id; ?>;"><i class="far fa-eye"></i></a>
+									data-toggle="modal" data-target="#ajax-xbmodal" data-backdrop="static" 
+									onclick="window.com='people';window.view='person';window.pvid=<?php echo $item->id; ?>;"><i class="far fa-eye"></i></a>
 							<br />
 							<span class="xb08 xbnorm"><i><?php echo Text::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?></i></span>
 						</p>
@@ -348,5 +349,37 @@ $bplink = 'index.php?option=com_xbpeople&view=person&layout=edit&id=';
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbFilms');?></p>
 
-<?php echo LayoutHelper::render('xbculture.modalpvlayout', array('show' => 'pf'), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
+<?php //echo LayoutHelper::render('xbculture.modalpvlayout', array('show' => 'pf'), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
+
+<script>
+jQuery(document).ready(function(){
+    jQuery('#ajax-xbmodal').on('show', function () {
+      jQuery(this).find('.modal-body iframe').attr("src",
+      "<?php echo Uri::root(); ?>/index.php?option=com_xb"+window.com+"&view="+window.view+"&layout=default&tmpl=component&id="+window.pvid);
+        jQuery(this).find('.modal-header h4').html("Preview "+window.view);
+    })
+    jQuery('#xbif').load(function () {
+        jQuery('.modal-body iframe').height(jQuery(this).contents().height());    
+    })
+    jQuery('#ajax-xbmodal').on('hidden', function () {
+      jQuery(this).find('.modal-body iframe').attr("src","");
+    })
+});
+</script>
+ 
+<div class="modal fade xbpvmodal" id="ajax-xbmodal" style="max-width:1000px">
+    <div class="modal-dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
+            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
+             <h4 class="modal-title" style="margin:5px;">Preview</h4>
+        </div>
+        <div class="modal-body">
+            <div style="margin:0 30px;">
+        		<iframe id="xbif" src="" title="Preview"></iframe>   
+        	</div>
+        </div>
+    </div>
+</div>
+
 

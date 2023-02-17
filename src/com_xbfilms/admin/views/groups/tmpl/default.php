@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/groups/tmpl/default.php
- * @version 1.0.3.11 13th February 2023
+ * @version 1.0.3.13 16th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -52,6 +52,7 @@ $tvlink = 'index.php?option=com_xbpeople&view=tag&id=';
 ?>
 <style type="text/css" media="screen">
 	.xbpvmodal .modal-content {padding:15px;max-height:calc(100vh - 190px); overflow:scroll; }
+    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
 </style>
 <form action="index.php?option=com_xbfilms&view=groups" method="post" id="adminForm" name="adminForm">
 	<?php if (!empty( $this->sidebar)) : ?>
@@ -201,8 +202,8 @@ $tvlink = 'index.php?option=com_xbpeople&view=tag&id=';
 							
 							<a href="<?php echo $gelink.$item->id; ?>" title="<?php echo Text::_('XBPEOPLE_EDIT_GROUP'); ?>">
 								<?php echo ' '.$item->title; ?></a>&nbsp;<a href="" 
-									data-toggle="modal" class="xbpv" data-target="#ajax-gpvmodal" data-backdrop="static" 
-									onclick="window.pvid= <?php echo $item->id; ?>;"><i class="far fa-eye"></i></a>					
+									data-toggle="modal" class="xbpv" data-target="#ajax-xbmodal" data-backdrop="static" 
+									onclick="window.com='people';window.view='group';window.pvid= <?php echo $item->id; ?>;"><i class="far fa-eye"></i></a>					
 							<br />
 							<span class="xb08 xbnorm"><i><?php echo Text::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?></i></span>
 						</p>
@@ -304,5 +305,38 @@ $tvlink = 'index.php?option=com_xbpeople&view=tag&id=';
 </form>
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbbooks');?></p>
-<?php echo LayoutHelper::render('xbculture.modalpvlayout', array('show' => 'pgf'), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
+
+<?php // echo LayoutHelper::render('xbculture.modalpvlayout', array('show' => 'pgf'), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
+
+<script>
+jQuery(document).ready(function(){
+    jQuery('#ajax-xbmodal').on('show', function () {
+      jQuery(this).find('.modal-body iframe').attr("src",
+      "<?php echo Uri::root(); ?>/index.php?option=com_xb"+window.com+"&view="+window.view+"&layout=default&tmpl=component&id="+window.pvid);
+        jQuery(this).find('.modal-header h4').html("Preview "+window.view);
+    })
+    jQuery('#xbif').load(function () {
+        jQuery('.modal-body iframe').height(jQuery(this).contents().height());    
+    })
+    jQuery('#ajax-xbmodal').on('hidden', function () {
+      jQuery(this).find('.modal-body iframe').attr("src","");
+    })
+});
+</script>
+ 
+<div class="modal fade xbpvmodal" id="ajax-xbmodal" style="max-width:1000px">
+    <div class="modal-dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
+            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
+             <h4 class="modal-title" style="margin:5px;">Preview</h4>
+        </div>
+        <div class="modal-body">
+            <div style="margin:0 30px;">
+        		<iframe id="xbif" src="" title="Preview"></iframe>   
+        	</div>
+        </div>
+    </div>
+</div>
+
 
