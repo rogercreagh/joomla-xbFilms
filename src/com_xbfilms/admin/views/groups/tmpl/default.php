@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/views/groups/tmpl/default.php
- * @version 1.0.3.13 16th February 2023
+ * @version 1.0.3.14 17th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -51,8 +51,8 @@ $tvlink = 'index.php?option=com_xbpeople&view=tag&id=';
 
 ?>
 <style type="text/css" media="screen">
-	.xbpvmodal .modal-content {padding:15px;max-height:calc(100vh - 190px); overflow:scroll; }
     .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
+    .xbpvmodal .modal-body { max-height:none; height:auto;}
 </style>
 <form action="index.php?option=com_xbfilms&view=groups" method="post" id="adminForm" name="adminForm">
 	<?php if (!empty( $this->sidebar)) : ?>
@@ -97,19 +97,31 @@ $tvlink = 'index.php?option=com_xbpeople&view=tag&id=';
 		</div>
 	<?php else : ?>	
 	<table class="table table-striped table-hover" id="xbgroupsList">
+			<colgroup>
+				<col class="hidden-phone" style="width:25px;"><!-- ordering -->
+				<col class="hidden-phone" style="width:25px;"><!-- checkbox -->
+				<col style="width:55px;"><!-- status -->
+				<col style="width:80px;"><!-- picture -->
+				<col ><!-- title, year -->
+				<col ><!-- members -->
+				<col class="hidden-phone" style="width:230px;" ><!-- summary -->
+				<col ><!-- films -->
+				<col class="hidden-tablet hidden-phone" style="width:230px;"><!-- cats & tags -->
+				<col class="hidden-phone" style="width:45px;"><!-- id -->
+			</colgroup>	
 		<thead>
 			<tr>
-				<th class="nowrap center hidden-phone" style="width:25px;">
+				<th class="nowrap center">
 					<?php echo HTMLHelper::_('searchtools.sort', '', 'ordering', 
 					    $listDirn, $listOrder, null, 'asc', 'XBCULTURE_HEADING_ORDERING', 'icon-menu-2'); ?>
 				</th>
-    			<th class="hidden-phone" style="width:25px;">
+    			<th>
     				<?php echo HTMLHelper::_('grid.checkall'); ?>
     			</th>
-    			<th class="nowrap center" style="width:55px">
+    			<th class="nowrap center">
 					<?php echo HTMLHelper::_('searchtools.sort', 'JSTATUS', 'published', $listDirn, $listOrder); ?>
     			</th>
-    			<th class="center" style="width:80px">
+    			<th class="center">
     				<?php echo Text::_('XBCULTURE_PICTURE') ;?>
     			</th>
     			<th >
@@ -125,11 +137,11 @@ $tvlink = 'index.php?option=com_xbpeople&view=tag&id=';
     			<th>
 					<?php echo HTMLHelper::_('searchtools.sort', 'XBCULTURE_FILMS_U', 'fcnt', $listDirn, $listOrder); ?>
     			</th>
-     			<th class="hidden-tablet hidden-phone" style="width:15%;">
+     			<th>
 					<?php echo HTMLHelper::_('searchtools.sort','XBCULTURE_CATS','category_title',$listDirn,$listOrder ).' &amp; ';
 						echo Text::_( 'XBCULTURE_TAGS_U' ); ?>
 				</th>   			
-    			<th class="nowrap hidden-phone" style="width:45px;">
+    			<th class="nowrap">
 					<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ID', 'id', $listDirn, $listOrder); ?>
     			</th>
     		</tr>
@@ -201,7 +213,7 @@ $tvlink = 'index.php?option=com_xbpeople&view=tag&id=';
 							} ?>
 							
 							<a href="<?php echo $gelink.$item->id; ?>" title="<?php echo Text::_('XBPEOPLE_EDIT_GROUP'); ?>">
-								<?php echo ' '.$item->title; ?></a>&nbsp;<a href="" 
+								<?php echo ' '.$item->title; ?></a>&nbsp;<a href="#ajax-xbmodal" 
 									data-toggle="modal" class="xbpv" data-target="#ajax-xbmodal" data-backdrop="static" 
 									onclick="window.com='people';window.view='group';window.pvid= <?php echo $item->id; ?>;"><i class="far fa-eye"></i></a>					
 							<br />
@@ -306,37 +318,4 @@ $tvlink = 'index.php?option=com_xbpeople&view=tag&id=';
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbbooks');?></p>
 
-<?php // echo LayoutHelper::render('xbculture.modalpvlayout', array('show' => 'pgf'), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
-
-<script>
-jQuery(document).ready(function(){
-    jQuery('#ajax-xbmodal').on('show', function () {
-      jQuery(this).find('.modal-body iframe').attr("src",
-      "<?php echo Uri::root(); ?>/index.php?option=com_xb"+window.com+"&view="+window.view+"&layout=default&tmpl=component&id="+window.pvid);
-        jQuery(this).find('.modal-header h4').html("Preview "+window.view);
-    })
-    jQuery('#xbif').load(function () {
-        jQuery('.modal-body iframe').height(jQuery(this).contents().height());    
-    })
-    jQuery('#ajax-xbmodal').on('hidden', function () {
-      jQuery(this).find('.modal-body iframe').attr("src","");
-    })
-});
-</script>
- 
-<div class="modal fade xbpvmodal" id="ajax-xbmodal" style="max-width:1000px">
-    <div class="modal-dialog">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" 
-            	style="opacity:unset;line-height:unset;border:none;">&times;</button>
-             <h4 class="modal-title" style="margin:5px;">Preview</h4>
-        </div>
-        <div class="modal-body">
-            <div style="margin:0 30px;">
-        		<iframe id="xbif" src="" title="Preview"></iframe>   
-        	</div>
-        </div>
-    </div>
-</div>
-
-
+<?php echo LayoutHelper::render('xbculture.layoutpvmodal', array(), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>

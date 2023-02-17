@@ -208,7 +208,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 							} ?>
 							
 							<a href="<?php echo $pelink.$item->id; ?>" title="<?php echo Text::_('XBFILMS_EDIT_PERSON'); ?>">
-								<?php echo ' '.$item->name; ?></a>&nbsp;<a href="" 
+								<?php echo ' '.$item->name; ?></a>&nbsp;<a href="#ajax-xbmodal" 
 								data-toggle="modal" data-target="#ajax-xbmodal" data-backdrop="static" 
 								onclick="window.com='people';window.view='character';window.pvid= <?php echo $item->id; ?>;"><i class="far fa-eye"></i></a>					
 							<br />

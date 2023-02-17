@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmreviews/tmpl/default.php
- * @version 1.0.3.10 13th February 2023
+ * @version 1.0.3.14 17th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -42,7 +42,8 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 
 ?>
 <style type="text/css" media="screen">
-	.xbpvmodal .modal-content {padding:15px;max-height:calc(100vh - 190px); overflow:scroll; }
+    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
+    .xbpvmodal .modal-body { max-height:none; height:auto;}
 </style>
 <div class="xbculture ">
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
@@ -98,6 +99,20 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 		</div>
 	<?php else : ?>	
 	<table class="table table-striped table-hover" id="xbfilmreviewsList">
+		<colgroup>
+			<?php if($this->show_pic) : ?>
+				<col style="width:80px"><!-- picture -->
+            <?php endif; ?>
+			<col ><!-- title -->
+			<col ><!-- book -->
+			<col style="width:150px;"><!-- rating -->
+			<?php if($this->show_sum) : ?>
+				<col class="hidden-phone" style="width:230px;"><!-- summary -->
+            <?php endif; ?>
+			<?php if($this->showcat || $this->showtags) : ?>
+				<col class="hidden-tablet hidden-phone"><!-- cats&tags -->
+			<?php endif; ?>
+		</colgroup>
 		<thead>
 			<tr>
 				<?php if($this->show_pic) : ?>
@@ -156,8 +171,8 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
     						<p class="xbtitlelist">
     						<a href="<?php echo Route::_($rvlink . $item->id); ?>" title="<?php echo Text::_('XBCULTURE_REVIEW'); ?>">
     							<?php echo $item->title; ?>
-    						</a>&nbsp;
-    						<a href="" data-toggle="modal" data-target="#ajax-rpvmodal" data-backdrop="static" onclick="window.pvid= <?php echo $item->id; ?>;">
+    						</a>&nbsp;<a href="#ajax-xbmodal" data-toggle="modal" data-target="#ajax-xbmodal" data-backdrop="static" 
+    							onclick="window.com='films';window.view='filmreview';window.pvid= <?php echo $item->id; ?>;">
                 				<i class="far fa-eye"></i>
                 			</a>					
     						</p>
@@ -170,8 +185,8 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 							<?php  else : ?>
 								<p><a href="<?php echo Route::_($bvlink . $item->filmid); ?>">
 	    							<?php echo $item->filmtitle; ?>
-								</a>&nbsp;
-        						<a href="" data-toggle="modal" data-target="#ajax-fpvmodal" data-backdrop="static" onclick="window.pvid= <?php echo $item->filmid; ?>;">
+								</a>&nbsp;<a href="#ajax-xbmodal" data-toggle="modal" data-target="#ajax-xbmodal" data-backdrop="static" 
+									onclick="window.com='films';window.view='film';window.pvid= <?php echo $item->filmid; ?>;">
                     				<i class="far fa-eye"></i>
                     			</a>					
 								</p>
@@ -239,5 +254,5 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbFilms');?></p>
 
- <?php echo LayoutHelper::render('xbculture.modalpvlayout', array('show' => 'fi'), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
+<?php echo LayoutHelper::render('xbculture.layoutpvmodal', array(), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
 

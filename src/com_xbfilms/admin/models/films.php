@@ -245,7 +245,7 @@ class XbfilmsModelFilms extends JModelList
             
             if ($item->ccnt > 0) {
                 $item->chars = XbfilmsGeneral::getFilmChars($item->id);
-                $item->charlist = $item->ccnt==0 ? '' : XbcultureHelper::makeItemLists($item->chars,'','t',3,'char');
+                $item->charlist = $item->ccnt==0 ? '' : XbcultureHelper::makeItemLists($item->chars,'','t',3,'character');
             }
 
             $item->reviews = XbfilmsGeneral::getFilmReviews($item->id);

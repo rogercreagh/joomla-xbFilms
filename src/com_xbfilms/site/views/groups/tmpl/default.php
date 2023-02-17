@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/groups/tmpl/default.php
- * @version 1.0.3.10 13th February 2023
+ * @version 1.0.3.14 17th February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -41,7 +41,8 @@ $plink = 'index.php?option=com_xbpeople&view=group'.$itemid.'&id=';
 
 ?>
 <style type="text/css" media="screen">
-	.xbpvmodal .modal-content {padding:15px;max-height:calc(100vh - 190px); overflow:scroll; }
+    .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
+    .xbpvmodal .modal-body { max-height:none; height:auto;}
 </style>
 <div class="xbculture">
 	<?php if(($this->header['showheading']) || ($this->header['title'] != '') || ($this->header['text'] != '')) {
@@ -165,10 +166,9 @@ $plink = 'index.php?option=com_xbpeople&view=group'.$itemid.'&id=';
 					<p class="xbtitlelist">
 						<a href="<?php echo Route::_($plink.$item->id);?>" >
 							<b><?php echo $this->escape($item->title); ?></b>
-						</a>
-    					&nbsp;<a href="" data-toggle="modal"  class="xbpv" data-target="#ajax-gpvmodal"  onclick="window.pvid= <?php echo $item->id; ?>;">
-                			<i class="far fa-eye"></i>
-                		</a>					
+						</a>&nbsp;<a href="#ajax-xbmodal" data-toggle="modal"  class="xbpv" data-target="#ajax-xbmodal"  
+							onclick="window.com='people';window.view='group';window.pvid= <?php echo $item->id; ?>;"
+							><i class="far fa-eye"></i></a>					
 					</p>
 				</td>
 				<?php if($this->show_gdates) : ?>
@@ -281,5 +281,7 @@ $plink = 'index.php?option=com_xbpeople&view=group'.$itemid.'&id=';
 <div class="clearfix"></div>
 <p><?php echo XbcultureHelper::credit('xbFilms');?></p>
 </div>
-<?php echo LayoutHelper::render('xbculture.modalpvlayout', array('show' => 'pgf'), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
+
+<?php echo LayoutHelper::render('xbculture.layoutpvmodal', array(), JPATH_ROOT .'/components/com_xbpeople/layouts');   ?>
+
 

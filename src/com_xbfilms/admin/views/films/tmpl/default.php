@@ -55,6 +55,7 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 ?>
 <style type="text/css" media="screen">
     .xbpvmodal .modal-body iframe { max-height:calc(100vh - 190px);}
+    .xbpvmodal .modal-body { max-height:none; height:auto;}
 </style>
 <form action="<?php echo Route::_('index.php?option=com_xbfilms&view=films'); ?>" method="post" name="adminForm" id="adminForm">
 	<?php if (!empty( $this->sidebar)) : ?>
