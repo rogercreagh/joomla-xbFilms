@@ -72,11 +72,4 @@ class XbfilmsViewGroups extends JViewLegacy {
 		parent::display($tpl);
 	} // end function display()
 	
-	protected function setDocument()
-	{
-	    $document = Factory::getDocument();
-	    $document->setTitle(Text::_('xbFilms: Film Groups'));
-	}
-	
-	
 }

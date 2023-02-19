@@ -55,11 +55,11 @@ if ($imgok) {
 					<?php echo XbcultureHelper::getStarStr($item->rating, 'com_xbfilms'); ?> 
                 </div>
                 <?php if($item->reviewer != '') : ?>
-        			<p><span class="xbnit"><?php echo Text::_('Reviewed by'); ?></span>
+        			<p><span class="xbnit"><?php echo Text::_('XBCULTURE_REVIEWED_BY'); ?></span>
         				<?php echo $item->reviewer.', '; ?>
         			</p>
                 <?php endif; ?>
-                <p><?php echo Text::_('Seen on').' '.HtmlHelper::date($item->rev_date ,'d M Y'); ?>
+                <p><?php echo Text::_('XBCULTURE_ON').' '.HtmlHelper::date($item->rev_date ,'d M Y'); ?>
                 <br /><span class="xbnit"><?php echo Text::_('XBCULTURE_WHERE_SEEN'); ?>: </span>
                 <?php echo $item->where_seen; ?></p>
 			</div>
@@ -102,7 +102,7 @@ if ($imgok) {
         	<div class="span<?php echo (count($item->reviews) > 1) ? '9' : '12'; ?>">
             		<?php if (empty($item->review)) : ?>
             			<?php if (!empty($item->summary)) : ?>
-                			<p class="xbnit"><?php echo Text::_('No long review text provided'); ?></p>
+                			<p class="xbnit"><?php echo Text::_('XBCULTURE_NO_REVIEW_TEXT'); ?></p>
                 		<?php endif; ?>
             		<?php else : ?>
             			<p class="xbnit xbmb8"><?php echo Text::_('XBCULTURE_REVIEW_U');?></p>

@@ -81,7 +81,7 @@ class XbfilmsViewReview extends JViewLegacy {
         if ($this->item->id > 0) {
             $dhtml = '<a href="index.php?option=com_xbfilms&view=review&layout=modalpv&tmpl=component&id='.$this->item->id.'"
             	data-toggle="modal" data-target="#ajax-pvmodal" data-backdrop="static"
-            	class="btn btn-small btn-primary"><i class="far fa-eye"></i> '.Text::_('Preview').'</a>';
+            	class="btn btn-small btn-primary"><i class="far fa-eye"></i> '.Text::_('XBCULTURE_PREVIEW').'</a>';
             $bar->appendButton('Custom', $dhtml);
         }
     }

@@ -69,10 +69,4 @@ class XbfilmsViewFilmreviews extends JViewLegacy {
         $this->setDocument();
     }
         
-    protected function setDocument()
-    {
-        $document = Factory::getDocument();
-        $document->setTitle(Text::_('xbFilms: Film Reviews'));
-    }
-    
 }

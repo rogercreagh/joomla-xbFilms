@@ -86,9 +86,9 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 		if (stripos($search, 'i:') === 0) {
             echo trim(substr($search, 2)).'</b> '.Text::_('XBCULTURE_AS_ID');
 		} elseif ((stripos($search, 's:') === 0) || (stripos($search, 'r:') === 0)) {
-            echo trim(substr($search, 2)).'</b> '.Text::_('XBFILMS_AS_INREV');
+            echo trim(substr($search, 2)).'</b> '.Text::_('XBCULTURE_IN_REVIEWS');
         } else {
-			echo trim($search).'</b> '.Text::_('in title');
+			echo trim($search).'</b> '.Text::_('XBCULTURE_IN_TITLE');
 		}
 		echo '</p>';
 	} ?> 

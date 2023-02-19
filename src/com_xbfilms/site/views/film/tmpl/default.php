@@ -108,26 +108,36 @@ if ($imgok) {
 				<div><?php echo $sum; ?></div> 
 			</div>
 			<br />
-            <div class="row-fluid">
-            	<div class="span6">
-                    <?php if (($item->prodcnt>0) || (!$hide_empty)) : ?>
-            			<p><span class="xbnit xbpr10">
-            				<?php echo Text::_('XBCULTURE_PRODUCER').': '; ?>
-            				</span>
-            				<?php if ($item->prodcnt>0) echo $item->prodlist['commalist']; ?> 
-                		</p>
-                    <?php endif; ?>	
-                </div>
-                <div class="span6">
-                	<?php if ((!$item->studio=='') || (!$hide_empty)) : ?>
-            			<p><span class="xbnit xbpr10">
-                			<?php echo Text::_('XBFILMS_CAPSTUDIO').': '; ?>
-            				</span>
-            				<?php echo $item->studio; ?>
-                		</p>
-                	<?php endif; ?>
-                </div>			        
-			</div>
+			<?php if (($item->prodcnt>0) || (!$item->studio=='') || (!$hide_empty)) : ?>
+                <div class="row-fluid">
+                	<div class="span6">
+                        <?php if (($item->prodcnt>0) || (!$hide_empty)) : ?>
+                			<p><span class="xbnit xbpr10">
+                				<?php echo Text::_('XBCULTURE_PRODUCER').': '; ?>
+                				</span>
+                				<?php if ($item->prodcnt>0) {
+                				    echo $item->prodlist['commalist'];
+                				} else {
+                				    echo Text::_('XBCULTURE_NONE_LISTED');
+                				} ?> 
+                    		</p>
+                        <?php endif; ?>	
+                    </div>
+                    <div class="span6">
+                    	<?php if ((!$item->studio=='') || (!$hide_empty)) : ?>
+                			<p><span class="xbnit xbpr10">
+                    			<?php echo Text::_('XBFILMS_CAPSTUDIO').': '; ?>
+                				</span>
+                				<?php if ($item->studio!='') {
+                				    echo $item->studio;
+                				} else {
+                				    echo Text::_('XBCULTURE_NONE_LISTED');
+                				} ?>
+                    		</p>
+                    	<?php endif; ?>
+                    </div>			        
+    			</div>
+			<?php endif; ?>
 		</div>
         <?php if ($imgok && ($this->show_image == 2)) : ?>
         	<div class="span2">
@@ -136,7 +146,7 @@ if ($imgok) {
         	</div>
         <?php endif; ?>       
 	</div>
-	<hr />
+	<hr style="margin:10px 0;" />
     <?php if ((!$hide_empty) || (($item->castcnt + $item->crewcnt + $item->subjcnt + $item->ccnt) > 0)) : ?>
     	<div class="row-fluid">
     		<?php if((!$hide_empty) || (($item->castcnt + $item->crewcnt)>0)) : ?>
@@ -193,58 +203,62 @@ if ($imgok) {
         		</div>
     		<?php endif; ?>
     	</div>	
-    	<hr />
+    	<hr  style="margin:10px 0;" />
     <?php endif; ?>
-    <div class="row-fluid">
-    	<div class="span4">
-        	<?php if ((!$item->aspect_ratio=='') || (!$hide_empty)) : ?>
-    			<p><span class="xbnit xbpr10">
-     			<?php echo Text::_('XBFILMS_ASPECT_RATIO').': '; ?>
-     				</span>
-    				<?php echo $item->aspect_ratio; ?>
-    			</p>
-         	<?php endif; ?>
-    	</div>
-    	<div class="span4">
-        	<?php if ((!$item->filmcolour=='') || (!$hide_empty)) : ?>
-    			<p><span class="xbnit xbpr10">
-    	 			<?php echo Text::_('XBFILMS_COLOUR').': '; ?>
-     				</span>
-    				<?php echo $item->filmcolour; ?>
-    			</p>
-         	<?php endif; ?>
+    <?php if ((!$item->aspect_ratio=='') || (!$item->filmcolour=='') || (!$item->filmsound=='') || (!$hide_empty)) : ?>
+        <div class="row-fluid">
+        	<div class="span4">
+            	<?php if ((!$item->aspect_ratio=='') || (!$hide_empty)) : ?>
+        			<p><span class="xbnit xbpr10">
+         			<?php echo Text::_('XBFILMS_ASPECT_RATIO').': '; ?>
+         				</span>
+        				<?php echo $item->aspect_ratio; ?>
+        			</p>
+             	<?php endif; ?>
+        	</div>
+        	<div class="span4">
+            	<?php if ((!$item->filmcolour=='') || (!$hide_empty)) : ?>
+        			<p><span class="xbnit xbpr10">
+        	 			<?php echo Text::_('XBFILMS_COLOUR').': '; ?>
+         				</span>
+        				<?php echo $item->filmcolour; ?>
+        			</p>
+             	<?php endif; ?>
+            </div>
+       		<div class="span4">
+            	<?php if ((!$item->filmsound=='') || (!$hide_empty)) : ?>
+        			<p><span class="xbnit xbpr10">
+        	 			<?php echo Text::_('XBFILMS_SOUND').': '; ?>
+         				</span>
+        				<?php echo $item->filmsound; ?>
+        			</p>
+             	<?php endif; ?>
+            </div>
         </div>
-   		<div class="span4">
-        	<?php if ((!$item->filmsound=='') || (!$hide_empty)) : ?>
-    			<p><span class="xbnit xbpr10">
-    	 			<?php echo Text::_('XBFILMS_SOUND').': '; ?>
-     				</span>
-    				<?php echo $item->filmsound; ?>
-    			</p>
-         	<?php endif; ?>
+    <?php endif; ?>
+	<?php if ((!$item->cam_format=='') || (!$item->tech_notes=='') || (!$hide_empty)) : ?>
+        <div class="row-fluid">
+        	<div class="span4">
+               	<?php if ((!$item->cam_format=='') || (!$hide_empty)) : ?>
+        			<p><span class="xbnit xbpr10">
+        	 			<?php echo Text::_('XBFILMS_CAMERA').': '; ?>
+         				</span>
+        				<?php echo $item->cam_format; ?>
+        			</p>
+             	<?php endif; ?>	
+    		</div>
+    		<div class="span8">
+            	<?php if ((!$item->tech_notes=='') || (!$hide_empty)) : ?>
+        			<p><span class="xbnit xbpr10">
+         				<?php echo Text::_('XBFILMS_TECH_NOTES').': '; ?>
+         				</span>
+        				<?php echo $item->tech_notes; ?>
+        			</p>
+             	<?php endif; ?>
+        	</div>
         </div>
-    </div>
-    <div class="row-fluid">
-    	<div class="span4">
-           	<?php if ((!$item->cam_format=='') || (!$hide_empty)) : ?>
-    			<p><span class="xbnit xbpr10">
-    	 			<?php echo Text::_('XBFILMS_CAMERA').': '; ?>
-     				</span>
-    				<?php echo $item->cam_format; ?>
-    			</p>
-         	<?php endif; ?>	
-		</div>
-		<div class="span8">
-        	<?php if ((!$item->tech_notes=='') || (!$hide_empty)) : ?>
-    			<p><span class="xbnit xbpr10">
-     				<?php echo Text::_('XBFILMS_TECH_NOTES').': '; ?>
-     				</span>
-    				<?php echo $item->tech_notes; ?>
-    			</p>
-         	<?php endif; ?>
-    	</div>
-    </div>
-	<hr />
+	<?php endif; ?>
+	<hr  style="margin:10px 0;" />
     <?php if ($item->ext_links_cnt > 0) : ?>
         <div class="row-fluid">
         	<div class="span12">
@@ -252,7 +266,7 @@ if ($imgok) {
         		<?php echo $item->ext_links_list; ?>		
         	</div>
         </div>
-    	<hr />
+    	<hr style="margin:10px 0;" />
     <?php endif; ?>
 	<div class="row-fluid xbmt16">
 		<?php if ($this->show_fcat >0) : ?>       
@@ -280,7 +294,7 @@ if ($imgok) {
     	</div>
 		<?php endif; ?>
     </div>
-    <hr />
+    <hr style="margin:10px 0;" />
     <?php if ($this->show_fdates) : ?>
     	<div class="row-fluid">
     		<div class="span4">
@@ -290,7 +304,7 @@ if ($imgok) {
     				<?php $datefmt = xbCultureHelper::getDateFmt($item->first_seen, 'D jS M Y');
     				echo HtmlHelper::date($item->first_seen , $datefmt) ; ?>
     			<?php else: 
-    			     echo Text::_('unknown');
+    			     echo Text::_('XBCULTURE_UNKNOWN');
     			endif; ?>
     		</div>
     		<div class="span4">
@@ -306,7 +320,7 @@ if ($imgok) {
     	    		</span>
     		</div>
     	</div>
-        <hr />
+        <hr style="margin:10px 0;" />
     <?php endif; ?>
 
     <div class="row-fluid">
@@ -393,7 +407,7 @@ if ($imgok) {
                                 			endif; ?>
                                 		<?php endif; ?>   					                    					
                     				<?php endif; ?>
-                    				<?php if (($this->show_rcat) || ($this->show_rtags)) echo '<hr />'; ?>
+                    				<?php if (($this->show_rcat) || ($this->show_rtags)) echo '<hr style="margin:10px 0;" />'; ?>
                          			<?php if ($this->show_rcat) : ?>       
                          		       	<div class="row-fluid">
                         					<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBFILMS_REV_CAT'); ?></div>

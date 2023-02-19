@@ -91,11 +91,11 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 	<table class="table table-hover" style="table-layout:fixed;width:100%;" id="xbfilmlist">	
 		<thead>
 			<tr>
-				<th><span class="xbnit"><?php echo Text::_('Sort list by')?></span>: 
+				<th><span class="xbnit"><?php echo Text::_('XBCULTURE_SORT_LIST_BY')?></span>: 
 					<?php echo HtmlHelper::_('searchtools.sort','XBCULTURE_TITLE','title',$listDirn,$listOrder).', '.
     				    HtmlHelper::_('searchtools.sort','XBFILMS_RELYEARCOL','rel_year',$listDirn,$listOrder ),', '.
-                        HtmlHelper::_('searchtools.sort','XBFILMS_FIRST_SEEN','first_seen',$listDirn,$listOrder).', '.
-                        HtmlHelper::_('searchtools.sort','XBFILMS_LAST_SEEN','last_seen',$listDirn,$listOrder); ?>
+                        HtmlHelper::_('searchtools.sort','XBCULTURE_FIRST_SEEN','first_seen',$listDirn,$listOrder).', '.
+                        HtmlHelper::_('searchtools.sort','XBCULTURE_LAST_SEEN','last_seen',$listDirn,$listOrder); ?>
 				</th>					
 		<tbody>
 			<?php foreach ($this->items as $i => $item) : ?>
@@ -151,7 +151,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 								<div class="pull-left"><i class="fas fa-user-cog xbpr10"></i>&nbsp;</div>
 								<div class="pull-left">
 								<details>
-    								<summary><span class="xbnit"><?php echo $item->crewcnt.' '.Text::_('Crew listed'); ?></span>
+    								<summary><span class="xbnit"><?php echo $item->crewcnt.' '.Text::_('XBFILMS_CREW_LISTED'); ?></span>
     								</summary>
     								<?php echo $item->crewlist['ullist']; ?>
     							</details>
@@ -162,7 +162,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 								<div class="pull-left"><i class="fas fa-theater-masks xbpr10"></i>&nbsp;</div>
 								<div class="pull-left">
 								<details>
-    								<summary><span class="xbnit"><?php echo $item->castcnt.' '.Text::_('Cast listed'); ?></span>
+    								<summary><span class="xbnit"><?php echo $item->castcnt.' '.Text::_('XBFILMS_CAST_LISTED'); ?></span>
     								</summary>
     								<?php echo $item->castlist['ullist']; ?>
     							</details>
@@ -173,7 +173,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 								<div class="pull-left"><i class="fas fa-user-friends xbpr10"></i>&nbsp;</div>
 								<div class="pull-left">
 								<details>
-    								<summary><span class="xbnit"><?php echo $item->subjcnt.' '.Text::_('Subjects or appearances'); ?></span>
+    								<summary><span class="xbnit"><?php echo $item->subjcnt.' '.Text::_('XBFILMS_SUBJECTS_CAMEOS'); ?></span>
     								</summary>
     								<?php echo $item->subjlist['ullist']; ?>
     							</details>
@@ -255,9 +255,9 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
     										<?php $stars = XbcultureHelper::getStarStr($rev->rating,'com_xbfilms');
             	                                   echo $stars;
         	                                       if (($rev->summary.$rev->review)=='') : ?>
-        	                                           <?php echo Text::_('Rating only on ').HtmlHelper::date($rev->rev_date , 'd M Y'); ?>  
-        	                                       <?php else : ?>
-            	                                       <?php echo ' on '.HtmlHelper::date($rev->rev_date , 'd M Y');
+        	                                           <?php echo Text::_('XBCULTURE_RATING_ONLY_ON').HtmlHelper::date($rev->rev_date , 'd M Y'); ?>  
+        	                                       <?php else : ?> 
+            	                                       <?php echo Text::_('XBCULTURE_ON').' '.HtmlHelper::date($rev->rev_date , 'd M Y');
         	                                           echo ' by '.$rev->reviewer; ?>
             	                                       &nbsp;
                 	                                   <a href="#ajax-xbmodal" data-toggle="modal" data-target="#ajax-xbmodal" data-backdrop="static" 
@@ -301,7 +301,7 @@ $rlink = 'index.php?option=com_xbfilms&view=filmreview'.$itemid.'&id=';
 								    echo ' -&nbsp;<i>'.Text::_('XBFILMS_LAST_SEEN').'</i>: '.HtmlHelper::date($item->last_seen , $datefmt); 
         					   }
         					   if((!$item->last_seen) && (!$item->first_seen)) {
-        					       echo '<i>'.Text::_('not yet seen').'</i>';
+        					       echo '<i>'.Text::_('XBFILMS_NOT_YET_SEEN').'</i>';
         					   }
         					?>
 							<?php endif; ?>

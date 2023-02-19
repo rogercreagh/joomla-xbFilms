@@ -310,7 +310,7 @@ $bplink = 'index.php?option=com_xbpeople&view=person&layout=edit&id=';
                               </details>
 						<?php endif; ?> 
 						<?php if (($item->bcnt + $item->ecnt)>0) {
-						    echo '<span class="xbnit">'.Text::_('Also in').' ';
+						    echo '<span class="xbnit">'.Text::_('XBCULTURE_ALSO_IN').' ';
 						    if ($item->bcnt>0) {
 						        echo $item->bcnt.' '.Text::_(($item->fcnt==1)?'XBCULTURE_BOOK':'XBCULTURE_BOOKS');
 						        echo ($item->ecnt>0) ? ' &amp; ': '';
