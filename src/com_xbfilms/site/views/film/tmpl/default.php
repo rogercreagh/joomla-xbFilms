@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/film/tmpl/default.php
- * @version 1.0.3.8 12th February 2023
+ * @version 1.1.0.1 2nd March 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -262,7 +262,7 @@ if ($imgok) {
     <?php if ($item->ext_links_cnt > 0) : ?>
         <div class="row-fluid">
         	<div class="span12">
-        		<p><b><i><?php echo Text::_('XBFILMS_EXT_LINKS'); ?></i></b></p>   					
+        		<p><b><i><?php echo Text::_('XBCULTURE_RELATED_LINKS'); ?></i></b></p>   					
         		<?php echo $item->ext_links_list; ?>		
         	</div>
         </div>
@@ -333,38 +333,12 @@ if ($imgok) {
     				<?php echo $item->synopsis; ?>
     			<?php endif; ?> 
     		</div>
-            <div class="row-fluid xbmt16">
-    			<?php if ($this->show_fcat >0) : ?>       
-    	        	<div class="span4">
-    					<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBFILMS_FILM_CAT'); ?></div>
-    					<div class="pull-left">
-        					<?php if($this->show_fcat==2) : ?>
-        						<a class="label label-success" href="<?php echo Route::_($clink.$item->catid); ?>">
-        							<?php echo $item->category_title; ?></a>
-        					<?php else: ?>
-        						<span class="label label-success">
-        							<?php echo $item->category_title; ?></span>
-        					<?php endif; ?>		
-    					</div>
-    		        </div>
-    	        <?php endif; ?>
-            	<?php if (($this->show_ftags) && (!empty($item->tags))) : ?>
-            	<div class="span<?php echo ($this->show_fcat>0) ? '8' : '12'; ?>">
-    				<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBFILMS_CAPTAGS'); ?>
-    				</div>
-    				<div class="pull-left">
-    					<?php  $tagLayout = new FileLayout('joomla.content.tags');
-    	    				echo $tagLayout->render($item->tags); ?>
-    				</div>
-            	</div>
-    			<?php endif; ?>
-            </div>
     	</div>
     	<?php if ($this->show_frevs>0) : ?>
         	<div class="span6 xbmb12">
         		<h4><?php echo Text::_('XBCULTURE_REVIEWS_U'); ?></h4>
         		<?php if ($item->revcnt == 0) : ?>
-        			<p><i><?php echo Text::_( 'XBFILMS_NOREVIEW' ); ?></i></p>
+        			<p><i><?php echo Text::_( 'XBCULTURE_NO_REVIEW' ); ?></i></p>
         		<?php else : ?>
         			<?php if ($item->revcnt>1) : ?>
         				<span class="xb09 xbnit"><?php echo $item->revcnt; ?> reviews</span>
@@ -410,7 +384,7 @@ if ($imgok) {
                     				<?php if (($this->show_rcat) || ($this->show_rtags)) echo '<hr style="margin:10px 0;" />'; ?>
                          			<?php if ($this->show_rcat) : ?>       
                          		       	<div class="row-fluid">
-                        					<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBFILMS_REV_CAT'); ?></div>
+                        					<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_REVIEW_CATEGORY'); ?></div>
                         					<div class="pull-left">
                             					<?php if($this->show_rcat==2) : ?>
                         							<a class="label label-success" href="<?php echo Route::_($clink.$rev->catid); ?>">
@@ -423,7 +397,7 @@ if ($imgok) {
                                     <?php endif; ?>
                           			<?php if (($this->show_rtags) && ($rev->tagcnt>0)) : ?>       
                                     	<div class="row-fluid">
-                        					<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBFILMS_CAPTAGS'); ?>
+                        					<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_TAGS_U'); ?>
                         					</div>
                         					<div class="pull-left">	                	
                                         		<?php $tagLayout = new FileLayout('joomla.content.tags');
@@ -447,7 +421,7 @@ if ($imgok) {
     	<div class="span2">
     		<?php if (($item->prev>0) || ($item->next>0)) : ?>
         		<span class="hasTooltip xbinfo" title 
-        			data-original-title="<?php echo Text::_('XBFILMS_INFO_PREVNEXT'); ?>" >
+        			data-original-title="<?php echo Text::_('XBCULTURE_INFO_PREVNEXT'); ?>" >
         		</span>&nbsp;
     		<?php endif; ?>
     		<?php if($item->prev > 0) : ?>

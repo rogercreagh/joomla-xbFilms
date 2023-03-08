@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- xbFilms film view default.xml v0.9.9.8 11th October 2022 -->
+<!-- xbFilms film view default.xml v1.1.0.1 2nd March 2023 -->
 <metadata>
 	<layout title="Film View">
 		<message>Display a single film details</message>
 	</layout>
 	<fields name="request">
 		<fieldset name="request"
-			addfieldpath="/administrator/components/com_xbfilms/models/fields">	
+			addfieldpath="/administrator/components/com_xbpeople/models/fields">	
 			<field 
 				name="id" type="films"
 				label="Select film"

@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/film.php
- * @version 1.0.3.8 9th February 2023
+ * @version 1.1.0.1 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -111,7 +111,7 @@ class XbfilmsModelFilm extends JModelItem {
 				
 				if ($item->gcnt) {
 				    $groups = XbfilmsGeneral::getFilmGroups($item->id);
-				    $item->groupslist = XbcultureHelper::makeItemLists($groups,'','trn',3,'cpvmodal');
+				    $item->groupslist = XbcultureHelper::makeItemLists($groups,'','trn',3,'gpvmodal');
 				}
 				
 				//order by review rating or date?

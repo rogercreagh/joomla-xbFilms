@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/film/view.html.php
- * @version 1.0.3.8 12th February 2023
+ * @version 1.1.0.1 February 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -21,7 +21,7 @@ class XbfilmsViewFilm extends JViewLegacy {
 		$this->params      = $this->state->get('params');
 
 		$this->hide_empty = $this->params->get('hide_empty',1);
-		$this->show_image = $this->params->get('show_cimage',1);
+		$this->show_image = $this->params->get('show_fimage',1);
 		
 		$show_cats = $this->params->get('show_cats','1','int');
 		$this->show_fcat = ($show_cats) ? $this->params->get('show_fcat','2','int') :0;
