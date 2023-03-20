@@ -1,6 +1,6 @@
 <?php
 /*******
- * @package xbBooks
+ * @package xbFilms
  * @filesource admin/helpers/xbfilmsgeneral.php
  * @version 1.0.1.3 5th January 2023
  * @author Roger C-O
