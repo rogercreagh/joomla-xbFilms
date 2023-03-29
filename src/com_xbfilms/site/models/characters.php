@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/characters.php
- * @version 1.0.3.14 17th February 2023
+ * @version 1.1.1.0 29th March 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -63,7 +63,12 @@ class XbfilmsModelCharacters extends JModelList {
             a.ordering AS ordering, a.params AS params, a.note AS note');
         $query->from('#__xbcharacters AS a');
         $query->select('(SELECT COUNT(DISTINCT(fc.film_id)) FROM #__xbfilmcharacter AS fc WHERE fc.char_id = a.id) AS fcnt');
-        if ($this->xbbooksStatus) $query->select('(SELECT COUNT(DISTINCT(bc.book_id)) FROM #__xbbookcharacter AS bc WHERE bc.char_id = a.id) AS bcnt');
+        if ($this->xbbooksStatus) {
+            $query->select('(SELECT COUNT(DISTINCT(bc.book_id)) FROM #__xbbookcharacter AS bc WHERE bc.char_id = a.id) AS bcnt');
+        } else {
+            $query->select('0 as bcnt');
+        }
+        
         
         //only get film chars
         $query->join('INNER','#__xbfilmcharacter AS fp ON fp.char_id = a.id');

@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/groups.php
- * @version 1.0.3.14 17th February 2023
+ * @version 1.1.1.0 29th March 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2022
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -69,7 +69,7 @@ class XbfilmsModelGroups extends JModelList {
  		$query->select('(SELECT COUNT(DISTINCT(gp.person_id)) FROM #__xbgroupperson AS gp JOIN #__xbpersons AS p ON gp.person_id = p.id  WHERE gp.group_id = a.id AND p.state=1) AS pcnt');
  		
  		$query->select('(SELECT COUNT(DISTINCT(fg.film_id)) FROM #__xbfilmgroup AS fg JOIN #__xbfilms AS f ON fg.film_id = f.id WHERE fg.group_id = a.id AND f.state=1) AS fcnt');
- 		if ($sess->get('xbfilms_ok',false)==1) {
+ 		if ($sess->get('xbbooks_ok',false)==1) {
      		$query->select('(SELECT COUNT(DISTINCT(bg.book_id)) FROM #__xbbookgroup AS bg JOIN #__xbbooks AS b ON bg.book_id = b.id WHERE bg.group_id = a.id AND b.state=1) AS bcnt');
  		} else {
  		    $query->select('0 AS bcnt');

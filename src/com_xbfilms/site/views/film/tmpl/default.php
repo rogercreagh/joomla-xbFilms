@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/film/tmpl/default.php
- * @version 1.1.0.1 2nd March 2023
+ * @version 1.1.1.1 29th March 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -138,6 +138,20 @@ if ($imgok) {
                     </div>			        
     			</div>
 			<?php endif; ?>
+    		<?php if ($this->show_frevs == 0 ) : ?>
+                <div class="row-fluid">
+                	<div class="span12">
+                		<h4><?php echo Text::_('XBCULTURE_SYNOPSIS'); ?></h4>
+                		<div class="xbbox xbboxcyan">
+                			<?php if (empty($item->synopsis)) { 
+                				echo '<p class="xbnit">'.Text::_('XBFILMS_NO_SYNOPSIS').'</p>';				    
+                            } else { 
+                				echo $item->synopsis; 
+                            } ?> 
+                		</div>
+                	</div>
+        		</div>
+        	<?php endif; ?>
 		</div>
         <?php if ($imgok && ($this->show_image == 2)) : ?>
         	<div class="span2">
@@ -323,96 +337,98 @@ if ($imgok) {
         <hr style="margin:10px 0;" />
     <?php endif; ?>
 
-    <div class="row-fluid">
-    	<div class="span<?php echo ($this->show_frevs ==0)? 12 : 6; ?>">
-    		<h4><?php echo Text::_('XBCULTURE_SYNOPSIS'); ?></h4>
-    		<div class="xbbox xbboxcyan">
-    			<?php if (empty($item->synopsis)) : ?>
-    				<p class="xbnit"><?php echo Text::_('XBFILMS_NO_SYNOPSIS');?></p>
-    			<?php else : ?>
-    				<?php echo $item->synopsis; ?>
-    			<?php endif; ?> 
-    		</div>
-    	</div>
-    	<?php if ($this->show_frevs>0) : ?>
-        	<div class="span6 xbmb12">
-        		<h4><?php echo Text::_('XBCULTURE_REVIEWS_U'); ?></h4>
-        		<?php if ($item->revcnt == 0) : ?>
-        			<p><i><?php echo Text::_( 'XBCULTURE_NO_REVIEW' ); ?></i></p>
-        		<?php else : ?>
-        			<?php if ($item->revcnt>1) : ?>
-        				<span class="xb09 xbnit"><?php echo $item->revcnt; ?> reviews</span>
-        			<?php endif; ?>
-        			<?php foreach ($item->reviews as $rev) : ?>
-                    	<div class="xbrevlist ">
-                    		<div class="xbbox xbboxmag">
-                				<div class="xbstar" style="padding-bottom:5px;">
-                					<?php echo XbcultureHelper::getStarStr($rev->rating, 'com_xbfilms'); ?>
-                				</div>
-                    			<p>
-                    				<?php echo ' by '.$rev->reviewer;
-                    					echo ' on '.HtmlHelper::date($rev->rev_date , 'D jS M Y').' ';
-                    					echo $rev->where_seen; 
-                    					if ($rev->subtitled >0) { echo ' ('.Text::_('XBFILMS_SUBTITLED').')'; } ?>
-                    			</p>
-                                <?php if ($this->show_frevs>1) : ?>
-                    				<?php if ((($rev->summary=='')) && (($rev->review=='')))  : ?>
-                                      	<p><i>Rating only, no text</i></p>
-                                    <?php else : ?>
-                    					<p><span class="xbtitle"><?php echo $rev->title; ?></span></p>	
-                    					<?php if ($this->show_frevs==2) : ?>
-                    						<?php if (!empty($rev->summary)) : ?>
-                          						<p class="xbnit">Summary</p>
-                         						<?php echo $rev->summary; ?>
-                         					<?php else : ?>
-                             				    <p class="xbnit">Synopsis extract</p>
-                             				    <?php echo XbcultureHelper::makeSummaryText($rev->review,0); ?>
-                    						<?php endif; ?>      
-                    					<?php endif; ?>              					
-                            			<?php if ($this->show_frevs==3) : ?>
-                    						<?php if (!empty($rev->summary)) : ?>
-                          						<p class="xbnit">Summary</p>
-                         						<?php echo $rev->summary; ?>
-                         						<br />
-                         					<?php endif; ?>
-                         					<?php if (!empty($rev->review)) : ?>
-                                			    <p class="xbnit">Full review</p>
-                                				<?php echo $rev->review;
-                                			endif; ?>
-                                		<?php endif; ?>   					                    					
-                    				<?php endif; ?>
-                    				<?php if (($this->show_rcat) || ($this->show_rtags)) echo '<hr style="margin:10px 0;" />'; ?>
-                         			<?php if ($this->show_rcat) : ?>       
-                         		       	<div class="row-fluid">
-                        					<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_REVIEW_CATEGORY'); ?></div>
-                        					<div class="pull-left">
-                            					<?php if($this->show_rcat==2) : ?>
-                        							<a class="label label-success" href="<?php echo Route::_($clink.$rev->catid); ?>">
-                        								<?php echo $rev->category_title; ?></a>
-                        						<?php else: ?>
-                        							<span class="label label-success"><?php echo $rev->category_title; ?></a></span>
-                        						<?php endif; ?>
-                        					</div>
-                                        </div>
-                                    <?php endif; ?>
-                          			<?php if (($this->show_rtags) && ($rev->tagcnt>0)) : ?>       
-                                    	<div class="row-fluid">
-                        					<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_TAGS_U'); ?>
-                        					</div>
-                        					<div class="pull-left">	                	
-                                        		<?php $tagLayout = new FileLayout('joomla.content.tags');
-                                        			echo $tagLayout->render($rev->tags); ?>
-                                        	</div>              
-                                    	</div>
-                        			<?php endif; ?>                    				
-                    			<?php endif; ?>
-                    		</div>
-                    	</div>
-            		<?php endforeach; ?>
-        		<?php endif;  ?>
+    <?php if ($this->show_frevs > 0) : ?>
+        <div class="row-fluid">
+        	<div class="span<?php echo ($this->show_frevs ==0)? 12 : 6; ?>">
+        		<h4><?php echo Text::_('XBCULTURE_SYNOPSIS'); ?></h4>
+        		<div class="xbbox xbboxcyan">
+        			<?php if (empty($item->synopsis)) : ?>
+        				<p class="xbnit"><?php echo Text::_('XBFILMS_NO_SYNOPSIS');?></p>
+        			<?php else : ?>
+        				<?php echo $item->synopsis; ?>
+        			<?php endif; ?> 
+        		</div>
         	</div>
-    	<?php endif; ?>
-    </div>	
+        	<?php if ($this->show_frevs>0) : ?>
+            	<div class="span6 xbmb12">
+            		<h4><?php echo Text::_('XBCULTURE_REVIEWS_U'); ?></h4>
+            		<?php if ($item->revcnt == 0) : ?>
+            			<p><i><?php echo Text::_( 'XBCULTURE_NO_REVIEW' ); ?></i></p>
+            		<?php else : ?>
+            			<?php if ($item->revcnt>1) : ?>
+            				<span class="xb09 xbnit"><?php echo $item->revcnt; ?> reviews</span>
+            			<?php endif; ?>
+            			<?php foreach ($item->reviews as $rev) : ?>
+                        	<div class="xbrevlist ">
+                        		<div class="xbbox xbboxmag">
+                    				<div class="xbstar" style="padding-bottom:5px;">
+                    					<?php echo XbcultureHelper::getStarStr($rev->rating, 'com_xbfilms'); ?>
+                    				</div>
+                        			<p>
+                        				<?php echo ' by '.$rev->reviewer;
+                        					echo ' on '.HtmlHelper::date($rev->rev_date , 'D jS M Y').' ';
+                        					echo $rev->where_seen; 
+                        					if ($rev->subtitled >0) { echo ' ('.Text::_('XBFILMS_SUBTITLED').')'; } ?>
+                        			</p>
+                                    <?php if ($this->show_frevs>1) : ?>
+                        				<?php if ((($rev->summary=='')) && (($rev->review=='')))  : ?>
+                                          	<p><i>Rating only, no text</i></p>
+                                        <?php else : ?>
+                        					<p><span class="xbtitle"><?php echo $rev->title; ?></span></p>	
+                        					<?php if ($this->show_frevs==2) : ?>
+                        						<?php if (!empty($rev->summary)) : ?>
+                              						<p class="xbnit">Summary</p>
+                             						<?php echo $rev->summary; ?>
+                             					<?php else : ?>
+                                 				    <p class="xbnit">Synopsis extract</p>
+                                 				    <?php echo XbcultureHelper::makeSummaryText($rev->review,0); ?>
+                        						<?php endif; ?>      
+                        					<?php endif; ?>              					
+                                			<?php if ($this->show_frevs==3) : ?>
+                        						<?php if (!empty($rev->summary)) : ?>
+                              						<p class="xbnit">Summary</p>
+                             						<?php echo $rev->summary; ?>
+                             						<br />
+                             					<?php endif; ?>
+                             					<?php if (!empty($rev->review)) : ?>
+                                    			    <p class="xbnit">Full review</p>
+                                    				<?php echo $rev->review;
+                                    			endif; ?>
+                                    		<?php endif; ?>   					                    					
+                        				<?php endif; ?>
+                        				<?php if (($this->show_rcat) || ($this->show_rtags)) echo '<hr style="margin:10px 0;" />'; ?>
+                             			<?php if ($this->show_rcat) : ?>       
+                             		       	<div class="row-fluid">
+                            					<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_REVIEW_CATEGORY'); ?></div>
+                            					<div class="pull-left">
+                                					<?php if($this->show_rcat==2) : ?>
+                            							<a class="label label-success" href="<?php echo Route::_($clink.$rev->catid); ?>">
+                            								<?php echo $rev->category_title; ?></a>
+                            						<?php else: ?>
+                            							<span class="label label-success"><?php echo $rev->category_title; ?></a></span>
+                            						<?php endif; ?>
+                            					</div>
+                                            </div>
+                                        <?php endif; ?>
+                              			<?php if (($this->show_rtags) && ($rev->tagcnt>0)) : ?>       
+                                        	<div class="row-fluid">
+                            					<div class="pull-left xbnit xbmr10"><?php echo Text::_('XBCULTURE_TAGS_U'); ?>
+                            					</div>
+                            					<div class="pull-left">	                	
+                                            		<?php $tagLayout = new FileLayout('joomla.content.tags');
+                                            			echo $tagLayout->render($rev->tags); ?>
+                                            	</div>              
+                                        	</div>
+                            			<?php endif; ?>                    				
+                        			<?php endif; ?>
+                        		</div>
+                        	</div>
+                		<?php endforeach; ?>
+            		<?php endif;  ?>
+            	</div>
+        	<?php endif; ?>
+        </div>	
+    <?php endif; ?>
 </div>
 
 <?php if($this->tmpl != 'component') : ?>

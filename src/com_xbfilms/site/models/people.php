@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/models/people.php
- * @version 1.0.3.14 17th February 2023
+ * @version 1.1.1.0 29th March 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -79,7 +79,12 @@ class XbfilmsModelPeople extends JModelList {
         $query->from('#__xbpersons AS a');
         
         $query->select('(SELECT COUNT(DISTINCT(fp.film_id)) FROM #__xbfilmperson AS fp WHERE fp.person_id = a.id) AS fcnt');
-        if ($this->xbbooksStatus) $query->select('(SELECT COUNT(DISTINCT(bp.book_id)) FROM #__xbbookperson AS bp WHERE bp.person_id = a.id) AS bcnt');
+        if ($this->xbbooksStatus) {
+            $query->select('(SELECT COUNT(DISTINCT(bp.book_id)) FROM #__xbbookperson AS bp WHERE bp.person_id = a.id) AS bcnt');
+        } else {
+            $query->select('0 as bcnt');
+        }
+        
         
         //only get film people
         $query->join('INNER','#__xbfilmperson AS fp ON fp.person_id = a.id');

@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource admin/models/persons.php
- * @version 1.0.3.13 16th February 2023
+ * @version 1.1.1.0 29th March 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2021
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -48,8 +48,16 @@ class XbfilmsModelPersons extends JModelList {
         
         $query->select('(SELECT COUNT(DISTINCT(fp.film_id)) FROM #__xbfilmperson AS fp WHERE fp.person_id = a.id) AS fcnt');
         $query->select('(SELECT COUNT(DISTINCT(fr.role)) FROM #__xbfilmperson AS fr WHERE fr.person_id = a.id) AS frcnt');
-        if ($sess->get('xbbooks_ok',false)==1) $query->select('(SELECT COUNT(DISTINCT(bp.book_id)) FROM #__xbbookperson AS bp WHERE bp.person_id = a.id) AS bcnt');
-        if ($sess->get('xbevents_ok',false)==1) $query->select('(SELECT COUNT(DISTINCT(ep.event_id)) FROM #__xbeventperson AS ep WHERE ep.person_id = a.id) AS ecnt');
+        if ($sess->get('xbbooks_ok',false)==1) {
+            $query->select('(SELECT COUNT(DISTINCT(bp.book_id)) FROM #__xbbookperson AS bp WHERE bp.person_id = a.id) AS bcnt');
+        } else {
+            $query->select('0 as bcnt');
+        }      
+        if ($sess->get('xbevents_ok',false)==1) {
+            $query->select('(SELECT COUNT(DISTINCT(ep.event_id)) FROM #__xbeventperson AS ep WHERE ep.person_id = a.id) AS ecnt');
+        } else {
+            $query->select('0 as ecnt');
+        }   
         
         $query->join('LEFT',$db->quoteName('#__xbfilmperson', 'b') . ' ON ' . $db->quoteName('b.person_id') . ' = ' .$db->quoteName('a.id'));
         
@@ -178,14 +186,11 @@ class XbfilmsModelPersons extends JModelList {
     }
     
     public function getItems() {
-        $sess = Factory::getSession();
         $items  = parent::getItems();
         // we are going to add the list of films (with roles) for each person
         $tagsHelper = new TagsHelper;
         
         foreach ($items as $i=>$item) {            
-            if ($sess->get('xbnooks_ok',false)!=1) $item->bcnt = 0;
-            if ($sess->get('xbevents_ok',false)!=1) $item->ecnt = 0;
             
             $item->films = XbcultureHelper::getPersonFilms($item->id);
             
