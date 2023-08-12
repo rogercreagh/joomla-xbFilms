@@ -79,19 +79,19 @@ $tvlink = 'index.php?option=com_xbfilms&view=tag&id=';
 		}
 	?>
 	<div class="clearfix"></div>
-	<?php $search = $this->searchTitle; ?>
+	<?php //$search = strip_tags($this->searchTitle); ?>
 
-	<?php if ($search) {
-		echo '<p>Searched for <b>'; 
-		if (stripos($search, 'i:') === 0) {
-            echo trim(substr($search, 2)).'</b> '.Text::_('XBCULTURE_AS_ID');
-		} elseif ((stripos($search, 's:') === 0) || (stripos($search, 'r:') === 0)) {
-            echo trim(substr($search, 2)).'</b> '.Text::_('XBCULTURE_IN_REVIEWS');
-        } else {
-			echo trim($search).'</b> '.Text::_('XBCULTURE_IN_TITLE');
-		}
-		echo '</p>';
-	} ?> 
+	<?php //if ($search) {
+		//echo '<p>Searched for <b>'; 
+		//if (stripos($search, 'i:') === 0) {
+        //    echo trim(substr($search, 2)).'</b> '.Text::_('XBCULTURE_AS_ID');
+		//} elseif ((stripos($search, 's:') === 0) || (stripos($search, 'r:') === 0)) {
+        //    echo trim(substr($search, 2)).'</b> '.Text::_('XBCULTURE_IN_REVIEWS');
+        //} else {
+		//	echo trim($search).'</b> '.Text::_('XBCULTURE_IN_TITLE');
+		//}
+		//echo '</p>';
+	//} ?> 
 
 	<?php if (empty($this->items)) : ?>
 		<div class="alert alert-no-items">

@@ -2,7 +2,7 @@
 /*******
  * @package xbFilms
  * @filesource site/views/filmreviews/view.html.php
- * @version 1.0.3.3 5th February 2023
+ * @version 1.1.1.2 11th August 2023
  * @author Roger C-O
  * @copyright Copyright (c) Roger Creagh-Osborne, 2023
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -69,4 +69,10 @@ class XbfilmsViewFilmreviews extends JViewLegacy {
         $this->setDocument();
     }
         
+    protected function setDocument()
+    {
+        $document = Factory::getDocument();
+        $document->setTitle(Text::_('xbFilms: Reviews'));
+    }
+    
 }
