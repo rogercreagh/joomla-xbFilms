@@ -99,7 +99,7 @@ class com_xbfilmsInstallerScript
     	        $cnt = $db->getAffectedRows();
     	        
     	        if ($cnt>0) {
-    	            $message .= '<br />'.$cnt.' xbFilms category extensions renamed as "<b>!</b>com_xbfilms<b>!</b>". They will be recovered on reinstall with original ids.';
+    	            $message .= '<br />'.$cnt.' categories.extension renamed as "<b>!</b>com_xbfilms<b>!</b>". They will be recovered on reinstall with original ids.';
     	        }
     	}    	
     	$app->enqueueMessage($message,'Info');    	
