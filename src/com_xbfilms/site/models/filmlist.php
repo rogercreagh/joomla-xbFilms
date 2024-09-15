@@ -97,7 +97,7 @@ class XbfilmsModelFilmlist extends JModelList {
  
            // Filter by category
              $categoryId = $this->getState('categoryId');
-             $this->setState('caegoryId','');
+             $this->setState('categoryId','');
              if (empty($categoryId)) {
 	            $categoryId = $this->getState('params')['menu_category_id'];
              }
