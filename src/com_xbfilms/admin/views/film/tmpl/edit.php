@@ -101,7 +101,7 @@ $document->addStyleDeclaration($style);
 		<?php echo HTMLHelper::_('bootstrap.addTab', 'myTab', 'details', Text::_('XBCULTURE_DETAILS')); ?>
 		<div class="row-fluid">
     		<div class="span6">
-    			<div class="row_fluid">
+    			<div class="row_fluid form-vertical">
     				<div class="span6">
                  		<?php echo $this->form->renderField('first_seen'); ?>
     				</div>
