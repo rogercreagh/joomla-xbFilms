@@ -21,8 +21,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 </div>
 <div class="modal-body">
     <div style="margin:0 30px;">
-		<iframe src="<?php echo JURI::root(); 
-            ?>/index.php?option=com_xbfilms&view=film&layout=default&tmpl=component&id=
+		<iframe src="/j3/index.php?option=com_xbfilms&view=film&layout=default&tmpl=component&id=
 	       <?php echo JFactory::getApplication()->input->getInt('id'); ?>" 
 			title="Preview Film" id="pv" class="iframe-full-height"></iframe>   
 	</div>
